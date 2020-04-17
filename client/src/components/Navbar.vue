@@ -1,5 +1,5 @@
 <template>
-    <header class="max-w-screen-xl mx-auto flex justify-between p-4 bg-blue-800 text-gray-100 py-6 tracking-wider items-center">
+    <header class="max-w-screen-xl mx-auto flex justify-between p-4 bg-indigo-700 text-gray-100 py-6 tracking-wider items-center">
         <div>
             <span class="mr-3 text-xl">CodeJob</span>
             <i class="fas fa-briefcase text-xl"></i>
