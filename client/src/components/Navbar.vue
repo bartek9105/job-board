@@ -1,5 +1,5 @@
 <template>
-    <header class="mx-auto flex justify-between p-4 bg-blue-700 text-gray-100 py-6 tracking-wider items-center shadow-outline">
+    <header class="mx-auto flex justify-between p-4 bg-indigo-900 text-gray-100 py-6 tracking-wider items-center shadow-outline">
             <div>
                 <span class="text-2xl tracking-widest">
                     <span class="text-red-600">Code</span>Job
