@@ -2,7 +2,7 @@
   <div>
     <Navbar/>
     <Hero/>
-    <div class="bg-gray-200 flex justify-center py-8">
+    <div class="bg-gray-200 flex items-center flex-col py-8">
       <JobOffer/>
     </div>
   </div>

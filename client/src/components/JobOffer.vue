@@ -1,5 +1,5 @@
 <template>
-  <div class="w-3/5 bg-white rounded-sm shadow-md px-8 py-4 hover:shadow-lg">
+  <div class="w-3/5 bg-white rounded-sm shadow-md px-8 py-4 hover:shadow-lg mb-4">
     <div class="flex justify-between items-center mb-4">
         <div>
             <div class="flex items-center">
