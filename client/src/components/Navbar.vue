@@ -1,14 +1,11 @@
 <template>
     <header class="mx-auto flex justify-between p-4 bg-indigo-900 text-gray-100 py-6 tracking-wider items-center shadow-outline">
-            <div>
-                <span class="text-2xl tracking-widest">
-                    <span class="text-red-600">Code</span>Job
-                </span>
-                <i class="fas fa-briefcase text-xl"></i>
-            </div>
+            <Logo/>
             <nav>
                 <ul class="flex items-center">
-                    <li class="mr-6">Login</li>
+                    <router-link to="/login">
+                        <li class="mr-6">Login</li>
+                    </router-link>
                     <li class="mr-6">Signup</li>
                     <li>
                         <button class="bg-red-600 p-3 px-4 rounded-md outline-none hover:bg-red-800">Post a job</button>
@@ -19,8 +16,12 @@
 </template>
 
 <script>
-export default {
+import Logo from '@/components/Logo'
 
+export default {
+  components: {
+    Logo
+  }
 }
 </script>
 
