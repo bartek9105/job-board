@@ -6,7 +6,9 @@
                     <router-link to="/login">
                         <li class="mr-6">Login</li>
                     </router-link>
-                    <li class="mr-6">Signup</li>
+                    <router-link to="/register">
+                        <li class="mr-6">Sign up</li>
+                    </router-link>
                     <li>
                         <button class="bg-red-600 p-3 px-4 rounded-md outline-none hover:bg-red-800">Post a job</button>
                     </li>
