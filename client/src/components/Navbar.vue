@@ -1,5 +1,5 @@
 <template>
-    <header class="mx-auto flex justify-between p-4 bg-indigo-900 text-gray-100 py-6 tracking-wider items-center shadow-outline">
+    <header class="mx-auto flex justify-between bg-indigo-900 text-gray-100 tracking-wider items-center shadow-outline px-8 py-4">
             <Logo/>
             <nav>
                 <ul class="flex items-center">
