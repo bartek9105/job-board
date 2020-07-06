@@ -14,8 +14,10 @@ app.use(cors())
 app.use(express.json())
 
 const offers = require('./routes/offers')
+const auth = require('./routes/auth')
 
 app.use('/api/v1/offers', offers)
+app.use('/api/v1/auth', auth)
 
 app.use(errorHandler)
 
