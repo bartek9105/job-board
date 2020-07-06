@@ -3,8 +3,18 @@ const ErrorResponse = require('../utils/errorResponse')
 
 exports.getOffers = async (req, res, next) => {
     try {
-        let query = JSON.stringify(req.query).replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
-        const offers = await Offer.find(JSON.parse(query)).sort({ 'createdAt': -1 })
+        const reqQuery = { ...req.query }
+        
+        const removeFields = ['page', 'limit']
+        removeFields.forEach(param => delete reqQuery[param])
+        
+        let query = JSON.stringify(reqQuery).replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
+
+        const page = parseInt(req.query.page) || 1
+        const limit = parseInt(req.query.limit) || 5
+        const skip = (page - 1) * limit
+
+        const offers = await Offer.find(JSON.parse(query)).skip(skip).limit(limit).sort({ 'createdAt': -1 })
         res.status(200).send({
             count: offers.length,
             data: offers
