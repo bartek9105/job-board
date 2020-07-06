@@ -3,7 +3,8 @@ const ErrorResponse = require('../utils/errorResponse')
 
 exports.getOffers = async (req, res, next) => {
     try {
-        const offers = await Offer.find()
+        let query = JSON.stringify(req.query).replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
+        const offers = await Offer.find(JSON.parse(query)).sort({ 'createdAt': -1 })
         res.status(200).send({
             count: offers.length,
             data: offers
