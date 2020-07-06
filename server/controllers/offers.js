@@ -1,4 +1,5 @@
 const Offer = require('../models/Offer')
+const ErrorResponse = require('../utils/errorResponse')
 
 exports.getOffers = async (req, res, next) => {
     try {
@@ -8,9 +9,7 @@ exports.getOffers = async (req, res, next) => {
             data: offers
         })
     } catch (error) {
-        res.status(400).send({
-            error: error
-        })
+        next(error)
     }
 }
 
@@ -21,14 +20,10 @@ exports.getOffer = async (req, res, next) => {
             data: offer
         })
         if (!offer) {
-            return res.status(400).send({
-                error: error
-            })
+            next(new ErrorResponse('Offer not found', 404))
         }
     } catch (error) {
-        res.status(400).send({
-            error: error
-        })
+        next(error)
     }
 }
 
@@ -40,9 +35,7 @@ exports.addOffer = async (req, res, next) => {
             data: savedOffer
         })        
     } catch (error) {
-        res.status(400).send({
-            error: error
-        })
+        next(error)
     }
 }
 
@@ -60,9 +53,7 @@ exports.editOffer = async (req, res, next) => {
             data: offer
         })        
     } catch (error) {
-        res.status(400).send({
-            error: error
-        })
+        next(error)
     }
 }
 
@@ -78,8 +69,6 @@ exports.deleteOffer = async (req, res, next) => {
             data: {}
         })        
     } catch (error) {
-        res.status(400).send({
-            error: error
-        })
+        next(error)
     }
 }

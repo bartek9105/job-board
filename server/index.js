@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const cors = require('cors')
+const errorHandler = require('./middleware/error')
 const dbConnection = require('./config/db')
 
 dotenv.config({ path: './config/.env' })
@@ -15,6 +16,8 @@ app.use(express.json())
 const offers = require('./routes/offers')
 
 app.use('/api/v1/offers', offers)
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 
