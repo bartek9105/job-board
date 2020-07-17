@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-white rounded-sm shadow-md px-8 py-4 hover:shadow-lg mb-4 border-solid border-l-4 border-green-500" v-for="offer in jobOffers" :key="offer._id">
+    <div class="bg-white rounded-sm shadow-md px-8 py-4 hover:shadow-lg mb-4 border-solid border-l-4 border-green-500" v-for="offer in getJobOffers" :key="offer._id">
         <div class="flex justify-between items-center mb-4">
             <div>
                 <div class="flex items-center">
@@ -26,27 +26,22 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'JobOffers',
   data () {
     return {
-      jobOffers: null
     }
   },
   methods: {
-    async getJobOffers () {
-      try {
-        const offers = await axios.get('http://localhost:5000/api/v1/offers')
-        this.jobOffers = offers.data.data
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    ...mapActions(['fetchJobOffers'])
+  },
+  computed: {
+    ...mapGetters(['getJobOffers'])
   },
   mounted () {
-    this.getJobOffers()
+    this.fetchJobOffers()
   }
 }
 </script>
