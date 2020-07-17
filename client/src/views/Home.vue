@@ -4,7 +4,7 @@
     <Hero/>
     <JobSearchForm/>
     <div class="bg-gray-200 flex items-center flex-col py-8">
-      <JobOffer/>
+      <JobOffers/>
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@
 <script>
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
-import JobOffer from '@/components/JobOffer'
+import JobOffers from '@/components/JobOffers'
 import JobSearchForm from '@/components/JobSearchForm'
 
 export default {
@@ -20,7 +20,7 @@ export default {
   components: {
     Navbar,
     Hero,
-    JobOffer,
+    JobOffers,
     JobSearchForm
   }
 }
