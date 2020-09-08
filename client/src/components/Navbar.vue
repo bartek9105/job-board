@@ -42,7 +42,6 @@ export default {
         ul {
             display: flex;
             li {
-                margin-right: 48px;
                 font-weight: 700;
             }
         }
