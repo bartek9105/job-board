@@ -1,9 +1,9 @@
 <template>
-    <header class="mainHeader">
+    <div class="mainHeader">
         <Logo/>
         <nav class="mainNav">
             <ul>
-                <router-link to="/login">
+                <router-link to="/">
                     <li>Offers</li>
                 </router-link>
                 <router-link to="/login">
@@ -17,7 +17,7 @@
                 </li>
             </ul>
         </nav>
-    </header>
+    </div>
 </template>
 
 <script>
@@ -34,6 +34,7 @@ export default {
     .mainHeader {
         max-width: 1640px;
         margin: 0 auto;
+        padding-top: 1rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -43,6 +44,8 @@ export default {
             display: flex;
             li {
                 font-weight: 700;
+                color: #E3E7F1;
+                margin-right: 3rem;
             }
         }
     }

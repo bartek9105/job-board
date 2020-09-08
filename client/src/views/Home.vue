@@ -1,27 +1,37 @@
 <template>
   <div>
-    <Navbar/>
-    <HeroBg/>
-    <JobSearchForm/>
-    <div class="bg-gray-200 flex items-center flex-col py-8">
+    <header>
+      <Hero>
+        <template v-slot:nav>
+          <Navbar/>
+        </template>
+        <template v-slot:search>
+          <JobSearch/>
+        </template>
+      </Hero>
+    </header>
+    <main>
+      <JobSearchForm/>
       <JobOffers/>
-    </div>
+    </main>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar'
-import HeroBg from '@/components/HeroBg'
+import Hero from '@/components/Hero'
 import JobOffers from '@/components/JobOffers'
 import JobSearchForm from '@/components/JobSearchForm'
+import JobSearch from '@/components/JobSearch'
 
 export default {
   name: 'Home',
   components: {
     Navbar,
-    HeroBg,
+    Hero,
     JobOffers,
-    JobSearchForm
+    JobSearchForm,
+    JobSearch
   }
 }
 </script>
