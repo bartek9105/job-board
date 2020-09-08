@@ -44,7 +44,7 @@ export default {
             display: flex;
             li {
                 font-weight: 700;
-                color: #E3E7F1;
+                color: $text-white;
                 margin-right: 3rem;
             }
         }
