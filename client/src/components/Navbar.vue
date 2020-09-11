@@ -44,12 +44,16 @@ export default {
     .mainNav {
         ul {
             display: flex;
+            align-items: center;
             list-style: none;
-            li {
+            a {
                 font-size: 14px;
                 font-weight: 700;
                 color: $text-white;
                 margin-right: 3rem;
+                &:hover {
+                    color: $theme-pink;
+                }
             }
         }
     }

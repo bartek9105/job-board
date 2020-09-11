@@ -13,3 +13,10 @@ $theme-dark-blue: #182952;
 @mixin hover-transition {
     transition: .2s ease-in-out;
 }
+
+a {
+    @include hover-transition;
+    text-decoration: none;
+}
+
+
