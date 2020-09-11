@@ -7,4 +7,9 @@
 
 $text-white: #E3E7F1;
 $theme-pink: #E14594;
+$theme-pink-hover: rgba(206, 64, 135, 0.843);
 $theme-dark-blue: #182952;
+
+@mixin hover-transition {
+    transition: .2s ease-in-out;
+}

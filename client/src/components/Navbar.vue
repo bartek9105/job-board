@@ -13,7 +13,7 @@
                     <li>Sign up</li>
                 </router-link>
                 <li>
-                    <button>Post a job</button>
+                    <Button>Post a job</Button>
                 </li>
             </ul>
         </nav>
@@ -22,10 +22,12 @@
 
 <script>
 import Logo from '@/components/Logo'
+import Button from '@/components/Button'
 
 export default {
   components: {
-    Logo
+    Logo,
+    Button
   }
 }
 </script>
