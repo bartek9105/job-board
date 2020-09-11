@@ -42,7 +42,9 @@ export default {
     .mainNav {
         ul {
             display: flex;
+            list-style: none;
             li {
+                font-size: 14px;
                 font-weight: 700;
                 color: $text-white;
                 margin-right: 3rem;
