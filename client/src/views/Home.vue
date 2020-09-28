@@ -12,7 +12,9 @@
     </header>
     <main>
       <JobSearchForm/>
-      <JobOffer/>
+      <div class="offers">
+        <JobOffer :jobOffers="getJobOffers"/>
+      </div>
     </main>
   </div>
 </template>
@@ -24,6 +26,8 @@ import JobOffer from '@/components/JobOffer'
 import JobSearchForm from '@/components/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
 
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'Home',
   components: {
@@ -32,6 +36,18 @@ export default {
     JobOffer,
     JobSearchForm,
     JobSearch
+  },
+  methods: {
+    ...mapActions(['fetchJobOffers'])
+  },
+  computed: {
+    ...mapGetters(['getJobOffers'])
+  },
+  mounted () {
+    this.fetchJobOffers()
   }
 }
 </script>
+
+<style lang="scss">
+</style>
