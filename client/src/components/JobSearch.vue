@@ -15,7 +15,7 @@
         align-items: center;
         justify-content: center;
         color: #E3E7F1;
-        height: calc(100% - 46px);
+        height: calc(100% - 69px);
         h1 {
             font-size: 1.5rem;
             margin-bottom: 2.5rem;
