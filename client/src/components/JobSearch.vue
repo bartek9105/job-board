@@ -25,6 +25,7 @@
             &__input {
                 width: 30rem;
                 height: 2rem;
+                border: 0;
                 border-radius: 5px;
                 padding-left: 1rem;
                 color: #000;
