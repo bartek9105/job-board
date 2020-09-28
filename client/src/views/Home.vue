@@ -12,7 +12,7 @@
     </header>
     <main>
       <JobSearchForm/>
-      <JobOffers/>
+      <JobOffer/>
     </main>
   </div>
 </template>
@@ -20,7 +20,7 @@
 <script>
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
-import JobOffers from '@/components/JobOffers'
+import JobOffer from '@/components/JobOffer'
 import JobSearchForm from '@/components/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
 
@@ -29,7 +29,7 @@ export default {
   components: {
     Navbar,
     Hero,
-    JobOffers,
+    JobOffer,
     JobSearchForm,
     JobSearch
   }

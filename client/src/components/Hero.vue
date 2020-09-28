@@ -11,7 +11,7 @@
 <style lang="scss">
   .hero {
     width: 100%;
-    height: 470px;
+    height: 370px;
     background: linear-gradient(164deg, #161B4B, #3440a8);
     background-size: 400% 400%;
     animation: GradientBackground 12s ease infinite;
