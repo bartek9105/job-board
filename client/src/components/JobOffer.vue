@@ -11,8 +11,15 @@
           </div>
         </div>
         <div class="offer__main__tags">
-          <div class="offer__main__tags__tag" v-for="technology in offer.technologies.slice(0, 3)" :key="technology.id">
+          <div class="offer__main__tags__tag" v-for="technology in offer.technologies.slice(0, 4)" :key="technology.id">
             {{ technology }}
+          </div>
+          <div class="offer__main__tags__tag__tag--sm" v-if="offer.technologies.length > 4"> + {{ offer.technologies.length - 4 }}
+            <ul class="offer__main__tags__tag__tag--sm__hoverList">
+              <li v-for="technology in offer.technologies.slice(4)" :key="technology.id">
+                {{ technology }}
+              </li>
+            </ul>
           </div>
           <div class="offer__main__tags__tag--light">{{ offer.contract }}</div>
         </div>
@@ -94,9 +101,36 @@ export default {
           &__tag {
             @include tag-dark;
             margin-right: 20px;
+            &__tag--sm {
+              @include tag-dark;
+              position: relative;
+              margin-right: 20px;
+              &:hover .offer__main__tags__tag__tag--sm__hoverList {
+                display: block;
+              }
+              &__hoverList {
+                @include shadow;
+                display: none;
+                position: absolute;
+                top: 30px;
+                left: 0;
+                list-style: none;
+                font-size: 13px;
+                color: $theme-dark-blue;
+                background: #fff;
+                color: #000;
+                padding: 10px;
+                border-radius: 2px;
+                z-index: 1;
+                li {
+                  margin-bottom: 3px;
+                }
+              }
+            }
           }
           &__tag--light {
             @include tag-light;
+            margin-right: 20px;
           }
         }
       }
