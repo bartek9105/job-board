@@ -1,38 +1,37 @@
 <template>
-  <div class="offersContainer">
-    <div class="offer" v-for="offer in jobOffers" :key="offer._id">
-      <div class="offer__logo">Logo</div>
-      <div class="offer__main">
-        <div class="offer__main__top">
-          <div class="offer__main__top__title">{{ offer.title }}</div>
-          <div class="offer__main__top__pay">{{ offer.salary }} PLN</div>
-          <div class="offer__main__top__city">
-            <i class="offer__main__top__city__icon fas fa-map-marker-alt"></i> {{ offer.location }}
-          </div>
-        </div>
-        <div class="offer__main__tags">
-          <div class="offer__main__tags__tag" v-for="technology in offer.technologies.slice(0, 4)" :key="technology.id">
-            {{ technology }}
-          </div>
-          <div class="offer__main__tags__tag__tag--sm" v-if="offer.technologies.length > 4"> + {{ offer.technologies.length - 4 }}
-            <ul class="offer__main__tags__tag__tag--sm__hoverList">
-              <li v-for="technology in offer.technologies.slice(4)" :key="technology.id">
-                {{ technology }}
-              </li>
-            </ul>
-          </div>
-          <div class="offer__main__tags__tag--light">{{ offer.contract }}</div>
+  <div class="offer">
+    <div class="offer__logo">Logo</div>
+    <div class="offer-main">
+      <div class="offer-top">
+        <div class="offer__title">{{ offer.title }}</div>
+        <div class="offer__pay">{{ offer.salary }} PLN</div>
+        <div class="offer__city">
+          <i class="offer__city-icon fas fa-map-marker-alt"></i>
+          {{ offer.location }}
         </div>
       </div>
-      <div class="offer__additional">
-        <div class="offer__additional__tags">
-          <div class="offer__additional__tags__tag--light">{{ offer.category }}</div>
-          <div class="offer__additional__tags__tag--light">3d ago</div>
+      <div class="offer-tags">
+        <div class="offer__tag" v-for="technology in offer.technologies.slice(0, 4)" :key="technology.id">
+          {{ technology }}
         </div>
-        <button class="offer__additional__likeBtn">
-          <i class="far fa-heart"></i>
-        </button>
+        <div class="offer__tag offer__tag--sm" v-if="offer.technologies.length > 4"> + {{ offer.technologies.length - 4 }}
+          <ul class="offer__tag__list">
+            <li v-for="technology in offer.technologies.slice(4)" :key="technology.id">
+              {{ technology }}
+            </li>
+          </ul>
+        </div>
+        <div class="offer__tag offer__tag--light">{{ offer.contract }}</div>
       </div>
+    </div>
+    <div class="offer-additional">
+      <div class="offer-tags">
+        <div class="offer__tag offer__tag--light">{{ offer.category }}</div>
+        <div class="offer__tag offer__tag--light">3d ago</div>
+      </div>
+      <button class="offer__like-btn">
+        <i class="far fa-heart"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -41,7 +40,7 @@
 export default {
   name: 'JobOffer',
   props: {
-    jobOffers: Array
+    offer: Object
   },
   data () {
     return {
@@ -51,113 +50,100 @@ export default {
 </script>
 
 <style lang="scss">
-  .offersContainer {
-    max-width: 1087px;
-    margin: 0 auto;
-    .offer {
-      @include shadow;
+  .offer {
+    @include shadow;
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    color: $theme-dark-blue;
+    padding: 20px 35px;
+    margin-bottom: 16px;
+    &:hover {
+      @include shadow-hover;
+      @include transition;
+      cursor: pointer;
+    }
+    &__logo {
       display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 135px;
+      margin-right: 35px;
+    }
+    &-top {
+      display: flex;
+      margin-bottom: 25px;
+    }
+    &-main {
+      flex: 1;
+    }
+    &__title {
+      font-size: 17px;
+      margin-right: 40px;
+    }
+    &__pay {
+      font-size: 14px;
+      opacity: .8;
+      margin-right: 40px;
+    }
+    &__city {
+      font-size: 14px;
+      opacity: .8;
+      &-icon {
+        margin-right: 10px;
+      }
+    }
+    &-tags {
+      display: flex;
+    }
+    &__tag {
+      @include tag-dark;
+      margin-right: 20px;
+      &--sm {
+        position: relative;
+        &:hover .offer__tag__list {
+          display: block;
+        }
+      }
+      &--light {
+        @include tag-light;
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+      &__list {
+        @include shadow;
+        display: none;
+        position: absolute;
+        top: 30px;
+        left: 0;
+        list-style: none;
+        font-size: 13px;
+        color: $theme-dark-blue;
+        background: #fff;
+        color: #000;
+        padding: 10px;
+        border-radius: 2px;
+        z-index: 1;
+        li {
+          margin-bottom: 3px;
+        }
+      }
+    }
+    &-additional {
+      display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      background: #fff;
-      color: $theme-dark-blue;
-      padding: 20px 35px;
-      margin-bottom: 16px;
+      align-items: flex-end;
+    }
+    &__like-btn {
+      text-align: right;
+      border: none;
+      background: none;
+      width: 20px;
+      font-size: 20px;
       &:hover {
-        @include shadow-hover;
-        @include transition;
         cursor: pointer;
-      }
-      &__logo {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        max-width: 135px;
-        margin-right: 35px;
-      }
-      &__main {
-        flex: 1;
-        &__top {
-          display: flex;
-          &__title {
-            font-size: 17px;
-            margin-right: 40px;
-            margin-bottom: 25px;
-          }
-          &__pay {
-            font-size: 14px;
-            opacity: .8;
-            margin-right: 40px;
-          }
-          &__city {
-            font-size: 14px;
-            opacity: .8;
-            &__icon {
-              margin-right: 10px;
-            }
-          }
-        }
-        &__tags {
-          display: flex;
-          &__tag {
-            @include tag-dark;
-            margin-right: 20px;
-            &__tag--sm {
-              @include tag-dark;
-              position: relative;
-              margin-right: 20px;
-              &:hover .offer__main__tags__tag__tag--sm__hoverList {
-                display: block;
-              }
-              &__hoverList {
-                @include shadow;
-                display: none;
-                position: absolute;
-                top: 30px;
-                left: 0;
-                list-style: none;
-                font-size: 13px;
-                color: $theme-dark-blue;
-                background: #fff;
-                color: #000;
-                padding: 10px;
-                border-radius: 2px;
-                z-index: 1;
-                li {
-                  margin-bottom: 3px;
-                }
-              }
-            }
-          }
-          &__tag--light {
-            @include tag-light;
-            margin-right: 20px;
-          }
-        }
-      }
-      &__additional {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-end;
-        &__tags {
-          display: flex;
-          &__tag--light {
-            @include tag-light;
-          }
-          &__tag--light:first-of-type {
-            margin-right: 20px;
-          }
-        }
-        &__likeBtn {
-          text-align: right;
-          border: none;
-          background: none;
-          width: 20px;
-          font-size: 20px;
-          &:hover {
-            cursor: pointer;
-          }
-        }
       }
     }
   }

@@ -13,7 +13,10 @@
     <main>
       <JobSearchForm/>
       <div class="offers">
-        <JobOffer :jobOffers="getJobOffers"/>
+        <JobOffer
+          v-for="offer in getJobOffers"
+          :key="offer._id"
+          :offer="offer"/>
       </div>
     </main>
   </div>
@@ -50,4 +53,8 @@ export default {
 </script>
 
 <style lang="scss">
+  .offers {
+    max-width: 1087px;
+    margin: 0 auto;
+  }
 </style>
