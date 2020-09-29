@@ -45,23 +45,30 @@ export default {
 
 <style lang="scss">
   .offersContainer {
+    max-width: 1087px;
+    margin: 0 auto;
     .offer {
+      @include shadow;
       display: flex;
       justify-content: space-between;
-      max-width: 1087px;
       background: #fff;
       color: $theme-dark-blue;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
       padding: 20px 35px;
       margin-bottom: 16px;
+      &:hover {
+        @include shadow-hover;
+        @include transition;
+        cursor: pointer;
+      }
       &__logo {
         display: flex;
         justify-content: center;
         align-items: center;
         max-width: 135px;
-        border-right: 1px solid #707070;
+        margin-right: 35px;
       }
       &__main {
+        flex: 1;
         &__top {
           display: flex;
           &__title {
@@ -86,6 +93,7 @@ export default {
           display: flex;
           &__tag {
             @include tag-dark;
+            margin-right: 20px;
           }
           &__tag--light {
             @include tag-light;
@@ -96,10 +104,14 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        align-items: flex-end;
         &__tags {
           display: flex;
           &__tag--light {
             @include tag-light;
+          }
+          &__tag--light:first-of-type {
+            margin-right: 20px;
           }
         }
         &__likeBtn {
@@ -108,6 +120,9 @@ export default {
           background: none;
           width: 20px;
           font-size: 20px;
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
     }
