@@ -16,7 +16,6 @@
     cursor: pointer;
     box-shadow: 0 1px 6px #000;
     &:hover {
-      @include hover-transition;
       background-color: $theme-pink-hover;
     }
   }
