@@ -1,43 +1,111 @@
 <template>
-  <div class="flex justify-center">
-    <form class="flex justify-between w-3/5 px-2 py-8">
-      <div class="flex flex-col">
-        Location:
-        <input type="text" class="mt-3 shadow appearance-none border rounded text-gray-700 px-4 py-2 leading-tight focus:outline-none focus:shadow-outline">
+  <div>
+    <div class="job-search">
+      <div class="single-input">
+        <span class="input-name">Location</span>
+        <input type="text" class="search-input">
       </div>
-      <div>
-        Job category:
-        <select id="job-category" class="mt-3 block bg-white border hover:border-gray-500 px-4 py-2 pr-8 rounded outline-none shadow leading-tight focus:outline-none focus:shadow-outline">
+      <div class="single-input">
+        <span class="input-name">Category</span>
+        <select name="category" class="search-input">
           <option value="frontend">Frontend</option>
           <option value="backend">Backend</option>
+          <option value="ui/ux">UI/UX</option>
           <option value="devops">DevOps</option>
-          <option value="ux/ui">UX/UI</option>
-          <option value="blockchain">Blockchain</option>
-          <option value="data">Data</option>
-          <option value="testing">Testing</option>
-          <option value="security">Security</option>
-          <option value="pm">PM</option>
-          <option value="mobile">Mobile</option>
         </select>
       </div>
-      <div>
-        Job type
-        <select id="job-type" class="mt-3 block outline-none bg-white border hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-          <option value="full-time">Full time</option>
-          <option value="part-time">Part time</option>
-          <option value="remote">Remote</option>
+      <div class="single-input">
+        <span class="input-name">Type</span>
+        <select name="type" class="search-input">
+          <option value="fulltime">Fulltime</option>
+          <option value="halftime">Halftime</option>
         </select>
       </div>
-    </form>
+      <div class="single-input">
+        <span class="input-name">Salary</span>
+        <div class="salary-inputs">
+          <input type="number" placeholder='MIN' class="search-input salary-input">
+          <input type="number" placeholder='MAX' class="search-input salary-input">
+        </div>
+    </div>
+    <Button>Search</Button>
+    </div>
+    <div class="single-input">
+      <span class="input-name">Technologies</span>
+      <div class="tag-input-container">
+        <div v-for="(tag, index) in technologyTags" :key="index" class="tag">
+          {{ tag }}
+        </div>
+        <input type="text" class="tag-input" v-model="technology" @keyup.enter="createTechnologyTag">
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+import Button from '@/components/Button'
 
+export default {
+  name: 'JobSearchForm',
+  components: {
+    Button
+  },
+  data () {
+    return {
+      technology: null,
+      technologyTags: []
+    }
+  },
+  methods: {
+    createTechnologyTag () {
+      this.technologyTags.push(this.technology)
+      this.technology = null
+    }
+  }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+  .job-search {
+    display: flex;
+    justify-content: space-between;
+  }
+  .single-input {
+    display: flex;
+    flex-direction: column;
+    .tag-input-container {
+      border: 1px solid $theme-light-blue;
+    }
+    .tag {
+      @include tag;
+      @include tag-dark;
+      display: inline-block;
+      margin-right: 5px;
+    }
+    .tag-input {
+      border: none;
+      height: 35px;
+      outline: none;
+    }
+    .input-name {
+      text-transform: uppercase;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+    .salary-inputs {
+      display: flex;
+      .salary-input {
+        width: 90px;
+        margin-right: 30px;
+      }
+    }
+  }
+  .search-input {
+    width: 200px;
+    height: 35px;
+    border: 1px solid $theme-light-blue;
+    border-radius: 5px;
+    padding: 0 10px;
+  }
 </style>

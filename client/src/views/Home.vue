@@ -10,8 +10,10 @@
         </template>
       </Hero>
     </header>
-    <main>
-      <JobSearchForm/>
+    <main class="main-section">
+      <div class="job-search-form">
+        <JobSearchForm/>
+      </div>
       <div class="offers">
         <JobOffer
           v-for="offer in getJobOffers"
@@ -53,8 +55,16 @@ export default {
 </script>
 
 <style lang="scss">
-  .offers {
-    max-width: 1087px;
-    margin: 0 auto;
+  .main-section {
+    background: $bg-grey;
+    .offers {
+      max-width: 1087px;
+      margin: 0 auto;
+    }
+    .job-search-form {
+      background: #fff;
+      margin-bottom: 50px;
+      padding: 50px 0;
+}
   }
 </style>
