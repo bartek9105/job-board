@@ -63,6 +63,7 @@ export default {
     }
     .job-search-form {
       background: #fff;
+      width: 100%;
       margin-bottom: 50px;
       padding: 50px 0;
 }

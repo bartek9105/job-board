@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="job-search-container">
     <div class="job-search">
       <div class="single-input">
         <span class="input-name">Location</span>
@@ -38,6 +38,7 @@
           <i class="fas fa-times-circle delete-icon" @click="deleteTag(index)"></i>
         </div>
         <input type="text" class="tag-input" v-model="technology" @keyup.enter="createTechnologyTag" placeholder="Type in technology, press Enter to add more">
+        <i class="fas fa-times-circle delete-icon delete-all" v-if="technologyTags.length > 0" @click="deleteAllTags"></i>
       </div>
     </div>
   </div>
@@ -64,25 +65,39 @@ export default {
     },
     deleteTag (index) {
       this.technologyTags.splice(index, 1)
+    },
+    deleteAllTags () {
+      this.technologyTags = []
     }
   }
 }
 </script>
 
 <style lang="scss">
+.job-search-container {
+  max-width: 1600px;
+  margin: 0 auto;
   .job-search {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 50px;
   }
   .single-input {
     display: flex;
     flex-direction: column;
     .tag-input-container {
       border: 1px solid $theme-light-blue;
+      border-radius: 5px;
       padding: 5px 10px;
+      position: relative;
       .delete-icon {
         margin-left: 3px;
         cursor: pointer;
+      }
+      .delete-all {
+        position: absolute;
+        top: 15px;
+        right: 10px;
       }
     }
     .tag {
@@ -118,4 +133,5 @@ export default {
     border-radius: 5px;
     padding: 0 10px;
   }
+}
 </style>
