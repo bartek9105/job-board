@@ -35,8 +35,9 @@
       <div class="tag-input-container">
         <div v-for="(tag, index) in technologyTags" :key="index" class="tag">
           {{ tag }}
+          <i class="fas fa-times-circle delete-icon" @click="deleteTag(index)"></i>
         </div>
-        <input type="text" class="tag-input" v-model="technology" @keyup.enter="createTechnologyTag">
+        <input type="text" class="tag-input" v-model="technology" @keyup.enter="createTechnologyTag" placeholder="Type in technology, press Enter to add more">
       </div>
     </div>
   </div>
@@ -60,6 +61,9 @@ export default {
     createTechnologyTag () {
       this.technologyTags.push(this.technology)
       this.technology = null
+    },
+    deleteTag (index) {
+      this.technologyTags.splice(index, 1)
     }
   }
 }
@@ -75,6 +79,11 @@ export default {
     flex-direction: column;
     .tag-input-container {
       border: 1px solid $theme-light-blue;
+      padding: 5px 10px;
+      .delete-icon {
+        margin-left: 3px;
+        cursor: pointer;
+      }
     }
     .tag {
       @include tag;
@@ -83,6 +92,7 @@ export default {
       margin-right: 5px;
     }
     .tag-input {
+      min-width: 300px;
       border: none;
       height: 35px;
       outline: none;
