@@ -3,7 +3,7 @@
     <div class="job-search">
       <div class="single-input">
         <span class="input-name">Location</span>
-        <input type="text" class="search-input">
+        <input type="text" class="search-input" placeholder="City">
       </div>
       <div class="single-input">
         <span class="input-name">Category</span>
@@ -15,10 +15,12 @@
         </select>
       </div>
       <div class="single-input">
-        <span class="input-name">Type</span>
+        <span class="input-name">Seniority</span>
         <select name="type" class="search-input">
-          <option value="fulltime">Fulltime</option>
-          <option value="halftime">Halftime</option>
+          <option value="fulltime">Intern</option>
+          <option value="halftime">Junior</option>
+          <option value="halftime">Regular</option>
+          <option value="halftime">Senior</option>
         </select>
       </div>
       <div class="single-input">
@@ -28,34 +30,47 @@
           <input type="number" placeholder='MAX' class="search-input salary-input">
         </div>
       </div>
-      <Button>Search</Button>
     </div>
-    <div class="single-input">
-      <span class="input-name">Technologies</span>
-      <div class="tag-input-container">
-        <div class="tag-input-insider">
-          <div v-for="(tag, index) in technologyTags" :key="index" class="tag">
-            {{ tag }}
-            <i class="fas fa-times-circle delete-icon" @click="deleteTag(index)"></i>
+    <i class="fas fa-sliders-h" @click="showPopup = !showPopup"></i> More filters
+    <div :class="{ popup: showPopup }">
+    <div class="bottom">
+      <div class="single-input simple-input-tags">
+        <span class="input-name">Technologies</span>
+        <div class="tag-input-container">
+          <div class="tag-input-insider">
+            <div v-for="(tag, index) in technologyTags" :key="index" class="tag">
+              {{ tag }}
+              <i class="fas fa-times-circle delete-icon" @click="deleteTag(index)"></i>
+            </div>
+            <input type="text" class="tag-input" v-model="technology" @keyup.enter="createTechnologyTag" placeholder="Type in technology, press Enter to add more">
+            <i class="fas fa-times-circle delete-icon delete-all" v-if="technologyTags.length > 0" @click="deleteAllTags"></i>
           </div>
-          <input type="text" class="tag-input" v-model="technology" @keyup.enter="createTechnologyTag" placeholder="Type in technology, press Enter to add more">
-          <i class="fas fa-times-circle delete-icon delete-all" v-if="technologyTags.length > 0" @click="deleteAllTags"></i>
         </div>
       </div>
+      <div class="single-input">
+        <span class="input-name">Type</span>
+        <select name="type" class="search-input">
+          <option value="fulltime">Full Time</option>
+          <option value="halftime">Part Time</option>
+        </select>
+      </div>
+      <div class="remote-check">
+        <i class="far fa-check-square"></i>
+        Remote
+      </div>
+    </div>
     </div>
   </div>
 </template>
 
 <script>
-import Button from '@/components/Button'
-
 export default {
   name: 'JobSearchForm',
   components: {
-    Button
   },
   data () {
     return {
+      showPopup: false,
       technology: null,
       technologyTags: []
     }
@@ -76,7 +91,20 @@ export default {
 </script>
 
 <style lang="scss">
+.popup {
+  display: none;
+  width: 50vh;
+  height: 50vh;
+  z-index: 1;
+}
 .job-search-container {
+  .search-input {
+    width: 200px;
+    height: 35px;
+    border: 1px solid $theme-light-blue;
+    border-radius: 5px;
+    padding: 0 10px;
+  }
   max-width: 1087px;
   margin: 0 auto;
   .input-name {
@@ -99,51 +127,68 @@ export default {
           margin-right: 20px;
         }
       }
-      .search-input {
-        width: 200px;
-        height: 35px;
-        border: 1px solid $theme-light-blue;
-        border-radius: 5px;
-        padding: 0 10px;
-      }
     }
   }
-  .tag-input-container {
-    max-width: 100%;
-    border: 1px solid $theme-light-blue;
-    border-radius: 5px;
-    padding: 5px 10px;
-    position: relative;
-    margin-top: 28px;
-    .delete-icon {
-      margin-left: 3px;
-      cursor: pointer;
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    .simple-input-tags {
+      width: 100%;
+      margin-right: 30px;
     }
-    .delete-all {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-    }
-    .tag-input-insider {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      .tag {
-        @include tag;
-        @include tag-dark;
-        display: inline-block;
-        margin: 5px 5px 5px 0;
+    .single-input {
+      margin-right: 30px;
+      .search-input {
+        margin-top: 30px;
       }
-      .tag-input {
-        min-width: 200px;
-        margin-right: 30px;
-        height: 30px;
-        outline: none;
-        border: none;
-        flex: 1;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
+    }
+    .tag-input-container {
+      border: 1px solid $theme-light-blue;
+      border-radius: 5px;
+      padding: 5px 10px;
+      position: relative;
+      margin-top: 28px;
+      .delete-icon {
+        margin-left: 3px;
+        cursor: pointer;
+      }
+      .delete-all {
+        position: absolute;
+        top: 12px;
+        right: 10px;
+      }
+      .tag-input-insider {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        .tag {
+          @include tag;
+          @include tag-dark;
+          display: inline-block;
+          margin-right: 5px;
+        }
+        .tag-input {
+          min-width: 200px;
+          margin-right: 30px;
+          height: 30px;
+          outline: none;
+          border: none;
+          flex: 1;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+    }
+    .remote-check {
+      margin-top: 50px;
+      display: flex;
+      i {
+        margin-right: 10px;
+        font-size: 20px;
+        cursor: pointer;
       }
     }
   }
