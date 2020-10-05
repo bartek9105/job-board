@@ -49,7 +49,7 @@ export default {
     ...mapGetters(['getJobOffers'])
   },
   mounted () {
-    this.fetchJobOffers()
+    this.fetchJobOffers({})
   }
 }
 </script>

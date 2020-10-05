@@ -16,30 +16,26 @@ export default ({
     }
   },
   actions: {
-    async fetchJobOffers ({ commit }, { technologies, seniority, category, location, type, salaryMin, salaryMax }) {
+    async fetchJobOffers ({ commit }, queries) {
       try {
+        const queriesFilter = Object.keys(queries)
+          .filter(e => {
+            return queries[e] !== null && queries[e] !== ''
+          })
+          .reduce((o, e) => {
+            o[e] = queries[e]
+            return o
+          }, {})
         const offersData = await axios.get('http://localhost:5000/api/v1/offers', {
           params: {
-            technologies: { in: technologies },
-            seniority: seniority,
-            category: category,
-            location: location,
-            type: type,
-            salary: { lt: salaryMax, gt: salaryMin }
+            technologies: { in: queriesFilter.technologies },
+            seniority: queriesFilter.seniority,
+            category: queriesFilter.category,
+            location: queriesFilter.location,
+            type: queriesFilter.type,
+            salary: { lt: queriesFilter.salaryMax, gt: queriesFilter.salaryMin }
           },
           paramsSerializer: params => qs.stringify(params)
-        })
-        commit('SET_JOB_OFFERS', offersData.data.data)
-      } catch (error) {
-        console.log(error)
-      }
-    },
-    async fetchJobOffersSearch ({ commit }, titleQuery) {
-      try {
-        const offersData = await axios.get('http://localhost:5000/api/v1/offers/search', {
-          params: {
-            title: titleQuery
-          }
         })
         commit('SET_JOB_OFFERS', offersData.data.data)
       } catch (error) {

@@ -7,26 +7,14 @@ exports.getOffers = async (req, res, next) => {
         
         const removeFields = ['page', 'limit']
         removeFields.forEach(param => delete reqQuery[param])
-
+        
         let query = JSON.stringify(reqQuery).replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
 
         const page = parseInt(req.query.page) || 1
         const limit = parseInt(req.query.limit) || 5
         const skip = (page - 1) * limit
 
-        const offers = await Offer.find(JSON.parse(query))
-        res.status(200).send({
-            count: offers.length,
-            data: offers
-        })
-    } catch (error) {
-        next(error)
-    }
-}
-
-exports.getOffersSearch = async (req, res, next) => {
-    try {
-        const offers = await Offer.find({ $text: { $search: req.query.title }})
+        const offers = await Offer.find(JSON.parse(query)).skip(skip).limit(limit).sort({ 'createdAt': -1 })
         res.status(200).send({
             count: offers.length,
             data: offers

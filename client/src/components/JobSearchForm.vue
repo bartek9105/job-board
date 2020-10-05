@@ -1,61 +1,64 @@
 <template>
   <div class="job-search-container">
     <div class="job-search">
-      <div class="row">
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Location</span>
-          <input type="text" class="job-search__search-input" placeholder="City" v-model="queries.location">
-        </div>
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Category</span>
-          <select name="category" class="job-search__search-input" v-model="queries.category">
-            <option value="Frontend">Frontend</option>
-            <option value="Backend">Backend</option>
-            <option value="UX/UI">UI/UX</option>
-            <option value="Devops">DevOps</option>
-          </select>
-        </div>
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Seniority</span>
-          <select name="type" class="job-search__search-input" v-model="queries.seniority">
-            <option value="Intern">Intern</option>
-            <option value="Junior">Junior</option>
-            <option value="Regular">Regular</option>
-            <option value="Senior">Senior</option>
-          </select>
-        </div>
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Salary</span>
-          <div class="job-search__salary-inputs">
-            <input type="number" placeholder='MIN' class="job-search__search-input salary-input job-search__search-input--salary" v-model="queries.salaryMin">
-            <input type="number" placeholder='MAX' class="job-search__search-input salary-input job-search__search-input--salary" v-model="queries.salaryMax">
+      <form @change=fetchJobOffers(queries) @submit.prevent>
+        <div class="row">
+          <div class="job-search__single-input-container">
+            <span class="job-search__input-name">Location</span>
+            <input type="text" class="job-search__search-input" placeholder="City" v-model="queries.location" @change=fetchJobOffers(queries)>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="job-search__tags-input-container">
-          <span class="job-search__input-name">Technologies</span>
-          <div class="job-search__tag-input">
-            <div class="job-search__tag-input-insider">
-              <div v-for="(tag, index) in queries.technologies" :key="index" class="job-search__tag-input__tag">
-                {{ tag }}
-                <i class="fas fa-times-circle job-search__tag-input__delete-icon" @click="deleteTag(index)"></i>
-              </div>
-              <input type="text" class="job-search__tag-input__inner" v-model="technology" @keyup.enter="createTechnologyTag" placeholder="Type in technology, press Enter to add more">
-              <i class="fas fa-times-circle job-search__tag-input__delete-all-icon" v-if="queries.technologies.length > 0" @click="deleteAllTags"></i>
+          <div class="job-search__single-input-container">
+            <span class="job-search__input-name">Category</span>
+            <select name="category" class="job-search__search-input" v-model="queries.category">
+              <option value="Frontend">Frontend</option>
+              <option value="Backend">Backend</option>
+              <option value="UX/UI">UI/UX</option>
+              <option value="Devops">DevOps</option>
+            </select>
+          </div>
+          <div class="job-search__single-input-container">
+            <span class="job-search__input-name">Seniority</span>
+            <select name="type" class="job-search__search-input" v-model="queries.seniority">
+              <option value="Intern">Intern</option>
+              <option value="Junior">Junior</option>
+              <option value="Regular">Regular</option>
+              <option value="Senior">Senior</option>
+            </select>
+          </div>
+          <div class="job-search__single-input-container">
+            <span class="job-search__input-name">Salary</span>
+            <div class="job-search__salary-inputs">
+              <input type="number" placeholder='MIN' class="job-search__search-input salary-input job-search__search-input--salary" v-model="queries.salaryMin">
+              <input type="number" placeholder='MAX' class="job-search__search-input salary-input job-search__search-input--salary" v-model="queries.salaryMax">
             </div>
           </div>
         </div>
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Type</span>
-          <select name="type" class="job-search__search-input" v-model="queries.type">
-            <option value="Full Time">Full Time</option>
-            <option value="Part Time">Part Time</option>
-          </select>
+        <div class="row">
+          <div class="job-search__tags-input-container">
+            <span class="job-search__input-name">Technologies</span>
+            <div class="job-search__tag-input">
+              <div class="job-search__tag-input-insider">
+                <div v-for="(tag, index) in queries.technologies" :key="index" class="job-search__tag-input__tag">
+                  {{ tag }}
+                  <i class="fas fa-times-circle job-search__tag-input__delete-icon" @click="deleteTag(index)"></i>
+                </div>
+                <input type="text" class="job-search__tag-input__inner" v-model="technology" @keyup.enter="createTechnologyTag" placeholder="Type in technology, press Enter to add more">
+                <i class="fas fa-times-circle job-search__tag-input__delete-all-icon" v-if="queries.technologies.length > 0" @click="deleteAllTags"></i>
+              </div>
+            </div>
+          </div>
+          <div class="job-search__single-input-container">
+            <span class="job-search__input-name">Type</span>
+            <select name="type" class="job-search__search-input" v-model="queries.type">
+              <option value="Full Time">Full Time</option>
+              <option value="Part Time">Part Time</option>
+            </select>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
     <button @click="fetchJobOffers(queries)">Search</button>
+    <button @click="clearFilters">Clear filters</button>
   </div>
 </template>
 
@@ -69,7 +72,13 @@ export default {
   data () {
     return {
       queries: {
-        technologies: []
+        technologies: [],
+        location: null,
+        category: null,
+        seniority: null,
+        salaryMin: null,
+        salaryMax: null,
+        type: null
       },
       showFilters: false,
       technology: null
@@ -77,6 +86,10 @@ export default {
   },
   methods: {
     ...mapActions(['fetchJobOffers']),
+    clearFilters () {
+      this.queries = { technologies: [] }
+      this.fetchJobOffers({})
+    },
     createTechnologyTag () {
       if (this.technology !== '' && this.technology !== null) {
         this.queries.technologies.push(this.technology.trim())

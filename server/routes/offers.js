@@ -5,8 +5,6 @@ const offersController = require('../controllers/offers')
 
 router.get('/', offersController.getOffers)
 
-router.get('/search', offersController.getOffersSearch)
-
 router.get('/:id', offersController.getOffer)
 
 router.post('/', offersController.addOffer)
