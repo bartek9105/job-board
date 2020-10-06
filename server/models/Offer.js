@@ -43,7 +43,7 @@ const offerSchema = new mongoose.Schema({
         enum: ['Employment contract', 'B2B', 'Mandatory contract']
     },
     technologies: [{
-        type: String
+        type: String,
     }],
     benefits: [{
         type: String
@@ -54,6 +54,6 @@ const offerSchema = new mongoose.Schema({
     }
 })
 
-offerSchema.index({ title: 'text' })
+offerSchema.index({ location: 'text' });
 
 module.exports = mongoose.model('Offer', offerSchema)

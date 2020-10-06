@@ -1,5 +1,7 @@
 const Offer = require('../models/Offer')
+const { search } = require('../routes/offers')
 const ErrorResponse = require('../utils/errorResponse')
+const _ = require('lodash')
 
 exports.getOffers = async (req, res, next) => {
     try {
@@ -14,7 +16,25 @@ exports.getOffers = async (req, res, next) => {
         const limit = parseInt(req.query.limit) || 5
         const skip = (page - 1) * limit
 
-        const offers = await Offer.find(JSON.parse(query)).skip(skip).limit(limit).sort({ 'createdAt': -1 })
+        const parsedQuery = JSON.parse(query)
+
+        let locationSearch = {}
+
+        if (parsedQuery.q) {
+            locationSearch = {
+                $text: {
+                    $search: parsedQuery.q
+                }
+            }
+        }
+        
+        const availableFilters = Object.keys(Offer.schema.paths);
+        const schemaFilters = _.pickBy(parsedQuery, (value, key) => availableFilters.indexOf(key) > -1);
+        
+        console.log({...schemaFilters, ...locationSearch})
+        
+        const offers = await Offer.find({ ...schemaFilters, ...locationSearch })
+
         res.status(200).send({
             count: offers.length,
             data: offers

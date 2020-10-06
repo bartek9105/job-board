@@ -33,7 +33,8 @@ export default ({
             category: queriesFilter.category,
             location: queriesFilter.location,
             type: queriesFilter.type,
-            salary: { lt: queriesFilter.salaryMax, gt: queriesFilter.salaryMin }
+            salary: { lt: queriesFilter.salaryMax, gt: queriesFilter.salaryMin },
+            contract: queriesFilter.contract
           },
           paramsSerializer: params => qs.stringify(params)
         })

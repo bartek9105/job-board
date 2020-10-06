@@ -14,6 +14,9 @@
               <option value="Backend">Backend</option>
               <option value="UX/UI">UI/UX</option>
               <option value="Devops">DevOps</option>
+              <option value="Devops">Data Science</option>
+              <option value="Devops">Testing</option>
+              <option value="Devops">PM</option>
             </select>
           </div>
           <div class="job-search__single-input-container">
@@ -54,6 +57,14 @@
               <option value="Part Time">Part Time</option>
             </select>
           </div>
+          <div class="job-search__single-input-container">
+            <span class="job-search__input-name">Contract</span>
+            <select name="type" class="job-search__search-input" v-model="queries.contract">
+              <option value="B2B">B2B</option>
+              <option value="Employment contract">Employment contract</option>
+              <option value="Mandatory contract">Mandatory contract</option>
+            </select>
+          </div>
         </div>
       </form>
     </div>
@@ -78,7 +89,8 @@ export default {
         seniority: null,
         salaryMin: null,
         salaryMax: null,
-        type: null
+        type: null,
+        contract: null
       },
       showFilters: false,
       technology: null
