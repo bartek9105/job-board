@@ -2,24 +2,19 @@
     <div class="jobSearch">
         <h1>Search through over 509 code job offers</h1>
         <form class="jobSearch__jobForm" @submit.prevent>
-            <input type="text" class="jobSearch__jobForm__input" placeholder="Type in job you are looking for" v-model="titleQuery">
+            <input type="text" class="jobSearch__jobForm__input" placeholder="Type in job you are looking for" v-model="titleQuery" >
             <i class="fas fa-search jobSearch__jobForm__searchIcon"></i>
-            <button @click="fetchJobOffersSearch(titleQuery)">Search</button>
         </form>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 
 export default {
   data () {
     return {
       titleQuery: ''
     }
-  },
-  methods: {
-    ...mapActions(['fetchJobOffersSearch'])
   }
 }
 </script>
@@ -33,7 +28,7 @@ export default {
         color: #E3E7F1;
         height: calc(100% - 69px);
         h1 {
-            font-size: 1.5rem;
+            font-size: 25px;
             margin-bottom: 2.5rem;
         }
         &__jobForm {

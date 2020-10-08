@@ -71,19 +71,25 @@
             </select>
           </div>
         </div>
+        <div class="row">
+          <div class="button-container">
+            <Button @click="fetchJobOffers(queries)">Search</Button>
+            <button class="job-search__clear-filters-btn" @click="clearFilters">Clear filters</button>
+          </div>
+        </div>
       </form>
     </div>
-    <button @click="fetchJobOffers(queries)">Search</button>
-    <button @click="clearFilters">Clear filters</button>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Button from './Button'
 
 export default {
   name: 'JobSearchForm',
   components: {
+    Button
   },
   data () {
     return {
@@ -201,7 +207,7 @@ export default {
       }
     }
     &__tags-input-container {
-      width: 100%;
+      width: 500px;
     }
     &__tag-input {
       border: 1px solid $theme-light-blue;
@@ -245,7 +251,7 @@ export default {
     &__suggestion-list {
       @include shadow;
       position: absolute;
-      top: 45px;
+      top: 110%;
       left: 0;
       list-style: none;
       border: 1px solid $bg-grey;
@@ -262,6 +268,14 @@ export default {
           cursor: pointer;
         }
       }
+    }
+    &__clear-filters-btn {
+      cursor: pointer;
+      margin-left: 20px;
+      background: transparent;
+      font-weight: 700;
+      border: none;
+      color: $theme-dark-blue;
     }
   }
 }

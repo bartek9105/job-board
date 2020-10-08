@@ -6,6 +6,7 @@
 
 <style lang="scss">
   .themeBtn {
+    @include shadow;
     background-color: $theme-pink;
     color: #fff;
     font-size: 14px;
@@ -14,9 +15,8 @@
     border-radius: 136px;
     padding: 10px 20px;
     cursor: pointer;
-    box-shadow: 0 1px 6px #000;
     &:hover {
-      background-color: $theme-pink-hover;
+      @include shadow-hover;
     }
   }
 </style>

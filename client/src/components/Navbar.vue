@@ -51,6 +51,7 @@ export default {
                 font-weight: 700;
                 color: $text-white;
                 margin-right: 3rem;
+                text-decoration: none;
                 &:hover {
                     color: $theme-pink;
                 }
