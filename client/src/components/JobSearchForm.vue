@@ -41,13 +41,18 @@
             <span class="job-search__input-name">Technologies</span>
             <div class="job-search__tag-input">
               <div class="job-search__tag-input-insider">
-                <div v-for="(tag, index) in queries.technologies" :key="index" class="job-search__tag-input__tag">
+                <div v-for="(tag, index) in  queries.technologies" :key="index" class="job-search__tag-input__tag">
                   {{ tag }}
                   <i class="fas fa-times-circle job-search__tag-input__delete-icon" @click="deleteTag(index)"></i>
                 </div>
-                <input type="text" class="job-search__tag-input__inner" v-model="technology" @keyup.enter="createTechnologyTag" placeholder="Type in technology, press Enter to add more">
+                <input type="text" class="job-search__tag-input__inner" v-model="technology" @keyup.enter="createTechnologyTag" placeholder="Type in technology, press Enter to add more" @focus="displaySuggestionList = true" @keydown.down="onArrowDown" @keydown.up="onArrowUp" @keydown.enter="onEnter">
                 <i class="fas fa-times-circle job-search__tag-input__delete-all-icon" v-if="queries.technologies.length > 0" @click="deleteAllTags"></i>
               </div>
+              <ul class="job-search__suggestion-list" v-if="displaySuggestionList === true" @blur="displaySuggestionList = false">
+                <li v-for="(filteredTechnology, index) in getFilteredTechnologies" :key="index" @click="createFilteredTechnologyTag(filteredTechnology)" @keyup.enter="createFilteredTechnologyTag(filteredTechnology)" :class='{"active-item": currentListItem === index}'>
+                  {{ filteredTechnology }}
+                </li>
+              </ul>
             </div>
           </div>
           <div class="job-search__single-input-container">
@@ -74,7 +79,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'JobSearchForm',
@@ -93,7 +98,9 @@ export default {
         contract: null
       },
       showFilters: false,
-      technology: null
+      technology: null,
+      displaySuggestionList: false,
+      currentListItem: -1
     }
   },
   methods: {
@@ -102,23 +109,65 @@ export default {
       this.queries = { technologies: [] }
       this.fetchJobOffers({})
     },
+    createFilteredTechnologyTag (filteredTechnology) {
+      this.technology = filteredTechnology
+      this.createTechnologyTag()
+    },
     createTechnologyTag () {
       if (this.technology !== '' && this.technology !== null) {
         this.queries.technologies.push(this.technology.trim())
       }
       this.technology = null
+      this.currentListItem = -1
     },
     deleteTag (index) {
       this.queries.technologies.splice(index, 1)
     },
     deleteAllTags () {
       this.queries.technologies = []
+    },
+    onArrowDown () {
+      if (this.currentListItem < this.getFilteredTechnologies.length) {
+        this.currentListItem++
+      }
+    },
+    onArrowUp () {
+      if (this.currentListItem > 0) {
+        this.currentListItem--
+      }
+    },
+    onEnter () {
+      this.technology = this.getFilteredTechnologies[this.currentListItem]
+      this.createTechnologyTag()
+    },
+    clickOutsideListHandler (evt) {
+      if (!this.$el.contains(evt.target)) {
+        this.displaySuggestionList = false
+        this.currentListItem = -1
+      }
     }
+  },
+  computed: {
+    ...mapGetters(['getTechnologies']),
+    getFilteredTechnologies () {
+      if (this.technology !== null) {
+        return this.getTechnologies.filter(technology => technology.match(new RegExp(`^${this.technology}`, 'gi')))
+      }
+      return this.getTechnologies
+    }
+  },
+  mounted () {
+    document.addEventListener('click', this.clickOutsideListHandler)
   }
 }
 </script>
 
 <style lang="scss">
+.active-item {
+  background: $theme-dark-blue;
+  color: #fff;
+  border-radius: 5px;
+}
 .job-search-container {
   .job-search {
     .row {
@@ -191,6 +240,27 @@ export default {
         @include tag-dark;
         display: inline-block;
         margin-right: 5px;
+      }
+    }
+    &__suggestion-list {
+      @include shadow;
+      position: absolute;
+      top: 45px;
+      left: 0;
+      list-style: none;
+      border: 1px solid $bg-grey;
+      padding: 10px;
+      width: 100%;
+      background: #fff;
+      z-index: 1;
+      max-height: 300px;
+      overflow-y: auto;
+      li {
+        padding: 10px;
+        &:hover {
+          background: $bg-grey;
+          cursor: pointer;
+        }
       }
     }
   }

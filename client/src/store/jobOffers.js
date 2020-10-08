@@ -8,6 +8,10 @@ export default ({
   getters: {
     getJobOffers (state) {
       return state.jobOffers
+    },
+    getTechnologies (state) {
+      const offersTechnologies = new Set(state.jobOffers.map(offerObj => offerObj.technologies).flat())
+      return [...offersTechnologies]
     }
   },
   mutations: {
@@ -31,7 +35,7 @@ export default ({
             technologies: { in: queriesFilter.technologies },
             seniority: queriesFilter.seniority,
             category: queriesFilter.category,
-            location: queriesFilter.location,
+            q: queriesFilter.location,
             type: queriesFilter.type,
             salary: { lt: queriesFilter.salaryMax, gt: queriesFilter.salaryMin },
             contract: queriesFilter.contract
