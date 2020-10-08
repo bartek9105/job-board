@@ -163,12 +163,12 @@ export default {
 </script>
 
 <style lang="scss">
-.active-item {
-  background: $theme-dark-blue;
-  color: #fff;
-  border-radius: 5px;
-}
 .job-search-container {
+  .active-item {
+    background: $theme-dark-blue;
+    color: #fff;
+    border-radius: 5px;
+  }
   .job-search {
     .row {
       display: flex;
@@ -202,7 +202,6 @@ export default {
     }
     &__tags-input-container {
       width: 100%;
-      margin-right: 30px;
     }
     &__tag-input {
       border: 1px solid $theme-light-blue;
@@ -223,6 +222,7 @@ export default {
         position: absolute;
         top: 7px;
         right: 10px;
+        cursor: pointer;
       }
       &__inner {
         min-width: 200px;

@@ -15,6 +15,9 @@
         <JobSearchForm/>
       </div>
       <div class="offers">
+        <p class="offers__offers-info">
+          {{ getJobOffers.length }} offers found for specified criteria
+        </p>
         <JobOffer
           v-for="offer in getJobOffers"
           :key="offer._id"
@@ -60,6 +63,13 @@ export default {
     .offers {
       max-width: 1087px;
       margin: 0 auto;
+      &__offers-info {
+        color: $theme-dark-blue;
+        font-weight: 700;
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-bottom: 50px;
+      }
     }
     .job-search-form {
       background: #fff;
