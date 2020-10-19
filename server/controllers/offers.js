@@ -12,9 +12,11 @@ exports.getOffers = async (req, res, next) => {
         
         let query = JSON.stringify(reqQuery).replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
 
-        const page = parseInt(req.query.page) || 1
-        const limit = parseInt(req.query.limit) || 5
-        const skip = (page - 1) * limit
+        const page = parseInt(req.query.page, 10) || 1
+        const limit = parseInt(req.query.limit, 10) || 5
+        const startIndex = (page - 1) * limit
+        const endIndex = page * limit
+        const total = await Offer.countDocuments()
 
         const parsedQuery = JSON.parse(query)
 
@@ -30,13 +32,28 @@ exports.getOffers = async (req, res, next) => {
         
         const availableFilters = Object.keys(Offer.schema.paths);
         const schemaFilters = _.pickBy(parsedQuery, (value, key) => availableFilters.indexOf(key) > -1);
-        
-        console.log({...schemaFilters, ...locationSearch})
-        
-        const offers = await Offer.find({ ...schemaFilters, ...locationSearch })
+                
+        const offers = await Offer.find({ ...schemaFilters, ...locationSearch }).skip(startIndex).limit(limit)
+
+        const pagination = {}
+
+        if (endIndex < total) {
+            pagination.next = {
+                page: page + 1,
+                limit
+            }
+        }
+
+        if (startIndex > 0) {
+            pagination.prev = {
+                page: page - 1,
+                limit
+            }
+        }
 
         res.status(200).send({
             count: offers.length,
+            pagination,
             data: offers
         })
     } catch (error) {
