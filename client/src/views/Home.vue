@@ -21,7 +21,9 @@
         <JobOffer
           v-for="offer in getJobOffers"
           :key="offer._id"
-          :offer="offer"/>
+          :offer="offer"
+        />
+        <Pagination class="offers__pagination"/>
       </div>
     </main>
   </div>
@@ -33,6 +35,7 @@ import Hero from '@/components/Hero'
 import JobOffer from '@/components/JobOffer'
 import JobSearchForm from '@/components/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
+import Pagination from '@/components/Pagination'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -43,7 +46,8 @@ export default {
     Hero,
     JobOffer,
     JobSearchForm,
-    JobSearch
+    JobSearch,
+    Pagination
   },
   methods: {
     ...mapActions(['fetchJobOffers'])
@@ -69,6 +73,9 @@ export default {
         font-size: 14px;
         text-transform: uppercase;
         margin-bottom: 50px;
+      }
+      &__pagination {
+        margin-top: 50px;
       }
     }
     .job-search-form {
