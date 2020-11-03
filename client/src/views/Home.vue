@@ -16,14 +16,14 @@
       </div>
       <div class="offers">
         <p class="offers__offers-info">
-          {{ getJobOffers.length }} offers found for specified criteria
+          {{ getJobOffers.total }} offers found for specified criteria
         </p>
         <JobOffer
-          v-for="offer in getJobOffers"
+          v-for="offer in getJobOffers.data"
           :key="offer._id"
           :offer="offer"
         />
-        <Pagination @pageChange="pageNumber" class="offers__pagination"/>
+        <Pagination @pageChange="pageNumber" :pagesCount="getJobOffers.pages" class="offers__pagination"/>
       </div>
     </main>
   </div>

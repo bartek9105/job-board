@@ -10,7 +10,7 @@ export default ({
       return state.jobOffers
     },
     getTechnologies (state) {
-      const offersTechnologies = new Set(state.jobOffers.map(offerObj => offerObj.technologies).flat())
+      const offersTechnologies = new Set(state.jobOffers.data.map(offerObj => offerObj.technologies).flat())
       return [...offersTechnologies]
     }
   },
@@ -42,7 +42,7 @@ export default ({
           },
           paramsSerializer: params => qs.stringify(params)
         })
-        commit('SET_JOB_OFFERS', offersData.data.data)
+        commit('SET_JOB_OFFERS', offersData.data)
       } catch (error) {
         console.log(error)
       }
