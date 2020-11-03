@@ -4,7 +4,7 @@
       <i class="fas fa-long-arrow-alt-left"></i>
     </button>
     <div class="page-container">
-      <button v-for="(item, index) in new Array(10)" :key="index" class="pagination__page">
+      <button v-for="(item, index) in new Array(10)" :key="index" class="pagination__page" @click=emitPageNumber(index)>
         {{ index + 1 }}
       </button>
     </div>
@@ -16,11 +16,22 @@
 
 <script>
 export default {
-  name: 'Pagination'
+  name: 'Pagination',
+  data () {
+    return {
+      pageNumber: 1
+    }
+  },
+  methods: {
+    emitPageNumber (index) {
+      this.pageNumber = index + 1
+      this.$emit('clicked', this.pageNumber)
+    }
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .pagination {
     display: flex;
     align-items: center;

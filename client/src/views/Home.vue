@@ -12,7 +12,7 @@
     </header>
     <main class="main-section">
       <div class="job-search-form">
-        <JobSearchForm/>
+        <JobSearchForm @clicked="formData"/>
       </div>
       <div class="offers">
         <p class="offers__offers-info">
@@ -23,7 +23,7 @@
           :key="offer._id"
           :offer="offer"
         />
-        <Pagination class="offers__pagination"/>
+        <Pagination @clicked="pageNumber" class="offers__pagination"/>
       </div>
     </main>
   </div>
@@ -41,6 +41,11 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
+  data () {
+    return {
+      queries: {}
+    }
+  },
   components: {
     Navbar,
     Hero,
@@ -50,7 +55,15 @@ export default {
     Pagination
   },
   methods: {
-    ...mapActions(['fetchJobOffers'])
+    ...mapActions(['fetchJobOffers']),
+    formData (queries) {
+      this.queries = queries
+      this.fetchJobOffers(this.queries)
+    },
+    pageNumber (page) {
+      this.queries = { ...this.queries, page: page }
+      this.fetchJobOffers(this.queries)
+    }
   },
   computed: {
     ...mapGetters(['getJobOffers'])

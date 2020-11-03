@@ -30,7 +30,7 @@ export default ({
             o[e] = queries[e]
             return o
           }, {})
-        const offersData = await axios.get('http://localhost:5000/api/v1/offers', {
+        const offersData = await axios.get(`http://localhost:5000/api/v1/offers?page=${queriesFilter.page}`, {
           params: {
             technologies: { in: queriesFilter.technologies },
             seniority: queriesFilter.seniority,

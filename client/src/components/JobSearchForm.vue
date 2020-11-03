@@ -1,11 +1,11 @@
 <template>
   <div class="job-search-container">
     <div class="job-search">
-      <form @change=fetchJobOffers(queries) @submit.prevent>
+      <form @submit.prevent>
         <div class="row">
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Location</span>
-            <input type="text" class="job-search__search-input" placeholder="City" v-model="queries.location" @change=fetchJobOffers(queries)>
+            <input type="text" class="job-search__search-input" placeholder="City" v-model="queries.location">
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Category</span>
@@ -73,7 +73,7 @@
         </div>
         <div class="row">
           <div class="button-container">
-            <Button @click="fetchJobOffers(queries)">Search</Button>
+            <button @click="emitFormData">Search</button>
             <button class="job-search__clear-filters-btn" @click="clearFilters">Clear filters</button>
           </div>
         </div>
@@ -83,14 +83,10 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import Button from './Button'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'JobSearchForm',
-  components: {
-    Button
-  },
   data () {
     return {
       queries: {
@@ -110,10 +106,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchJobOffers']),
+    emitFormData () {
+      this.$emit('clicked', this.queries)
+    },
     clearFilters () {
       this.queries = { technologies: [] }
-      this.fetchJobOffers({})
     },
     createFilteredTechnologyTag (filteredTechnology) {
       this.technology = filteredTechnology
