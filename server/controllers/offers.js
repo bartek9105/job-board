@@ -16,12 +16,11 @@ exports.getOffers = async (req, res, next) => {
         const limit = parseInt(req.query.limit, 10) || 5
         const startIndex = (page - 1) * limit
         const endIndex = page * limit
-        const total = await Offer.countDocuments()
-
+        
         const parsedQuery = JSON.parse(query)
-
+        
         let locationSearch = {}
-
+        
         if (parsedQuery.q) {
             locationSearch = {
                 $text: {
@@ -32,8 +31,10 @@ exports.getOffers = async (req, res, next) => {
         
         const availableFilters = Object.keys(Offer.schema.paths)
         const schemaFilters = _.pickBy(parsedQuery, (value, key) => availableFilters.indexOf(key) > -1)
-                
+        
         const offers = await Offer.find({ ...schemaFilters, ...locationSearch }).skip(startIndex).limit(limit)
+        
+        const total = await Offer.find({ ...schemaFilters, ...locationSearch }).countDocuments()
 
         const pagination = {}
 
@@ -50,12 +51,11 @@ exports.getOffers = async (req, res, next) => {
                 limit
             }
         }
-        
-        const pages = Math.ceil(total/limit)
+
+        const pages = Math.ceil(total / limit)
 
         res.status(200).send({
             total,
-            count: offers.length,
             pages,
             pagination,
             data: offers

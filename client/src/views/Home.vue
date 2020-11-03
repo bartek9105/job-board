@@ -23,7 +23,7 @@
           :key="offer._id"
           :offer="offer"
         />
-        <Pagination @pageChange="pageNumber" :pagesCount="getJobOffers.pages" class="offers__pagination"/>
+        <Pagination v-if="getJobOffers.data.length > 0" @pageChange="pageNumber" :pages="getJobOffers.pages" class="offers__pagination"/>
       </div>
     </main>
   </div>

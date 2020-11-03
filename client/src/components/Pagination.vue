@@ -4,11 +4,11 @@
       <i class="fas fa-long-arrow-alt-left"></i>
     </button>
     <div class="page-container">
-      <button v-for="(item, index) in pagesCount" :key="index" :class="{ pagination__active: pageNumber - 1 === index }" @click=emitPageNumber(index) class="pagination__page">
+      <button v-for="(item, index) in pages" :key="index" :class="{ pagination__active: pageNumber - 1 === index }" @click=emitPageNumber(index) class="pagination__page">
         {{ index + 1 }}
       </button>
     </div>
-    <button class="pagination__arrow" @click="emitNextPage" :disabled="pageNumber === pagesCount">
+    <button class="pagination__arrow" @click="emitNextPage" :disabled="pageNumber === pages">
       <i class="fas fa-long-arrow-alt-right"></i>
     </button>
   </div>
@@ -23,7 +23,7 @@ export default {
     }
   },
   props: {
-    pagesCount: Number
+    pages: Number
   },
   methods: {
     emitPageNumber (index) {
