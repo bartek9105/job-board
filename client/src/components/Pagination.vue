@@ -1,14 +1,14 @@
 <template>
   <div class="pagination">
-    <button class="pagination__arrow">
+    <button class="pagination__arrow" @click="emitPreviousPage" :disabled="pageNumber === 1">
       <i class="fas fa-long-arrow-alt-left"></i>
     </button>
     <div class="page-container">
-      <button v-for="(item, index) in new Array(10)" :key="index" class="pagination__page" @click=emitPageNumber(index)>
+      <button v-for="(item, index) in new Array(10)" :key="index" :class="{ pagination__active: pageNumber - 1 === index }" @click=emitPageNumber(index) class="pagination__page">
         {{ index + 1 }}
       </button>
     </div>
-    <button class="pagination__arrow">
+    <button class="pagination__arrow" @click="emitNextPage">
       <i class="fas fa-long-arrow-alt-right"></i>
     </button>
   </div>
@@ -25,7 +25,15 @@ export default {
   methods: {
     emitPageNumber (index) {
       this.pageNumber = index + 1
-      this.$emit('clicked', this.pageNumber)
+      this.$emit('pageChange', this.pageNumber)
+    },
+    emitPreviousPage () {
+      this.pageNumber -= 1
+      this.$emit('pageChange', this.pageNumber)
+    },
+    emitNextPage () {
+      this.pageNumber += 1
+      this.$emit('pageChange', this.pageNumber)
     }
   }
 }
@@ -54,6 +62,10 @@ export default {
         background-color: $theme-dark-blue;
         color: #fff;
       }
+    }
+    &__active {
+      background-color: $theme-dark-blue;
+      color: #fff;
     }
   }
   .page-container {

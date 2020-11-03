@@ -23,7 +23,7 @@
           :key="offer._id"
           :offer="offer"
         />
-        <Pagination @clicked="pageNumber" class="offers__pagination"/>
+        <Pagination @pageChange="pageNumber" class="offers__pagination"/>
       </div>
     </main>
   </div>
