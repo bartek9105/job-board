@@ -73,7 +73,7 @@
         </div>
         <div class="row">
           <div class="button-container">
-            <button @click="emitFormData">Search</button>
+            <Button @click.native="emitFormData">Search</Button>
             <button class="job-search__clear-filters-btn" @click="clearFilters">Clear filters</button>
           </div>
         </div>
@@ -84,9 +84,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Button from '@/components/Button'
 
 export default {
   name: 'JobSearchForm',
+  components: {
+    Button
+  },
   data () {
     return {
       queries: {

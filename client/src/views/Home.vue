@@ -80,6 +80,7 @@ export default {
     .offers {
       max-width: 1087px;
       margin: 0 auto;
+      padding: 50px 0;
       &__offers-info {
         color: $theme-dark-blue;
         font-weight: 700;
@@ -94,7 +95,6 @@ export default {
     .job-search-form {
       background: #fff;
       width: 100%;
-      margin-bottom: 50px;
       padding: 50px 0;
 }
   }

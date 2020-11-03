@@ -1,6 +1,8 @@
 <template>
   <div class="offer">
-    <div class="offer__logo">Logo</div>
+    <div class="offer__logo">
+      <img :src="'https://picsum.photos/75'" alt="logo">
+    </div>
     <div class="offer-main">
       <div class="offer-top">
         <div class="offer__title">{{ offer.title }}</div>
