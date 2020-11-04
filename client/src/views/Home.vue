@@ -26,6 +26,7 @@
         <Pagination v-if="getJobOffers.data.length > 0" @pageChange="pageNumber" :pages="getJobOffers.pages" class="offers__pagination"/>
       </div>
     </main>
+    <Footer/>
   </div>
 </template>
 
@@ -36,6 +37,7 @@ import JobOffer from '@/components/JobOffer'
 import JobSearchForm from '@/components/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
 import Pagination from '@/components/Pagination'
+import Footer from '@/components/Footer'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -52,7 +54,8 @@ export default {
     JobOffer,
     JobSearchForm,
     JobSearch,
-    Pagination
+    Pagination,
+    Footer
   },
   methods: {
     ...mapActions(['fetchJobOffers']),

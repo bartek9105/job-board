@@ -1,6 +1,6 @@
 <template>
     <div class="mainHeader">
-        <Logo/>
+        <Logo :jobTextColor="jobTextColor"/>
         <nav class="mainNav">
             <ul>
                 <router-link to="/">
@@ -28,6 +28,11 @@ export default {
   components: {
     Logo,
     Button
+  },
+  data () {
+    return {
+      jobTextColor: '#fff'
+    }
   }
 }
 </script>
