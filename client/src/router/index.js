@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
+import PostOffer from '@/views/PostOffer'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,13 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/post-offer',
+    name: 'PostOffer',
+    component: PostOffer
   }
+
 ]
 
 const router = new VueRouter({

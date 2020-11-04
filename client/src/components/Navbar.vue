@@ -1,7 +1,7 @@
 <template>
-    <div class="mainHeader">
+    <nav class="main-nav">
         <Logo :jobTextColor="jobTextColor"/>
-        <nav class="mainNav">
+        <div class="main-nav__links">
             <ul>
                 <router-link to="/">
                     <li>Offers</li>
@@ -12,12 +12,12 @@
                 <router-link to="/register">
                     <li>Sign up</li>
                 </router-link>
-                <li>
+                <router-link to="/post-offer">
                     <Button>Post a job</Button>
-                </li>
+                </router-link>
             </ul>
-        </nav>
-    </div>
+        </div>
+    </nav>
 </template>
 
 <script>
@@ -38,27 +38,27 @@ export default {
 </script>
 
 <style lang="scss">
-    .mainHeader {
+    .main-nav {
         max-width: 1640px;
         margin: 0 auto;
         padding-top: 1rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
-    .mainNav {
-        ul {
-            display: flex;
-            align-items: center;
-            list-style: none;
-            a {
-                font-size: 14px;
-                font-weight: 700;
-                color: $text-white;
-                margin-right: 3rem;
-                text-decoration: none;
-                &:hover {
-                    color: $theme-pink;
+        &__links {
+            ul {
+                display: flex;
+                align-items: center;
+                list-style: none;
+                a {
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: $text-white;
+                    margin-right: 3rem;
+                    text-decoration: none;
+                    &:hover {
+                        color: $theme-pink;
+                    }
                 }
             }
         }

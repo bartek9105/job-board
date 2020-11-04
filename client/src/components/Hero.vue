@@ -1,12 +1,22 @@
 <template>
-  <div class="hero">
-    <slot name="nav"></slot>
-    <slot name="search"></slot>
+  <header class="hero">
+    <Navbar/>
+    <slot name="hero-content"></slot>
     <div class="hero__animatedCircle hero__circle-1"></div>
     <div class="hero__animatedCircle hero__circle-2"></div>
     <div class="hero__animatedCircle hero__circle-3"></div>
-  </div>
+  </header>
 </template>
+
+<script>
+import Navbar from '@/components/Navbar'
+
+export default {
+  components: {
+    Navbar
+  }
+}
+</script>
 
 <style lang="scss">
   .hero {
