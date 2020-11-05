@@ -7,7 +7,7 @@
     </Hero>
     <main class="main-section">
       <div class="job-search-form">
-        <JobSearchForm @clicked="formData"/>
+        <JobSearchForm @clicked="formData" buttonText="Search" buttonTextClear="Clear filters"/>
       </div>
       <div class="offers">
         <p class="offers__offers-info">
@@ -21,7 +21,6 @@
         <Pagination v-if="getJobOffers.data.length > 0" @pageChange="pageNumber" :pages="getJobOffers.pages" class="offers__pagination"/>
       </div>
     </main>
-    <Footer/>
   </div>
 </template>
 
@@ -31,7 +30,6 @@ import JobOffer from '@/components/JobOffer'
 import JobSearchForm from '@/components/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
 import Pagination from '@/components/Pagination'
-import Footer from '@/components/Footer'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -47,8 +45,7 @@ export default {
     JobOffer,
     JobSearchForm,
     JobSearch,
-    Pagination,
-    Footer
+    Pagination
   },
   methods: {
     ...mapActions(['fetchJobOffers']),

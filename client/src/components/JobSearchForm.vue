@@ -73,8 +73,8 @@
         </div>
         <div class="row">
           <div class="button-container">
-            <Button @click.native="emitFormData">Search</Button>
-            <button class="job-search__clear-filters-btn" @click="clearFilters">Clear filters</button>
+            <Button @click.native="emitFormData">{{ buttonText }}</Button>
+            <button class="job-search__clear-filters-btn" @click="clearFilters">{{ buttonTextClear }}</button>
           </div>
         </div>
       </form>
@@ -88,6 +88,10 @@ import Button from '@/components/Button'
 
 export default {
   name: 'JobSearchForm',
+  props: {
+    buttonText: String,
+    buttonTextClear: String
+  },
   components: {
     Button
   },
