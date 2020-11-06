@@ -37,24 +37,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="job-search__tags-input-container">
-            <span class="job-search__input-name">Technologies</span>
-            <div class="job-search__tag-input">
-              <div class="job-search__tag-input-insider">
-                <div v-for="(tag, index) in  queries.technologies" :key="index" class="job-search__tag-input__tag">
-                  {{ tag }}
-                  <i class="fas fa-times-circle job-search__tag-input__delete-icon" @click="deleteTag(index)"></i>
-                </div>
-                <input type="text" class="job-search__tag-input__inner" v-model="technology" @keyup.enter="createTechnologyTag" placeholder="Type in technology, press Enter to add more" @focus="displaySuggestionList = true" @keydown.down="onArrowDown" @keydown.up="onArrowUp" @keydown.enter="onEnter">
-                <i class="fas fa-times-circle job-search__tag-input__delete-all-icon" v-if="queries.technologies.length > 0" @click="deleteAllTags"></i>
-              </div>
-              <ul class="job-search__suggestion-list" v-if="displaySuggestionList === true" @blur="displaySuggestionList = false">
-                <li v-for="(filteredTechnology, index) in getFilteredTechnologies" :key="index" @click="createFilteredTechnologyTag(filteredTechnology)" @keyup.enter="createFilteredTechnologyTag(filteredTechnology)" :class='{"active-item": currentListItem === index}'>
-                  {{ filteredTechnology }}
-                </li>
-              </ul>
-            </div>
-          </div>
+          <TagInput @technologies="technologies"/>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
             <select name="type" class="job-search__search-input" v-model="queries.type">
@@ -83,8 +66,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Button from '@/components/Button'
+import TagInput from '@/components/TagInput'
 
 export default {
   name: 'JobSearchForm',
@@ -93,7 +76,8 @@ export default {
     buttonTextClear: String
   },
   components: {
-    Button
+    Button,
+    TagInput
   },
   data () {
     return {
@@ -107,10 +91,7 @@ export default {
         type: null,
         contract: null
       },
-      showFilters: false,
-      technology: null,
-      displaySuggestionList: false,
-      currentListItem: -1
+      showFilters: false
     }
   },
   methods: {
@@ -120,66 +101,15 @@ export default {
     clearFilters () {
       this.queries = { technologies: [] }
     },
-    createFilteredTechnologyTag (filteredTechnology) {
-      this.technology = filteredTechnology
-      this.createTechnologyTag()
-    },
-    createTechnologyTag () {
-      if (this.technology !== '' && this.technology !== null) {
-        this.queries.technologies.push(this.technology.trim())
-      }
-      this.technology = null
-      this.currentListItem = -1
-    },
-    deleteTag (index) {
-      this.queries.technologies.splice(index, 1)
-    },
-    deleteAllTags () {
-      this.queries.technologies = []
-    },
-    onArrowDown () {
-      if (this.currentListItem < this.getFilteredTechnologies.length) {
-        this.currentListItem++
-      }
-    },
-    onArrowUp () {
-      if (this.currentListItem > 0) {
-        this.currentListItem--
-      }
-    },
-    onEnter () {
-      this.technology = this.getFilteredTechnologies[this.currentListItem]
-      this.createTechnologyTag()
-    },
-    clickOutsideListHandler (evt) {
-      if (!this.$el.contains(evt.target)) {
-        this.displaySuggestionList = false
-        this.currentListItem = -1
-      }
+    technologies (techs) {
+      this.queries.technologies = techs
     }
-  },
-  computed: {
-    ...mapGetters(['getTechnologies']),
-    getFilteredTechnologies () {
-      if (this.technology !== null) {
-        return this.getTechnologies.filter(technology => technology.match(new RegExp(`^${this.technology}`, 'gi')))
-      }
-      return this.getTechnologies
-    }
-  },
-  mounted () {
-    document.addEventListener('click', this.clickOutsideListHandler)
   }
 }
 </script>
 
 <style lang="scss">
 .job-search-container {
-  .active-item {
-    background: $theme-dark-blue;
-    color: #fff;
-    border-radius: 5px;
-  }
   .job-search {
     .row {
       display: flex;
@@ -208,69 +138,6 @@ export default {
         margin-right: 20px;
         &:last-of-type {
           margin-right: 0;
-        }
-      }
-    }
-    &__tags-input-container {
-      width: 500px;
-    }
-    &__tag-input {
-      border: 1px solid $theme-light-blue;
-      border-radius: 5px;
-      padding: 0 10px;
-      position: relative;
-      margin-top: 28px;
-      &-insider {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-      &__delete-icon {
-        margin-left: 3px;
-        cursor: pointer;
-      }
-      &__delete-all-icon {
-        position: absolute;
-        top: 7px;
-        right: 10px;
-        cursor: pointer;
-      }
-      &__inner {
-        min-width: 200px;
-        margin-right: 30px;
-        height: 35px;
-        outline: none;
-        border: none;
-        flex: 1;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-      &__tag {
-        @include tag;
-        @include tag-dark;
-        display: inline-block;
-        margin-right: 5px;
-      }
-    }
-    &__suggestion-list {
-      @include shadow;
-      position: absolute;
-      top: 110%;
-      left: 0;
-      list-style: none;
-      border: 1px solid $bg-grey;
-      padding: 10px;
-      width: 100%;
-      background: #fff;
-      z-index: 1;
-      max-height: 300px;
-      overflow-y: auto;
-      li {
-        padding: 10px;
-        &:hover {
-          background: $bg-grey;
-          cursor: pointer;
         }
       }
     }

@@ -1,11 +1,11 @@
 <template>
   <div>
     <Hero>
-        <template v-slot:hero-content>
-        </template>
+      <template v-slot:hero-content>
+      </template>
     </Hero>
     <div class="post-offer-form-container">
-        <JobPostForm/>
+      <JobPostForm/>
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss">
-    .post-offer-form-container {
-        padding: 40px 0;
-    }
+  .post-offer-form-container {
+    padding: 40px 0;
+  }
 </style>
