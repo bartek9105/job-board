@@ -37,7 +37,7 @@
           </div>
         </div>
         <div class="row">
-          <TagInput @technologies="technologies"/>
+          <TagInput @technologies="technologies" class="tags"/>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
             <select name="type" class="job-search__search-input" v-model="queries.type">
@@ -57,7 +57,7 @@
         <div class="row">
           <div class="button-container">
             <Button @click.native="emitFormData">{{ buttonText }}</Button>
-            <button class="job-search__clear-filters-btn" @click="clearFilters">{{ buttonTextClear }}</button>
+            <ClearBtn @click="clearFilters">Clear filters</ClearBtn>
           </div>
         </div>
       </form>
@@ -66,8 +66,9 @@
 </template>
 
 <script>
-import Button from '@/components/Button'
+import Button from '@/components/Base/Button'
 import TagInput from '@/components/TagInput'
+import ClearBtn from '@/components/Base/ClearBtn'
 
 export default {
   name: 'JobSearchForm',
@@ -77,7 +78,8 @@ export default {
   },
   components: {
     Button,
-    TagInput
+    TagInput,
+    ClearBtn
   },
   data () {
     return {
@@ -108,7 +110,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .job-search-container {
   .job-search {
     .row {
@@ -116,15 +118,16 @@ export default {
       justify-content: space-between;
       max-width: 1087px;
       margin: 0 auto 50px auto;
+      .tags {
+        width: 500px;
+      }
     }
     &__single-input-container {
       display: flex;
       flex-direction: column;
     }
     &__input-name {
-      text-transform: uppercase;
-      font-size: 15px;
-      font-weight: 700;
+      @include input-name;
       margin-bottom: 28px;
     }
     &__search-input {
@@ -140,14 +143,6 @@ export default {
           margin-right: 0;
         }
       }
-    }
-    &__clear-filters-btn {
-      cursor: pointer;
-      margin-left: 20px;
-      background: transparent;
-      font-weight: 700;
-      border: none;
-      color: $theme-dark-blue;
     }
   }
 }

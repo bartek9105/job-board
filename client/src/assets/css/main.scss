@@ -8,3 +8,11 @@
 a {
     color: $theme-dark-blue;
 }
+
+input[type="text"]:disabled {
+    background: $bg-grey;
+}
+
+select {
+    padding: 20px;
+}

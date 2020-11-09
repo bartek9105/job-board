@@ -86,21 +86,23 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .active-item {
     background: $theme-dark-blue;
     color: #fff;
     border-radius: 5px;
   }
   .tags-input-container {
-    width: 500px;
+    .input-name {
+      @include input-name;
+    }
   }
   .tag-input {
     border: 1px solid $theme-light-blue;
     border-radius: 5px;
     padding: 0 10px;
     position: relative;
-    margin-top: 28px;
+    margin: 28px 0 40px 0;
     &-insider {
       display: flex;
       align-items: center;

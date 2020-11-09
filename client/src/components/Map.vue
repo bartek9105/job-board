@@ -12,7 +12,6 @@ export default {
   name: 'Map',
   methods: {
     mapSetup () {
-      console.log(process.env.VUE_APP_MAPBOX_ACCESS_TOKEN)
       const coordinates = [50, 20]
       const map = L.map('map').setView(coordinates, 12)
       L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.VUE_APP_MAPBOX_ACCESS_TOKEN}`, {
@@ -36,7 +35,7 @@ export default {
 
 <style lang="scss">
   #map {
-    height: 370px;
+    height: 317px;
     .leaflet-div-icon {
       border: none;
       background: transparent;

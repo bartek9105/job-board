@@ -1,0 +1,62 @@
+@mixin shadow {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .05);
+}
+
+@mixin shadow-hover {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+}
+
+@mixin transition {
+    transition: .2s ease-in-out;
+}
+
+@mixin tag {
+    font-size: 12px;
+    border-radius: 137px;
+    padding: 7px 20px;
+}
+
+@mixin tag-dark {
+    @include tag;
+    background-color: $theme-dark-blue;
+    color: #fff;
+    @include shadow;
+}
+
+@mixin tag-light {
+    @include tag;
+    background-color: $theme-light-blue;
+    color: $theme-dark-blue;
+}
+
+@mixin flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin flex-s-b {
+    display: flex;
+    justify-content: space-between
+}
+
+@mixin input {
+    height: 35px;
+    border: 1px solid $theme-light-blue;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
+@mixin input-name {
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+@mixin app-container-width {
+    max-width: 1087px;
+}
+
+@mixin input-border {
+    border: 1px solid $theme-light-blue !important;
+    border-radius: 5px;
+}

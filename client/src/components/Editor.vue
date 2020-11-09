@@ -20,8 +20,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
   .editor {
     max-width: 1087px;
+  }
+  .ql-toolbar.ql-snow {
+    margin-bottom: 10px;
+  }
+  .ql-snow {
+    @include input-border;
   }
 </style>

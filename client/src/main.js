@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import './assets/css/main.scss'
 import './assets/css/variables.scss'
-import './assets/css/mixins.scss'
+import './assets/css/mixins/mixins.scss'
 
 Vue.config.productionTip = false
 
