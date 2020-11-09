@@ -2,23 +2,23 @@
   <div>
     <Hero>
       <template v-slot:hero-content>
+        <Map/>
       </template>
     </Hero>
     <div class="post-offer-form-container">
-      <JobPostForm/>
     </div>
   </div>
 </template>
 
 <script>
 import Hero from '@/components/Hero'
-import JobPostForm from '@/components/JobPostForm'
+import Map from '@/components/Map'
 
 export default {
   name: 'PostOffer',
   components: {
     Hero,
-    JobPostForm
+    Map
   }
 }
 </script>
