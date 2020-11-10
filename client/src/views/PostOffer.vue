@@ -2,11 +2,11 @@
   <div>
     <Hero>
       <template v-slot:hero-content>
-        <Map/>
+        <Map :location="location"/>
       </template>
     </Hero>
     <div class="post-offer-form-container">
-      <JobPostForm class="post-offer-form"/>
+      <JobPostForm class="post-offer-form" @location="locationData"/>
     </div>
   </div>
 </template>
@@ -22,6 +22,16 @@ export default {
     Hero,
     Map,
     JobPostForm
+  },
+  data () {
+    return {
+      location: ''
+    }
+  },
+  methods: {
+    locationData (location) {
+      this.location = location
+    }
   }
 }
 </script>
