@@ -17,9 +17,14 @@ const offerSchema = new mongoose.Schema({
         required: [true, 'Please choose job type'],
         enum: ['Full Time', 'Part Time']
     },
-    salary: {
+    salaryMin: {
         type: Number,
-        required: [true, 'Please enter salary'],
+        required: [true, 'Please enter min salary'],
+        trim: true
+    },
+    salaryMax: {
+        type: Number,
+        required: [true, 'Please enter max salary'],
         trim: true
     },
     description: {

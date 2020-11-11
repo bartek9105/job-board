@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <vue-editor :editorToolbar="customToolbar"/>
+    <vue-editor :editorToolbar="customToolbar" v-model="content" @text-change="emitEditorContent"/>
   </div>
 </template>
 
@@ -14,7 +14,13 @@ export default {
   },
   data () {
     return {
-      customToolbar: [['bold', 'italic', 'underline'], [{ list: 'ordered' }, { list: 'bullet' }]]
+      customToolbar: [['bold', 'italic', 'underline'], [{ list: 'ordered' }, { list: 'bullet' }]],
+      content: ''
+    }
+  },
+  methods: {
+    emitEditorContent () {
+      this.$emit('editorContent', this.content)
     }
   }
 }

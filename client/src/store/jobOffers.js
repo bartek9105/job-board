@@ -46,6 +46,24 @@ export default ({
       } catch (error) {
         console.log(error)
       }
+    },
+    async postJobOffer (_, payload) {
+      const { title, category, type, salaryMin, salaryMax, description, contract, technologies, location } = payload
+      try {
+        await axios.post('http://localhost:5000/api/v1/offers', {
+          title: title,
+          category: category,
+          type: type,
+          salaryMin: salaryMin,
+          salaryMax: salaryMax,
+          description: description,
+          contract: contract,
+          technologies: technologies,
+          location: location
+        })
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 })

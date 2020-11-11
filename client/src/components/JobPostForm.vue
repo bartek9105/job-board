@@ -3,6 +3,10 @@
     <div class="job-post-container">
       <form @submit.prevent>
         <div class="job-post-input-container">
+          <span class="job-post__input-name">Title</span>
+          <input type="text" class="job-post__input" placeholder="Title" v-model="offer.title">
+        </div>
+        <div class="job-post-input-container">
           <span class="job-post__input-name">Location</span>
           <input type="text" class="job-post__input" placeholder="City" :disabled="locationCheck" v-model="offer.location" @change="emitLocation">
           <div class="checkbox-container">
@@ -41,7 +45,7 @@
           </div>
         </div>
         <div class="job-post-input-container">
-          <TagInput/>
+          <TagInput @technologies="tagsTechnologies"/>
         </div>
         <div class="job-post-input-container">
           <span class="job-post__input-name">Type</span>
@@ -60,10 +64,10 @@
         </div>
         <div class="job-post-input-container">
           <span class="job-post__input-name">Description</span>
-          <Editor/>
+          <Editor @editorContent="description"/>
         </div>
         <div class="btn-container">
-          <Button>Add offer</Button>
+          <Button @click.native="postOffer">Add offer</Button>
           <ClearBtn>Clear inputs</ClearBtn>
         </div>
       </form>
@@ -76,6 +80,7 @@ import TagInput from '@/components/TagInput'
 import Editor from '@/components/Editor'
 import Button from '@/components/Base/Button'
 import ClearBtn from '@/components/Base/ClearBtn'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'JobPostForm',
@@ -88,6 +93,7 @@ export default {
   data () {
     return {
       offer: {
+        title: '',
         technologies: [],
         location: '',
         category: '',
@@ -102,8 +108,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['postJobOffer']),
     emitLocation () {
       this.$emit('location', this.offer.location)
+    },
+    tagsTechnologies (techs) {
+      this.offer.technologies = techs
+    },
+    description (content) {
+      this.offer.description = content
+    },
+    postOffer () {
+      this.postJobOffer(this.offer)
     }
   }
 }
