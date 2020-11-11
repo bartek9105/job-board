@@ -66,6 +66,23 @@
           <span class="job-post__input-name">Description</span>
           <Editor @editorContent="description"/>
         </div>
+        <div class="job-post-price-cards">
+          <PriceCard>
+            <template v-slot:header>Basic</template>
+            <template v-slot:price>Free</template>
+            <template v-slot:content>Card content</template>
+          </PriceCard>
+          <PriceCard>
+            <template v-slot:header>Pro</template>
+            <template v-slot:price>$9.99/month</template>
+            <template v-slot:content>Card content</template>
+          </PriceCard>
+          <PriceCard>
+            <template v-slot:header>Premium</template>
+            <template v-slot:price>$11.99/month</template>
+            <template v-slot:content>Card content</template>
+          </PriceCard>
+        </div>
         <div class="btn-container">
           <Button @click.native="postOffer">Add offer</Button>
           <ClearBtn>Clear inputs</ClearBtn>
@@ -80,6 +97,7 @@ import TagInput from '@/components/TagInput'
 import Editor from '@/components/Editor'
 import Button from '@/components/Base/Button'
 import ClearBtn from '@/components/Base/ClearBtn'
+import PriceCard from '@/components/PriceCard'
 import { mapActions } from 'vuex'
 
 export default {
@@ -88,7 +106,8 @@ export default {
     TagInput,
     Editor,
     Button,
-    ClearBtn
+    ClearBtn,
+    PriceCard
   },
   data () {
     return {
@@ -130,8 +149,15 @@ export default {
     width: 100%;
     margin: 0 auto;
     background: #fff;
-    padding: 40px 20px;
+    padding: 40px 0;
+    .job-post-price-cards {
+      @include flex-s-b;
+      margin: 50px 0;
+      padding: 40px 20px;
+      background: $bg-grey;
+    }
     .job-post-input-container {
+      padding: 0 20px;
       @include flex-col;
       .checkbox-container {
         margin-bottom: 40px;
@@ -163,7 +189,7 @@ export default {
       }
     }
     .btn-container {
-      margin-top: 30px;
+      padding: 0 20px;
     }
   }
 </style>
