@@ -1,13 +1,18 @@
 <template>
-  <div class="price-card">
-    <div class="price-card__header">
+  <div class="price-card" @click="isActive = !isActive">
+    <div class="price-card__header" :class="cardActive">
       <span class="price-card__header__title">
+        <i class="fas fa-tools price-card__header__title__icon"></i>
         <slot name="header"></slot>
       </span>
     </div>
     <div class="content-container">
-      <span class="price-card__price">
-        <slot name="price"></slot>
+      <span class="price-card__price-meta">
+        $
+        <span class="price-card__price">
+          <slot name="price"></slot>
+        </span>
+        /month
       </span>
       <div class="price-card__content">
         <slot name="content"></slot>
@@ -24,41 +29,66 @@ export default {
   name: 'PriceCard',
   components: {
     Button
+  },
+  data () {
+    return {
+      isActive: false
+    }
+  },
+  computed: {
+    cardActive () {
+      return { active: this.isActive }
+    }
   }
 }
 </script>
 
 <style lang="scss">
   .price-card {
-    @include shadow;
     background: #fff;
     border-radius: 5px;
     padding-bottom: 50px;
     text-align: center;
-    width: 330px;
+    width: 300px;
     color: $theme-dark-blue;
-    &__header {
+    border-top: 5px solid transparent;
+    &:hover {
       @include shadow;
-      background: $theme-pink;
-      border-radius: 5px;
-      color: #fff;
-      padding: 35px 0;
+      @include transition;
+      cursor: pointer;
+      border-top: 5px solid $theme-dark-blue;
+    }
+    &__header {
+      border-bottom: 5px solid $bg-grey;
+      color: $theme-dark-blue;
+      padding: 25px 0;
       &__title {
-        font-size: 20px;
+        @include flex-col;
+        font-size: 17px;
         font-weight: 700;
         text-transform: uppercase;
+        &__icon {
+          font-size: 25px;
+          margin-bottom: 20px;
+        }
       }
     }
+    .content-container {
+      padding: 30px;
+      text-align: center;
+    }
     &__price {
-      font-size: 17px;
+      font-size: 26px;
       font-weight: 700;
+      margin-right: 5px;
     }
     &__content {
       margin-top: 50px;
+      font-size: 15px;
     }
-    .content-container {
-      padding: 50px;
-      text-align: center;
-    }
+  }
+  .active {
+    background: $theme-dark-blue;
+    color: #fff;
   }
 </style>

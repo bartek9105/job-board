@@ -6,7 +6,10 @@
       </template>
     </Hero>
     <div class="post-offer-form-container">
-      <JobPostForm class="post-offer-form" @location="locationData"/>
+      <div class="post-offer-form">
+        <h3 class="post-offer-form__heading">Post your job offer</h3>
+        <JobPostForm class="post-offer-form" @location="locationData"/>
+      </div>
     </div>
   </div>
 </template>
@@ -25,7 +28,8 @@ export default {
   },
   data () {
     return {
-      location: ''
+      location: '',
+      title: ''
     }
   },
   methods: {
@@ -40,10 +44,12 @@ export default {
   .post-offer-form-container {
     background: $bg-grey;
     padding: 40px;
-  .post-offer-form {
+    .post-offer-form {
       @include app-container-width;
-      @include shadow;
       margin: 0 auto;
+      &__heading {
+        margin-bottom: 30px;
+      }
     }
   }
 </style>

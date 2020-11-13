@@ -69,18 +69,45 @@
         <div class="job-post-price-cards">
           <PriceCard>
             <template v-slot:header>Basic</template>
-            <template v-slot:price>Free</template>
-            <template v-slot:content>Card content</template>
+            <template v-slot:price>0</template>
+            <template v-slot:content>
+              <ul class="job-post-price-cards__list">
+                <li>
+                  <i class="fas fa-check job-post-price-cards__list__icon"></i>
+                  Your offers will last for 15 days</li>
+              </ul>
+              <p class="job-post-price-cards__description">Basic offer for your company</p>
+            </template>
           </PriceCard>
           <PriceCard>
             <template v-slot:header>Pro</template>
-            <template v-slot:price>$9.99/month</template>
-            <template v-slot:content>Card content</template>
+            <template v-slot:price>9.99</template>
+            <template v-slot:content>
+              <ul class="job-post-price-cards__list">
+                <li>
+                  <i class="fas fa-check job-post-price-cards__list__icon"></i>
+                  Your offers will last for 30 days</li>
+                <li>
+                  <i class="fas fa-check job-post-price-cards__list__icon"></i>
+                  Your offer will be promoted</li>
+              </ul>
+              <p class="job-post-price-cards__description">More advanced offer to help you find the developer for your company</p>
+            </template>
           </PriceCard>
           <PriceCard>
             <template v-slot:header>Premium</template>
-            <template v-slot:price>$11.99/month</template>
-            <template v-slot:content>Card content</template>
+            <template v-slot:price>11.99</template>
+            <template v-slot:content>
+              <ul class="job-post-price-cards__list">
+                <li>
+                  <i class="fas fa-check job-post-price-cards__list__icon"></i>
+                  Your offers will last for 45 days</li>
+                <li>
+                  <i class="fas fa-check job-post-price-cards__list__icon"></i>
+                  Your offer will be promoted</li>
+              </ul>
+              <p class="job-post-price-cards__description">Same perks as basic and pro but with extended offer duration</p>
+            </template>
           </PriceCard>
         </div>
         <div class="btn-container">
@@ -153,8 +180,25 @@ export default {
     .job-post-price-cards {
       @include flex-s-b;
       margin: 50px 0;
-      padding: 40px 20px;
+      padding: 40px 0;
       background: $bg-grey;
+      &__list {
+        list-style: none;
+        text-align: left;
+        li {
+          display: flex;
+          font-size: 14px;
+          font-weight: 700;
+          margin-bottom: 30px;
+        }
+        &__icon {
+          margin-right: 10px;
+        }
+      }
+      &__description {
+        font-size: 13px;
+        line-height: 24px;
+      }
     }
     .job-post-input-container {
       padding: 0 20px;
