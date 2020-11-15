@@ -18,21 +18,45 @@
         <slot name="content"></slot>
       </div>
     </div>
-    <Button>Pick</Button>
+    <Button @click.native="session">Pick</Button>
+    <stripe-checkout
+      ref="checkoutRef"
+      :pk=key
+      :session-id=sessionId
+    >
+    </stripe-checkout>
   </div>
 </template>
 
 <script>
 import Button from '@/components/Base/Button'
+import { StripeCheckout } from 'vue-stripe-checkout'
+import axios from 'axios'
 
 export default {
   name: 'PriceCard',
   components: {
-    Button
+    Button,
+    StripeCheckout
   },
   data () {
     return {
-      isActive: false
+      isActive: false,
+      key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
+      sessionId: ''
+    }
+  },
+  methods: {
+    async session () {
+      try {
+        const response = await axios.post('http://localhost:5000/api/v1/auth/payment', {
+          email: 'example@email.com'
+        })
+        this.sessionId = response.data.id
+        this.$refs.checkoutRef.redirectToCheckout()
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   computed: {
