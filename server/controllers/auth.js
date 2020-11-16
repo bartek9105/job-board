@@ -2,7 +2,6 @@ const ErrorResponse = require('../utils/errorResponse')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Employer = require('../models/Employer')
-const stripe = require('../config/stripe')
 
 exports.register = async (req, res, next) => {
     try {
@@ -49,30 +48,5 @@ exports.login = async (req, res, next) => {
         res.status(200).send({ token })
     } catch (error) {
         next(error)
-    }
-}
-
-exports.subscribe = async (req, res, next) => {
-    const { email } = req.body
-    try {
-        const customer = await stripe.customers.create({
-            email: email
-        })
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            customer: customer.id,
-            line_items: [
-              {
-                "price": process.env.STRIPE_PRICE,
-                "quantity": 1
-              }
-            ],
-            mode: 'payment',
-            cancel_url: 'http://localhost:8080',
-            success_url: 'http://localhost:8080'
-          })
-        res.json({ id: session.id });
-    } catch (error) {
-        console.log(error)
     }
 }

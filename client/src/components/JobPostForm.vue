@@ -67,46 +67,16 @@
           <Editor @editorContent="description"/>
         </div>
         <div class="job-post-price-cards">
-          <PriceCard>
-            <template v-slot:header>Basic</template>
-            <template v-slot:price>0</template>
+          <PriceCard v-for="product in getProducts" :key="product._id" :productId="product._id">
+            <template v-slot:header>{{ product.name }}</template>
+            <template v-slot:price>{{ product.price }}</template>
             <template v-slot:content>
               <ul class="job-post-price-cards__list">
                 <li>
                   <i class="fas fa-check job-post-price-cards__list__icon"></i>
-                  Your offers will last for 15 days</li>
+                  Your offers will last for {{ product.duration }}</li>
               </ul>
-              <p class="job-post-price-cards__description">Basic offer for your company</p>
-            </template>
-          </PriceCard>
-          <PriceCard>
-            <template v-slot:header>Pro</template>
-            <template v-slot:price>9.99</template>
-            <template v-slot:content>
-              <ul class="job-post-price-cards__list">
-                <li>
-                  <i class="fas fa-check job-post-price-cards__list__icon"></i>
-                  Your offers will last for 30 days</li>
-                <li>
-                  <i class="fas fa-check job-post-price-cards__list__icon"></i>
-                  Your offer will be promoted</li>
-              </ul>
-              <p class="job-post-price-cards__description">More advanced offer to help you find the developer for your company</p>
-            </template>
-          </PriceCard>
-          <PriceCard>
-            <template v-slot:header>Premium</template>
-            <template v-slot:price>11.99</template>
-            <template v-slot:content>
-              <ul class="job-post-price-cards__list">
-                <li>
-                  <i class="fas fa-check job-post-price-cards__list__icon"></i>
-                  Your offers will last for 45 days</li>
-                <li>
-                  <i class="fas fa-check job-post-price-cards__list__icon"></i>
-                  Your offer will be promoted</li>
-              </ul>
-              <p class="job-post-price-cards__description">Same perks as basic and pro but with extended offer duration</p>
+              <p class="job-post-price-cards__description">{{ product.description }}</p>
             </template>
           </PriceCard>
         </div>
@@ -125,7 +95,7 @@ import Editor from '@/components/Editor'
 import Button from '@/components/Base/Button'
 import ClearBtn from '@/components/Base/ClearBtn'
 import PriceCard from '@/components/PriceCard'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'JobPostForm',
@@ -138,6 +108,7 @@ export default {
   },
   data () {
     return {
+      productId: '',
       offer: {
         title: '',
         technologies: [],
@@ -154,7 +125,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['postJobOffer']),
+    ...mapActions(['postJobOffer', 'fetchProducts']),
     emitLocation () {
       this.$emit('location', this.offer.location)
     },
@@ -167,6 +138,12 @@ export default {
     postOffer () {
       this.postJobOffer(this.offer)
     }
+  },
+  computed: {
+    ...mapGetters(['getProducts'])
+  },
+  mounted () {
+    this.fetchProducts()
   }
 }
 </script>

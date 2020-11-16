@@ -15,9 +15,13 @@ app.use(express.json())
 
 const offers = require('./routes/offers')
 const auth = require('./routes/auth')
+const products = require('./routes/products')
+const payments = require('./routes/payments')
 
 app.use('/api/v1/offers', offers)
 app.use('/api/v1/auth', auth)
+app.use('/api/v1/products', products)
+app.use('/api/v1/payments', payments)
 
 app.use(errorHandler)
 

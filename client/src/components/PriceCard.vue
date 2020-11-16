@@ -18,12 +18,14 @@
         <slot name="content"></slot>
       </div>
     </div>
-    <Button @click.native="session">Pick</Button>
     <stripe-checkout
       ref="checkoutRef"
       :pk=key
       :session-id=sessionId
     >
+      <template slot="checkout-button">
+        <Button @click.native="session">Pick</Button>
+      </template>
     </stripe-checkout>
   </div>
 </template>
@@ -39,6 +41,9 @@ export default {
     Button,
     StripeCheckout
   },
+  props: {
+    productId: String
+  },
   data () {
     return {
       isActive: false,
@@ -49,7 +54,8 @@ export default {
   methods: {
     async session () {
       try {
-        const response = await axios.post('http://localhost:5000/api/v1/auth/payment', {
+        const response = await axios.post('http://localhost:5000/api/v1/payments', {
+          productId: this.productId,
           email: 'example@email.com'
         })
         this.sessionId = response.data.id

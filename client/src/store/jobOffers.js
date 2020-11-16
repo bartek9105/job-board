@@ -3,11 +3,15 @@ import qs from 'qs'
 
 export default ({
   state: {
-    jobOffers: []
+    jobOffers: [],
+    products: []
   },
   getters: {
     getJobOffers (state) {
       return state.jobOffers
+    },
+    getProducts (state) {
+      return state.products
     },
     getTechnologies (state) {
       const offersTechnologies = new Set(state.jobOffers.data.map(offerObj => offerObj.technologies).flat())
@@ -17,6 +21,9 @@ export default ({
   mutations: {
     SET_JOB_OFFERS (state, offersPayload) {
       state.jobOffers = offersPayload
+    },
+    SET_PRODUCTS (state, productsPayload) {
+      state.products = productsPayload
     }
   },
   actions: {
@@ -43,6 +50,14 @@ export default ({
           paramsSerializer: params => qs.stringify(params)
         })
         commit('SET_JOB_OFFERS', offersData.data)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async fetchProducts ({ commit }) {
+      try {
+        const productsData = await axios.get('http://localhost:5000/api/v1/products')
+        commit('SET_PRODUCTS', productsData.data)
       } catch (error) {
         console.log(error)
       }
