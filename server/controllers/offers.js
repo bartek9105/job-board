@@ -32,7 +32,7 @@ exports.getOffers = async (req, res, next) => {
         const availableFilters = Object.keys(Offer.schema.paths)
         const schemaFilters = _.pickBy(parsedQuery, (value, key) => availableFilters.indexOf(key) > -1)
         
-        const offers = await Offer.find({ ...schemaFilters, ...locationSearch }).skip(startIndex).limit(limit)
+        const offers = await Offer.find({ ...schemaFilters, ...locationSearch, status: 'paid' }).skip(startIndex).limit(limit)
         
         const total = await Offer.find({ ...schemaFilters, ...locationSearch }).countDocuments()
 
@@ -83,6 +83,7 @@ exports.addOffer = async (req, res, next) => {
     try {
         const offer = new Offer(req.body)
         const savedOffer = await offer.save()
+        console.log('Job offer added');
         res.status(200).send({
             data: savedOffer
         })        

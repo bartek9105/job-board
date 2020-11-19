@@ -1,8 +1,7 @@
 <template>
-  <div class="price-card" @click="isActive = !isActive">
-    <div class="price-card__header" :class="cardActive">
+  <div class="price-card">
+    <div class="price-card__header">
       <span class="price-card__header__title">
-        <i class="fas fa-tools price-card__header__title__icon"></i>
         <slot name="header"></slot>
       </span>
     </div>
@@ -18,58 +17,14 @@
         <slot name="content"></slot>
       </div>
     </div>
-    <stripe-checkout
-      ref="checkoutRef"
-      :pk=key
-      :session-id=sessionId
-    >
-      <template slot="checkout-button">
-        <Button @click.native="session">Pick</Button>
-      </template>
-    </stripe-checkout>
+
   </div>
 </template>
 
 <script>
-import Button from '@/components/Base/Button'
-import { StripeCheckout } from 'vue-stripe-checkout'
-import axios from 'axios'
 
 export default {
-  name: 'PriceCard',
-  components: {
-    Button,
-    StripeCheckout
-  },
-  props: {
-    productId: String
-  },
-  data () {
-    return {
-      isActive: false,
-      key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
-      sessionId: ''
-    }
-  },
-  methods: {
-    async session () {
-      try {
-        const response = await axios.post('http://localhost:5000/api/v1/payments', {
-          productId: this.productId,
-          email: 'example@email.com'
-        })
-        this.sessionId = response.data.id
-        this.$refs.checkoutRef.redirectToCheckout()
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  },
-  computed: {
-    cardActive () {
-      return { active: this.isActive }
-    }
-  }
+  name: 'PriceCard'
 }
 </script>
 

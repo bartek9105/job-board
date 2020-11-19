@@ -67,18 +67,29 @@
           <Editor @editorContent="description"/>
         </div>
         <div class="job-post-price-cards">
-          <PriceCard v-for="product in getProducts" :key="product._id" :productId="product._id">
+          <PriceCard v-for="product in getProducts" :key="product._id" :productId="product._id" @click.native="offer.productId = product._id">
             <template v-slot:header>{{ product.name }}</template>
-            <template v-slot:price>{{ product.price }}</template>
+            <template v-slot:price>{{ product.price / 100 }}</template>
             <template v-slot:content>
               <ul class="job-post-price-cards__list">
                 <li>
                   <i class="fas fa-check job-post-price-cards__list__icon"></i>
-                  Your offers will last for {{ product.duration }}</li>
+                  Your offer will last for {{ product.duration }}
+                </li>
+                <li v-if="product.promotion">
+                  <i class="fas fa-check job-post-price-cards__list__icon"></i>
+                  Your offer will be promoted for {{ product.promotion }}
+                </li>
               </ul>
               <p class="job-post-price-cards__description">{{ product.description }}</p>
             </template>
           </PriceCard>
+          <stripe-checkout
+            ref="checkoutRef"
+            :pk=key
+            :session-id=getSessionId
+          >
+          </stripe-checkout>
         </div>
         <div class="btn-container">
           <Button @click.native="postOffer">Add offer</Button>
@@ -95,6 +106,7 @@ import Editor from '@/components/Editor'
 import Button from '@/components/Base/Button'
 import ClearBtn from '@/components/Base/ClearBtn'
 import PriceCard from '@/components/PriceCard'
+import { StripeCheckout } from 'vue-stripe-checkout'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -104,12 +116,13 @@ export default {
     Editor,
     Button,
     ClearBtn,
-    PriceCard
+    PriceCard,
+    StripeCheckout
   },
   data () {
     return {
-      productId: '',
       offer: {
+        productId: '',
         title: '',
         technologies: [],
         location: '',
@@ -121,11 +134,12 @@ export default {
         contract: '',
         description: ''
       },
-      locationCheck: false
+      locationCheck: false,
+      key: process.env.VUE_APP_STRIPE_PUBLISHABLE
     }
   },
   methods: {
-    ...mapActions(['postJobOffer', 'fetchProducts']),
+    ...mapActions(['postJobOffer', 'fetchProducts', 'createPaymentSession']),
     emitLocation () {
       this.$emit('location', this.offer.location)
     },
@@ -136,11 +150,13 @@ export default {
       this.offer.description = content
     },
     postOffer () {
-      this.postJobOffer(this.offer)
+      this.createPaymentSession(this.offer).then(() => {
+        this.$refs.checkoutRef.redirectToCheckout()
+      })
     }
   },
   computed: {
-    ...mapGetters(['getProducts'])
+    ...mapGetters(['getProducts', 'getSessionId'])
   },
   mounted () {
     this.fetchProducts()

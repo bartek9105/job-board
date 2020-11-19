@@ -3,39 +3,32 @@ const mongoose = require('mongoose')
 const offerSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: [true, 'Please add offer title'],
         trim: true,
         maxlength: [30, 'Title cannot be longer than 30 characters']
     },
     category: {
         type: String,
-        required: [true, 'Please choose job category'],
         enum: ['Frontend', 'Backend', 'Fullstack', 'UX/UI', 'Devops', 'Data Science', 'Testing', 'PM']
     },
     type: {
         type: String,
-        required: [true, 'Please choose job type'],
         enum: ['Full Time', 'Part Time']
     },
     salaryMin: {
         type: Number,
-        required: [true, 'Please enter min salary'],
         trim: true
     },
     salaryMax: {
         type: Number,
-        required: [true, 'Please enter max salary'],
         trim: true
     },
     description: {
         type: String,
-        required: [true, 'Please enter job description'],
         maxlength: [1000, 'Description cannot be longer than 1000 characters'],
         trim: true
     },
     location: {
         type: String,
-        required: [true, 'Please add location'],
         trim: true
     },
     remote: {
@@ -44,7 +37,6 @@ const offerSchema = new mongoose.Schema({
     },
     contract: {
         type: String,
-        required: [true, 'Please choose contract type'],
         enum: ['Employment contract', 'B2B', 'Mandatory contract']
     },
     technologies: [{
@@ -53,6 +45,10 @@ const offerSchema = new mongoose.Schema({
     benefits: [{
         type: String
     }],
+    status: {
+        type: String,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

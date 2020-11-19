@@ -4,7 +4,8 @@ import qs from 'qs'
 export default ({
   state: {
     jobOffers: [],
-    products: []
+    products: [],
+    sessionId: ''
   },
   getters: {
     getJobOffers (state) {
@@ -12,6 +13,9 @@ export default ({
     },
     getProducts (state) {
       return state.products
+    },
+    getSessionId (state) {
+      return state.sessionId
     },
     getTechnologies (state) {
       const offersTechnologies = new Set(state.jobOffers.data.map(offerObj => offerObj.technologies).flat())
@@ -24,6 +28,9 @@ export default ({
     },
     SET_PRODUCTS (state, productsPayload) {
       state.products = productsPayload
+    },
+    SET_SESSION_ID (state, sessionId) {
+      state.sessionId = sessionId
     }
   },
   actions: {
@@ -76,6 +83,28 @@ export default ({
           technologies: technologies,
           location: location
         })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async createPaymentSession ({ commit }, payload) {
+      const { title, category, type, salaryMin, salaryMax, description, contract, technologies, location, productId } = payload
+      try {
+        const response = await axios.post('http://localhost:5000/api/v1/payments', {
+          productId: productId,
+          email: 'example@email.com',
+          title: title,
+          category: category,
+          type: type,
+          salaryMin: salaryMin,
+          salaryMax: salaryMax,
+          description: description,
+          contract: contract,
+          technologies: technologies,
+          location: location
+        })
+        const sessionId = response.data.id
+        commit('SET_SESSION_ID', sessionId)
       } catch (error) {
         console.log(error)
       }
