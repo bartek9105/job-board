@@ -81,12 +81,10 @@ exports.getOffer = async (req, res, next) => {
 
 exports.addOffer = async (req, res, next) => {
     try {
-        const offer = new Offer(req.body)
+        const offer = new Offer({ ...req.body, status: 'unpaid' })
         const savedOffer = await offer.save()
-        console.log('Job offer added');
-        res.status(200).send({
-            data: savedOffer
-        })        
+        res.locals.savedOffer = savedOffer
+        next()        
     } catch (error) {
         next(error)
     }
@@ -97,6 +95,22 @@ exports.editOffer = async (req, res, next) => {
         const offer = await Offer.findByIdAndUpdate(req.params.id, req.body, {
             runValidators: true
         })
+        if (!offer) {
+            return res.status(400).send({
+                error: error
+            })
+        }
+        res.status(200).send({
+            data: offer
+        })        
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.updateOfferStatus = async (req, res, next) => {
+    try {
+        const offer = await Offer.findByIdAndUpdate({ _id: req.body.offerId }, { "status": "paid" })
         if (!offer) {
             return res.status(400).send({
                 error: error

@@ -139,7 +139,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['postJobOffer', 'fetchProducts', 'createPaymentSession']),
+    ...mapActions(['postJobOffer', 'fetchProducts', 'addJobOffer']),
     emitLocation () {
       this.$emit('location', this.offer.location)
     },
@@ -150,7 +150,7 @@ export default {
       this.offer.description = content
     },
     postOffer () {
-      this.createPaymentSession(this.offer).then(() => {
+      this.addJobOffer(this.offer).then(() => {
         this.$refs.checkoutRef.redirectToCheckout()
       })
     }

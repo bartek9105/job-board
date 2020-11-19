@@ -1,18 +1,15 @@
 const Product = require('../models/Product')
-const Offer = require('../models/Offer')
 const stripe = require('../config/stripe')
 
-exports.offerPayment = async (req, res, next) => {
-    const { email, productId } = req.body
+exports.createPaymentSession = async (req, res, next) => {
+    const { email, productId } = req.body    
     try {
+        // Get product price
         const foundProduct = await Product.findById(productId)
 
         const customer = await stripe.customers.create({
             email: email
         })
-
-        const offer = new Offer({ ...req.body, status: 'unpaid' })
-        const savedOffer = await offer.save()
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -34,7 +31,7 @@ exports.offerPayment = async (req, res, next) => {
             success_url: 'http://localhost:8080',
             payment_intent_data: {
                 metadata: {
-                    offerId: savedOffer._id.toString()
+                    offerId: res.locals.savedOffer._id.toString()
                 }
             }   
         })
@@ -42,4 +39,26 @@ exports.offerPayment = async (req, res, next) => {
     } catch (error) {
         console.log(error)
     }
+}
+
+exports.listenForPaymentSuccess = async (req, res, next) => {
+    const signature = req.headers['stripe-signature']
+    let event
+    try {
+        event = stripe.webhooks.constructEvent(req.rawBody, signature, process.env.STRIPE_WEBHOOK_SECRET)
+        switch (event.type) {
+            case 'checkout.session.completed':
+                const paymentIntent = await stripe.paymentIntents.retrieve(
+                    event.data.object.payment_intent                    
+                )
+                const offerId = paymentIntent.metadata.offerId
+                req.body.offerId = offerId
+                break;
+            default:
+                console.log(`Unhandled event type ${event.type}`)
+        }
+        next()
+    } catch (error) {
+        console.log(error)
+    } 
 }
