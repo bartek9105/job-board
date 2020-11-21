@@ -2,6 +2,7 @@ const Offer = require('../models/Offer')
 const { search } = require('../routes/offers')
 const ErrorResponse = require('../utils/errorResponse')
 const _ = require('lodash')
+const setOfferExpiryDate = require('../utils/setOfferExpiryDate')
 
 exports.getOffers = async (req, res, next) => {
     try {
@@ -82,11 +83,17 @@ exports.getOffer = async (req, res, next) => {
 exports.addOffer = async (req, res, next) => {
     try {
         if (req.body.product[0].price === 0) {
-            const offer = new Offer({ ...req.body, status: 'free' })
+            const offer = new Offer({ ...req.body, status: 'free', expireAt: setOfferExpiryDate(7) })
             await offer.save()
         }
-        else {
-            const offer = new Offer({ ...req.body, status: 'unpaid' })
+        else if (req.body.product[0].duration === '15d'){
+            const offer = new Offer({ ...req.body, status: 'unpaid', expireAt: setOfferExpiryDate(15) })
+            const savedOffer = await offer.save()
+            res.locals.savedOffer = savedOffer
+            next()        
+        }
+        else if (req.body.product[0].duration === '30d') {
+            const offer = new Offer({ ...req.body, status: 'unpaid', expireAt: setOfferExpiryDate(30) })
             const savedOffer = await offer.save()
             res.locals.savedOffer = savedOffer
             next()        

@@ -52,9 +52,13 @@ const offerSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    expireAt: {
+        type: Date
     }
 })
 
 offerSchema.index({ location: 'text' });
+offerSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 module.exports = mongoose.model('Offer', offerSchema)
