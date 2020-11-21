@@ -139,7 +139,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['postJobOffer', 'fetchProducts', 'addJobOffer']),
+    ...mapActions(['fetchProducts', 'addJobOffer']),
     emitLocation () {
       this.$emit('location', this.offer.location)
     },
@@ -150,9 +150,13 @@ export default {
       this.offer.description = content
     },
     postOffer () {
-      this.addJobOffer(this.offer).then(() => {
-        this.$refs.checkoutRef.redirectToCheckout()
-      })
+      if (this.getProducts.price === 0) {
+        this.addJobOffer(this.offer)
+      } else {
+        this.addJobOffer(this.offer).then(() => {
+          this.$refs.checkoutRef.redirectToCheckout()
+        })
+      }
     }
   },
   computed: {

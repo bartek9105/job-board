@@ -32,7 +32,7 @@ exports.getOffers = async (req, res, next) => {
         const availableFilters = Object.keys(Offer.schema.paths)
         const schemaFilters = _.pickBy(parsedQuery, (value, key) => availableFilters.indexOf(key) > -1)
         
-        const offers = await Offer.find({ ...schemaFilters, ...locationSearch, status: 'paid' }).skip(startIndex).limit(limit)
+        const offers = await Offer.find({ ...schemaFilters, ...locationSearch, $or: [{ status: "free" }, { status: "paid" }] }).skip(startIndex).limit(limit)
         
         const total = await Offer.find({ ...schemaFilters, ...locationSearch }).countDocuments()
 
@@ -81,10 +81,16 @@ exports.getOffer = async (req, res, next) => {
 
 exports.addOffer = async (req, res, next) => {
     try {
-        const offer = new Offer({ ...req.body, status: 'unpaid' })
-        const savedOffer = await offer.save()
-        res.locals.savedOffer = savedOffer
-        next()        
+        if (req.body.product[0].price === 0) {
+            const offer = new Offer({ ...req.body, status: 'free' })
+            await offer.save()
+        }
+        else {
+            const offer = new Offer({ ...req.body, status: 'unpaid' })
+            const savedOffer = await offer.save()
+            res.locals.savedOffer = savedOffer
+            next()        
+        }
     } catch (error) {
         next(error)
     }

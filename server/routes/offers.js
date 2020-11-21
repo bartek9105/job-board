@@ -3,12 +3,13 @@ const router = express.Router()
 
 const offersController = require('../controllers/offers')
 const paymentController = require('../controllers/payment')
+const productController = require('../controllers/products')
 
 router.get('/', offersController.getOffers)
 
 router.get('/:id', offersController.getOffer)
 
-router.post('/', offersController.addOffer, paymentController.createPaymentSession)
+router.post('/', productController.getProduct, offersController.addOffer, paymentController.createPaymentSession)
 
 router.post('/webhook', paymentController.listenForPaymentSuccess, offersController.updateOfferStatus)
 

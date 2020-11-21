@@ -1,12 +1,8 @@
-const Product = require('../models/Product')
 const stripe = require('../config/stripe')
 
 exports.createPaymentSession = async (req, res, next) => {
-    const { email, productId } = req.body    
+    const { email } = req.body    
     try {
-        // Get product price
-        const foundProduct = await Product.findById(productId)
-
         const customer = await stripe.customers.create({
             email: email
         })
@@ -19,9 +15,9 @@ exports.createPaymentSession = async (req, res, next) => {
                     price_data: {
                         currency: 'usd',
                         product_data: {
-                            name: foundProduct.name
+                            name: req.body.product[0].name
                         },
-                        unit_amount: foundProduct.price
+                        unit_amount: req.body.product[0].price
                     },
                     quantity: 1
                 }
