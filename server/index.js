@@ -25,6 +25,9 @@ app.use('/api/v1/offers', offers)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/products', products)
 
+const cronJob = require('./utils/cronJobValidate')
+cronJob.start()
+
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000

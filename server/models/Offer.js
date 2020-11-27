@@ -49,6 +49,14 @@ const offerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    isPromoted: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    promotionExpireAt: {
+        type: Date
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -1,4 +1,4 @@
-const setOfferExpiryDate = (daysNumber) => {
+const setOfferExpiryDate = daysNumber => {
     return new Date(new Date().setDate(new Date().getDate() + daysNumber))
 }
 
