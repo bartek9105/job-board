@@ -4,7 +4,7 @@
   </button>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .themeBtn {
     @include shadow;
     background-color: $theme-pink;

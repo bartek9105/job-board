@@ -9,7 +9,7 @@
       <div class="job-search-form">
         <JobSearchForm @clicked="formData" buttonText="Search" buttonTextClear="Clear filters"/>
       </div>
-      <div class="offers">
+      <div class="offers" v-if="getJobOffers.data">
         <p class="offers__offers-info">
           {{ getJobOffers.total }} offers found for specified criteria
         </p>

@@ -8,7 +8,7 @@
         <div class="offer__title">{{ offer.title }}</div>
         <div class="offer__pay">{{ offer.salary }} PLN</div>
         <div class="offer__city">
-          <i class="offer__city-icon fas fa-map-marker-alt"></i>
+          <font-awesome-icon icon="map-marker-alt"></font-awesome-icon>
           {{ offer.location }}
         </div>
       </div>
@@ -32,7 +32,7 @@
         <div class="offer__tag offer__tag--light">3d ago</div>
       </div>
       <button class="offer__like-btn">
-        <i class="far fa-heart"></i>
+        <font-awesome-icon icon="heart"></font-awesome-icon>
       </button>
     </div>
   </div>
