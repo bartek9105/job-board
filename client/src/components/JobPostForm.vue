@@ -212,6 +212,9 @@ export default {
       }
       &__input {
         @include input;
+        &--salary {
+          width: 20%;
+        }
       }
       &__error {
         font-size: 13px;
