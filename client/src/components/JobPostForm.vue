@@ -3,12 +3,18 @@
     <div class="job-post-container">
       <form @submit.prevent>
         <div class="job-post-input-container">
-          <span class="job-post__input-name">Title</span>
-          <input type="text" class="job-post__input" placeholder="Title" v-model="offer.title">
+          <ValidationProvider rules="required|max" v-slot="{ errors }" class="job-post-input-inner-container">
+            <span class="job-post__input-name">Title</span>
+            <input type="text" class="job-post__input" placeholder="Title" v-model="offer.title">
+            <span class="job-post__input-error">{{ errors[0] }}</span>
+          </ValidationProvider>
         </div>
         <div class="job-post-input-container">
-          <span class="job-post__input-name">Location</span>
-          <input type="text" class="job-post__input" placeholder="City" :disabled="locationCheck" v-model="offer.location" @change="emitLocation">
+          <ValidationProvider rules="required" v-slot="{ errors }" class="job-post-input-inner-container">
+            <span class="job-post__input-name">Location</span>
+            <input type="text" class="job-post__input" placeholder="City" :disabled="locationCheck" v-model="offer.location" @change="emitLocation">
+            <span class="job-post__input-error">{{ errors[0] }}</span>
+          </ValidationProvider>
           <div class="checkbox-container">
             <input type="checkbox" class="job-post__location-checkbox">
             <span class="job-post__location-text">Remote</span>
@@ -17,54 +23,75 @@
           </div>
         </div>
         <div class="job-post-input-container">
-          <span class="job-post__input-name">Category</span>
-          <select name="category" class="job-post__input" v-model="offer.category">
-            <option value="Frontend">Frontend</option>
-            <option value="Backend">Backend</option>
-            <option value="UX/UI">UI/UX</option>
-            <option value="Devops">DevOps</option>
-            <option value="Data Science">Data Science</option>
-            <option value="Testing">Testing</option>
-            <option value="PM">PM</option>
-          </select>
+          <ValidationProvider rules="required" v-slot="{ errors }" class="job-post-input-inner-container">
+            <span class="job-post__input-name">Category</span>
+            <select name="category" class="job-post__input" v-model="offer.category">
+              <option value="Frontend">Frontend</option>
+              <option value="Backend">Backend</option>
+              <option value="UX/UI">UI/UX</option>
+              <option value="Devops">DevOps</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Testing">Testing</option>
+              <option value="PM">PM</option>
+            </select>
+            <span class="job-post__input-error">{{ errors[0] }}</span>
+          </ValidationProvider>
         </div>
         <div class="job-post-input-container">
-          <span class="job-post__input-name">Seniority</span>
-          <select name="type" class="job-post__input" v-model="offer.seniority">
-            <option value="Intern">Intern</option>
-            <option value="Junior">Junior</option>
-            <option value="Regular">Regular</option>
-            <option value="Senior">Senior</option>
-          </select>
+          <ValidationProvider rules="required" v-slot="{ errors }" class="job-post-input-inner-container">
+            <span class="job-post__input-name">Seniority</span>
+            <select name="type" class="job-post__input" v-model="offer.seniority">
+              <option value="Intern">Intern</option>
+              <option value="Junior">Junior</option>
+              <option value="Regular">Regular</option>
+              <option value="Senior">Senior</option>
+            </select>
+            <span class="job-post__input-error">{{ errors[0] }}</span>
+          </ValidationProvider>
         </div>
         <div class="job-post-input-container">
-          <span class="job-post__input-name">Salary</span>
           <div class="job-post__salary-input-container">
-            <input type="number" placeholder='MIN' class="job-post__input job-post__input--salary" v-model="offer.salaryMin">
-            <input type="number" placeholder='MAX' class="job-post__input job-post__input--salary" v-model="offer.salaryMax">
+            <ValidationProvider rules="required" v-slot="{ errors }" class="job-post-input-inner-container">
+              <span class="job-post__input-name">Salary</span>
+              <input type="number" placeholder='MIN' class="job-post__input job-post__input--salary" v-model="offer.salaryMin">
+              <span class="job-post__input-error">{{ errors[0] }}</span>
+            </ValidationProvider>
+            <ValidationProvider rules="required" v-slot="{ errors }" class="job-post-input-inner-container">
+              <input type="number" placeholder='MAX' class="job-post__input job-post__input--salary" v-model="offer.salaryMax">
+              <span class="job-post__input-error">{{ errors[0] }}</span>
+            </ValidationProvider>
           </div>
         </div>
         <div class="job-post-input-container">
           <TagInput @technologies="tagsTechnologies"/>
         </div>
         <div class="job-post-input-container">
-          <span class="job-post__input-name">Type</span>
-          <select name="type" class="job-post__input" v-model="offer.type">
-            <option value="Full Time">Full Time</option>
-            <option value="Part Time">Part Time</option>
-          </select>
+          <ValidationProvider rules="required" v-slot="{ errors }" class="job-post-input-inner-container">
+            <span class="job-post__input-name">Type</span>
+            <select name="type" class="job-post__input" v-model="offer.type">
+              <option value="Full Time">Full Time</option>
+              <option value="Part Time">Part Time</option>
+            </select>
+            <span class="job-post__input-error">{{ errors[0] }}</span>
+          </ValidationProvider>
         </div>
         <div class="job-post-input-container">
-          <span class="job-post__input-name">Contract</span>
-          <select name="type" class="job-post__input" v-model="offer.contract">
-            <option value="B2B">B2B</option>
-            <option value="Employment contract">Employment contract</option>
-            <option value="Mandatory contract">Mandatory contract</option>
-          </select>
+          <ValidationProvider rules="required" v-slot="{ errors }" class="job-post-input-inner-container">
+            <span class="job-post__input-name">Contract</span>
+            <select name="type" class="job-post__input" v-model="offer.contract">
+              <option value="B2B">B2B</option>
+              <option value="Employment contract">Employment contract</option>
+              <option value="Mandatory contract">Mandatory contract</option>
+            </select>
+            <span class="job-post__input-error">{{ errors[0] }}</span>
+          </ValidationProvider>
         </div>
         <div class="job-post-input-container">
-          <span class="job-post__input-name">Description</span>
-          <Editor @editorContent="description"/>
+          <ValidationProvider rules="required" v-slot="{ errors }" class="job-post-input-inner-container">
+            <span class="job-post__input-name">Description</span>
+            <Editor @editorContent="description"/>
+            <span class="job-post__input-error">{{ errors[0] }}</span>
+          </ValidationProvider>
         </div>
         <div class="job-post-price-cards">
           <PriceCard v-for="(product, index) in getProducts" :key="product._id" @click.native="offer.productId = product._id, activeIndex = index" :class="{ cardActive: activeIndex === index }">
@@ -109,6 +136,7 @@ import Button from '@/components/Base/Button'
 import ClearBtn from '@/components/Base/ClearBtn'
 import PriceCard from '@/components/PriceCard'
 import { StripeCheckout } from 'vue-stripe-checkout'
+import { ValidationProvider } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -119,7 +147,8 @@ export default {
     Button,
     ClearBtn,
     PriceCard,
-    StripeCheckout
+    StripeCheckout,
+    ValidationProvider
   },
   data () {
     return {
@@ -202,24 +231,12 @@ export default {
     }
     .job-post-input-container {
       padding: 0 20px;
+      margin-bottom: 10px;
       @include flex-col;
       .checkbox-container {
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
-      }
-      .job-post {
-        &__input {
-          @include input;
-          margin-bottom: 40px;
-          &--salary {
-            margin-right: 30px;
-          }
-        }
-        &__input-name {
-          @include input-name;
-          margin-bottom: 20px;
-        }
         &__location-checkbox {
           margin-right: 10px;
         }
@@ -227,8 +244,29 @@ export default {
           font-size: 13px;
           margin-right: 10px;
         }
-        &__salary-input-container {
-          display: flex;
+      }
+      .job-post-input-inner-container {
+        @include flex-col;
+        .job-post {
+          &__input {
+            @include input;
+            margin-bottom: 20px;
+            &--salary {
+              margin-right: 30px;
+            }
+            &-name {
+              @include input-name;
+              margin-bottom: 20px;
+            }
+            &-error {
+              font-size: 13px;
+              margin-bottom: 20px;
+              color: red;
+            }
+          }
+          &__salary-input-container {
+            width: 20%;
+          }
         }
       }
     }
