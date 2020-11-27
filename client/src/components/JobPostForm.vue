@@ -67,7 +67,7 @@
           <Editor @editorContent="description"/>
         </div>
         <div class="job-post-price-cards">
-          <PriceCard v-for="product in getProducts" :key="product._id" :productId="product._id" @click.native="offer.productId = product._id">
+          <PriceCard v-for="(product, index) in getProducts" :key="product._id" @click.native="offer.productId = product._id, activeIndex = index" :class="{ cardActive: activeIndex === index }">
             <template v-slot:header>{{ product.name }}</template>
             <template v-slot:price>{{ product.price / 100 }}</template>
             <template v-slot:content>
@@ -84,16 +84,18 @@
               <p class="job-post-price-cards__description">{{ product.description }}</p>
             </template>
           </PriceCard>
+        </div>
+        <div class="btn-container">
           <stripe-checkout
             ref="checkoutRef"
             :pk=key
             :session-id=getSessionId
           >
+            <template slot="checkout-button">
+              <Button @click.native="postOffer">Add offer</Button>
+              <ClearBtn @click.native="offer = {}">Clear inputs</ClearBtn>
+            </template>
           </stripe-checkout>
-        </div>
-        <div class="btn-container">
-          <Button @click.native="postOffer">Add offer</Button>
-          <ClearBtn>Clear inputs</ClearBtn>
         </div>
       </form>
     </div>
@@ -135,7 +137,8 @@ export default {
         description: ''
       },
       locationCheck: false,
-      key: process.env.VUE_APP_STRIPE_PUBLISHABLE
+      key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
+      activeIndex: null
     }
   },
   methods: {
@@ -231,6 +234,10 @@ export default {
     }
     .btn-container {
       padding: 0 20px;
+    }
+    .cardActive {
+      background: $theme-dark-blue;
+      color: #fff;
     }
   }
 </style>

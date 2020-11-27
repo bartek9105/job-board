@@ -17,7 +17,6 @@
         <slot name="content"></slot>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -45,7 +44,6 @@ export default {
     }
     &__header {
       border-bottom: 5px solid $bg-grey;
-      color: $theme-dark-blue;
       padding: 25px 0;
       &__title {
         @include flex-col;
