@@ -4,6 +4,7 @@ import Home from '@/views/Home'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import PostOffer from '@/views/PostOffer'
+import SingleOffer from '@/views/SingleOffer'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/post-offer',
     name: 'PostOffer',
     component: PostOffer
+  },
+  {
+    path: '/offer/:id',
+    name: 'SingleOffer',
+    component: SingleOffer
   }
 
 ]

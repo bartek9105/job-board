@@ -13,11 +13,11 @@
         <p class="offers__offers-info">
           {{ getJobOffers.total }} offers found for specified criteria
         </p>
-        <JobOffer
-          v-for="offer in getJobOffers.data"
-          :key="offer._id"
-          :offer="offer"
-        />
+        <div v-for="offer in getJobOffers.data" :key="offer._id">
+          <router-link :to="'/offer/' + offer._id">
+            <JobOffer :offer="offer" />
+          </router-link>
+        </div>
         <Pagination v-if="getJobOffers.data.length > 0" @pageChange="pageNumber" :pages="getJobOffers.pages" class="offers__pagination"/>
       </div>
     </main>
