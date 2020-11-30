@@ -1,3 +1,12 @@
+@import 'variables/colors.scss';
+@import 'variables/sizes.scss';
+@import 'variables/typography.scss';
+@import 'variables/borders.scss';
+@import 'variables/opacity.scss';
+@import 'variables/spacing.scss';
+@import 'mixins/mixins.scss';
+@import 'mixins/positioning.scss';
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -6,7 +15,7 @@
 }
 
 a {
-    color: $theme-dark-blue;
+    color: $dark-blue;
     text-decoration: none;
 }
 
@@ -18,16 +27,21 @@ select {
     padding: 20px;
 }
 
-h3 {
-    color: $theme-dark-blue;
-}
-
 h2 {
-    color: $theme-dark-blue;
+    color: $dark-blue;
     font-size: 17px;
     font-weight: 700;
 }
 
+h3 {
+    color: $dark-blue;
+}
+
 ul {
     list-style: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
 }

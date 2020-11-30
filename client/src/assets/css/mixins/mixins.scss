@@ -18,31 +18,21 @@
 
 @mixin tag-dark {
     @include tag;
-    background-color: $theme-dark-blue;
-    color: #fff;
+    background-color: $dark-blue;
+    color: $white;
     @include shadow;
 }
 
 @mixin tag-light {
     @include tag;
-    background-color: $theme-light-blue;
-    color: $theme-dark-blue;
-}
-
-@mixin flex-col {
-    display: flex;
-    flex-direction: column;
-}
-
-@mixin flex-s-b {
-    display: flex;
-    justify-content: space-between
+    background-color: $light-blue;
+    color: $dark-blue;
 }
 
 @mixin input {
     height: 35px;
-    border: 1px solid $theme-light-blue;
-    border-radius: 5px;
+    border: 1px solid $light-blue;
+    border-radius: $border-radius-sm;
     padding: 0 10px;
 }
 
@@ -53,17 +43,13 @@
 }
 
 @mixin textarea {
-    border: 1px solid $theme-light-blue;
-    border-radius: 5px;
+    border: 1px solid $light-blue;
+    border-radius: $border-radius-sm;
     padding: 10px 10px;
     resize: none;
 }
 
-@mixin app-container-width {
-    max-width: 1087px;
-}
-
 @mixin input-border {
-    border: 1px solid $theme-light-blue !important;
-    border-radius: 5px;
+    border: 1px solid $light-blue !important;
+    border-radius: $border-radius-sm;
 }
