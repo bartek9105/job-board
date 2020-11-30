@@ -4,10 +4,14 @@ import qs from 'qs'
 export default ({
   state: {
     jobOffers: [],
+    offer: {},
     products: [],
     sessionId: ''
   },
   getters: {
+    getJobOffer (state) {
+      return state.offer
+    },
     getJobOffers (state) {
       return state.jobOffers
     },
@@ -23,6 +27,9 @@ export default ({
     }
   },
   mutations: {
+    SET_JOB_OFFER (state, offer) {
+      state.offer = offer
+    },
     SET_JOB_OFFERS (state, offersPayload) {
       state.jobOffers = offersPayload
     },
@@ -34,6 +41,14 @@ export default ({
     }
   },
   actions: {
+    async fetchJobOffer ({ commit }, offerId) {
+      try {
+        const offer = await axios.get(`http://localhost:5000/api/v1/offers/${offerId}`)
+        commit('SET_JOB_OFFER', offer.data.data)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async fetchJobOffers ({ commit }, queries) {
       try {
         const queriesFilter = Object.keys(queries)

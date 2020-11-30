@@ -1,7 +1,7 @@
 const CronJob = require('cron').CronJob
 const offersController = require('../controllers/offers')
 
-const job = new CronJob('41 10 * * *', () => {
+const job = new CronJob('21 16 * * *', () => {
     offersController.validatePromotionStatus()
 })
 

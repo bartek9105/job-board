@@ -52,6 +52,13 @@
     font-weight: 700;
 }
 
+@mixin textarea {
+    border: 1px solid $theme-light-blue;
+    border-radius: 5px;
+    padding: 10px 10px;
+    resize: none;
+}
+
 @mixin app-container-width {
     max-width: 1087px;
 }

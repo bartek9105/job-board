@@ -89,7 +89,7 @@ exports.getOffer = async (req, res, next) => {
 
 exports.addOffer = async (req, res, next) => {
     try {
-        if (req.body.product[0].price === 0) {
+        if (req.body.price === 0) {
             const offer = new Offer({ ...req.body, status: 'free', expireAt: setOfferExpiryDate(7) })
             await offer.save()
         }
