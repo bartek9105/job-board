@@ -43,7 +43,7 @@ export default {
     }
     &__header {
       border-bottom: 5px solid $bg-grey;
-      padding: $main-content-pd-tb-md 0;
+      padding: $padding-md 0;
       &__title {
         @include flex (null, null, column);
         font-size: $font-content-lg;
@@ -51,12 +51,12 @@ export default {
         text-transform: uppercase;
         &__icon {
           font-size: 25px;
-          margin-bottom: $section-m-sm;
+          margin-bottom: $margin-sm
         }
       }
     }
     .content-container {
-      padding: $main-content-pd-tb-md 30px;
+      padding: $padding-md 30px;
       text-align: center;
     }
     &__price {
@@ -65,7 +65,7 @@ export default {
       margin-right: 5px;
     }
     &__content {
-      margin-top: $section-m-lg;
+      margin-top: $margin-lg;
       font-size: 15px;
     }
   }

@@ -31,9 +31,9 @@ export default {
     max-width: $container-width;
   }
   .ql-toolbar.ql-snow {
-    margin-bottom: $section-m-sm;
+    margin-bottom: $margin-sm;
   }
   .ql-snow {
-    @include input-border;
+    @include input-select-border;
   }
 </style>

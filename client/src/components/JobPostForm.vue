@@ -202,24 +202,23 @@ export default {
     width: 100%;
     margin: 0 auto;
     background: $white;
-    padding: $main-content-pd-tb-lg 0;
+    padding: $padding-lg 0;
     .job-form-unit {
       @include flex (null, null, column);
       padding: 0 20px;
-      margin-bottom: $section-m-md;
+      margin-bottom: $margin-md;
       &__name {
         @include input-name;
-         margin-bottom: $section-m-sm;
+         margin-bottom: $margin-sm
       }
       &__input {
-        @include input;
         &--salary {
           width: 20%;
         }
       }
       &__error {
         font-size: $font-content-sm;
-        margin-top: $section-m-sm;
+        margin-top: $margin-sm;
         color: red;
       }
       &-validator {
@@ -227,7 +226,7 @@ export default {
       }
       .checkbox-container {
         @include flex (null, center);
-        margin-bottom: $section-m-sm;
+        margin-bottom: $margin-sm
       }
       &__checkbox {
         margin-right: 10px;
@@ -247,7 +246,7 @@ export default {
     .job-form-price-cards-container {
       @include flex (space-between);
       background: $bg-grey;
-      padding: $main-content-pd-tb-lg 0;
+      padding: $padding-lg 0;
     }
     .job-form-price-card {
       &__list {
@@ -256,7 +255,7 @@ export default {
           @include flex ();
           font-size: $font-content-md;
           font-weight: $font-bold;
-          margin-bottom: $section-m-md;
+          margin-bottom: $margin-md;
         }
         &__icon {
           margin-right: 10px;

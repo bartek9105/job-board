@@ -26,7 +26,7 @@ export default {
         height: calc(100% - ($nav-height));
         h1 {
             font-size: 25px;
-            margin-bottom: $section-m-md;
+            margin-bottom: $margin-md;
         }
         &__jobForm {
             position: relative;

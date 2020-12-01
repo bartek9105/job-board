@@ -49,7 +49,7 @@ export default {
             background: $white;
             max-width: $nav-width;
             margin: 0 auto;
-            padding: $main-content-pd-tb-sm 1rem;
+            padding: $padding-sm 1rem;
             &__links {
                 ul {
                     @include flex (null, center);

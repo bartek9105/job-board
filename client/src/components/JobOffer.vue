@@ -57,8 +57,8 @@ export default {
     @include shadow;
     background: $white;
     color: $dark-blue;
-    padding: $main-content-pd-tb-sm 35px;
-    margin-bottom: $section-m-sm;
+    padding: $padding-sm 35px;
+    margin-bottom: $margin-sm;
     &:hover {
       @include shadow-hover;
       @include transition;
@@ -71,7 +71,7 @@ export default {
     }
     &-top {
       @include flex ();
-      margin-bottom: $section-m-md;
+      margin-bottom: $margin-md;
     }
     &-main {
       flex: 1;

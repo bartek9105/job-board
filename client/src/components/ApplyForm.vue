@@ -34,13 +34,7 @@ export default {
     }
     &__name {
       @include input-name;
-      margin-bottom: $section-m-sm;
-    }
-    &__input {
-      @include input;
-    }
-    &__textarea {
-      @include textarea;
+      margin-bottom: $margin-sm;
     }
   }
 </style>

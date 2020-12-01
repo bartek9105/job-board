@@ -1,0 +1,10 @@
+@mixin input-select-border {
+    border: $input-select-border !important;
+    border-radius: $border-radius-sm;
+}
+
+@mixin input-name {
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: $font-bold;
+}

@@ -73,22 +73,22 @@ export default {
     .offers {
       max-width: $container-width;
       margin: 0 auto;
-      padding: $main-content-pd-tb-lg 0;
+      padding: $padding-lg 0;
       &__offers-info {
         color: $dark-blue;
         font-weight: 700;
         font-size: $font-content-md;
         text-transform: uppercase;
-        margin-bottom: $section-m-lg;
+        margin-bottom: $margin-lg;
       }
       &__pagination {
-        margin-top: $section-m-lg;
+        margin-top: $margin-lg;
       }
     }
     .job-search-form {
       background: $white;
       width: 100%;
-      padding: $main-content-pd-tb-lg 0;
+      padding: $padding-lg 0;
 }
   }
 </style>

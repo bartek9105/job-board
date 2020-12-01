@@ -1,11 +1,14 @@
-@import 'variables/colors.scss';
+@import 'variables/colors';
 @import 'variables/sizes.scss';
 @import 'variables/typography.scss';
 @import 'variables/borders.scss';
 @import 'variables/opacity.scss';
 @import 'variables/spacing.scss';
-@import 'mixins/mixins.scss';
+@import 'mixins/tags.scss';
 @import 'mixins/positioning.scss';
+@import 'mixins/shadows.scss';
+@import 'mixins/transitions.scss';
+@import 'mixins/inputs.scss';
 
 * {
     box-sizing: border-box;
@@ -23,18 +26,16 @@ input[type="text"]:disabled {
     background: $bg-grey;
 }
 
-select {
-    padding: 20px;
-}
-
 h2 {
     color: $dark-blue;
-    font-size: 17px;
-    font-weight: 700;
+    font-size: $font-heading-xs;
+    font-weight: $font-bold;
 }
 
 h3 {
     color: $dark-blue;
+    font-size: $font-heading-sm;
+    font-weight: $font-bold;
 }
 
 ul {
@@ -44,4 +45,16 @@ ul {
 button {
     cursor: pointer;
     border: none;
+}
+
+textarea {
+    @include input-select-border;
+    padding: 10px 10px;
+    resize: none;
+}
+
+input, select {
+    @include input-select-border;
+    height: $input-select-height;
+    padding: 0 10px;
 }

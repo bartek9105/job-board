@@ -69,7 +69,7 @@ export default {
         max-width: $container-width;
         margin: 0 auto;
         background: $white;
-        padding: $main-content-pd-tb-lg 0;
+        padding: $padding-lg 0;
         font-size: $font-content-md;
         &__navs-container {
             @include flex ();
@@ -77,7 +77,7 @@ export default {
                 ul {
                     margin-right: 80px;
                     li:not(:last-of-type) {
-                        margin-bottom: $section-m-sm;
+                        margin-bottom: $margin-sm;
                     }
                 }
             }
@@ -85,7 +85,7 @@ export default {
         &__socials {
             @include flex (null, null, column);
             &-container {
-                margin-top: $section-m-md;
+                margin-top: $margin-md;
                 .social-icon {
                     font-size: 24px;
                     margin-right: 20px;
@@ -97,7 +97,7 @@ export default {
         &__text {
             @include flex (center, center);
             background-color: $bg-grey;
-            padding: $main-content-pd-tb-md 0;
+            padding: $padding-md 0;
             font-size: $font-content-md;
         }
     }

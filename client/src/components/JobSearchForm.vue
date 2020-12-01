@@ -117,7 +117,7 @@ export default {
     .row {
       @include flex (space-between);
       max-width: $container-width;
-      margin: 0 auto $section-m-lg auto;
+      margin: 0 auto $margin-lg auto;
       .tags {
         width: 500px;
       }
@@ -127,7 +127,7 @@ export default {
     }
     &__input-name {
       @include input-name;
-      margin-bottom: $section-m-md;
+      margin-bottom: $margin-md;
     }
     &__search-input {
       width: 200px;

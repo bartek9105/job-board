@@ -117,7 +117,7 @@ export default {
     background: $white;
     font-size: $font-content-md;
     line-height: 24px;
-    padding: $main-content-pd-tb-lg 40px;
+    padding: $padding-lg 40px;
     .offer-details-container-row {
       display: flex;
     }
@@ -126,7 +126,7 @@ export default {
     background: $bg-grey;
   }
   .offer-details-section {
-    margin-bottom: $section-m-md;
+    margin-bottom: $margin-md;
   }
   .offer {
     span {
@@ -140,7 +140,7 @@ export default {
       font-size: 22px;
     }
     &__header {
-      margin-bottom: $section-m-md;
+      margin-bottom: $margin-md;
     }
     &__tag {
       @include tag;

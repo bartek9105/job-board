@@ -1,0 +1,18 @@
+@mixin tag {
+    font-size: 12px;
+    border-radius: $border-radius-sm;
+    padding: 7px 20px;
+}
+
+@mixin tag-dark {
+    @include tag;
+    @include shadow;
+    background-color: $dark-blue;
+    color: $white;
+}
+
+@mixin tag-light {
+    @include tag;
+    background-color: $light-blue;
+    color: $dark-blue;
+}
