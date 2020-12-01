@@ -54,43 +54,40 @@ export default {
 <style lang="scss" scoped>
   .offer {
     @include shadow;
-    display: flex;
-    justify-content: space-between;
-    background: #fff;
-    color: $theme-dark-blue;
-    padding: 20px 35px;
-    margin-bottom: 16px;
+    @include flex-s-b;
+    background: $white;
+    color: $dark-blue;
+    padding: $main-content-pd-tb-sm 35px;
+    margin-bottom: $section-m-sm;
     &:hover {
       @include shadow-hover;
       @include transition;
       cursor: pointer;
     }
     &__logo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include flex-center-row-xy;
       max-width: 135px;
       margin-right: 35px;
     }
     &-top {
       display: flex;
-      margin-bottom: 25px;
+      margin-bottom: $section-m-md;
     }
     &-main {
       flex: 1;
     }
     &__title {
-      font-size: 17px;
+      font-size: $font-content-lg;
       margin-right: 40px;
     }
     &__pay {
-      font-size: 14px;
-      opacity: .8;
+      font-size: $font-content-md;
+      opacity: $opacity-high;
       margin-right: 40px;
     }
     &__city {
-      font-size: 14px;
-      opacity: .8;
+      font-size: $font-content-md;
+      opacity: $opacity-high;
       &-icon {
         margin-right: 10px;
       }
@@ -119,10 +116,9 @@ export default {
         position: absolute;
         top: 30px;
         left: 0;
-        list-style: none;
-        font-size: 13px;
-        color: $theme-dark-blue;
-        background: #fff;
+        font-size: $font-content-sm;
+        color: $dark-blue;
+        background: $white;
         color: #000;
         padding: 10px;
         border-radius: 2px;

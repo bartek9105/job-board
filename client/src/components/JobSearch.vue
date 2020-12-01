@@ -21,15 +21,12 @@ export default {
 
 <style lang="scss">
     .jobSearch {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: #E3E7F1;
-        height: calc(100% - 69px);
+        @include flex-center-column-xy;
+        color: $white-blue;
+        height: calc(100% - ($nav-height));
         h1 {
             font-size: 25px;
-            margin-bottom: 2.5rem;
+            margin-bottom: $section-m-md;
         }
         &__jobForm {
             position: relative;
@@ -37,12 +34,12 @@ export default {
                 width: 30rem;
                 height: 2rem;
                 border: 0;
-                border-radius: 5px;
+                border-radius: $border-radius-sm;
                 padding-left: 1rem;
                 color: #000;
             }
             &__searchIcon {
-                color: #E14594;
+                color: $pink;
                 position: absolute;
                 top: 8px;
                 right: 10px;

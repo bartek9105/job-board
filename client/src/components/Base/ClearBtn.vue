@@ -12,11 +12,8 @@ export default {
 
 <style lang="scss">
   .clear-btn {
-    cursor: pointer;
-    margin-left: 20px;
     background: transparent;
-    font-weight: 700;
-    border: none;
-    color: $theme-dark-blue;
+    color: $dark-blue;
+    font-weight: $font-bold;
   }
 </style>

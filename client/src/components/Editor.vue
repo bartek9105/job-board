@@ -28,10 +28,10 @@ export default {
 
 <style lang="scss">
   .editor {
-    max-width: 1087px;
+    max-width: $container-width;
   }
   .ql-toolbar.ql-snow {
-    margin-bottom: 10px;
+    margin-bottom: $section-m-sm;
   }
   .ql-snow {
     @include input-border;

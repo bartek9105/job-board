@@ -37,6 +37,7 @@
           </div>
         </div>
         <div class="row">
+          <span class="job-search__input-name">Technologies</span>
           <TagInput @technologies="technologies" class="tags"/>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
@@ -114,27 +115,25 @@ export default {
 .job-search-container {
   .job-search {
     .row {
-      display: flex;
-      justify-content: space-between;
-      max-width: 1087px;
-      margin: 0 auto 50px auto;
+      @include flex-s-b;
+      max-width: $container-width;
+      margin: 0 auto $section-m-lg auto;
       .tags {
         width: 500px;
       }
     }
     &__single-input-container {
-      display: flex;
-      flex-direction: column;
+      @include flex-col;
     }
     &__input-name {
       @include input-name;
-      margin-bottom: 28px;
+      margin-bottom: $section-m-md;
     }
     &__search-input {
       width: 200px;
       height: 35px;
-      border: 1px solid $theme-light-blue;
-      border-radius: 5px;
+      border: 1px solid $light-blue;
+      border-radius: $border-radius-sm;
       padding: 0 10px;
       &--salary {
         width: 90px;

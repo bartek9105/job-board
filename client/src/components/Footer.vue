@@ -65,31 +65,28 @@ export default {
 
 <style lang="scss">
     .footer {
-        max-width: 1087px;
+        @include flex-s-b;
+        max-width: $container-width;
         margin: 0 auto;
-        background: #fff;
-        padding: 50px 0;
-        display: flex;
-        justify-content: space-between;
+        background: $white;
+        padding: $main-content-pd-tb-lg 0;
         align-items: center;
-        font-size: 14px;
+        font-size: $font-content-md;
         &__navs-container {
             display: flex;
             .footer-nav {
                 ul {
-                    list-style: none;
                     margin-right: 80px;
                     li:not(:last-of-type) {
-                        margin-bottom: 16px;
+                        margin-bottom: $section-m-sm;
                     }
                 }
             }
         }
         &__socials {
-            display: flex;
-            flex-direction: column;
+            @include flex-col
             &-container {
-                margin-top: 30px;
+                margin-top: $section-m-md;
                 .social-icon {
                     font-size: 24px;
                     margin-right: 20px;
@@ -99,12 +96,10 @@ export default {
     }
     .footer-bottom {
         &__text {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            @include flex-center-row-xy;
             background-color: $bg-grey;
-            padding: 30px 0;
-            font-size: 14px;
+            padding: $main-content-pd-tb-md 0;
+            font-size: $font-content-md;
         }
     }
 </style>

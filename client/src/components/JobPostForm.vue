@@ -60,6 +60,7 @@
         </ValidationProvider>
       </div>
       <div class="job-form-unit">
+        <span class="job-form-unit__name">Technologies</span>
         <TagInput @technologies="tagsTechnologies"/>
       </div>
       <div class="job-form-unit">
@@ -200,15 +201,15 @@ export default {
   .job-form-container {
     width: 100%;
     margin: 0 auto;
-    background: #fff;
-    padding: 40px 0;
+    background: $white;
+    padding: $main-content-pd-tb-lg 0;
     .job-form-unit {
       @include flex-col;
       padding: 0 20px;
-      margin-bottom: 10px;
+      margin-bottom: $section-m-md;
       &__name {
         @include input-name;
-        margin-bottom: 15px;
+         margin-bottom: $section-m-sm;
       }
       &__input {
         @include input;
@@ -217,22 +218,21 @@ export default {
         }
       }
       &__error {
-        font-size: 13px;
-        margin: 20px 0;
+        font-size: $font-content-sm;
+        margin-top: $section-m-sm;
         color: red;
       }
       &-validator {
         @include flex-col;
       }
       .checkbox-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
+        @include flex-center-y;
+        margin-bottom: $section-m-sm;
       }
       &__checkbox {
         margin-right: 10px;
         &__text {
-          font-size: 13px;
+          font-size: $font-content-sm;
           margin-right: 13px;
         }
       }
@@ -241,31 +241,29 @@ export default {
       padding: 0 20px;
     }
     .cardActive {
-      background: $theme-dark-blue;
-      color: #fff;
+      background: $dark-blue;
+      color: $white;
     }
     .job-form-price-cards-container {
       @include flex-s-b;
       background: $bg-grey;
-      margin: 50px 0;
-      padding: 40px 0;
+      padding: $main-content-pd-tb-lg 0;
     }
     .job-form-price-card {
       &__list {
-        list-style: none;
         text-align: left;
         li {
           display: flex;
-          font-size: 14px;
-          font-weight: 700;
-          margin-bottom: 30px;
+          font-size: $font-content-md;
+          font-weight: $font-bold;
+          margin-bottom: $section-m-md;
         }
         &__icon {
           margin-right: 10px;
         }
       }
       &__description {
-        font-size: 13px;
+        font-size: $font-content-sm;
         line-height: 24px;
       }
     }

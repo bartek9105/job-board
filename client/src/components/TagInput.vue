@@ -1,22 +1,21 @@
 <template>
   <div>
     <div class="tags-input-container">
-      <span class="input-name">Technologies</span>
-        <div class="tag-input">
-        <div class="tag-input-insider">
-          <div v-for="(tag, index) in technologies" :key="index" class="tag-input__tag">
-            {{ tag }}
-            <i class="fas fa-times-circle tag-input__delete-icon" @click="deleteTag(index)"></i>
-          </div>
-            <input type="text" class="tag-input__inner" v-model="technology" placeholder="Type in technology, press Enter to add more" @focus="displaySuggestionList = true" @keydown.down="onArrowDown" @keydown.up="onArrowUp" @keydown.enter="onEnter">
-            <i class="fas fa-times-circle tag-input__delete-all-icon" v-if="technologies.length > 0" @click="deleteAllTags"></i>
-          </div>
-          <ul class="tag-input__suggestion-list" v-if="displaySuggestionList === true" @blur="displaySuggestionList = false">
-            <li v-for="(filteredTechnology, index) in getFilteredTechnologies" :key="index" @click="createTechnologyTag(filteredTechnology)" @keyup.enter="createTechnologyTag(filteredTechnology)" :class='{"active-item": currentListItem === index}'>
-              {{ filteredTechnology }}
-            </li>
-          </ul>
+      <div class="tag-input">
+      <div class="tag-input-insider">
+        <div v-for="(tag, index) in technologies" :key="index" class="tag-input__tag">
+          {{ tag }}
+          <i class="fas fa-times-circle tag-input__delete-icon" @click="deleteTag(index)"></i>
         </div>
+          <input type="text" class="tag-input__inner" v-model="technology" placeholder="Type in technology, press Enter to add more" @focus="displaySuggestionList = true" @keydown.down="onArrowDown" @keydown.up="onArrowUp" @keydown.enter="onEnter">
+          <i class="fas fa-times-circle tag-input__delete-all-icon" v-if="technologies.length > 0" @click="deleteAllTags"></i>
+        </div>
+        <ul class="tag-input__suggestion-list" v-if="displaySuggestionList === true" @blur="displaySuggestionList = false">
+          <li v-for="(filteredTechnology, index) in getFilteredTechnologies" :key="index" @click="createTechnologyTag(filteredTechnology)" @keyup.enter="createTechnologyTag(filteredTechnology)" :class='{"active-item": currentListItem === index}'>
+            {{ filteredTechnology }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -88,9 +87,9 @@ export default {
 
 <style lang="scss" scoped>
   .active-item {
-    background: $theme-dark-blue;
-    color: #fff;
-    border-radius: 5px;
+    background: $dark-blue;
+    color: $white;
+    border-radius: $border-radius-sm;
   }
   .tags-input-container {
     .input-name {
@@ -98,14 +97,12 @@ export default {
     }
   }
   .tag-input {
-    border: 1px solid $theme-light-blue;
-    border-radius: 5px;
+    border: 1px solid $light-blue;
+    border-radius: $border-radius-sm;
     padding: 0 10px;
     position: relative;
-    margin: 28px 0 40px 0;
     &-insider {
-      display: flex;
-      align-items: center;
+      @include flex-center-y;
       flex-wrap: wrap;
     }
     &__delete-icon {
@@ -140,11 +137,10 @@ export default {
       position: absolute;
       top: 110%;
       left: 0;
-      list-style: none;
       border: 1px solid $bg-grey;
       padding: 10px;
       width: 100%;
-      background: #fff;
+      background: $white;
       z-index: 1;
       max-height: 300px;
       overflow-y: auto;

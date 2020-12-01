@@ -29,49 +29,48 @@ export default {
 
 <style lang="scss">
   .price-card {
-    background: #fff;
-    border-radius: 5px;
-    padding-bottom: 50px;
+    background: $white;
+    border-radius: $border-radius-sm;
     text-align: center;
     width: 300px;
-    color: $theme-dark-blue;
+    color: $dark-blue;
     border-top: 5px solid transparent;
     &:hover {
       @include shadow;
       @include transition;
       cursor: pointer;
-      border-top: 5px solid $theme-dark-blue;
+      border-top: 5px solid $dark-blue;
     }
     &__header {
       border-bottom: 5px solid $bg-grey;
-      padding: 25px 0;
+      padding: $main-content-pd-tb-md 0;
       &__title {
         @include flex-col;
-        font-size: 17px;
-        font-weight: 700;
+        font-size: $font-content-lg;
+        font-weight: $font-bold;
         text-transform: uppercase;
         &__icon {
           font-size: 25px;
-          margin-bottom: 20px;
+          margin-bottom: $section-m-sm;
         }
       }
     }
     .content-container {
-      padding: 30px;
+      padding: $main-content-pd-tb-md 30px;
       text-align: center;
     }
     &__price {
       font-size: 26px;
-      font-weight: 700;
+      font-weight: $font-bold;
       margin-right: 5px;
     }
     &__content {
-      margin-top: 50px;
+      margin-top: $section-m-lg;
       font-size: 15px;
     }
   }
   .active {
-    background: $theme-dark-blue;
-    color: #fff;
+    background: $dark-blue;
+    color: $white;
   }
 </style>

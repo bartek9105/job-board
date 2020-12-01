@@ -94,32 +94,31 @@ export default {
 
 <style lang="scss" scoped>
   .offer-hero-container{
-    @include app-container-width;
+    max-width: $container-width;
     margin: 0 auto;
-    color: #fff;
-    height: calc(100% - 69px);
-    display: flex;
-    align-items: center;
+    color: $white;
+    height: calc(100% - $nav-height);
+    @include flex-center-y;
     .offer-hero-container-inner {
       display: flex;
       .offer-hero-details-container {
         @include flex-col;
         justify-content: space-between;
-        font-size: 14px;
-        color: $text-white;
+        font-size: $font-content-md;
+        color: $white-blue;
       }
     }
   }
   .offer-details-container {
-    @include app-container-width;
     @include shadow;
+    max-width: $container-width;
     position: relative;
     top: -30px;
     margin: 0 auto;
-    background: #fff;
-    font-size: 14px;
+    background: $white;
+    font-size: $font-content-md;
     line-height: 24px;
-    padding: 40px;
+    padding: $main-content-pd-tb-lg 40px;
     .offer-details-container-row {
       display: flex;
     }
@@ -128,7 +127,7 @@ export default {
     background: $bg-grey;
   }
   .offer-details-section {
-    margin-bottom: 30px;
+    margin-bottom: $section-m-md;
   }
   .offer {
     span {
@@ -142,7 +141,7 @@ export default {
       font-size: 22px;
     }
     &__header {
-      margin-bottom: 20px;
+      margin-bottom: $section-m-md;
     }
     &__tag {
       @include tag;
@@ -150,7 +149,7 @@ export default {
       margin-right: 10px;
     }
     &__icon {
-      font-size: 17px;
+      font-size: $font-content-lg;
       margin-right: 10px;
       &--green {
         color: green;
@@ -165,7 +164,6 @@ export default {
     display: flex;
   }
   .btn-container {
-    margin-top: 30px;
     .btn {
       margin-right: 20px;
     }

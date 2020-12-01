@@ -65,7 +65,7 @@ export default {
       background: transparent;
       .marker-icon {
         font-size: 40px;
-        color: $theme-dark-blue;
+        color: $dark-blue;
       }
     }
   }

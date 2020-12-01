@@ -44,31 +44,25 @@ export default {
 
 <style lang="scss" scoped>
   .pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center-row-xy;
     &__arrow {
-      border: none;
-      cursor: pointer;
       font-size: 1rem;
     }
     &__page {
-      border: 0;
       border-radius: 50%;
       background-color: transparent;
-      cursor: pointer;
       font-size: 1rem;
       height: 30px;
       width: 30px;
       @include transition;
       &:hover {
-        background-color: $theme-dark-blue;
-        color: #fff;
+        background-color: $dark-blue;
+        color: $white;
       }
     }
     &__active {
-      background-color: $theme-dark-blue;
-      color: #fff;
+      background-color: $dark-blue;
+      color: $white;
     }
   }
   .page-container {

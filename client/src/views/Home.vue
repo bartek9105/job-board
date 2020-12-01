@@ -71,24 +71,24 @@ export default {
   .main-section {
     background: $bg-grey;
     .offers {
-      max-width: 1087px;
+      max-width: $container-width;
       margin: 0 auto;
-      padding: 50px 0;
+      padding: $main-content-pd-tb-lg 0;
       &__offers-info {
-        color: $theme-dark-blue;
+        color: $dark-blue;
         font-weight: 700;
-        font-size: 14px;
+        font-size: $font-content-md;
         text-transform: uppercase;
-        margin-bottom: 50px;
+        margin-bottom: $section-m-lg;
       }
       &__pagination {
-        margin-top: 50px;
+        margin-top: $section-m-lg;
       }
     }
     .job-search-form {
-      background: #fff;
+      background: $white;
       width: 100%;
-      padding: 50px 0;
+      padding: $main-content-pd-tb-lg 0;
 }
   }
 </style>

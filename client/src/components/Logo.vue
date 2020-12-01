@@ -18,8 +18,7 @@ export default {
 
 <style lang="scss">
   .logo {
-    display: flex;
-    align-items: center;
+    @include flex-center-y;
     &__text {
       margin-right: 1rem;
     }

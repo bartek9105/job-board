@@ -21,7 +21,7 @@ export default {
 <style lang="scss">
   .hero {
     width: 100%;
-    height: 370px;
+    height: $hero-height;
     background: linear-gradient(164deg, #161B4B, #3440a8);
     background-size: 400% 400%;
     animation: GradientBackground 12s ease infinite;
@@ -40,7 +40,7 @@ export default {
       }
     }
     &__animatedCircle {
-      background: #fff;
+      background: $white;
       opacity: .1;
       position: absolute;
       width: 20px;

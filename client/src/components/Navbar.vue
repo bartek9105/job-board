@@ -42,29 +42,24 @@ export default {
 <style lang="scss">
     .nav-container {
         width: 100%;
-        background: #fff;
+        background: $white;
         .main-nav {
             @include shadow;
-            background: #fff;
-            max-width: 1640px;
+            background: $white;
+            max-width: $nav-width;
             margin: 0 auto;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
+            padding: $main-content-pd-tb-sm 1rem;
+            @include flex-s-b;
             align-items: center;
             &__links {
                 ul {
-                    display: flex;
-                    align-items: center;
-                    list-style: none;
+                    @include flex-center-y;
                     a {
-                        font-size: 14px;
-                        font-weight: 700;
-                        color: $theme-dark-blue;
+                        font-size: $font-content-md;
+                        font-weight: $font-bold;
                         margin-right: 3rem;
-                        text-decoration: none;
                         &:hover {
-                            color: $theme-pink;
+                            color: $pink;
                         }
                     }
                 }

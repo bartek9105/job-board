@@ -34,7 +34,7 @@ export default {
     }
     &__name {
       @include input-name;
-      margin-bottom: 10px;
+      margin-bottom: $section-m-sm;
     }
     &__input {
       @include input;

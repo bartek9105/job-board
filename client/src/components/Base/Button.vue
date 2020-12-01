@@ -1,20 +1,18 @@
 <template>
-  <button class="themeBtn">
+  <button class="btn">
     <slot></slot>
   </button>
 </template>
 
 <style lang="scss" scoped>
-  .themeBtn {
+  .btn {
     @include shadow;
-    background-color: $theme-pink;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 700;
-    border: none;
-    border-radius: 136px;
+    background-color: $pink;
+    color: $white;
+    font-size: $font-content-md;
+    font-weight: $font-bold;
+    border-radius: $border-radius-btn;
     padding: 10px 20px;
-    cursor: pointer;
     &:hover {
       @include shadow-hover;
     }

@@ -20,7 +20,7 @@ export default {
     width: 0.5em;
   }
   ul::-webkit-scrollbar-thumb {
-    background-color: $theme-dark-blue;
-    border-radius: 5px;
+    background-color: $dark-blue;
+    border-radius: $border-radius-sm;
   }
 </style>

@@ -43,13 +43,13 @@ export default {
 <style lang="scss">
   .post-offer-form-container {
     background: $bg-grey;
-    padding: 40px;
+    padding: $main-content-pd-tb-lg 40px;
     .post-offer-form {
-      @include app-container-width;
+      max-width: $container-width;
       margin: 0 auto;
-      &__heading {
-        margin-bottom: 30px;
+        &__heading {
+          margin-bottom: $section-m-md;
+        }
       }
-    }
   }
 </style>
