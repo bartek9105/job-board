@@ -94,11 +94,11 @@ export default {
 
 <style lang="scss" scoped>
   .offer-hero-container{
+    @include flex(center, center);
     max-width: $container-width;
     margin: 0 $margin-center;
     color: $white;
-    height: calc(100% - $nav-height);
-    @include flex(null, center);
+    height: calc(100% - #{$nav-height});
     .offer-hero-container-inner {
       @include flex();
       .offer-hero-details-container {
