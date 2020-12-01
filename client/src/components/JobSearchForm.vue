@@ -115,7 +115,7 @@ export default {
 .job-search-container {
   .job-search {
     .row {
-      @include flex-s-b;
+      @include flex (space-between);
       max-width: $container-width;
       margin: 0 auto $section-m-lg auto;
       .tags {
@@ -123,7 +123,7 @@ export default {
       }
     }
     &__single-input-container {
-      @include flex-col;
+      @include flex (null, null, column);
     }
     &__input-name {
       @include input-name;

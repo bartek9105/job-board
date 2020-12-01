@@ -53,8 +53,8 @@ export default {
 
 <style lang="scss" scoped>
   .offer {
+    @include flex (space-between);
     @include shadow;
-    @include flex-s-b;
     background: $white;
     color: $dark-blue;
     padding: $main-content-pd-tb-sm 35px;
@@ -65,12 +65,12 @@ export default {
       cursor: pointer;
     }
     &__logo {
-      @include flex-center-row-xy;
+      @include flex (center, center);
       max-width: 135px;
       margin-right: 35px;
     }
     &-top {
-      display: flex;
+      @include flex ();
       margin-bottom: $section-m-md;
     }
     &-main {
@@ -93,7 +93,7 @@ export default {
       }
     }
     &-tags {
-      display: flex;
+      @include flex ();
     }
     &__tag {
       @include tag-dark;
@@ -129,10 +129,7 @@ export default {
       }
     }
     &-additional {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-end;
+      @include flex (space-between, flex-end, column);
     }
     &__like-btn {
       text-align: right;

@@ -18,7 +18,7 @@ export default {
 
 <style lang="scss">
   .logo {
-    @include flex-center-y;
+    @include flex (null, center);
     &__text {
       margin-right: 1rem;
     }

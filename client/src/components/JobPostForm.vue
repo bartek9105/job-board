@@ -204,7 +204,7 @@ export default {
     background: $white;
     padding: $main-content-pd-tb-lg 0;
     .job-form-unit {
-      @include flex-col;
+      @include flex (null, null, column);
       padding: 0 20px;
       margin-bottom: $section-m-md;
       &__name {
@@ -223,10 +223,10 @@ export default {
         color: red;
       }
       &-validator {
-        @include flex-col;
+        @include flex (null, null, column);
       }
       .checkbox-container {
-        @include flex-center-y;
+        @include flex (null, center);
         margin-bottom: $section-m-sm;
       }
       &__checkbox {
@@ -245,7 +245,7 @@ export default {
       color: $white;
     }
     .job-form-price-cards-container {
-      @include flex-s-b;
+      @include flex (space-between);
       background: $bg-grey;
       padding: $main-content-pd-tb-lg 0;
     }
@@ -253,7 +253,7 @@ export default {
       &__list {
         text-align: left;
         li {
-          display: flex;
+          @include flex ();
           font-size: $font-content-md;
           font-weight: $font-bold;
           margin-bottom: $section-m-md;

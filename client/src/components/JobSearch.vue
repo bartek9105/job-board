@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss">
     .jobSearch {
-        @include flex-center-column-xy;
+        @include flex (center, center, column);
         color: $white-blue;
         height: calc(100% - ($nav-height));
         h1 {

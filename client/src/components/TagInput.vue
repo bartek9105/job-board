@@ -102,7 +102,7 @@ export default {
     padding: 0 10px;
     position: relative;
     &-insider {
-      @include flex-center-y;
+      @include flex (null, center);
       flex-wrap: wrap;
     }
     &__delete-icon {

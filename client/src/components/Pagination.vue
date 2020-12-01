@@ -44,17 +44,17 @@ export default {
 
 <style lang="scss" scoped>
   .pagination {
-    @include flex-center-row-xy;
+    @include flex (center, center);
     &__arrow {
       font-size: 1rem;
     }
     &__page {
+      @include transition;
       border-radius: 50%;
       background-color: transparent;
       font-size: 1rem;
       height: 30px;
       width: 30px;
-      @include transition;
       &:hover {
         background-color: $dark-blue;
         color: $white;

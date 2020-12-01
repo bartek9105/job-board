@@ -65,15 +65,14 @@ export default {
 
 <style lang="scss">
     .footer {
-        @include flex-s-b;
+        @include flex (space-between, null);
         max-width: $container-width;
         margin: 0 auto;
         background: $white;
         padding: $main-content-pd-tb-lg 0;
-        align-items: center;
         font-size: $font-content-md;
         &__navs-container {
-            display: flex;
+            @include flex ();
             .footer-nav {
                 ul {
                     margin-right: 80px;
@@ -84,7 +83,7 @@ export default {
             }
         }
         &__socials {
-            @include flex-col
+            @include flex (null, null, column);
             &-container {
                 margin-top: $section-m-md;
                 .social-icon {
@@ -96,7 +95,7 @@ export default {
     }
     .footer-bottom {
         &__text {
-            @include flex-center-row-xy;
+            @include flex (center, center);
             background-color: $bg-grey;
             padding: $main-content-pd-tb-md 0;
             font-size: $font-content-md;

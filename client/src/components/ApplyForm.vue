@@ -24,7 +24,7 @@ export default {
 <style lang="scss" scoped>
   .apply-form {
     > * {
-      @include flex-col;
+      @include flex (_, _, column);
     }
     display: grid;
     grid-column-gap: 1rem;

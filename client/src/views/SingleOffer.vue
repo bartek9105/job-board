@@ -98,12 +98,11 @@ export default {
     margin: 0 auto;
     color: $white;
     height: calc(100% - $nav-height);
-    @include flex-center-y;
+    @include flex (null, center);
     .offer-hero-container-inner {
       display: flex;
       .offer-hero-details-container {
-        @include flex-col;
-        justify-content: space-between;
+        @include flex (space-between, null, column);
         font-size: $font-content-md;
         color: $white-blue;
       }

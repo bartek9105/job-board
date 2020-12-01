@@ -44,16 +44,15 @@ export default {
         width: 100%;
         background: $white;
         .main-nav {
+            @include flex (space-between, center);
             @include shadow;
             background: $white;
             max-width: $nav-width;
             margin: 0 auto;
             padding: $main-content-pd-tb-sm 1rem;
-            @include flex-s-b;
-            align-items: center;
             &__links {
                 ul {
-                    @include flex-center-y;
+                    @include flex (null, center);
                     a {
                         font-size: $font-content-md;
                         font-weight: $font-bold;

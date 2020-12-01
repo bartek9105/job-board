@@ -45,7 +45,7 @@ export default {
       border-bottom: 5px solid $bg-grey;
       padding: $main-content-pd-tb-md 0;
       &__title {
-        @include flex-col;
+        @include flex (null, null, column);
         font-size: $font-content-lg;
         font-weight: $font-bold;
         text-transform: uppercase;
