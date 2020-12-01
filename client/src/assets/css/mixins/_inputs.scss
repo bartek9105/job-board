@@ -5,6 +5,12 @@
 
 @mixin input-name {
     text-transform: uppercase;
-    font-size: 15px;
+    font-size: $font-content-md;
     font-weight: $font-bold;
+}
+
+@mixin input-text-overflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

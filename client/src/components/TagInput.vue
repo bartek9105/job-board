@@ -97,12 +97,10 @@ export default {
     }
   }
   .tag-input {
-    border: 1px solid $light-blue;
-    border-radius: $border-radius-sm;
     padding: 0 10px;
     position: relative;
     &-insider {
-      @include flex (null, center);
+      @include flex(null, center);
       flex-wrap: wrap;
     }
     &__delete-icon {
@@ -116,15 +114,13 @@ export default {
       cursor: pointer;
     }
     &__inner {
+      @include input-text-overflow;
       min-width: 200px;
       margin-right: 30px;
       height: 35px;
       outline: none;
       border: none;
       flex: 1;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
     }
     &__tag {
       @include tag;

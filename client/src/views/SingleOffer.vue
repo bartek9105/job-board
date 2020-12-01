@@ -95,14 +95,14 @@ export default {
 <style lang="scss" scoped>
   .offer-hero-container{
     max-width: $container-width;
-    margin: 0 auto;
+    margin: 0 $margin-center;
     color: $white;
     height: calc(100% - $nav-height);
-    @include flex (null, center);
+    @include flex(null, center);
     .offer-hero-container-inner {
-      display: flex;
+      @include flex();
       .offer-hero-details-container {
-        @include flex (space-between, null, column);
+        @include flex(space-between, null, column);
         font-size: $font-content-md;
         color: $white-blue;
       }
@@ -116,10 +116,10 @@ export default {
     margin: 0 auto;
     background: $white;
     font-size: $font-content-md;
-    line-height: 24px;
+    line-height: $article-line-height;
     padding: $padding-lg 40px;
     .offer-details-container-row {
-      display: flex;
+      @include flex();
     }
   }
   .main-section {
@@ -136,9 +136,6 @@ export default {
       margin-right: 50px;
       border-radius: 100%;
     }
-    &__title {
-      font-size: 22px;
-    }
     &__header {
       margin-bottom: $margin-md;
     }
@@ -151,7 +148,7 @@ export default {
       font-size: $font-content-lg;
       margin-right: 10px;
       &--green {
-        color: green;
+        color: $success;
       }
     }
     &__category {
@@ -160,7 +157,7 @@ export default {
     }
   }
   .offer-tag-container {
-    display: flex;
+    @include flex();
   }
   .btn-container {
     .btn {

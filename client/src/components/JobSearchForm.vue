@@ -115,7 +115,7 @@ export default {
 .job-search-container {
   .job-search {
     .row {
-      @include flex (space-between);
+      @include flex(space-between);
       max-width: $container-width;
       margin: 0 auto $margin-lg auto;
       .tags {
@@ -123,7 +123,7 @@ export default {
       }
     }
     &__single-input-container {
-      @include flex (null, null, column);
+      @include flex(null, null, column);
     }
     &__input-name {
       @include input-name;
@@ -131,10 +131,6 @@ export default {
     }
     &__search-input {
       width: 200px;
-      height: 35px;
-      border: 1px solid $light-blue;
-      border-radius: $border-radius-sm;
-      padding: 0 10px;
       &--salary {
         width: 90px;
         margin-right: 20px;

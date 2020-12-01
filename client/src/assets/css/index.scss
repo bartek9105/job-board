@@ -26,6 +26,10 @@ input[type="text"]:disabled {
     background: $bg-grey;
 }
 
+h1 {
+    font-size: $font-heading-sm;
+}
+
 h2 {
     color: $dark-blue;
     font-size: $font-heading-xs;

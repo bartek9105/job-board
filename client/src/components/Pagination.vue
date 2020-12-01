@@ -46,13 +46,13 @@ export default {
   .pagination {
     @include flex (center, center);
     &__arrow {
-      font-size: 1rem;
+      font-size: $font-icon-sm;
     }
     &__page {
       @include transition;
       border-radius: 50%;
       background-color: transparent;
-      font-size: 1rem;
+      font-size: $font-content-lg;
       height: 30px;
       width: 30px;
       &:hover {

@@ -46,7 +46,7 @@ export default {
     padding: $padding-lg 40px;
     .post-offer-form {
       max-width: $container-width;
-      margin: 0 auto;
+      margin: $margin-center;
         &__heading {
           margin-bottom: $margin-md;
         }

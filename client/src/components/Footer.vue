@@ -65,14 +65,14 @@ export default {
 
 <style lang="scss">
     .footer {
-        @include flex (space-between, null);
-        max-width: $container-width;
-        margin: 0 auto;
+        @include flex(space-between, null);
         background: $white;
-        padding: $padding-lg 0;
         font-size: $font-content-md;
+        margin: $margin-center;
+        max-width: $container-width;
+        padding: $padding-lg 0;
         &__navs-container {
-            @include flex ();
+            @include flex();
             .footer-nav {
                 ul {
                     margin-right: 80px;
@@ -83,11 +83,11 @@ export default {
             }
         }
         &__socials {
-            @include flex (null, null, column);
+            @include flex(null, null, column);
             &-container {
                 margin-top: $margin-md;
                 .social-icon {
-                    font-size: 24px;
+                    font-size: $font-icon-md;
                     margin-right: 20px;
                 }
             }

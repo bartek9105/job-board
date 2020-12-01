@@ -72,11 +72,11 @@ export default {
     background: $bg-grey;
     .offers {
       max-width: $container-width;
-      margin: 0 auto;
+      margin: $margin-center;
       padding: $padding-lg 0;
       &__offers-info {
         color: $dark-blue;
-        font-weight: 700;
+        font-weight: $font-bold;
         font-size: $font-content-md;
         text-transform: uppercase;
         margin-bottom: $margin-lg;

@@ -200,7 +200,7 @@ export default {
 <style lang="scss">
   .job-form-container {
     width: 100%;
-    margin: 0 auto;
+    margin: $margin-center;
     background: $white;
     padding: $padding-lg 0;
     .job-form-unit {
@@ -219,13 +219,13 @@ export default {
       &__error {
         font-size: $font-content-sm;
         margin-top: $margin-sm;
-        color: red;
+        color: $error;
       }
       &-validator {
-        @include flex (null, null, column);
+        @include flex(null, null, column);
       }
       .checkbox-container {
-        @include flex (null, center);
+        @include flex(null, center);
         margin-bottom: $margin-sm
       }
       &__checkbox {
@@ -244,7 +244,7 @@ export default {
       color: $white;
     }
     .job-form-price-cards-container {
-      @include flex (space-between);
+      @include flex(space-between);
       background: $bg-grey;
       padding: $padding-lg 0;
     }
@@ -252,7 +252,7 @@ export default {
       &__list {
         text-align: left;
         li {
-          @include flex ();
+          @include flex();
           font-size: $font-content-md;
           font-weight: $font-bold;
           margin-bottom: $margin-md;
@@ -263,7 +263,7 @@ export default {
       }
       &__description {
         font-size: $font-content-sm;
-        line-height: 24px;
+        line-height: $article-line-height;
       }
     }
   }

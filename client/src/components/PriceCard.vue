@@ -45,14 +45,10 @@ export default {
       border-bottom: 5px solid $bg-grey;
       padding: $padding-md 0;
       &__title {
-        @include flex (null, null, column);
+        @include flex(null, null, column);
         font-size: $font-content-lg;
         font-weight: $font-bold;
         text-transform: uppercase;
-        &__icon {
-          font-size: 25px;
-          margin-bottom: $margin-sm
-        }
       }
     }
     .content-container {
@@ -60,13 +56,13 @@ export default {
       text-align: center;
     }
     &__price {
-      font-size: 26px;
+      font-size: $font-content-xl;
       font-weight: $font-bold;
       margin-right: 5px;
     }
     &__content {
       margin-top: $margin-lg;
-      font-size: 15px;
+      font-size: $font-content-lg;
     }
   }
   .active {

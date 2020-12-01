@@ -48,7 +48,7 @@ export default {
             @include shadow;
             background: $white;
             max-width: $nav-width;
-            margin: 0 auto;
+            margin: $margin-center;
             padding: $padding-sm 1rem;
             &__links {
                 ul {

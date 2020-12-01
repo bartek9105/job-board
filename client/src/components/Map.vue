@@ -64,7 +64,7 @@ export default {
       border: none;
       background: transparent;
       .marker-icon {
-        font-size: 40px;
+        font-size: $font-icon-lg;
         color: $dark-blue;
       }
     }

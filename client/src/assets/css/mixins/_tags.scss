@@ -1,5 +1,5 @@
 @mixin tag {
-    font-size: 12px;
+    font-size: $font-content-sm;
     border-radius: $border-radius-sm;
     padding: 7px 20px;
 }
