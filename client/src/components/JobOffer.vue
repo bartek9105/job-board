@@ -8,7 +8,7 @@
         <div class="offer__title">{{ offer.title }}</div>
         <div class="offer__pay">{{ offer.salary }} PLN</div>
         <div class="offer__city">
-          <font-awesome-icon icon="map-marker-alt"></font-awesome-icon>
+          <font-awesome-icon icon="map-marker-alt" class="offer__city__marker-icon"></font-awesome-icon>
           {{ offer.location }}
         </div>
       </div>
@@ -88,8 +88,8 @@ export default {
     &__city {
       font-size: $font-content-md;
       opacity: $opacity-high;
-      &-icon {
-        margin-right: 10px;
+      &__marker-icon {
+        margin-right: .5rem;
       }
     }
     &-tags {

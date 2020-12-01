@@ -37,8 +37,10 @@
           </div>
         </div>
         <div class="row">
-          <span class="job-search__input-name">Technologies</span>
-          <TagInput @technologies="technologies" class="tags"/>
+          <div class="job-search__single-input-container">
+            <span class="job-search__input-name">Technologies</span>
+            <TagInput @technologies="technologies" class="tags"/>
+          </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
             <select name="type" class="job-search__search-input" v-model="queries.type">
@@ -56,8 +58,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="button-container">
-            <Button @click.native="emitFormData">{{ buttonText }}</Button>
+          <div class="btn-container">
+            <Button @click.native="emitFormData" class="add-btn">{{ buttonText }}</Button>
             <ClearBtn @click="clearFilters">Clear filters</ClearBtn>
           </div>
         </div>
@@ -138,6 +140,9 @@ export default {
           margin-right: 0;
         }
       }
+    }
+    .add-btn {
+      margin-right: 1rem;
     }
   }
 }

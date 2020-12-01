@@ -3,7 +3,7 @@
         <h1 class="job-search__heading">Search through over 509 code job offers</h1>
         <form class="job-search__job-form" @submit.prevent>
             <input type="text" class="job-search__job-form__input" placeholder="Type in job you are looking for" v-model="titleQuery" >
-            <i class="fas fa-search job-searchh__job-form__search-icon"></i>
+            <font-awesome-icon icon="search" class="job-search__job-form__search-icon"></font-awesome-icon>
         </form>
     </div>
 </template>
@@ -23,7 +23,7 @@ export default {
     .job-search {
         @include flex(center, center, column);
         color: $white-blue;
-        height: calc(100% - ($nav-height));
+        height: calc(100% - #{$nav-height});
         &__heading {
             color: $white-blue;
             margin-bottom: $margin-md;
