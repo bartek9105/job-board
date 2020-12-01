@@ -117,7 +117,7 @@
           :session-id=getSessionId
         >
           <template slot="checkout-button">
-            <Button @click.native="postOffer">Add offer</Button>
+            <Button @click.native="postOffer" class="add-btn">Add offer</Button>
             <ClearBtn @click.native="offer = {}">Clear inputs</ClearBtn>
           </template>
         </stripe-checkout>
@@ -202,7 +202,7 @@ export default {
     width: 100%;
     margin: $margin-center;
     background: $white;
-    padding: $padding-lg 0;
+    padding: $padding-md 0;
     .job-form-unit {
       @include flex (null, null, column);
       padding: 0 20px;
@@ -237,7 +237,10 @@ export default {
       }
     }
     .btn-container {
-      padding: 0 20px;
+      padding: $padding-md 0 0 2rem;
+    }
+    .add-btn {
+      margin-right: 1rem;
     }
     .cardActive {
       background: $dark-blue;

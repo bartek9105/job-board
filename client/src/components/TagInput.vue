@@ -97,7 +97,6 @@ export default {
     }
   }
   .tag-input {
-    padding: 0 10px;
     position: relative;
     &-insider {
       @include flex(null, center);

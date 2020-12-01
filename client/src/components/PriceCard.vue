@@ -52,7 +52,7 @@ export default {
       }
     }
     .content-container {
-      padding: $padding-md 30px;
+      padding: $padding-lg 30px;
       text-align: center;
     }
     &__price {
