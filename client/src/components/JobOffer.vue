@@ -11,6 +11,7 @@
           <font-awesome-icon icon="map-marker-alt" class="offer__city__marker-icon"></font-awesome-icon>
           {{ offer.location }}
         </div>
+        <div class="offer__promoted" v-if="offer.isPromoted">Featured</div>
       </div>
       <div class="offer-tags">
         <div class="offer__tag" v-for="technology in offer.technologies.slice(0, 4)" :key="technology.id">
@@ -43,10 +44,6 @@ export default {
   name: 'JobOffer',
   props: {
     offer: Object
-  },
-  data () {
-    return {
-    }
   }
 }
 </script>
@@ -64,6 +61,11 @@ export default {
       @include transition;
       cursor: pointer;
     }
+    &__promoted {
+      @include tag-dark;
+      background: $pink;
+      margin-left: 1rem;
+    }
     &__logo {
       @include flex(center, center);
       max-width: 135px;
@@ -71,10 +73,13 @@ export default {
     }
     &-top {
       @include flex();
-      margin-bottom: $margin-md;
+      margin-bottom: $margin-sm;
     }
     &-main {
       flex: 1;
+    }
+    &-top {
+      @include flex(null, center);
     }
     &__title {
       font-size: $font-content-lg;
@@ -99,7 +104,6 @@ export default {
       @include tag-dark;
       margin-right: 20px;
       &--sm {
-        position: relative;
         &:hover .offer__tag__list {
           display: block;
         }
