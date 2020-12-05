@@ -6,7 +6,10 @@
     <div class="offer-main">
       <div class="offer-top">
         <div class="offer__title">{{ offer.title }}</div>
-        <div class="offer__pay">{{ offer.salary }} PLN</div>
+        <div class="offer__pay">
+          <font-awesome-icon icon="money-bill-wave" class="offer__pay__icon"></font-awesome-icon>
+          {{ offer.salaryMin }} - {{ offer.salaryMax }} PLN
+        </div>
         <div class="offer__city">
           <font-awesome-icon icon="map-marker-alt" class="offer__city__marker-icon"></font-awesome-icon>
           {{ offer.location }}
@@ -14,12 +17,12 @@
         <div class="offer__promoted" v-if="offer.isPromoted">Featured</div>
       </div>
       <div class="offer-tags">
-        <div class="offer__tag" v-for="technology in offer.technologies.slice(0, 4)" :key="technology.id">
+        <div class="offer__tag" v-for="technology in offer.technologies.slice(0, 3)" :key="technology.id">
           {{ technology }}
         </div>
-        <div class="offer__tag offer__tag--sm" v-if="offer.technologies.length > 4"> + {{ offer.technologies.length - 4 }}
+        <div class="offer__tag offer__tag--sm" v-if="offer.technologies.length > 3"> + {{ offer.technologies.length - 3 }}
           <ul class="offer__tag__list">
-            <li v-for="technology in offer.technologies.slice(4)" :key="technology.id">
+            <li v-for="technology in offer.technologies.slice(3)" :key="technology.id">
               {{ technology }}
             </li>
           </ul>
@@ -30,7 +33,7 @@
     <div class="offer-additional">
       <div class="offer-tags">
         <div class="offer__tag offer__tag--light">{{ offer.category }}</div>
-        <div class="offer__tag offer__tag--light">3d ago</div>
+        <div class="offer__tag offer__tag--light"> {{ daysDifference(new Date, offer.createdAt) }}d ago </div>
       </div>
       <button class="offer__like-btn">
         <font-awesome-icon icon="heart"></font-awesome-icon>
@@ -40,10 +43,15 @@
 </template>
 
 <script>
+import { daysDifference } from '@/utils/daysDifference'
+
 export default {
   name: 'JobOffer',
   props: {
     offer: Object
+  },
+  methods: {
+    daysDifference
   }
 }
 </script>
@@ -64,12 +72,12 @@ export default {
     &__promoted {
       @include tag-dark;
       background: $pink;
-      margin-left: 1rem;
     }
     &__logo {
       @include flex(center, center);
       max-width: 135px;
       margin-right: 35px;
+      border-radius: 100%;
     }
     &-top {
       @include flex();
@@ -89,10 +97,14 @@ export default {
       font-size: $font-content-md;
       opacity: $opacity-high;
       margin-right: 40px;
+      &__icon {
+        margin-right: .5rem;
+      }
     }
     &__city {
       font-size: $font-content-md;
       opacity: $opacity-high;
+      margin-right: 40px;
       &__marker-icon {
         margin-right: .5rem;
       }

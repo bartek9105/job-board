@@ -13,7 +13,7 @@ exports.getOffers = async (req, res, next) => {
         let query = JSON.stringify(reqQuery).replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`)
 
         const page = parseInt(req.query.page, 10) || 1
-        const limit = parseInt(req.query.limit, 10) || 5
+        const limit = parseInt(req.query.limit, 10) || 30
         const startIndex = (page - 1) * limit
         const endIndex = page * limit
         
