@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
-    <Footer/>
+    <Footer v-if="!isLoginOrRegister"/>
   </div>
 </template>
 
@@ -11,6 +11,11 @@ import Footer from '@/components/Footer'
 export default {
   components: {
     Footer
+  },
+  computed: {
+    isLoginOrRegister () {
+      return this.$route.name === 'Login' || this.$route.name === 'Register'
+    }
   }
 }
 </script>
