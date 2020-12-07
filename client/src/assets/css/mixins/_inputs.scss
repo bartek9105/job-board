@@ -7,6 +7,7 @@
     text-transform: uppercase;
     font-size: $font-content-md;
     font-weight: $font-bold;
+    color: $dark-blue;
 }
 
 @mixin input-text-overflow {
