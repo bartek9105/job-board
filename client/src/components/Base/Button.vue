@@ -13,6 +13,7 @@
     font-weight: $font-bold;
     border-radius: $border-radius-btn;
     padding: 10px 20px;
+    width: fit-content;
     &:hover {
       @include shadow-hover;
     }
