@@ -1,7 +1,9 @@
 <template>
     <div class="register">
-        <div class="left"></div>
-        <div class="right"></div>
+        <div class="left-side">
+            <div class="bg-overlay"></div>
+        </div>
+        <div class="right-side"></div>
     </div>
 </template>
 
@@ -13,10 +15,20 @@ export default {
 </script>
 
 <style lang="scss">
-    .left {
+    .left-side {
         width: 50%;
+        height: 100vh;
+        background: url('../assets/images/banner.jpg') no-repeat;
+        background-position: center center;
+        background-size: cover;
+        .bg-overlay {
+            width: 100%;
+            height: 100%;
+            background: $dark-blue;
+            opacity: $opacity-high;
+        }
     }
-    .right {
+    .right-side {
         width: 50%;
     }
 </style>
