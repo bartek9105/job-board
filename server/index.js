@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
+const morgan = require('morgan')
 const cors = require('cors')
 const errorHandler = require('./middleware/error')
 const dbConnection = require('./config/db')
@@ -11,7 +12,8 @@ dbConnection()
 
 const app = express()
 
-app.use(cors())
+app.use(morgan('tiny'))
+app.use(cors({ origin: 'http://localhost:8080', credentials: true }))
 app.use(express.json({
     verify: (req, res, buf) => {
         req.rawBody = buf

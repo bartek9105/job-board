@@ -68,8 +68,10 @@ export default ({
             type: queriesFilter.type,
             salary: { lt: queriesFilter.salaryMax, gt: queriesFilter.salaryMin },
             contract: queriesFilter.contract
+
           },
-          paramsSerializer: params => qs.stringify(params)
+          paramsSerializer: params => qs.stringify(params),
+          withCredentials: true
         })
         commit('SET_JOB_OFFERS', offersData.data)
       } catch (error) {
