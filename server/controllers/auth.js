@@ -5,13 +5,13 @@ const Employer = require('../models/Employer')
 
 exports.register = async (req, res, next) => {
     try {
-        const { name, email } = req.body
+        const { name, email, password } = req.body
 
         const salt = await bcrypt.genSalt(10)
-        const password = await bcrypt.hash(req.body.password, salt)
+        const hashPassword = await bcrypt.hash(password, salt)
         
         const user = await new Employer({
-            name, email, password
+            name, email, hashPassword
         })
         await user.save()
 
@@ -45,7 +45,9 @@ exports.login = async (req, res, next) => {
             id: employer._id
         }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES })
 
-        res.status(200).send({ token })
+        res.status(200).cookie('token', token, {
+            httpOnly: true
+        }).send({ status: 'success' })
     } catch (error) {
         next(error)
     }

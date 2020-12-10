@@ -1,5 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv')
+const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const errorHandler = require('./middleware/error')
 const dbConnection = require('./config/db')
@@ -16,6 +17,7 @@ app.use(express.json({
         req.rawBody = buf
     }
 }))
+app.use(cookieParser())
 
 const offers = require('./routes/offers')
 const auth = require('./routes/auth')
