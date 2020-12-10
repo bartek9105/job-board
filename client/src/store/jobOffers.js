@@ -1,5 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
+import Api from '../services/Api'
 
 export default ({
   state: {
@@ -43,7 +44,7 @@ export default ({
   actions: {
     async fetchJobOffer ({ commit }, offerId) {
       try {
-        const offer = await axios.get(`http://localhost:5000/api/v1/offers/${offerId}`)
+        const offer = await Api().get(`offers/${offerId}`)
         commit('SET_JOB_OFFER', offer.data.data)
       } catch (error) {
         console.log(error)
@@ -59,7 +60,7 @@ export default ({
             o[e] = queries[e]
             return o
           }, {})
-        const offersData = await axios.get(`http://localhost:5000/api/v1/offers?page=${queriesFilter.page}`, {
+        const offersData = await Api().get(`offers?page=${queriesFilter.page}`, {
           params: {
             technologies: { in: queriesFilter.technologies },
             seniority: queriesFilter.seniority,
@@ -70,8 +71,7 @@ export default ({
             contract: queriesFilter.contract
 
           },
-          paramsSerializer: params => qs.stringify(params),
-          withCredentials: true
+          paramsSerializer: params => qs.stringify(params)
         })
         commit('SET_JOB_OFFERS', offersData.data)
       } catch (error) {
@@ -80,7 +80,7 @@ export default ({
     },
     async fetchProducts ({ commit }) {
       try {
-        const productsData = await axios.get('http://localhost:5000/api/v1/products')
+        const productsData = await Api().get('products')
         commit('SET_PRODUCTS', productsData.data)
       } catch (error) {
         console.log(error)
@@ -89,7 +89,7 @@ export default ({
     async addJobOffer ({ commit }, payload) {
       const { title, category, type, salaryMin, salaryMax, description, contract, technologies, location, productId } = payload
       try {
-        const response = await axios.post('http://localhost:5000/api/v1/offers', {
+        const response = await axios.post('offers', {
           productId: productId,
           email: 'example@email.com',
           title: title,

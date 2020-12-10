@@ -1,4 +1,4 @@
-import axios from 'axios'
+import Api from '../services/Api'
 
 export default ({
   state: {
@@ -16,7 +16,7 @@ export default ({
     async signIn ({ commit }, credentials) {
       try {
         const { email, password } = credentials
-        const req = await axios.post('http://localhost:5000/api/v1/auth/login', {
+        const req = await Api().post('auth/login', {
           email: email,
           password: password
         }, { withCredentials: true })
