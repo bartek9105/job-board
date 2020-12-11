@@ -1,4 +1,3 @@
-import axios from 'axios'
 import qs from 'qs'
 import Api from '../services/Api'
 
@@ -89,7 +88,7 @@ export default ({
     async addJobOffer ({ commit }, payload) {
       const { title, category, type, salaryMin, salaryMax, description, contract, technologies, location, productId } = payload
       try {
-        const response = await axios.post('offers', {
+        const response = await Api().post('offers', {
           productId: productId,
           email: 'example@email.com',
           title: title,

@@ -32,7 +32,7 @@ exports.getOffers = async (req, res, next) => {
         const availableFilters = Object.keys(Offer.schema.paths)
         const schemaFilters = _.pickBy(parsedQuery, (value, key) => availableFilters.indexOf(key) > -1)
         
-        const offers = await Offer.find({ ...schemaFilters, ...locationSearch, $or: [{ status: "free" }, { status: "paid" }] }).skip(startIndex).limit(limit).sort({ isPromoted: -1, createdAt: 'desc' })
+        const offers = await Offer.find({ ...schemaFilters, ...locationSearch, $or: [{ status: "free" }, { status: "paid" }] }).skip(startIndex).limit(limit).sort({ isPromoted: -1, createdAt: 'desc' }).populate('creator')
         
         const total = await Offer.find({ ...schemaFilters, ...locationSearch }).countDocuments()
 
@@ -89,8 +89,9 @@ exports.getOffer = async (req, res, next) => {
 
 exports.addOffer = async (req, res, next) => {
     try {
+        console.log(req.body)
         if (req.body.product[0].price === 0) {
-            const offer = new Offer({ ...req.body, status: 'free', expireAt: setOfferExpiryDate(7) })
+            const offer = new Offer({ ...req.body, creator: req.creator, status: 'free', expireAt: setOfferExpiryDate(7) })
             await offer.save()
         }
         else if (req.body.product[0].duration === '15d'){

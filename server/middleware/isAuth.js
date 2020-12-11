@@ -9,7 +9,7 @@ exports.isAuth = async (req, res, next) => {
             token = token.split('=')[1]
             try {
                 const decodedToken = await jwt.verify(token, process.env.JWT_SECRET)
-                req.userId = decodedToken.id
+                req.creator = decodedToken.id
                 next()
             } catch (error) {
                 console.log(error)

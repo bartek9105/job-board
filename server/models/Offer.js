@@ -54,6 +54,11 @@ const offerSchema = new mongoose.Schema({
         required: true,
         default: false
     },
+    creator: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Employer',
+        required: true
+    },
     promotionExpireAt: {
         type: Date
     },
