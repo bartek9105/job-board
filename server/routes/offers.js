@@ -5,16 +5,18 @@ const offersController = require('../controllers/offers')
 const paymentController = require('../controllers/payment')
 const productController = require('../controllers/products')
 
-router.get('/', offersController.getOffers)
+const isAuth = require('../middleware/isAuth')
+
+router.get('/', isAuth.isAuth, offersController.getOffers)
 
 router.get('/:id', offersController.getOffer)
 
-router.post('/', productController.getProduct, offersController.addOffer, paymentController.createPaymentSession)
+router.post('/', isAuth.isAuth, productController.getProduct, offersController.addOffer, paymentController.createPaymentSession)
 
 router.post('/webhook', paymentController.listenForPaymentSuccess, offersController.updateOfferStatus)
 
-router.put('/:id', offersController.editOffer)
+router.put('/:id', isAuth.isAuth, offersController.editOffer)
 
-router.delete('/:id', offersController.deleteOffer)
+router.delete('/:id', isAuth.isAuth, offersController.deleteOffer)
 
 module.exports = router
