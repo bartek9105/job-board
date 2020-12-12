@@ -89,7 +89,6 @@ exports.getOffer = async (req, res, next) => {
 
 exports.addOffer = async (req, res, next) => {
     try {
-        console.log(req.body)
         if (req.body.product[0].price === 0) {
             const offer = new Offer({ ...req.body, creator: req.creator, status: 'free', expireAt: setOfferExpiryDate(7) })
             await offer.save()
@@ -113,16 +112,23 @@ exports.addOffer = async (req, res, next) => {
 
 exports.editOffer = async (req, res, next) => {
     try {
-        const offer = await Offer.findByIdAndUpdate(req.params.id, req.body, {
-            runValidators: true
-        })
+        const offer = await Offer.findById(req.params.id)
         if (!offer) {
             return res.status(400).send({
                 error: error
             })
         }
+
+        if (req.creatorId !== offer.creator._id) {
+            res.status(403).send('Not authorized')
+        }
+        
+        const updatedOffer = await Offer.findByIdAndUpdate(req.params.id, req.body, {
+            runValidators: true
+        })
+
         res.status(200).send({
-            data: offer
+            data: updatedOffer
         })        
     } catch (error) {
         next(error)
@@ -152,6 +158,9 @@ exports.deleteOffer = async (req, res, next) => {
             return res.status(400).send({
                 error: error
             })
+        }
+        if (req.creatorId !== offer.creator._id) {
+            res.status(403).send('Not authorized')
         }
         res.status(200).send({
             data: {}

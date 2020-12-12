@@ -9,11 +9,12 @@ exports.isAuth = async (req, res, next) => {
             token = token.split('=')[1]
             try {
                 const decodedToken = await jwt.verify(token, process.env.JWT_SECRET)
-                req.creator = decodedToken.id
+                req.creatorId = decodedToken.id
                 next()
             } catch (error) {
                 console.log(error)
             }
         }
     }
+    res.status(403).send('Not authorized')
 }
