@@ -24,7 +24,11 @@
     "stripe": "^8.121.0"
   },
   "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-prettier": "^3.3.0",
     "lodash": "^4.17.20",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "prettier": "^2.2.1"
   }
 }

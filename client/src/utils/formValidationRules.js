@@ -1,7 +1,7 @@
 import { extend } from 'vee-validate'
 
 extend('required', {
-  validate (value) {
+  validate(value) {
     return {
       required: true,
       valid: ['', null, undefined].indexOf(value) === -1
@@ -12,7 +12,7 @@ extend('required', {
 })
 
 extend('max', {
-  validate (value) {
+  validate(value) {
     return value.length <= 30
   },
   message: 'Max length is 30 characters'

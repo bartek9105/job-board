@@ -1,6 +1,10 @@
 <template>
   <div class="editor">
-    <vue-editor :editorToolbar="customToolbar" v-model="content" @text-change="emitEditorContent"/>
+    <vue-editor
+      :editorToolbar="customToolbar"
+      v-model="content"
+      @text-change="emitEditorContent"
+    />
   </div>
 </template>
 
@@ -12,14 +16,17 @@ export default {
   components: {
     VueEditor
   },
-  data () {
+  data() {
     return {
-      customToolbar: [['bold', 'italic', 'underline'], [{ list: 'ordered' }, { list: 'bullet' }]],
+      customToolbar: [
+        ['bold', 'italic', 'underline'],
+        [{ list: 'ordered' }, { list: 'bullet' }]
+      ],
       content: ''
     }
   },
   methods: {
-    emitEditorContent () {
+    emitEditorContent() {
       this.$emit('editorContent', this.content)
     }
   }
@@ -27,13 +34,13 @@ export default {
 </script>
 
 <style lang="scss">
-  .editor {
-    max-width: $container-width;
-  }
-  .ql-toolbar.ql-snow {
-    margin-bottom: $margin-sm;
-  }
-  .ql-snow {
-    @include input-select-border;
-  }
+.editor {
+  max-width: $container-width;
+}
+.ql-toolbar.ql-snow {
+  margin-bottom: $margin-sm;
+}
+.ql-snow {
+  @include input-select-border;
+}
 </style>

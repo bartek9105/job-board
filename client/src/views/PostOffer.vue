@@ -2,13 +2,13 @@
   <div>
     <Hero>
       <template v-slot:hero-content>
-        <Map :location="location"/>
+        <Map :location="location" />
       </template>
     </Hero>
     <div class="post-offer-form-container">
       <div class="post-offer-form">
         <h3 class="post-offer-form__heading">Post your job offer</h3>
-        <JobPostForm class="post-offer-form" @location="locationData"/>
+        <JobPostForm class="post-offer-form" @location="locationData" />
       </div>
     </div>
   </div>
@@ -26,14 +26,14 @@ export default {
     Map,
     JobPostForm
   },
-  data () {
+  data() {
     return {
       location: '',
       title: ''
     }
   },
   methods: {
-    locationData (location) {
+    locationData(location) {
       this.location = location
     }
   }
@@ -41,15 +41,15 @@ export default {
 </script>
 
 <style lang="scss">
-  .post-offer-form-container {
-    background: $bg-grey;
-    padding: $padding-lg 40px;
-    .post-offer-form {
-      max-width: $container-width;
-      margin: $margin-center;
-        &__heading {
-          margin-bottom: $margin-md;
-        }
-      }
+.post-offer-form-container {
+  background: $bg-grey;
+  padding: $padding-lg 40px;
+  .post-offer-form {
+    max-width: $container-width;
+    margin: $margin-center;
+    &__heading {
+      margin-bottom: $margin-md;
+    }
   }
+}
 </style>

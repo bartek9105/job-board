@@ -11,9 +11,9 @@ export default {
 </script>
 
 <style lang="scss">
-  .clear-btn {
-    background: transparent;
-    color: $dark-blue;
-    font-weight: $font-bold;
-  }
+.clear-btn {
+  background: transparent;
+  color: $dark-blue;
+  font-weight: $font-bold;
+}
 </style>

@@ -26,7 +26,7 @@ export default {
     Auth,
     Button
   },
-  data () {
+  data() {
     return {
       credentials: {
         email: '',
@@ -36,19 +36,17 @@ export default {
   },
   methods: {
     ...mapActions(['signIn']),
-    login () {
+    login() {
       this.signIn(this.credentials)
     },
-    email (emailData) {
+    email(emailData) {
       this.credentials.email = emailData
     },
-    password (passwordData) {
+    password(passwordData) {
       this.credentials.password = passwordData
     }
   }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

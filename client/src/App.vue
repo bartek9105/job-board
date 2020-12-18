@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <router-view/>
-    <Footer v-if="!isLoginOrRegister"/>
+    <router-view />
+    <Footer v-if="!isLoginOrRegister" />
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
     Footer
   },
   computed: {
-    isLoginOrRegister () {
+    isLoginOrRegister() {
       return this.$route.name === 'Login' || this.$route.name === 'Register'
     }
   }
@@ -21,11 +21,11 @@ export default {
 </script>
 
 <style lang="scss">
-  ul::-webkit-scrollbar {
-    width: 0.5em;
-  }
-  ul::-webkit-scrollbar-thumb {
-    background-color: $dark-blue;
-    border-radius: $border-radius-sm;
-  }
+ul::-webkit-scrollbar {
+  width: 0.5em;
+}
+ul::-webkit-scrollbar-thumb {
+  background-color: $dark-blue;
+  border-radius: $border-radius-sm;
+}
 </style>

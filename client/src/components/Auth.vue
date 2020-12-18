@@ -64,7 +64,7 @@ export default {
   props: {
     infoRoute: String
   },
-  data () {
+  data() {
     return {
       credentials: {
         email: '',
@@ -73,15 +73,15 @@ export default {
     }
   },
   methods: {
-    emitEmail () {
+    emitEmail() {
       this.$emit('email', this.credentials.email)
     },
-    emitPassword () {
+    emitPassword() {
       this.$emit('password', this.credentials.password)
     }
   },
   computed: {
-    routerLink () {
+    routerLink() {
       return this.infoRoute
     }
   }
@@ -93,7 +93,7 @@ export default {
   .img-container {
     width: 40%;
     height: 100vh;
-    background: url("../assets/images/banner.jpg") no-repeat;
+    background: url('../assets/images/banner.jpg') no-repeat;
     background-position: center center;
     background-size: cover;
     .img-overlay {
@@ -105,7 +105,7 @@ export default {
   }
   .form-container {
     @include flex(center, center, column);
-    background: url("../assets/images/pattern.svg") no-repeat;
+    background: url('../assets/images/pattern.svg') no-repeat;
     width: 60%;
   }
   .form-unit {

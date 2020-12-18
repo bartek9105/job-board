@@ -11,9 +11,19 @@ router.get('/', offersController.getOffers)
 
 router.get('/:id', offersController.getOffer)
 
-router.post('/', isAuth.isAuth, productController.getProduct, offersController.addOffer, paymentController.createPaymentSession)
+router.post(
+  '/',
+  isAuth.isAuth,
+  productController.getProduct,
+  offersController.addOffer,
+  paymentController.createPaymentSession
+)
 
-router.post('/webhook', paymentController.listenForPaymentSuccess, offersController.updateOfferStatus)
+router.post(
+  '/webhook',
+  paymentController.listenForPaymentSuccess,
+  offersController.updateOfferStatus
+)
 
 router.put('/:id', isAuth.isAuth, offersController.editOffer)
 

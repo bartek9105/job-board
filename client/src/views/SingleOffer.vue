@@ -4,24 +4,40 @@
       <template v-slot:hero-content>
         <div class="offer-hero-container">
           <div class="offer-hero-container-inner">
-            <img :src="'https://picsum.photos/100'" alt="logo" class="offer__logo">
+            <img
+              :src="'https://picsum.photos/100'"
+              alt="logo"
+              class="offer__logo"
+            />
             <div class="offer-hero-details-container">
               <h1 class="offer__title">{{ getJobOffer.title }}</h1>
               <span class="offer__location">
-                <font-awesome-icon icon="map-marker-alt" class="offer__icon"></font-awesome-icon>
+                <font-awesome-icon
+                  icon="map-marker-alt"
+                  class="offer__icon"
+                ></font-awesome-icon>
                 {{ getJobOffer.location }}
               </span>
               <div class="offer-hero-details-container-row">
                 <span class="offer__pay">
-                  <font-awesome-icon icon="money-bill-wave" class="offer__icon"></font-awesome-icon>
+                  <font-awesome-icon
+                    icon="money-bill-wave"
+                    class="offer__icon"
+                  ></font-awesome-icon>
                   {{ getJobOffer.salaryMin }} - {{ getJobOffer.salaryMax }}
                 </span>
                 <span class="offer__contract">
-                  <font-awesome-icon icon="file-signature" class="offer__icon"></font-awesome-icon>
+                  <font-awesome-icon
+                    icon="file-signature"
+                    class="offer__icon"
+                  ></font-awesome-icon>
                   {{ getJobOffer.contract }}
                 </span>
                 <span class="offer__type">
-                  <font-awesome-icon icon="clock" class="offer__icon"></font-awesome-icon>
+                  <font-awesome-icon
+                    icon="clock"
+                    class="offer__icon"
+                  ></font-awesome-icon>
                   {{ getJobOffer.type }}
                 </span>
                 <span class="offer__category">{{ getJobOffer.category }}</span>
@@ -40,14 +56,23 @@
         <section class="offer-details-section">
           <h2 class="offer__header">Technologies</h2>
           <div class="offer-tag-container">
-            <div class="offer__tag" v-for="(technology, index) in getJobOffer.technologies" :key="index">{{ technology }}</div>
+            <div
+              class="offer__tag"
+              v-for="(technology, index) in getJobOffer.technologies"
+              :key="index"
+            >
+              {{ technology }}
+            </div>
           </div>
         </section>
         <section class="offer-details-section">
           <h2 class="offer__header">Benefits</h2>
           <ul ckass="offer__benefits__list">
             <li v-for="(benefit, index) in getJobOffer.benefits" :key="index">
-              <font-awesome-icon icon="check-circle" class="offer__icon offer__icon--green"></font-awesome-icon>
+              <font-awesome-icon
+                icon="check-circle"
+                class="offer__icon offer__icon--green"
+              ></font-awesome-icon>
               {{ benefit }}
             </li>
           </ul>
@@ -86,82 +111,82 @@ export default {
   computed: {
     ...mapGetters(['getJobOffer'])
   },
-  mounted () {
+  mounted() {
     this.fetchJobOffer(this.$route.params.id)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .offer-hero-container{
-    @include flex(center, center);
-    max-width: $container-width;
-    margin: 0 $margin-center;
-    color: $white;
-    height: calc(100% - #{$nav-height});
-    .offer-hero-container-inner {
-      @include flex();
-      .offer-hero-details-container {
-        @include flex(space-between, null, column);
-        font-size: $font-content-md;
-        color: $white-blue;
-      }
+.offer-hero-container {
+  @include flex(center, center);
+  max-width: $container-width;
+  margin: 0 $margin-center;
+  color: $white;
+  height: calc(100% - #{$nav-height});
+  .offer-hero-container-inner {
+    @include flex();
+    .offer-hero-details-container {
+      @include flex(space-between, null, column);
+      font-size: $font-content-md;
+      color: $white-blue;
     }
   }
-  .offer-details-container {
-    @include shadow;
-    max-width: $container-width;
-    position: relative;
-    top: -30px;
-    margin: 0 auto;
-    background: $white;
-    font-size: $font-content-md;
-    line-height: $article-line-height;
-    padding: $padding-lg 40px;
-    .offer-details-container-row {
-      @include flex();
-    }
-  }
-  .main-section {
-    background: $bg-grey;
-  }
-  .offer-details-section {
-    margin-bottom: $margin-md;
-  }
-  .offer {
-    span {
-      margin-right: 15px;
-    }
-    &__logo {
-      margin-right: 50px;
-      border-radius: 100%;
-    }
-    &__header {
-      margin-bottom: $margin-md;
-    }
-    &__tag {
-      @include tag;
-      @include tag-dark;
-      margin-right: 10px;
-    }
-    &__icon {
-      font-size: $font-content-lg;
-      margin-right: 10px;
-      &--green {
-        color: $success;
-      }
-    }
-    &__category {
-      @include tag;
-      @include tag-light;
-    }
-  }
-  .offer-tag-container {
+}
+.offer-details-container {
+  @include shadow;
+  max-width: $container-width;
+  position: relative;
+  top: -30px;
+  margin: 0 auto;
+  background: $white;
+  font-size: $font-content-md;
+  line-height: $article-line-height;
+  padding: $padding-lg 40px;
+  .offer-details-container-row {
     @include flex();
   }
-  .btn-container {
-    .btn {
-      margin-right: 20px;
+}
+.main-section {
+  background: $bg-grey;
+}
+.offer-details-section {
+  margin-bottom: $margin-md;
+}
+.offer {
+  span {
+    margin-right: 15px;
+  }
+  &__logo {
+    margin-right: 50px;
+    border-radius: 100%;
+  }
+  &__header {
+    margin-bottom: $margin-md;
+  }
+  &__tag {
+    @include tag;
+    @include tag-dark;
+    margin-right: 10px;
+  }
+  &__icon {
+    font-size: $font-content-lg;
+    margin-right: 10px;
+    &--green {
+      color: $success;
     }
   }
+  &__category {
+    @include tag;
+    @include tag-light;
+  }
+}
+.offer-tag-container {
+  @include flex();
+}
+.btn-container {
+  .btn {
+    margin-right: 20px;
+  }
+}
 </style>

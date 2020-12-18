@@ -5,11 +5,20 @@
         <div class="row">
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Location</span>
-            <input type="text" class="job-search__search-input" placeholder="City" v-model="queries.location">
+            <input
+              type="text"
+              class="job-search__search-input"
+              placeholder="City"
+              v-model="queries.location"
+            />
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Category</span>
-            <select name="category" class="job-search__search-input" v-model="queries.category">
+            <select
+              name="category"
+              class="job-search__search-input"
+              v-model="queries.category"
+            >
               <option value="Frontend">Frontend</option>
               <option value="Backend">Backend</option>
               <option value="UX/UI">UI/UX</option>
@@ -21,7 +30,11 @@
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Seniority</span>
-            <select name="type" class="job-search__search-input" v-model="queries.seniority">
+            <select
+              name="type"
+              class="job-search__search-input"
+              v-model="queries.seniority"
+            >
               <option value="Intern">Intern</option>
               <option value="Junior">Junior</option>
               <option value="Regular">Regular</option>
@@ -31,26 +44,44 @@
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Salary</span>
             <div class="job-search__salary-inputs">
-              <input type="number" placeholder='MIN' class="job-search__search-input salary-input job-search__search-input--salary" v-model="queries.salaryMin">
-              <input type="number" placeholder='MAX' class="job-search__search-input salary-input job-search__search-input--salary" v-model="queries.salaryMax">
+              <input
+                type="number"
+                placeholder="MIN"
+                class="job-search__search-input salary-input job-search__search-input--salary"
+                v-model="queries.salaryMin"
+              />
+              <input
+                type="number"
+                placeholder="MAX"
+                class="job-search__search-input salary-input job-search__search-input--salary"
+                v-model="queries.salaryMax"
+              />
             </div>
           </div>
         </div>
         <div class="row">
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Technologies</span>
-            <TagInput @technologies="technologies" class="tags"/>
+            <TagInput @technologies="technologies" class="tags" />
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
-            <select name="type" class="job-search__search-input" v-model="queries.type">
+            <select
+              name="type"
+              class="job-search__search-input"
+              v-model="queries.type"
+            >
               <option value="Full Time">Full Time</option>
               <option value="Part Time">Part Time</option>
             </select>
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Contract</span>
-            <select name="type" class="job-search__search-input" v-model="queries.contract">
+            <select
+              name="type"
+              class="job-search__search-input"
+              v-model="queries.contract"
+            >
               <option value="B2B">B2B</option>
               <option value="Employment contract">Employment contract</option>
               <option value="Mandatory contract">Mandatory contract</option>
@@ -59,7 +90,9 @@
         </div>
         <div class="row">
           <div class="btn-container">
-            <Button @click.native="emitFormData" class="add-btn">{{ buttonText }}</Button>
+            <Button @click.native="emitFormData" class="add-btn">{{
+              buttonText
+            }}</Button>
             <ClearBtn @click="clearFilters">Clear filters</ClearBtn>
           </div>
         </div>
@@ -84,7 +117,7 @@ export default {
     TagInput,
     ClearBtn
   },
-  data () {
+  data() {
     return {
       queries: {
         technologies: [],
@@ -100,13 +133,13 @@ export default {
     }
   },
   methods: {
-    emitFormData () {
+    emitFormData() {
       this.$emit('clicked', this.queries)
     },
-    clearFilters () {
+    clearFilters() {
       this.queries = { technologies: [] }
     },
-    technologies (techs) {
+    technologies(techs) {
       this.queries.technologies = techs
     }
   }

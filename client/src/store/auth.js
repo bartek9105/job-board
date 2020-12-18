@@ -8,12 +8,12 @@ export default ({
 
   },
   mutations: {
-    SET_LOGIN_STATUS (state) {
+    SET_LOGIN_STATUS(state) {
       state.isLoggedIn = true
     }
   },
   actions: {
-    async signIn ({ commit }, credentials) {
+    async signIn({ commit }, credentials) {
       try {
         const { email, password } = credentials
         const req = await Api().post('auth/login', {

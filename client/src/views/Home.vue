@@ -2,12 +2,16 @@
   <div>
     <Hero>
       <template v-slot:hero-content>
-        <JobSearch/>
+        <JobSearch />
       </template>
     </Hero>
     <main class="main-section">
       <div class="job-search-form">
-        <JobSearchForm @clicked="formData" buttonText="Search" buttonTextClear="Clear filters"/>
+        <JobSearchForm
+          @clicked="formData"
+          buttonText="Search"
+          buttonTextClear="Clear filters"
+        />
       </div>
       <div class="offers" v-if="getJobOffers.data">
         <p class="offers__offers-info">
@@ -18,7 +22,12 @@
             <JobOffer :offer="offer" />
           </router-link>
         </div>
-        <Pagination v-if="getJobOffers.data.length > 0" @pageChange="pageNumber" :pages="getJobOffers.pages" class="offers__pagination"/>
+        <Pagination
+          v-if="getJobOffers.data.length > 0"
+          @pageChange="pageNumber"
+          :pages="getJobOffers.pages"
+          class="offers__pagination"
+        />
       </div>
     </main>
   </div>
@@ -35,7 +44,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
-  data () {
+  data() {
     return {
       queries: {}
     }
@@ -49,11 +58,11 @@ export default {
   },
   methods: {
     ...mapActions(['fetchJobOffers']),
-    formData (queries) {
+    formData(queries) {
       this.queries = queries
       this.fetchJobOffers(this.queries)
     },
-    pageNumber (page) {
+    pageNumber(page) {
       this.queries = { ...this.queries, page: page }
       this.fetchJobOffers(this.queries)
     }
@@ -61,34 +70,34 @@ export default {
   computed: {
     ...mapGetters(['getJobOffers'])
   },
-  mounted () {
+  mounted() {
     this.fetchJobOffers({})
   }
 }
 </script>
 
 <style lang="scss">
-  .main-section {
-    background: $bg-grey;
-    .offers {
-      max-width: $container-width;
-      margin: $margin-center;
-      padding: $padding-lg 0;
-      &__offers-info {
-        color: $dark-blue;
-        font-weight: $font-bold;
-        font-size: $font-content-md;
-        text-transform: uppercase;
-        margin-bottom: $margin-lg;
-      }
-      &__pagination {
-        margin-top: $margin-lg;
-      }
+.main-section {
+  background: $bg-grey;
+  .offers {
+    max-width: $container-width;
+    margin: $margin-center;
+    padding: $padding-lg 0;
+    &__offers-info {
+      color: $dark-blue;
+      font-weight: $font-bold;
+      font-size: $font-content-md;
+      text-transform: uppercase;
+      margin-bottom: $margin-lg;
     }
-    .job-search-form {
-      background: $white;
-      width: 100%;
-      padding: $padding-lg 0;
-}
+    &__pagination {
+      margin-top: $margin-lg;
+    }
   }
+  .job-search-form {
+    background: $white;
+    width: 100%;
+    padding: $padding-lg 0;
+  }
+}
 </style>

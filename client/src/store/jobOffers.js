@@ -9,39 +9,39 @@ export default ({
     sessionId: ''
   },
   getters: {
-    getJobOffer (state) {
+    getJobOffer(state) {
       return state.offer
     },
-    getJobOffers (state) {
+    getJobOffers(state) {
       return state.jobOffers
     },
-    getProducts (state) {
+    getProducts(state) {
       return state.products
     },
-    getSessionId (state) {
+    getSessionId(state) {
       return state.sessionId
     },
-    getTechnologies (state) {
+    getTechnologies(state) {
       const offersTechnologies = new Set(state.jobOffers.data.map(offerObj => offerObj.technologies).flat())
       return [...offersTechnologies]
     }
   },
   mutations: {
-    SET_JOB_OFFER (state, offer) {
+    SET_JOB_OFFER(state, offer) {
       state.offer = offer
     },
-    SET_JOB_OFFERS (state, offersPayload) {
+    SET_JOB_OFFERS(state, offersPayload) {
       state.jobOffers = offersPayload
     },
-    SET_PRODUCTS (state, productsPayload) {
+    SET_PRODUCTS(state, productsPayload) {
       state.products = productsPayload
     },
-    SET_SESSION_ID (state, sessionId) {
+    SET_SESSION_ID(state, sessionId) {
       state.sessionId = sessionId
     }
   },
   actions: {
-    async fetchJobOffer ({ commit }, offerId) {
+    async fetchJobOffer({ commit }, offerId) {
       try {
         const offer = await Api().get(`offers/${offerId}`)
         commit('SET_JOB_OFFER', offer.data.data)
@@ -49,7 +49,7 @@ export default ({
         console.log(error)
       }
     },
-    async fetchJobOffers ({ commit }, queries) {
+    async fetchJobOffers({ commit }, queries) {
       try {
         const queriesFilter = Object.keys(queries)
           .filter(e => {
@@ -77,7 +77,7 @@ export default ({
         console.log(error)
       }
     },
-    async fetchProducts ({ commit }) {
+    async fetchProducts({ commit }) {
       try {
         const productsData = await Api().get('products')
         commit('SET_PRODUCTS', productsData.data)
@@ -85,7 +85,7 @@ export default ({
         console.log(error)
       }
     },
-    async addJobOffer ({ commit }, payload) {
+    async addJobOffer({ commit }, payload) {
       const { title, category, type, salaryMin, salaryMax, description, contract, technologies, location, productId } = payload
       try {
         const response = await Api().post('offers', {

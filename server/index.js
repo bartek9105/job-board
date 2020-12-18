@@ -14,11 +14,13 @@ const app = express()
 
 app.use(morgan('tiny'))
 app.use(cors({ origin: 'http://localhost:8080', credentials: true }))
-app.use(express.json({
+app.use(
+  express.json({
     verify: (req, res, buf) => {
-        req.rawBody = buf
-    }
-}))
+      req.rawBody = buf
+    },
+  })
+)
 app.use(cookieParser())
 
 const offers = require('./routes/offers')
@@ -36,4 +38,6 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 
-app.listen(PORT, () => console.log(`Server started on ${PORT} in ${process.env.NODE_ENV} mode`))
+app.listen(PORT, () =>
+  console.log(`Server started on ${PORT} in ${process.env.NODE_ENV} mode`)
+)

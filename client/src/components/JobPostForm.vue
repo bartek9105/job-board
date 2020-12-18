@@ -3,28 +3,62 @@
     <form @submit.prevent>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Title</span>
-        <ValidationProvider rules="required|max" v-slot="{ errors }" class="job-form-unit-validator">
-          <input type="text" class="job-form-unit__input" placeholder="Title" v-model="offer.title">
+        <ValidationProvider
+          rules="required|max"
+          v-slot="{ errors }"
+          class="job-form-unit-validator"
+        >
+          <input
+            type="text"
+            class="job-form-unit__input"
+            placeholder="Title"
+            v-model="offer.title"
+          />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Location</span>
-        <ValidationProvider rules="required" v-slot="{ errors }" class="job-form-unit-validator">
-          <input type="text" class="job-form-unit__input" placeholder="City" :disabled="locationCheck" v-model="offer.location" @change="emitLocation">
+        <ValidationProvider
+          rules="required"
+          v-slot="{ errors }"
+          class="job-form-unit-validator"
+        >
+          <input
+            type="text"
+            class="job-form-unit__input"
+            placeholder="City"
+            :disabled="locationCheck"
+            v-model="offer.location"
+            @change="emitLocation"
+          />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
         <div class="checkbox-container">
-          <input type="checkbox" class="job-form-unit__checkbox">
+          <input type="checkbox" class="job-form-unit__checkbox" />
           <span class="job-form-unit__checkbox__text">Remote</span>
-          <input type="checkbox" class="job-form-unit__checkbox" v-model="locationCheck">
-          <span class="job-form-unit__checkbox__text">Same as company headquarters address</span>
+          <input
+            type="checkbox"
+            class="job-form-unit__checkbox"
+            v-model="locationCheck"
+          />
+          <span class="job-form-unit__checkbox__text"
+            >Same as company headquarters address</span
+          >
         </div>
       </div>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Category</span>
-        <ValidationProvider rules="required" v-slot="{ errors }" class="job-form-unit-validator">
-          <select name="category" class="job-form-unit__input" v-model="offer.category">
+        <ValidationProvider
+          rules="required"
+          v-slot="{ errors }"
+          class="job-form-unit-validator"
+        >
+          <select
+            name="category"
+            class="job-form-unit__input"
+            v-model="offer.category"
+          >
             <option value="Frontend">Frontend</option>
             <option value="Backend">Backend</option>
             <option value="UX/UI">UI/UX</option>
@@ -38,8 +72,16 @@
       </div>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Seniority</span>
-        <ValidationProvider rules="required" v-slot="{ errors }" class="job-form-unit-validator">
-          <select name="type" class="job-form-unit__input" v-model="offer.seniority">
+        <ValidationProvider
+          rules="required"
+          v-slot="{ errors }"
+          class="job-form-unit-validator"
+        >
+          <select
+            name="type"
+            class="job-form-unit__input"
+            v-model="offer.seniority"
+          >
             <option value="Intern">Intern</option>
             <option value="Junior">Junior</option>
             <option value="Regular">Regular</option>
@@ -50,22 +92,44 @@
       </div>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Salary</span>
-        <ValidationProvider rules="required" v-slot="{ errors }" class="job-form-unit-validator">
-          <input type="number" placeholder='MIN' class="job-form-unit__input job-form-unit__input--salary" v-model="offer.salaryMin">
+        <ValidationProvider
+          rules="required"
+          v-slot="{ errors }"
+          class="job-form-unit-validator"
+        >
+          <input
+            type="number"
+            placeholder="MIN"
+            class="job-form-unit__input job-form-unit__input--salary"
+            v-model="offer.salaryMin"
+          />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
-        <ValidationProvider rules="required" v-slot="{ errors }" class="job-form-unit-validator">
-          <input type="number" placeholder='MAX' class="job-form-unit__input job-form-unit__input--salary" v-model="offer.salaryMax">
+        <ValidationProvider
+          rules="required"
+          v-slot="{ errors }"
+          class="job-form-unit-validator"
+        >
+          <input
+            type="number"
+            placeholder="MAX"
+            class="job-form-unit__input job-form-unit__input--salary"
+            v-model="offer.salaryMax"
+          />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Technologies</span>
-        <TagInput @technologies="tagsTechnologies"/>
+        <TagInput @technologies="tagsTechnologies" />
       </div>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Type</span>
-        <ValidationProvider rules="required" v-slot="{ errors }" class="job-form-unit-validator">
+        <ValidationProvider
+          rules="required"
+          v-slot="{ errors }"
+          class="job-form-unit-validator"
+        >
           <select name="type" class="job-form-unit__input" v-model="offer.type">
             <option value="Full Time">Full Time</option>
             <option value="Part Time">Part Time</option>
@@ -75,8 +139,16 @@
       </div>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Contract</span>
-        <ValidationProvider rules="required" v-slot="{ errors }" class="job-form-unit-validator">
-          <select name="type" class="job-form-unit__input" v-model="offer.contract">
+        <ValidationProvider
+          rules="required"
+          v-slot="{ errors }"
+          class="job-form-unit-validator"
+        >
+          <select
+            name="type"
+            class="job-form-unit__input"
+            v-model="offer.contract"
+          >
             <option value="B2B">B2B</option>
             <option value="Employment contract">Employment contract</option>
             <option value="Mandatory contract">Mandatory contract</option>
@@ -85,14 +157,26 @@
         </ValidationProvider>
       </div>
       <div class="job-form-unit">
-        <ValidationProvider rules="required" v-slot="{ errors }" class="job-form-unit-validator">
+        <ValidationProvider
+          rules="required"
+          v-slot="{ errors }"
+          class="job-form-unit-validator"
+        >
           <span class="job-form-unit__name">Description</span>
-          <Editor @editorContent="description"/>
+          <Editor @editorContent="description" />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
       <div class="job-form-price-cards-container">
-        <PriceCard v-for="(product, index) in getProducts" :key="product._id" @click.native="offer.productId = product._id, activeIndex = index" :class="{ cardActive: activeIndex === index }" class="job-form-price-card">
+        <PriceCard
+          v-for="(product, index) in getProducts"
+          :key="product._id"
+          @click.native="
+            ;(offer.productId = product._id), (activeIndex = index)
+          "
+          :class="{ cardActive: activeIndex === index }"
+          class="job-form-price-card"
+        >
           <template v-slot:header>{{ product.name }}</template>
           <template v-slot:price>{{ product.price / 100 }}</template>
           <template v-slot:content>
@@ -106,16 +190,14 @@
                 Your offer will be promoted for {{ product.promotion }}
               </li>
             </ul>
-            <p class="job-form-price-card__description">{{ product.description }}</p>
+            <p class="job-form-price-card__description">
+              {{ product.description }}
+            </p>
           </template>
         </PriceCard>
       </div>
       <div class="btn-container">
-        <stripe-checkout
-          ref="checkoutRef"
-          :pk=key
-          :session-id=getSessionId
-        >
+        <stripe-checkout ref="checkoutRef" :pk="key" :session-id="getSessionId">
           <template slot="checkout-button">
             <Button @click.native="postOffer" class="add-btn">Add offer</Button>
             <ClearBtn @click.native="offer = {}">Clear inputs</ClearBtn>
@@ -147,7 +229,7 @@ export default {
     StripeCheckout,
     ValidationProvider
   },
-  data () {
+  data() {
     return {
       offer: {
         productId: '',
@@ -169,16 +251,16 @@ export default {
   },
   methods: {
     ...mapActions(['fetchProducts', 'addJobOffer']),
-    emitLocation () {
+    emitLocation() {
       this.$emit('location', this.offer.location)
     },
-    tagsTechnologies (techs) {
+    tagsTechnologies(techs) {
       this.offer.technologies = techs
     },
-    description (content) {
+    description(content) {
       this.offer.description = content
     },
-    postOffer () {
+    postOffer() {
       if (this.getProducts.price === 0) {
         this.addJobOffer(this.offer)
       } else {
@@ -191,83 +273,83 @@ export default {
   computed: {
     ...mapGetters(['getProducts', 'getSessionId'])
   },
-  mounted () {
+  mounted() {
     this.fetchProducts()
   }
 }
 </script>
 
 <style lang="scss">
-  .job-form-container {
-    width: 100%;
-    margin: $margin-center;
-    background: $white;
-    padding: $padding-md 0;
-    .job-form-unit {
-      @include flex (null, null, column);
-      padding: 0 20px;
-      margin-bottom: $margin-md;
-      &__name {
-        @include input-name;
-         margin-bottom: $margin-sm
+.job-form-container {
+  width: 100%;
+  margin: $margin-center;
+  background: $white;
+  padding: $padding-md 0;
+  .job-form-unit {
+    @include flex(null, null, column);
+    padding: 0 20px;
+    margin-bottom: $margin-md;
+    &__name {
+      @include input-name;
+      margin-bottom: $margin-sm;
+    }
+    &__input {
+      &--salary {
+        width: 20%;
       }
-      &__input {
-        &--salary {
-          width: 20%;
-        }
-      }
-      &__error {
+    }
+    &__error {
+      font-size: $font-content-sm;
+      margin-top: $margin-sm;
+      color: $error;
+    }
+    &-validator {
+      @include flex(null, null, column);
+    }
+    .checkbox-container {
+      @include flex(null, center);
+      margin-bottom: $margin-sm;
+    }
+    &__checkbox {
+      margin-right: 10px;
+      &__text {
         font-size: $font-content-sm;
-        margin-top: $margin-sm;
-        color: $error;
-      }
-      &-validator {
-        @include flex(null, null, column);
-      }
-      .checkbox-container {
-        @include flex(null, center);
-        margin-bottom: $margin-sm
-      }
-      &__checkbox {
-        margin-right: 10px;
-        &__text {
-          font-size: $font-content-sm;
-          margin-right: 13px;
-        }
-      }
-    }
-    .btn-container {
-      padding: $padding-md 0 0 2rem;
-    }
-    .add-btn {
-      margin-right: 1rem;
-    }
-    .cardActive {
-      background: $dark-blue;
-      color: $white;
-    }
-    .job-form-price-cards-container {
-      @include flex(space-between);
-      background: $bg-grey;
-      padding: $padding-lg 0;
-    }
-    .job-form-price-card {
-      &__list {
-        text-align: left;
-        li {
-          @include flex();
-          font-size: $font-content-md;
-          font-weight: $font-bold;
-          margin-bottom: $margin-md;
-        }
-        &__icon {
-          margin-right: 10px;
-        }
-      }
-      &__description {
-        font-size: $font-content-sm;
-        line-height: $article-line-height;
+        margin-right: 13px;
       }
     }
   }
+  .btn-container {
+    padding: $padding-md 0 0 2rem;
+  }
+  .add-btn {
+    margin-right: 1rem;
+  }
+  .cardActive {
+    background: $dark-blue;
+    color: $white;
+  }
+  .job-form-price-cards-container {
+    @include flex(space-between);
+    background: $bg-grey;
+    padding: $padding-lg 0;
+  }
+  .job-form-price-card {
+    &__list {
+      text-align: left;
+      li {
+        @include flex();
+        font-size: $font-content-md;
+        font-weight: $font-bold;
+        margin-bottom: $margin-md;
+      }
+      &__icon {
+        margin-right: 10px;
+      }
+    }
+    &__description {
+      font-size: $font-content-sm;
+      line-height: $article-line-height;
+    }
+  }
+}
 </style>
