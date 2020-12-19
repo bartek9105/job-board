@@ -2,28 +2,28 @@
   <div class="pagination">
     <button
       class="pagination__arrow"
-      @click="emitPreviousPage"
       :disabled="pageNumber === 1"
+      @click="emitPreviousPage"
     >
-      <font-awesome-icon icon="long-arrow-alt-left"></font-awesome-icon>
+      <font-awesome-icon icon="long-arrow-alt-left" />
     </button>
     <div class="page-container">
       <button
         v-for="(item, index) in pages"
         :key="index"
         :class="{ pagination__active: pageNumber - 1 === index }"
-        @click="emitPageNumber(index)"
         class="pagination__page"
+        @click="emitPageNumber(index)"
       >
         {{ index + 1 }}
       </button>
     </div>
     <button
       class="pagination__arrow"
-      @click="emitNextPage"
       :disabled="pageNumber === pages"
+      @click="emitNextPage"
     >
-      <font-awesome-icon icon="long-arrow-alt-right"></font-awesome-icon>
+      <font-awesome-icon icon="long-arrow-alt-right" />
     </button>
   </div>
 </template>
@@ -31,13 +31,13 @@
 <script>
 export default {
   name: 'Pagination',
+  props: {
+    pages: Number
+  },
   data() {
     return {
       pageNumber: 1
     }
-  },
-  props: {
-    pages: Number
   },
   methods: {
     emitPageNumber(index) {

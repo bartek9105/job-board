@@ -5,34 +5,35 @@
     </div>
     <div class="offer-main">
       <div class="offer-top">
-        <div class="offer__title">{{ offer.title }}</div>
+        <div class="offer__title">
+          {{ offer.title }}
+        </div>
         <div class="offer__pay">
-          <font-awesome-icon
-            icon="money-bill-wave"
-            class="offer__pay__icon"
-          ></font-awesome-icon>
+          <font-awesome-icon icon="money-bill-wave" class="offer__pay__icon" />
           {{ offer.salaryMin }} - {{ offer.salaryMax }} PLN
         </div>
         <div class="offer__city">
           <font-awesome-icon
             icon="map-marker-alt"
             class="offer__city__marker-icon"
-          ></font-awesome-icon>
+          />
           {{ offer.location }}
         </div>
-        <div class="offer__promoted" v-if="offer.isPromoted">Featured</div>
+        <div v-if="offer.isPromoted" class="offer__promoted">
+          Featured
+        </div>
       </div>
       <div class="offer-tags">
         <div
-          class="offer__tag"
           v-for="technology in offer.technologies.slice(0, 3)"
           :key="technology.id"
+          class="offer__tag"
         >
           {{ technology }}
         </div>
         <div
-          class="offer__tag offer__tag--sm"
           v-if="offer.technologies.length > 3"
+          class="offer__tag offer__tag--sm"
         >
           + {{ offer.technologies.length - 3 }}
           <ul class="offer__tag__list">
@@ -44,18 +45,22 @@
             </li>
           </ul>
         </div>
-        <div class="offer__tag offer__tag--light">{{ offer.contract }}</div>
+        <div class="offer__tag offer__tag--light">
+          {{ offer.contract }}
+        </div>
       </div>
     </div>
     <div class="offer-additional">
       <div class="offer-tags">
-        <div class="offer__tag offer__tag--light">{{ offer.category }}</div>
+        <div class="offer__tag offer__tag--light">
+          {{ offer.category }}
+        </div>
         <div class="offer__tag offer__tag--light">
           {{ daysDifference(new Date(), offer.createdAt) }}d ago
         </div>
       </div>
       <button class="offer__like-btn">
-        <font-awesome-icon icon="heart"></font-awesome-icon>
+        <font-awesome-icon icon="heart" />
       </button>
     </div>
   </div>

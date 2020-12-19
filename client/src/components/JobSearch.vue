@@ -1,17 +1,19 @@
 <template>
   <div class="job-search">
-    <h1 class="job-search__heading">Search through over 509 code job offers</h1>
+    <h1 class="job-search__heading">
+      Search through over 509 code job offers
+    </h1>
     <form class="job-search__job-form" @submit.prevent>
       <input
+        v-model="titleQuery"
         type="text"
         class="job-search__job-form__input"
         placeholder="Type in job you are looking for"
-        v-model="titleQuery"
       />
       <font-awesome-icon
         icon="search"
         class="job-search__job-form__search-icon"
-      ></font-awesome-icon>
+      />
     </form>
   </div>
 </template>

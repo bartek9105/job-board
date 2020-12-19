@@ -1,40 +1,40 @@
 <template>
   <div class="auth">
     <div class="img-container">
-      <div class="img-overlay"></div>
+      <div class="img-overlay" />
     </div>
     <div class="form-container">
       <h1 class="auth__header">
-        <slot name="header"></slot>
+        <slot name="header" />
       </h1>
-      <form @submit.prevent class="auth__form">
+      <form class="auth__form" @submit.prevent>
         <div class="form-unit">
           <label for="email" class="auth__form__label">E-mail</label>
           <input
+            v-model="credentials.email"
             type="email"
             name="email"
             placeholder="Type in your e-mail address"
-            v-model="credentials.email"
             @change="emitEmail"
           />
         </div>
         <div class="form-unit">
           <label for="password" class="auth__form__label">Password</label>
           <input
+            v-model="credentials.password"
             type="password"
             name="password"
             placeholder="Type in your password"
-            v-model="credentials.password"
             @change="emitPassword"
           />
         </div>
         <span class="auth__form__info">
-          <slot name="info"></slot>
+          <slot name="info" />
           <router-link :to="routerLink" class="auth__form__info__action">
-            <slot name="info-action"></slot>
+            <slot name="info-action" />
           </router-link>
         </span>
-        <slot name="btn"></slot>
+        <slot name="btn" />
         <div class="auth__form__alt">
           <hr />
           <span>Or</span>
@@ -72,17 +72,17 @@ export default {
       }
     }
   },
+  computed: {
+    routerLink() {
+      return this.infoRoute
+    }
+  },
   methods: {
     emitEmail() {
       this.$emit('email', this.credentials.email)
     },
     emitPassword() {
       this.$emit('password', this.credentials.password)
-    }
-  },
-  computed: {
-    routerLink() {
-      return this.infoRoute
     }
   }
 }

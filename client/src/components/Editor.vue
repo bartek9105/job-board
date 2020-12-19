@@ -1,8 +1,8 @@
 <template>
   <div class="editor">
     <vue-editor
-      :editorToolbar="customToolbar"
       v-model="content"
+      :editor-toolbar="customToolbar"
       @text-change="emitEditorContent"
     />
   </div>

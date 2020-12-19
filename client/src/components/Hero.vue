@@ -1,10 +1,10 @@
 <template>
   <header class="hero">
     <Navbar />
-    <slot name="hero-content"></slot>
-    <div class="hero__animatedCircle hero__circle-1"></div>
-    <div class="hero__animatedCircle hero__circle-2"></div>
-    <div class="hero__animatedCircle hero__circle-3"></div>
+    <slot name="hero-content" />
+    <div class="hero__animatedCircle hero__circle-1" />
+    <div class="hero__animatedCircle hero__circle-2" />
+    <div class="hero__animatedCircle hero__circle-3" />
   </header>
 </template>
 

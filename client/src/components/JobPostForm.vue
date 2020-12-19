@@ -4,15 +4,15 @@
       <div class="job-form-unit">
         <span class="job-form-unit__name">Title</span>
         <ValidationProvider
-          rules="required|max"
           v-slot="{ errors }"
+          rules="required|max"
           class="job-form-unit-validator"
         >
           <input
+            v-model="offer.title"
             type="text"
             class="job-form-unit__input"
             placeholder="Title"
-            v-model="offer.title"
           />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
@@ -20,16 +20,16 @@
       <div class="job-form-unit">
         <span class="job-form-unit__name">Location</span>
         <ValidationProvider
-          rules="required"
           v-slot="{ errors }"
+          rules="required"
           class="job-form-unit-validator"
         >
           <input
+            v-model="offer.location"
             type="text"
             class="job-form-unit__input"
             placeholder="City"
             :disabled="locationCheck"
-            v-model="offer.location"
             @change="emitLocation"
           />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
@@ -38,9 +38,9 @@
           <input type="checkbox" class="job-form-unit__checkbox" />
           <span class="job-form-unit__checkbox__text">Remote</span>
           <input
+            v-model="locationCheck"
             type="checkbox"
             class="job-form-unit__checkbox"
-            v-model="locationCheck"
           />
           <span class="job-form-unit__checkbox__text"
             >Same as company headquarters address</span
@@ -50,22 +50,36 @@
       <div class="job-form-unit">
         <span class="job-form-unit__name">Category</span>
         <ValidationProvider
-          rules="required"
           v-slot="{ errors }"
+          rules="required"
           class="job-form-unit-validator"
         >
           <select
+            v-model="offer.category"
             name="category"
             class="job-form-unit__input"
-            v-model="offer.category"
           >
-            <option value="Frontend">Frontend</option>
-            <option value="Backend">Backend</option>
-            <option value="UX/UI">UI/UX</option>
-            <option value="Devops">DevOps</option>
-            <option value="Data Science">Data Science</option>
-            <option value="Testing">Testing</option>
-            <option value="PM">PM</option>
+            <option value="Frontend">
+              Frontend
+            </option>
+            <option value="Backend">
+              Backend
+            </option>
+            <option value="UX/UI">
+              UI/UX
+            </option>
+            <option value="Devops">
+              DevOps
+            </option>
+            <option value="Data Science">
+              Data Science
+            </option>
+            <option value="Testing">
+              Testing
+            </option>
+            <option value="PM">
+              PM
+            </option>
           </select>
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
@@ -73,19 +87,27 @@
       <div class="job-form-unit">
         <span class="job-form-unit__name">Seniority</span>
         <ValidationProvider
-          rules="required"
           v-slot="{ errors }"
+          rules="required"
           class="job-form-unit-validator"
         >
           <select
+            v-model="offer.seniority"
             name="type"
             class="job-form-unit__input"
-            v-model="offer.seniority"
           >
-            <option value="Intern">Intern</option>
-            <option value="Junior">Junior</option>
-            <option value="Regular">Regular</option>
-            <option value="Senior">Senior</option>
+            <option value="Intern">
+              Intern
+            </option>
+            <option value="Junior">
+              Junior
+            </option>
+            <option value="Regular">
+              Regular
+            </option>
+            <option value="Senior">
+              Senior
+            </option>
           </select>
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
@@ -93,28 +115,28 @@
       <div class="job-form-unit">
         <span class="job-form-unit__name">Salary</span>
         <ValidationProvider
-          rules="required"
           v-slot="{ errors }"
+          rules="required"
           class="job-form-unit-validator"
         >
           <input
+            v-model="offer.salaryMin"
             type="number"
             placeholder="MIN"
             class="job-form-unit__input job-form-unit__input--salary"
-            v-model="offer.salaryMin"
           />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
         <ValidationProvider
-          rules="required"
           v-slot="{ errors }"
+          rules="required"
           class="job-form-unit-validator"
         >
           <input
+            v-model="offer.salaryMax"
             type="number"
             placeholder="MAX"
             class="job-form-unit__input job-form-unit__input--salary"
-            v-model="offer.salaryMax"
           />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
@@ -126,13 +148,17 @@
       <div class="job-form-unit">
         <span class="job-form-unit__name">Type</span>
         <ValidationProvider
-          rules="required"
           v-slot="{ errors }"
+          rules="required"
           class="job-form-unit-validator"
         >
-          <select name="type" class="job-form-unit__input" v-model="offer.type">
-            <option value="Full Time">Full Time</option>
-            <option value="Part Time">Part Time</option>
+          <select v-model="offer.type" name="type" class="job-form-unit__input">
+            <option value="Full Time">
+              Full Time
+            </option>
+            <option value="Part Time">
+              Part Time
+            </option>
           </select>
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
@@ -140,26 +166,32 @@
       <div class="job-form-unit">
         <span class="job-form-unit__name">Contract</span>
         <ValidationProvider
-          rules="required"
           v-slot="{ errors }"
+          rules="required"
           class="job-form-unit-validator"
         >
           <select
+            v-model="offer.contract"
             name="type"
             class="job-form-unit__input"
-            v-model="offer.contract"
           >
-            <option value="B2B">B2B</option>
-            <option value="Employment contract">Employment contract</option>
-            <option value="Mandatory contract">Mandatory contract</option>
+            <option value="B2B">
+              B2B
+            </option>
+            <option value="Employment contract">
+              Employment contract
+            </option>
+            <option value="Mandatory contract">
+              Mandatory contract
+            </option>
           </select>
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
       <div class="job-form-unit">
         <ValidationProvider
-          rules="required"
           v-slot="{ errors }"
+          rules="required"
           class="job-form-unit-validator"
         >
           <span class="job-form-unit__name">Description</span>
@@ -171,22 +203,26 @@
         <PriceCard
           v-for="(product, index) in getProducts"
           :key="product._id"
+          :class="{ cardActive: activeIndex === index }"
+          class="job-form-price-card"
           @click.native="
             ;(offer.productId = product._id), (activeIndex = index)
           "
-          :class="{ cardActive: activeIndex === index }"
-          class="job-form-price-card"
         >
-          <template v-slot:header>{{ product.name }}</template>
-          <template v-slot:price>{{ product.price / 100 }}</template>
+          <template v-slot:header>
+            {{ product.name }}
+          </template>
+          <template v-slot:price>
+            {{ product.price / 100 }}
+          </template>
           <template v-slot:content>
             <ul class="job-form-price-card__list">
               <li>
-                <i class="fas fa-check job-form-price-card__list__icon"></i>
+                <i class="fas fa-check job-form-price-card__list__icon" />
                 Your offer will last for {{ product.duration }}
               </li>
               <li v-if="product.promotion">
-                <i class="fas fa-check job-form-price-card__list__icon"></i>
+                <i class="fas fa-check job-form-price-card__list__icon" />
                 Your offer will be promoted for {{ product.promotion }}
               </li>
             </ul>
@@ -199,8 +235,12 @@
       <div class="btn-container">
         <stripe-checkout ref="checkoutRef" :pk="key" :session-id="getSessionId">
           <template slot="checkout-button">
-            <Button @click.native="postOffer" class="add-btn">Add offer</Button>
-            <ClearBtn @click.native="offer = {}">Clear inputs</ClearBtn>
+            <Button class="add-btn" @click.native="postOffer">
+              Add offer
+            </Button>
+            <ClearBtn @click.native="offer = {}">
+              Clear inputs
+            </ClearBtn>
           </template>
         </stripe-checkout>
       </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="map-container">
-    <div id="map"></div>
+    <div id="map" />
   </div>
 </template>
 
@@ -19,6 +19,16 @@ export default {
       coordinates: [54, 18],
       map: {}
     }
+  },
+  watch: {
+    location: async function(newLocation, oldLocation) {
+      await this.fetchCoordinates()
+      this.map.remove()
+      this.mapSetup()
+    }
+  },
+  mounted() {
+    this.mapSetup()
   },
   methods: {
     async fetchCoordinates() {
@@ -53,16 +63,6 @@ export default {
         this.map
       )
       marker.bindPopup("I'm a popup!").openPopup()
-    }
-  },
-  mounted() {
-    this.mapSetup()
-  },
-  watch: {
-    location: async function(newLocation, oldLocation) {
-      await this.fetchCoordinates()
-      this.map.remove()
-      this.mapSetup()
     }
   }
 }

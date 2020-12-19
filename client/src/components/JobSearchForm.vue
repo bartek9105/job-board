@@ -6,55 +6,77 @@
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Location</span>
             <input
+              v-model="queries.location"
               type="text"
               class="job-search__search-input"
               placeholder="City"
-              v-model="queries.location"
             />
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Category</span>
             <select
+              v-model="queries.category"
               name="category"
               class="job-search__search-input"
-              v-model="queries.category"
             >
-              <option value="Frontend">Frontend</option>
-              <option value="Backend">Backend</option>
-              <option value="UX/UI">UI/UX</option>
-              <option value="Devops">DevOps</option>
-              <option value="Devops">Data Science</option>
-              <option value="Devops">Testing</option>
-              <option value="Devops">PM</option>
+              <option value="Frontend">
+                Frontend
+              </option>
+              <option value="Backend">
+                Backend
+              </option>
+              <option value="UX/UI">
+                UI/UX
+              </option>
+              <option value="Devops">
+                DevOps
+              </option>
+              <option value="Devops">
+                Data Science
+              </option>
+              <option value="Devops">
+                Testing
+              </option>
+              <option value="Devops">
+                PM
+              </option>
             </select>
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Seniority</span>
             <select
+              v-model="queries.seniority"
               name="type"
               class="job-search__search-input"
-              v-model="queries.seniority"
             >
-              <option value="Intern">Intern</option>
-              <option value="Junior">Junior</option>
-              <option value="Regular">Regular</option>
-              <option value="Senior">Senior</option>
+              <option value="Intern">
+                Intern
+              </option>
+              <option value="Junior">
+                Junior
+              </option>
+              <option value="Regular">
+                Regular
+              </option>
+              <option value="Senior">
+                Senior
+              </option>
             </select>
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Salary</span>
             <div class="job-search__salary-inputs">
               <input
+                v-model="queries.salaryMin"
                 type="number"
                 placeholder="MIN"
                 class="job-search__search-input salary-input job-search__search-input--salary"
-                v-model="queries.salaryMin"
               />
               <input
+                v-model="queries.salaryMax"
                 type="number"
                 placeholder="MAX"
                 class="job-search__search-input salary-input job-search__search-input--salary"
-                v-model="queries.salaryMax"
               />
             </div>
           </div>
@@ -62,38 +84,50 @@
         <div class="row">
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Technologies</span>
-            <TagInput @technologies="technologies" class="tags" />
+            <TagInput class="tags" @technologies="technologies" />
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
             <select
+              v-model="queries.type"
               name="type"
               class="job-search__search-input"
-              v-model="queries.type"
             >
-              <option value="Full Time">Full Time</option>
-              <option value="Part Time">Part Time</option>
+              <option value="Full Time">
+                Full Time
+              </option>
+              <option value="Part Time">
+                Part Time
+              </option>
             </select>
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Contract</span>
             <select
+              v-model="queries.contract"
               name="type"
               class="job-search__search-input"
-              v-model="queries.contract"
             >
-              <option value="B2B">B2B</option>
-              <option value="Employment contract">Employment contract</option>
-              <option value="Mandatory contract">Mandatory contract</option>
+              <option value="B2B">
+                B2B
+              </option>
+              <option value="Employment contract">
+                Employment contract
+              </option>
+              <option value="Mandatory contract">
+                Mandatory contract
+              </option>
             </select>
           </div>
         </div>
         <div class="row">
           <div class="btn-container">
-            <Button @click.native="emitFormData" class="add-btn">{{
-              buttonText
-            }}</Button>
-            <ClearBtn @click="clearFilters">Clear filters</ClearBtn>
+            <Button class="add-btn" @click.native="emitFormData">
+              {{ buttonText }}
+            </Button>
+            <ClearBtn @click="clearFilters">
+              Clear filters
+            </ClearBtn>
           </div>
         </div>
       </form>
@@ -108,14 +142,14 @@ import ClearBtn from '@/components/Base/ClearBtn'
 
 export default {
   name: 'JobSearchForm',
-  props: {
-    buttonText: String,
-    buttonTextClear: String
-  },
   components: {
     Button,
     TagInput,
     ClearBtn
+  },
+  props: {
+    buttonText: String,
+    buttonTextClear: String
   },
   data() {
     return {

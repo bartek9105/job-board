@@ -2,19 +2,19 @@
   <div class="price-card">
     <div class="price-card__header">
       <span class="price-card__header__title">
-        <slot name="header"></slot>
+        <slot name="header" />
       </span>
     </div>
     <div class="content-container">
       <span class="price-card__price-meta">
         $
         <span class="price-card__price">
-          <slot name="price"></slot>
+          <slot name="price" />
         </span>
         /month
       </span>
       <div class="price-card__content">
-        <slot name="content"></slot>
+        <slot name="content" />
       </div>
     </div>
   </div>

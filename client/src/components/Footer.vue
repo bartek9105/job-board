@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="footer">
-      <Logo :jobTextColor="jobTextColor" />
+      <Logo :job-text-color="jobTextColor" />
       <div class="footer__navs-container">
         <nav class="footer-nav">
           <ul>
@@ -24,19 +24,19 @@
         <span>Follow us</span>
         <div class="footer__socials-container">
           <a href="#">
-            <i class="social-icon fab fa-linkedin"></i>
+            <i class="social-icon fab fa-linkedin" />
           </a>
           <a href="#">
-            <i class="social-icon fab fa-facebook"></i>
+            <i class="social-icon fab fa-facebook" />
           </a>
           <a href="#">
-            <i class="social-icon fab fa-instagram"></i>
+            <i class="social-icon fab fa-instagram" />
           </a>
           <a href="#">
-            <i class="social-icon fab fa-github"></i>
+            <i class="social-icon fab fa-github" />
           </a>
           <a href="#">
-            <i class="social-icon fas fa-globe-americas"></i>
+            <i class="social-icon fas fa-globe-americas" />
           </a>
         </div>
       </div>

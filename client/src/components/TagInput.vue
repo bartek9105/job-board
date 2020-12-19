@@ -12,12 +12,12 @@
             <i
               class="fas fa-times-circle tag-input__delete-icon"
               @click="deleteTag(index)"
-            ></i>
+            />
           </div>
           <input
+            v-model="technology"
             type="text"
             class="tag-input__inner"
-            v-model="technology"
             placeholder="Type in technology, press Enter to add more"
             @focus="displaySuggestionList = true"
             @keydown.down="onArrowDown"
@@ -25,22 +25,22 @@
             @keydown.enter="onEnter"
           />
           <i
-            class="fas fa-times-circle tag-input__delete-all-icon"
             v-if="technologies.length > 0"
+            class="fas fa-times-circle tag-input__delete-all-icon"
             @click="deleteAllTags"
-          ></i>
+          />
         </div>
         <ul
-          class="tag-input__suggestion-list"
           v-if="displaySuggestionList === true"
+          class="tag-input__suggestion-list"
           @blur="displaySuggestionList = false"
         >
           <li
             v-for="(filteredTechnology, index) in getFilteredTechnologies"
             :key="index"
+            :class="{ 'active-item': currentListItem === index }"
             @click="createTechnologyTag(filteredTechnology)"
             @keyup.enter="createTechnologyTag(filteredTechnology)"
-            :class="{ 'active-item': currentListItem === index }"
           >
             {{ filteredTechnology }}
           </li>

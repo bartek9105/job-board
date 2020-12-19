@@ -1,7 +1,7 @@
 <template>
   <div class="nav-container">
     <nav class="main-nav">
-      <Logo :jobTextColor="jobTextColor" />
+      <Logo :job-text-color="jobTextColor" />
       <div class="main-nav__links">
         <ul>
           <router-link to="/">
