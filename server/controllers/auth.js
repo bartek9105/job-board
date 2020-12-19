@@ -58,7 +58,7 @@ exports.login = async (req, res, next) => {
       .cookie('token', token, {
         httpOnly: true,
       })
-      .send({ status: 'success' })
+      .send({ status: 'success', data: employer.name })
   } catch (error) {
     next(error)
   }

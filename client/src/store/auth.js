@@ -1,27 +1,26 @@
 import Api from '../services/Api'
+import router from '../router'
 
 export default ({
   state: {
-    isLoggedIn: false
   },
   getters: {
-
   },
   mutations: {
-    SET_LOGIN_STATUS(state) {
-      state.isLoggedIn = true
+    SET_CURRENT_USER(_, userName) {
+      window.localStorage.currentUser = JSON.stringify({ isLoggedIn: true, name: userName })
     }
   },
   actions: {
     async signIn({ commit }, credentials) {
       try {
         const { email, password } = credentials
-        const req = await Api().post('auth/login', {
+        const user = await Api().post('auth/login', {
           email: email,
           password: password
         }, { withCredentials: true })
-        console.log(req.cookie)
-        commit('SET_LOGIN_STATUS')
+        router.push('/post-offer')
+        commit('SET_CURRENT_USER', user.data.data)
       } catch (error) {
         console.log(error)
       }
