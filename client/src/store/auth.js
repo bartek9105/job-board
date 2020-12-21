@@ -19,7 +19,7 @@ export default ({
           email: email,
           password: password
         }, { withCredentials: true })
-        router.push('/post-offer')
+        router.push('/')
         commit('SET_CURRENT_USER', user.data.data)
       } catch (error) {
         console.log(error)
@@ -27,7 +27,8 @@ export default ({
     },
     async logout() {
       try {
-        await Api().post('auth/logout')
+        await Api().post('auth/logout', { withCredentials: true })
+        router.push('/login')
       } catch (error) {
         console.log(error)
       }
