@@ -24,6 +24,13 @@ export default ({
       } catch (error) {
         console.log(error)
       }
+    },
+    async logout() {
+      try {
+        await Api().post('auth/logout')
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 })

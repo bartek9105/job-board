@@ -1,6 +1,5 @@
 const ErrorResponse = require('../utils/errorResponse')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 const Employer = require('../models/Employer')
 
 exports.register = async (req, res, next) => {
@@ -45,21 +44,12 @@ exports.login = async (req, res, next) => {
       return next(new ErrorResponse('Invalid credentials'), 401)
     }
 
-    const token = jwt.sign(
-      {
-        id: employer._id,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES }
-    )
-
-    res
-      .status(200)
-      .cookie('token', token, {
-        httpOnly: true,
-      })
-      .send({ status: 'success', data: employer.name })
+    res.status(200).send({ status: 'success', data: employer.name })
   } catch (error) {
     next(error)
   }
+}
+
+exports.logout = (req, res, next) => {
+  console.log(req.headers.cookie)
 }

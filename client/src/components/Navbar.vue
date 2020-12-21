@@ -16,6 +16,9 @@
           <router-link to="/post-offer">
             <Button>Post a job</Button>
           </router-link>
+          <li @click="logoutUser">
+            Logout
+          </li>
         </ul>
       </div>
     </nav>
@@ -25,6 +28,7 @@
 <script>
 import Logo from '@/components/Logo'
 import Button from '@/components/Base/Button'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -34,6 +38,12 @@ export default {
   data() {
     return {
       jobTextColor: '#182952'
+    }
+  },
+  methods: {
+    ...mapActions(['logout']),
+    logoutUser() {
+      this.logout()
     }
   }
 }
