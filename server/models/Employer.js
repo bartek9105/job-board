@@ -35,6 +35,7 @@ const employerSchema = new mongoose.Schema({
     default: 'fas fa-building',
     trim: true,
   },
+  refreshToken: String,
   resetPasswordToken: String,
   resetPasswordExpire: Date,
   createdAt: {
