@@ -28,6 +28,7 @@ export default ({
     async logout() {
       try {
         await axiosInstance.post('auth/logout')
+        window.localStorage.removeItem('currentUser')
         router.push('/login')
       } catch (error) {
         console.log(error)

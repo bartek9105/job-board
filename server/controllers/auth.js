@@ -73,7 +73,7 @@ exports.login = async (req, res, next) => {
 }
 
 exports.logout = (req, res) => {
-  res.status(200).cookie('token', '').send('Success')
+  res.status(200).cookie('token', '').cookie('refreshToken', '').send('Success')
 }
 
 exports.refreshToken = async (req, res, next) => {
