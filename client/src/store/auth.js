@@ -1,4 +1,4 @@
-import Api from '../services/Api'
+import axiosInstance from '../services/Api'
 import router from '../router'
 
 export default ({
@@ -15,10 +15,10 @@ export default ({
     async signIn({ commit }, credentials) {
       try {
         const { email, password } = credentials
-        const user = await Api().post('auth/login', {
+        const user = await axiosInstance.post('auth/login', {
           email: email,
           password: password
-        }, { withCredentials: true })
+        })
         router.push('/')
         commit('SET_CURRENT_USER', user.data.data)
       } catch (error) {
@@ -27,7 +27,7 @@ export default ({
     },
     async logout() {
       try {
-        await Api().post('auth/logout', { withCredentials: true })
+        await axiosInstance.post('auth/logout')
         router.push('/login')
       } catch (error) {
         console.log(error)
