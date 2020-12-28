@@ -77,35 +77,26 @@ exports.logout = (req, res) => {
 }
 
 exports.refreshToken = async (req, res, next) => {
-  let token
-  let refreshToken
-  if (req.headers.cookie) {
-    const cookies = req.headers.cookie.split('; ')
-    token = cookies.find((cookie) => cookie.includes('token'))
-    refreshToken = cookies.find((cookie) => cookie.includes('refreshToken'))
-    token = token.split('=')[1]
-    refreshToken = refreshToken.split('=')[1]
-    if (!token && !refreshToken) {
-      next(new ErrorResponse('Not authorized', 403))
-    }
-    try {
-      const decodedRefreshToken = await jwt.verify(
-        refreshToken,
-        process.env.JWT_REFRESH_SECRET
-      )
-      if (decodedRefreshToken) {
-        const token = signJwtToken(
-          decodedRefreshToken.id,
-          process.env.JWT_SECRET,
-          process.env.JWT_EXPIRES
-        )
-        res
-          .status(200)
-          .cookie('token', token, { httpOnly: true })
-          .send({ status: 'success' })
-      }
-    } catch (error) {
-      console.log(error)
-    }
+  const token = req.cookies.token
+  const refreshToken = req.cookies.refreshToken
+  if (!token && !refreshToken) {
+    next(new ErrorResponse('Not authorized', 401))
+  }
+  try {
+    const decodedRefreshToken = await jwt.verify(
+      refreshToken,
+      process.env.JWT_REFRESH_SECRET
+    )
+    const token = signJwtToken(
+      decodedRefreshToken.id,
+      process.env.JWT_SECRET,
+      process.env.JWT_EXPIRES
+    )
+    res
+      .status(200)
+      .cookie('token', token, { httpOnly: true })
+      .send({ status: 'success' })
+  } catch (error) {
+    next(error)
   }
 }

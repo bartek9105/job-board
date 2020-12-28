@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent class="apply-form">
+  <form class="apply-form" @submit.prevent>
     <div class="apply-form__personal-info">
       <span class="apply-form__name">Name</span>
       <input type="text" class="apply-form__input" />
@@ -10,7 +10,7 @@
     </div>
     <div class="apply-form__description">
       <span class="apply-form__name">Description</span>
-      <textarea type="text" rows="5" class="apply-form__textarea"></textarea>
+      <textarea type="text" rows="5" class="apply-form__textarea" />
     </div>
   </form>
 </template>
