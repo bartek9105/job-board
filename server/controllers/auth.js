@@ -76,6 +76,16 @@ exports.logout = (req, res) => {
   res.status(200).cookie('token', '').cookie('refreshToken', '').send('Success')
 }
 
+exports.me = async (req, res, next) => {
+  const userId = req.creatorId
+  try {
+    const loggedInUser = await Employer.findById(userId)
+    res.status(200).send(loggedInUser)
+  } catch (error) {
+    next(error)
+  }
+}
+
 exports.refreshToken = async (req, res, next) => {
   const token = req.cookies.token
   const refreshToken = req.cookies.refreshToken
