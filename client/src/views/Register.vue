@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Auth infoRoute="/login">
+    <Auth info-route="/login" @email="email" @password="password">
       <template v-slot:header>
         <h1>Register</h1>
       </template>
@@ -10,20 +10,45 @@
       <template v-slot:info-action>
         Login
       </template>
-      <template v-slot:btn-text>
-        Register
+      <template v-slot:btn>
+        <Button @click.native="signUp">
+          Register
+        </Button>
       </template>
     </Auth>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Auth from '@/components/Auth'
+import Button from '@/components/Base/Button'
 
 export default {
   name: 'Register',
   components: {
-    Auth
+    Auth,
+    Button
+  },
+  data() {
+    return {
+      credentials: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['register']),
+    signUp() {
+      this.register(this.credentials)
+    },
+    email(emailData) {
+      this.credentials.email = emailData
+    },
+    password(passwordData) {
+      this.credentials.password = passwordData
+    }
   }
 }
 </script>

@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const employerSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Please add a company name'],
   },
   email: {
     type: String,

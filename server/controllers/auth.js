@@ -14,7 +14,7 @@ exports.register = async (req, res, next) => {
     const user = await new Employer({
       name,
       email,
-      hashPassword,
+      password: hashPassword,
     })
     await user.save()
 

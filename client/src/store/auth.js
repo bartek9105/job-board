@@ -13,11 +13,23 @@ export default ({
       try {
         const { email, password } = credentials
         const user = await axiosInstance.post('auth/login', {
-          email: email,
-          password: password
+          email,
+          password
         })
         router.push('/')
         window.localStorage.currentUser = JSON.stringify({ isLoggedIn: true, name: user.data.data })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async register(_, credentials) {
+      try {
+        const { email, password } = credentials
+        await axiosInstance.post('auth/register', {
+          email,
+          password
+        })
+        router.push('/login')
       } catch (error) {
         console.log(error)
       }
@@ -26,6 +38,7 @@ export default ({
       try {
         await axiosInstance.post('auth/logout')
         window.localStorage.removeItem('currentUser')
+        window.location.reload()
       } catch (error) {
         console.log(error)
       }
