@@ -7,16 +7,19 @@
           <router-link to="/">
             <li>Offers</li>
           </router-link>
-          <router-link to="/login">
+          <router-link v-if="!isLoggedIn" to="/login">
             <li>Login</li>
           </router-link>
-          <router-link to="/register">
+          <router-link v-if="!isLoggedIn" to="/register">
             <li>Sign up</li>
           </router-link>
           <router-link to="/post-offer">
             <Button>Post a job</Button>
           </router-link>
-          <li @click="logoutUser">
+          <li v-if="isLoggedIn">
+            {{ loggedInUser }}
+          </li>
+          <li v-if="isLoggedIn" @click="logoutUser">
             Logout
           </li>
         </ul>
@@ -38,6 +41,14 @@ export default {
   data() {
     return {
       jobTextColor: '#182952'
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return window.localStorage.currentUser
+    },
+    loggedInUser() {
+      return JSON.parse(window.localStorage.currentUser).name
     }
   },
   methods: {

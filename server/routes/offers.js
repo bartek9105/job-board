@@ -7,7 +7,7 @@ const productController = require('../controllers/products')
 
 const isAuth = require('../middleware/isAuth')
 
-router.get('/', isAuth.isAuth, offersController.getOffers)
+router.get('/', offersController.getOffers)
 
 router.get('/:id', offersController.getOffer)
 

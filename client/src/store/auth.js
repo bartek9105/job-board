@@ -7,12 +7,9 @@ export default ({
   getters: {
   },
   mutations: {
-    SET_CURRENT_USER(_, userName) {
-      window.localStorage.currentUser = JSON.stringify({ isLoggedIn: true, name: userName })
-    }
   },
   actions: {
-    async signIn({ commit }, credentials) {
+    async signIn(_, credentials) {
       try {
         const { email, password } = credentials
         const user = await axiosInstance.post('auth/login', {
@@ -20,7 +17,7 @@ export default ({
           password: password
         })
         router.push('/')
-        commit('SET_CURRENT_USER', user.data.data)
+        window.localStorage.currentUser = JSON.stringify({ isLoggedIn: true, name: user.data.data })
       } catch (error) {
         console.log(error)
       }
@@ -29,7 +26,6 @@ export default ({
       try {
         await axiosInstance.post('auth/logout')
         window.localStorage.removeItem('currentUser')
-        router.push('/login')
       } catch (error) {
         console.log(error)
       }
