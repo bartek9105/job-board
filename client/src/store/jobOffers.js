@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import qs from 'qs'
 import axiosInstance from '../services/Api'
 
@@ -101,6 +102,7 @@ export default ({
           technologies: technologies,
           location: location
         })
+        Vue.toasted.success('Added job offer')
         const sessionId = response.data.id
         commit('SET_SESSION_ID', sessionId)
       } catch (error) {

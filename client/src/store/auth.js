@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import axiosInstance from '../services/Api'
 import router from '../router'
 
@@ -18,6 +19,7 @@ export default ({
         })
         router.push('/')
         window.localStorage.currentUser = JSON.stringify({ isLoggedIn: true, name: user.data.data })
+        Vue.toasted.success('Successfuly logged in')
       } catch (error) {
         console.log(error)
       }
@@ -29,6 +31,7 @@ export default ({
           email,
           password
         })
+        Vue.toasted.success('Successfuly registered')
         router.push('/login')
       } catch (error) {
         console.log(error)
@@ -38,6 +41,7 @@ export default ({
       try {
         await axiosInstance.post('auth/logout')
         window.localStorage.removeItem('currentUser')
+        Vue.toasted.success('Successfuly logged out')
         window.location.reload()
       } catch (error) {
         console.log(error)
