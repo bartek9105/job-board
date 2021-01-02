@@ -5,12 +5,12 @@ import store from './store'
 import Toasted from 'vue-toasted'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, faHeart, faMoneyBillWave, faFileSignature, faClock, faCheckCircle, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, faHeart, faMoneyBillWave, faFileSignature, faClock, faCheckCircle, faSearch, faSortDown, faSortUp, faColumns, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './utils/formValidationRules'
 import './assets/css/index.scss'
 
-library.add(faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, faHeart, faMoneyBillWave, faFileSignature, faClock, faCheckCircle, faSearch, faFacebook, faGoogle)
+library.add(faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, faHeart, faMoneyBillWave, faFileSignature, faClock, faCheckCircle, faSearch, faFacebook, faGoogle, faSortDown, faSortUp, faColumns, faSignOutAlt)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(Toasted, {

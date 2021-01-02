@@ -2,28 +2,32 @@
   <div class="nav-container">
     <nav class="main-nav">
       <Logo :job-text-color="jobTextColor" />
-      <div class="main-nav__links">
-        <ul>
-          <router-link to="/">
-            <li>Offers</li>
-          </router-link>
-          <router-link v-if="!isLoggedIn" to="/login">
-            <li>Login</li>
-          </router-link>
-          <router-link v-if="!isLoggedIn" to="/register">
-            <li>Sign up</li>
-          </router-link>
-          <router-link to="/post-offer">
-            <Button>Post a job</Button>
-          </router-link>
-          <li v-if="isLoggedIn">
-            {{ loggedInUser }}
-          </li>
-          <li v-if="isLoggedIn" @click="logoutUser">
-            Logout
-          </li>
-        </ul>
-      </div>
+      <ul class="main-nav__list">
+        <router-link to="/">
+          <li>Offers</li>
+        </router-link>
+        <router-link v-if="!isLoggedIn" to="/login">
+          <li>Login</li>
+        </router-link>
+        <router-link to="/post-offer">
+          <Button>Post a job</Button>
+        </router-link>
+        <li
+          v-if="isLoggedIn"
+          class="main-nav__list__user"
+          :class="{ linkActive: showDropdown }"
+          @click="showDropdown = !showDropdown"
+        >
+          <LoggedUser
+            :logged-in-user-name="loggedInUser"
+            class="main-nav__list__user"
+          />
+          <NavbarDropdown
+            :show-dropdown="showDropdown"
+            class="main-nav__list__dropdown"
+          />
+        </li>
+      </ul>
     </nav>
   </div>
 </template>
@@ -31,15 +35,19 @@
 <script>
 import Logo from '@/components/Logo'
 import Button from '@/components/Base/Button'
-import { mapActions } from 'vuex'
+import NavbarDropdown from '@/components/NavbarDropdown'
+import LoggedUser from '@/components/LoggedUser'
 
 export default {
   components: {
     Logo,
-    Button
+    Button,
+    NavbarDropdown,
+    LoggedUser
   },
   data() {
     return {
+      showDropdown: false,
       jobTextColor: '#182952'
     }
   },
@@ -49,12 +57,6 @@ export default {
     },
     loggedInUser() {
       return JSON.parse(window.localStorage.currentUser).name
-    }
-  },
-  methods: {
-    ...mapActions(['logout']),
-    logoutUser() {
-      this.logout()
     }
   }
 }
@@ -71,19 +73,35 @@ export default {
     max-width: $nav-width;
     margin: $margin-center;
     padding: $padding-sm 1rem;
-    &__links {
-      ul {
-        @include flex(null, center);
+    &__list {
+      @include flex(null, center);
+      a,
+      li {
+        cursor: pointer;
+        font-size: $font-content-md;
+        font-weight: $font-bold;
+        &:hover {
+          color: $pink;
+        }
+      }
+      a {
+        margin-right: 3rem;
+      }
+      &__user {
+        position: relative;
+      }
+      &__dropdown {
+        position: absolute;
+        top: 60px;
+        right: 0;
         a {
-          font-size: $font-content-md;
-          font-weight: $font-bold;
-          margin-right: 3rem;
-          &:hover {
-            color: $pink;
-          }
+          margin-right: 0;
         }
       }
     }
   }
+}
+.linkActive {
+  color: $pink !important;
 }
 </style>
