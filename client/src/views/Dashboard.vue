@@ -1,17 +1,25 @@
 <template>
-  <div>
+  <div class="dashboard">
     <Navbar />
-    <h1>Dashboard view</h1>
+    <div class="dashboard-container">
+      <div v-for="offer in getOffersByUser" :key="offer._id">
+        <router-link :to="'/offer/' + offer._id">
+          <JobOffer :offer="offer" />
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import Navbar from '@/components/Navbar'
+import JobOffer from '@/components/JobOffer'
 export default {
   name: 'Dashboard',
   components: {
-    Navbar
+    Navbar,
+    JobOffer
   },
   computed: {
     ...mapGetters(['getOffersByUser'])
@@ -25,4 +33,13 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.dashboard {
+  background-color: $bg-grey;
+}
+.dashboard-container {
+  max-width: $container-width;
+  margin: 0 auto;
+  padding: $padding-lg 0;
+}
+</style>
