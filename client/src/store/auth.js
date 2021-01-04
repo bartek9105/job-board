@@ -17,8 +17,9 @@ export default ({
           email,
           password
         })
+        const { id, name } = user.data.data
         router.push('/')
-        window.localStorage.currentUser = JSON.stringify({ isLoggedIn: true, name: user.data.data })
+        window.localStorage.currentUser = JSON.stringify({ isLoggedIn: true, id, name })
         Vue.toasted.success('Successfuly logged in')
       } catch (error) {
         console.log(error)
