@@ -1,11 +1,16 @@
 <template>
-  <div class="dashboard">
+  <div class="dashboard-container">
     <Navbar />
-    <div class="dashboard-container">
-      <div v-for="offer in getOffersByUser" :key="offer._id">
-        <router-link :to="'/offer/' + offer._id">
-          <JobOffer :offer="offer" />
-        </router-link>
+    <div class="dashboard">
+      <h1 class="dashboard__header">
+        Offers added by you
+      </h1>
+      <div class="dashboard__offers">
+        <div v-for="offer in getOffersByUser" :key="offer._id">
+          <router-link :to="'/offer/' + offer._id">
+            <JobOffer :offer="offer" />
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -34,12 +39,15 @@ export default {
 </script>
 
 <style lang="scss">
-.dashboard {
+.dashboard-container {
   background-color: $bg-grey;
 }
-.dashboard-container {
+.dashboard {
   max-width: $container-width;
   margin: 0 auto;
   padding: $padding-lg 0;
+  &__offers {
+    margin-top: $margin-md;
+  }
 }
 </style>
