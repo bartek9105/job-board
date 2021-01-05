@@ -235,7 +235,7 @@
       <div class="btn-container">
         <stripe-checkout ref="checkoutRef" :pk="key" :session-id="getSessionId">
           <template slot="checkout-button">
-            <Button class="add-btn" @click.native="postOffer">
+            <Button class="add-btn" @click.native="saveOffer">
               Add offer
             </Button>
             <ClearBtn @click.native="offer = {}">
@@ -259,7 +259,7 @@ import { ValidationProvider } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'JobPostForm',
+  name: 'OfferForm',
   components: {
     TagInput,
     Editor,
@@ -269,28 +269,19 @@ export default {
     StripeCheckout,
     ValidationProvider
   },
+  props: {
+    offer: Object,
+    saveOffer: Function
+  },
   data() {
     return {
-      offer: {
-        productId: '',
-        title: '',
-        technologies: [],
-        location: '',
-        category: '',
-        seniority: '',
-        salaryMin: null,
-        salaryMax: null,
-        type: '',
-        contract: '',
-        description: ''
-      },
       locationCheck: false,
       key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
       activeIndex: 1
     }
   },
   methods: {
-    ...mapActions(['fetchProducts', 'addJobOffer']),
+    ...mapActions(['fetchProducts']),
     emitLocation() {
       this.$emit('location', this.offer.location)
     },
@@ -299,15 +290,6 @@ export default {
     },
     description(content) {
       this.offer.description = content
-    },
-    postOffer() {
-      if (this.getProducts.price === 0) {
-        this.addJobOffer(this.offer)
-      } else {
-        this.addJobOffer(this.offer).then(() => {
-          this.$refs.checkoutRef.redirectToCheckout()
-        })
-      }
     }
   },
   computed: {
