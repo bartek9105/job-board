@@ -27,8 +27,11 @@
         v-for="offer in offers"
         :key="offer._id"
         class="offers-table__body__row"
+        @click="goToOffer(offer._id)"
       >
-        <td class="offers-table__body__row__cell">
+        <td
+          class="offers-table__body__row__cell offers-table__body__row__cell__title"
+        >
           {{ offer.title }}
         </td>
         <td class="offers-table__body__row__cell">
@@ -68,7 +71,10 @@ export default {
     offers: Array
   },
   methods: {
-    dateISOToString
+    dateISOToString,
+    goToOffer(offerId) {
+      this.$router.push({ path: `/offer/${offerId}` })
+    }
   }
 }
 </script>
@@ -92,6 +98,7 @@ export default {
       @include transition;
       &:hover {
         @include shadow-hover;
+        cursor: pointer;
       }
       &:nth-last-of-type(odd) {
         background-color: $bg-grey;
@@ -101,7 +108,11 @@ export default {
       }
       &__cell {
         border: 0;
-        padding: $padding-sm;
+        padding: $padding-md;
+        text-align: center;
+        &__title {
+          text-align: left;
+        }
         &__icon {
           &__check {
             color: $success;
