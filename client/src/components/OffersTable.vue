@@ -9,15 +9,6 @@
           Category
         </th>
         <th class="offers-table__header__row__cell">
-          Type
-        </th>
-        <th class="offers-table__header__row__cell">
-          Remote
-        </th>
-        <th class="offers-table__header__row__cell">
-          Location
-        </th>
-        <th class="offers-table__header__row__cell">
           Status
         </th>
         <th class="offers-table__header__row__cell">
@@ -44,15 +35,6 @@
           {{ offer.category }}
         </td>
         <td class="offers-table__body__row__cell">
-          {{ offer.type }}
-        </td>
-        <td class="offers-table__body__row__cell">
-          {{ offer.remote }}
-        </td>
-        <td class="offers-table__body__row__cell">
-          {{ offer.location }}
-        </td>
-        <td class="offers-table__body__row__cell">
           {{ offer.status }}
         </td>
         <td class="offers-table__body__row__cell">
@@ -62,7 +44,16 @@
           {{ dateISOToString(offer.expireAt) }}
         </td>
         <td class="offers-table__body__row__cell">
-          {{ offer.isPromoted }}
+          <font-awesome-icon
+            v-if="offer.isPromoted"
+            icon="check"
+            class="offers-table__body__row__cell__icon__check"
+          />
+          <font-awesome-icon
+            v-else
+            icon="times"
+            class="offers-table__body__row__cell__icon__times"
+          />
         </td>
       </tr>
     </tbody>
@@ -84,7 +75,9 @@ export default {
 
 <style lang="scss" scoped>
 .offers-table {
+  @include shadow;
   width: 100%;
+  border-collapse: collapse;
   &__header {
     background-color: $white;
     &__row {
@@ -96,6 +89,10 @@ export default {
   }
   &__body {
     &__row {
+      @include transition;
+      &:hover {
+        @include shadow-hover;
+      }
       &:nth-last-of-type(odd) {
         background-color: $bg-grey;
       }
@@ -103,7 +100,16 @@ export default {
         background-color: $white;
       }
       &__cell {
+        border: 0;
         padding: $padding-sm;
+        &__icon {
+          &__check {
+            color: $success;
+          }
+          &__times {
+            color: $error;
+          }
+        }
       }
     }
   }
