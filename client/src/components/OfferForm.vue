@@ -236,10 +236,10 @@
         <stripe-checkout ref="checkoutRef" :pk="key" :session-id="getSessionId">
           <template slot="checkout-button">
             <Button class="add-btn" @click.native="saveOffer">
-              Add offer
+              {{ btnText }}
             </Button>
             <ClearBtn @click.native="offer = {}">
-              Clear inputs
+              Clear form
             </ClearBtn>
           </template>
         </stripe-checkout>
@@ -271,7 +271,8 @@ export default {
   },
   props: {
     offer: Object,
-    saveOffer: Function
+    saveOffer: Function,
+    btnText: String
   },
   data() {
     return {

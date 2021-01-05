@@ -30,7 +30,6 @@
         v-for="offer in offers"
         :key="offer._id"
         class="offers-table__body__row"
-        @click="goToOffer(offer._id)"
       >
         <td
           class="offers-table__body__row__cell offers-table__body__row__cell__title"
@@ -91,6 +90,9 @@ export default {
     dateISOToString,
     goToOffer(offerId) {
       this.$router.push({ path: `/offer/${offerId}` })
+    },
+    editOffer(offerId) {
+      this.$router.push({ path: `/offer/${offerId}/edit` })
     }
   }
 }

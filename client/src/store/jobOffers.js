@@ -94,7 +94,6 @@ export default {
       }
     },
     async addJobOffer({ commit }, payload) {
-      console.log(payload)
       const {
         title,
         category,

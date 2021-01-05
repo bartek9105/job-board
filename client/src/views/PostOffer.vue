@@ -14,6 +14,7 @@
           class="post-offer-form"
           :offer="offer"
           :save-offer="addOffer"
+          btn-text="Add offer"
           @location="locationData"
         />
       </div>
@@ -37,7 +38,6 @@ export default {
   data() {
     return {
       location: '',
-      title: '',
       offer: {}
     }
   },
