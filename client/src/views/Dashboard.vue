@@ -6,11 +6,7 @@
         Offers added by you
       </h1>
       <div class="dashboard__offers">
-        <div v-for="offer in getOffersByUser" :key="offer._id">
-          <router-link :to="'/offer/' + offer._id">
-            <JobOffer :offer="offer" />
-          </router-link>
-        </div>
+        <OffersTable :offers="getOffersByUser" />
       </div>
     </div>
   </div>
@@ -19,12 +15,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import Navbar from '@/components/Navbar'
-import JobOffer from '@/components/JobOffer'
+import OffersTable from '@/components/OffersTable'
 export default {
   name: 'Dashboard',
   components: {
     Navbar,
-    JobOffer
+    OffersTable
   },
   computed: {
     ...mapGetters(['getOffersByUser'])
@@ -43,7 +39,7 @@ export default {
   background-color: $bg-grey;
 }
 .dashboard {
-  max-width: $container-width;
+  max-width: $nav-width;
   margin: 0 auto;
   padding: $padding-lg 0;
   &__offers {
