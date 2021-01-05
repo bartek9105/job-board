@@ -56,10 +56,10 @@
           {{ offer.status }}
         </td>
         <td class="offers-table__body__row__cell">
-          {{ new Date(offer.createdAt).toDateString() }}
+          {{ dateISOToString(offer.createdAt) }}
         </td>
         <td class="offers-table__body__row__cell">
-          {{ new Date(offer.expireAt).toDateString() }}
+          {{ dateISOToString(offer.expireAt) }}
         </td>
         <td class="offers-table__body__row__cell">
           {{ offer.isPromoted }}
@@ -70,10 +70,14 @@
 </template>
 
 <script>
+import { dateISOToString } from '@/utils/dateISOToString'
 export default {
   name: 'OffersTable',
   props: {
     offers: Array
+  },
+  methods: {
+    dateISOToString
   }
 }
 </script>
