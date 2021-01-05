@@ -199,39 +199,7 @@
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
-      <div class="job-form-price-cards-container">
-        <PriceCard
-          v-for="(product, index) in getProducts"
-          :key="product._id"
-          :class="{ cardActive: activeIndex === index }"
-          class="job-form-price-card"
-          @click.native="
-            ;(offer.productId = product._id), (activeIndex = index)
-          "
-        >
-          <template v-slot:header>
-            {{ product.name }}
-          </template>
-          <template v-slot:price>
-            {{ product.price / 100 }}
-          </template>
-          <template v-slot:content>
-            <ul class="job-form-price-card__list">
-              <li>
-                <i class="fas fa-check job-form-price-card__list__icon" />
-                Your offer will last for {{ product.duration }}
-              </li>
-              <li v-if="product.promotion">
-                <i class="fas fa-check job-form-price-card__list__icon" />
-                Your offer will be promoted for {{ product.promotion }}
-              </li>
-            </ul>
-            <p class="job-form-price-card__description">
-              {{ product.description }}
-            </p>
-          </template>
-        </PriceCard>
-      </div>
+
       <div class="btn-container">
         <stripe-checkout ref="checkoutRef" :pk="key" :session-id="getSessionId">
           <template slot="checkout-button">
@@ -253,7 +221,6 @@ import TagInput from '@/components/TagInput'
 import Editor from '@/components/Editor'
 import Button from '@/components/Base/Button'
 import ClearBtn from '@/components/Base/ClearBtn'
-import PriceCard from '@/components/PriceCard'
 import { StripeCheckout } from 'vue-stripe-checkout'
 import { ValidationProvider } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
@@ -265,7 +232,6 @@ export default {
     Editor,
     Button,
     ClearBtn,
-    PriceCard,
     StripeCheckout,
     ValidationProvider
   },
@@ -350,29 +316,6 @@ export default {
   .cardActive {
     background: $dark-blue;
     color: $white;
-  }
-  .job-form-price-cards-container {
-    @include flex(space-between);
-    background: $bg-grey;
-    padding: $padding-lg 0;
-  }
-  .job-form-price-card {
-    &__list {
-      text-align: left;
-      li {
-        @include flex();
-        font-size: $font-content-md;
-        font-weight: $font-bold;
-        margin-bottom: $margin-md;
-      }
-      &__icon {
-        margin-right: 10px;
-      }
-    }
-    &__description {
-      font-size: $font-content-sm;
-      line-height: $article-line-height;
-    }
   }
 }
 </style>
