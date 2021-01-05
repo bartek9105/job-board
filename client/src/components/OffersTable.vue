@@ -20,6 +20,9 @@
         <th class="offers-table__header__row__cell">
           Promoted
         </th>
+        <th class="offers-table__header__row__cell">
+          Actions
+        </th>
       </tr>
     </thead>
     <tbody class="offers-table__body">
@@ -58,6 +61,20 @@
             class="offers-table__body__row__cell__icon__times"
           />
         </td>
+        <td class="offers-table__body__row__cell">
+          <div class="offers-table__body__row__cell__icons-container">
+            <font-awesome-icon
+              icon="edit"
+              class="offers-table__body__row__cell__icon offers-table__body__row__cell__icon__edit"
+              @click="editOffer(offer._id)"
+            />
+            <font-awesome-icon
+              icon="times"
+              class="offers-table__body__row__cell__icon offers-table__body__row__cell__icon__delete"
+              @click="deleteOffer(offer._id)"
+            />
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -84,6 +101,8 @@ export default {
   @include shadow;
   width: 100%;
   border-collapse: collapse;
+  font-size: $font-content-md;
+  color: $grey;
   &__header {
     background-color: $white;
     &__row {
@@ -96,15 +115,23 @@ export default {
   &__body {
     &__row {
       @include transition;
+      border-left: 3px solid transparent;
       &:hover {
         @include shadow-hover;
         cursor: pointer;
+        border-left-color: $dark-blue;
       }
       &:nth-last-of-type(odd) {
-        background-color: $bg-grey;
+        background-color: $lighter-grey;
       }
       &:nth-last-of-type(even) {
         background-color: $white;
+      }
+      &:nth-last-of-type(odd),
+      &:nth-last-of-type(even) {
+        &:hover {
+          background-color: $light-grey;
+        }
       }
       &__cell {
         border: 0;
@@ -113,12 +140,19 @@ export default {
         &__title {
           text-align: left;
         }
+        &__icons-container {
+          @include flex(center);
+        }
         &__icon {
+          color: $grey;
           &__check {
             color: $success;
           }
           &__times {
             color: $error;
+          }
+          &__edit {
+            margin-right: 1rem;
           }
         }
       }
