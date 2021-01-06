@@ -1,54 +1,48 @@
 <template>
-  <div>
-    <div class="tags-input-container">
-      <div class="tag-input">
-        <div class="tag-input-insider">
-          <div
-            v-for="(tag, index) in technologies"
-            :key="index"
-            class="tag-input__tag"
-          >
-            {{ tag }}
-            <font-awesome-icon
-              icon="times-circle"
-              class="tag-input__delete-icon"
-              @click="deleteTag(index)"
-            />
-          </div>
-          <input
-            v-model="technology"
-            type="text"
-            class="tag-input__inner"
-            placeholder="Type in technology, press Enter to add more"
-            @focus="displaySuggestionList = true"
-            @keydown.down="onArrowDown"
-            @keydown.up="onArrowUp"
-            @keydown.enter.prevent="onEnter"
-          />
-          <font-awesome-icon
-            v-if="technologies.length > 0"
-            icon="times-circle"
-            class="tag-input__delete-all-icon"
-            @click="deleteAllTags"
-          />
-        </div>
-        <ul
-          v-show="displaySuggestionList === true"
-          ref="listContainer"
-          class="tag-input__suggestion-list"
-          @blur="displaySuggestionList = false"
-        >
-          <li
-            v-for="(filteredTechnology, index) in getTechnologies"
-            ref="listElement"
-            :key="index"
-            :class="{ 'active-item': currentListItem === index }"
-            @click="createTechnologyTag(filteredTechnology.name)"
-          >
-            {{ filteredTechnology.name }}
-          </li>
-        </ul>
+  <div class="tags">
+    <div class="tags-container">
+      <div v-for="(tag, index) in technologies" :key="index" class="tags__tag">
+        {{ tag }}
+        <font-awesome-icon
+          icon="times-circle"
+          class="tags__tag__delete-icon"
+          @click="deleteTag(index)"
+        />
       </div>
+    </div>
+    <div class="tags-input-container">
+      <input
+        v-model="technology"
+        type="text"
+        class="tags__input"
+        placeholder="Type in technology, press Enter to add more"
+        @focus="displaySuggestionList = true"
+        @keydown.down="onArrowDown"
+        @keydown.up="onArrowUp"
+        @keydown.enter.prevent="onEnter"
+      />
+      <font-awesome-icon
+        v-if="technologies.length > 0"
+        icon="times-circle"
+        class="tags__input__delete-all-icon"
+        @click="deleteAllTags"
+      />
+      <ul
+        v-show="displaySuggestionList === true"
+        ref="listContainer"
+        class="tags__input__suggestion-list"
+        @blur="displaySuggestionList = false"
+      >
+        <li
+          v-for="(filteredTechnology, index) in getTechnologies"
+          ref="listElement"
+          :key="index"
+          :class="{ 'active-item': currentListItem === index }"
+          @click="createTechnologyTag(filteredTechnology.name)"
+        >
+          {{ filteredTechnology.name }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -140,60 +134,56 @@ export default {
   border-radius: $border-radius-sm;
 }
 .tags-input-container {
-  .input-name {
-    @include input-name;
-  }
-}
-.tag-input {
+  display: flex;
+  align-items: center;
   position: relative;
-  &-insider {
-    @include flex(null, center);
-    flex-wrap: wrap;
-  }
-  &__delete-icon {
-    margin-left: 3px;
-    cursor: pointer;
-  }
-  &__delete-all-icon {
-    position: absolute;
-    top: 7px;
-    right: 10px;
-    cursor: pointer;
-  }
-  &__inner {
-    @include input-text-overflow;
-    min-width: 200px;
-    margin-right: 30px;
-    height: 35px;
-    outline: none;
-    border: none;
-    flex: 1;
-  }
+}
+.tags {
   &__tag {
     @include tag;
     @include tag-dark;
     display: inline-block;
     margin-right: 5px;
+    margin-bottom: $margin-xsm;
+    &__delete-icon {
+      margin-left: 3px;
+      cursor: pointer;
+    }
   }
-  &__suggestion-list {
-    @include shadow;
-    position: absolute;
-    top: 110%;
-    left: 0;
-    border: 1px solid $bg-grey;
-    padding: 10px;
+  &__input {
     width: 100%;
-    background: $white;
-    z-index: 1;
-    max-height: 300px;
-    overflow-y: auto;
-    li {
+    margin-right: 1rem;
+    &__delete-all-icon {
+      cursor: pointer;
+    }
+    &__suggestion-list {
+      @include shadow;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      border: 1px solid $bg-grey;
       padding: 10px;
-      &:hover {
-        background: $bg-grey;
-        cursor: pointer;
+      width: 100%;
+      background: $white;
+      z-index: 1;
+      max-height: 300px;
+      overflow-y: auto;
+      li {
+        padding: 10px;
+        &:hover {
+          background: $bg-grey;
+          cursor: pointer;
+        }
       }
     }
+  }
+  &__inner {
+    @include input-text-overflow;
+    width: 100%;
+    height: 35px;
+    outline: none;
+    border: none;
+    flex: 1;
   }
 }
 </style>
