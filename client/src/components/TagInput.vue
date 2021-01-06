@@ -63,10 +63,15 @@ export default {
   methods: {
     ...mapActions(['fetchTechnologies']),
     createTechnologyTag(technology) {
-      this.technologies.push(technology)
+      const isTechnologyAdded = this.technologies.find(
+        technologyEl => technologyEl === technology
+      )
+      if (!isTechnologyAdded) {
+        this.technologies.push(technology)
+        this.technology = ''
+        this.$emit('technologies', this.technologies)
+      }
       this.technology = ''
-      this.$emit('technologies', this.technologies)
-      this.currentListItem = -1
     },
     deleteTag(index) {
       this.technologies.splice(index, 1)
