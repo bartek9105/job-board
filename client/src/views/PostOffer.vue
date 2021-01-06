@@ -89,9 +89,7 @@ export default {
       this.location = location
     },
     addOffer() {
-      this.addJobOffer(this.offer).then(() => {
-        this.$refs.checkoutRef.redirectToCheckout()
-      })
+      this.addJobOffer(this.offer)
     }
   }
 }

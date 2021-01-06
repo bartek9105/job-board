@@ -9,8 +9,9 @@
             class="tag-input__tag"
           >
             {{ tag }}
-            <i
-              class="fas fa-times-circle tag-input__delete-icon"
+            <font-awesome-icon
+              icon="times-circle"
+              class="tag-input__delete-icon"
               @click="deleteTag(index)"
             />
           </div>
@@ -24,9 +25,10 @@
             @keydown.up="onArrowUp"
             @keydown.enter="onEnter"
           />
-          <i
+          <font-awesome-icon
             v-if="technologies.length > 0"
-            class="fas fa-times-circle tag-input__delete-all-icon"
+            icon="times-circle"
+            class="tag-input__delete-all-icon"
             @click="deleteAllTags"
           />
         </div>
@@ -64,13 +66,10 @@ export default {
     }
   },
   methods: {
-    createTechnologyTag(filteredTechnology) {
-      this.technology = filteredTechnology
-      if (this.technology !== '' && this.technology !== null) {
-        this.technologies.push(this.technology.trim())
-      }
+    createTechnologyTag(technology) {
+      this.technologies.push(technology)
+      this.technology = ''
       this.$emit('technologies', this.technologies)
-      this.technology = null
       this.currentListItem = -1
     },
     deleteTag(index) {
@@ -90,7 +89,7 @@ export default {
       }
     },
     onEnter() {
-      this.technology = this.getFilteredTechnologies[this.currentListItem]
+      // this.technology = this.getFilteredTechnologies[this.currentListItem]
       this.createTechnologyTag(this.technology)
     },
     clickOutsideListHandler(evt) {
