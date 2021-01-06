@@ -27,11 +27,13 @@ const offers = require('./routes/offers')
 const auth = require('./routes/auth')
 const products = require('./routes/products')
 const users = require('./routes/users')
+const technologies = require('./routes/technologies')
 
 app.use('/api/v1/offers', offers)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/products', products)
 app.use('/api/v1/users', users)
+app.use('/api/v1/technologies', technologies)
 
 const cronJob = require('./utils/cronJobValidate')
 cronJob.start()
