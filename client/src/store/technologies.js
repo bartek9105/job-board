@@ -18,7 +18,7 @@ export default ({
     async fetchTechnologies({ commit }) {
       try {
         const technologies = await axiosInstance.get('technologies')
-        commit('SET_TECHNOLOGIES', technologies)
+        commit('SET_TECHNOLOGIES', technologies.data)
       } catch (error) {
         console.log(error)
       }

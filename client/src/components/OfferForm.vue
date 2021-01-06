@@ -199,7 +199,6 @@
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
-
       <div class="btn-container">
         <stripe-checkout ref="checkoutRef" :pk="key" :session-id="getSessionId">
           <template slot="checkout-button">

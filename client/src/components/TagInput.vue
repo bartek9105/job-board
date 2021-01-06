@@ -23,7 +23,7 @@
             @focus="displaySuggestionList = true"
             @keydown.down="onArrowDown"
             @keydown.up="onArrowUp"
-            @keydown.enter="onEnter"
+            @keydown.enter.prevent="onEnter"
           />
           <font-awesome-icon
             v-if="technologies.length > 0"
@@ -33,18 +33,19 @@
           />
         </div>
         <ul
-          v-if="displaySuggestionList === true"
+          v-show="displaySuggestionList === true"
+          ref="listContainer"
           class="tag-input__suggestion-list"
           @blur="displaySuggestionList = false"
         >
           <li
-            v-for="(filteredTechnology, index) in getFilteredTechnologies"
+            v-for="(filteredTechnology, index) in getTechnologies"
+            ref="listElement"
             :key="index"
             :class="{ 'active-item': currentListItem === index }"
-            @click="createTechnologyTag(filteredTechnology)"
-            @keyup.enter="createTechnologyTag(filteredTechnology)"
+            @click="createTechnologyTag(filteredTechnology.name)"
           >
-            {{ filteredTechnology }}
+            {{ filteredTechnology.name }}
           </li>
         </ul>
       </div>
@@ -53,7 +54,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'TagInput',
@@ -66,6 +67,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['fetchTechnologies']),
     createTechnologyTag(technology) {
       this.technologies.push(technology)
       this.technology = ''
@@ -79,28 +81,41 @@ export default {
       this.technologies = []
     },
     onArrowDown() {
-      if (this.currentListItem < this.getFilteredTechnologies.length) {
+      if (this.currentListItem < this.getTechnologies.length) {
         this.currentListItem++
+        this.fixScrolling()
       }
     },
     onArrowUp() {
       if (this.currentListItem > 0) {
         this.currentListItem--
+        this.fixScrolling()
       }
     },
     onEnter() {
-      // this.technology = this.getFilteredTechnologies[this.currentListItem]
-      this.createTechnologyTag(this.technology)
+      this.technology = this.getTechnologies[this.currentListItem]
+      this.createTechnologyTag(this.technology.name)
     },
     clickOutsideListHandler(evt) {
       if (!this.$el.contains(evt.target)) {
         this.displaySuggestionList = false
         this.currentListItem = -1
       }
+    },
+    fixScrolling() {
+      const listElement = this.$refs.listElement[this.currentListItem]
+      if (listElement) {
+        listElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'start'
+        })
+      }
     }
   },
   computed: {
-    ...mapGetters(['getTechnologies']),
+    ...mapGetters(['getTechnologies'])
+    /*
     getFilteredTechnologies() {
       if (this.technology !== null) {
         return this.getTechnologies.filter(technology =>
@@ -109,9 +124,11 @@ export default {
       }
       return this.getTechnologies
     }
+    */
   },
   mounted() {
     document.addEventListener('click', this.clickOutsideListHandler)
+    this.fetchTechnologies()
   }
 }
 </script>
