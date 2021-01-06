@@ -66,7 +66,10 @@ exports.login = async (req, res, next) => {
       .cookie('refreshToken', refreshToken, {
         httpOnly: true,
       })
-      .send({ status: 'success', data: employer.name })
+      .send({
+        status: 'success',
+        data: { id: employer._id, name: employer.name },
+      })
   } catch (error) {
     next(error)
   }

@@ -5,6 +5,8 @@ import Login from '@/views/Login'
 import Register from '@/views/Register'
 import PostOffer from '@/views/PostOffer'
 import SingleOffer from '@/views/SingleOffer'
+import Dashboard from '@/views/Dashboard'
+import OfferEdit from '@/views/OfferEdit'
 
 Vue.use(VueRouter)
 
@@ -33,8 +35,17 @@ const routes = [
     path: '/offer/:id',
     name: 'SingleOffer',
     component: SingleOffer
-  }
-
+  },
+  {
+    path: '/offer/:id/edit',
+    name: 'OfferEdit',
+    component: OfferEdit
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
+  },
 ]
 
 const router = new VueRouter({

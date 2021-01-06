@@ -2,7 +2,7 @@ import Vue from 'vue'
 import qs from 'qs'
 import axiosInstance from '../services/Api'
 
-export default ({
+export default {
   state: {
     jobOffers: [],
     offer: {},
@@ -23,7 +23,9 @@ export default ({
       return state.sessionId
     },
     getTechnologies(state) {
-      const offersTechnologies = new Set(state.jobOffers.data.map(offerObj => offerObj.technologies).flat())
+      const offersTechnologies = new Set(
+        state.jobOffers.data.map(offerObj => offerObj.technologies).flat()
+      )
       return [...offersTechnologies]
     }
   },
@@ -60,19 +62,24 @@ export default ({
             o[e] = queries[e]
             return o
           }, {})
-        const offersData = await axiosInstance.get(`offers?page=${queriesFilter.page}`, {
-          params: {
-            technologies: { in: queriesFilter.technologies },
-            seniority: queriesFilter.seniority,
-            category: queriesFilter.category,
-            q: queriesFilter.location,
-            type: queriesFilter.type,
-            salary: { lt: queriesFilter.salaryMax, gt: queriesFilter.salaryMin },
-            contract: queriesFilter.contract
-
-          },
-          paramsSerializer: params => qs.stringify(params)
-        })
+        const offersData = await axiosInstance.get(
+          `offers?page=${queriesFilter.page}`,
+          {
+            params: {
+              technologies: { in: queriesFilter.technologies },
+              seniority: queriesFilter.seniority,
+              category: queriesFilter.category,
+              q: queriesFilter.location,
+              type: queriesFilter.type,
+              salary: {
+                lt: queriesFilter.salaryMax,
+                gt: queriesFilter.salaryMin
+              },
+              contract: queriesFilter.contract
+            },
+            paramsSerializer: params => qs.stringify(params)
+          }
+        )
         commit('SET_JOB_OFFERS', offersData.data)
       } catch (error) {
         console.log(error)
@@ -87,20 +94,33 @@ export default ({
       }
     },
     async addJobOffer({ commit }, payload) {
-      const { title, category, type, salaryMin, salaryMax, description, contract, technologies, location, productId } = payload
+      const {
+        title,
+        category,
+        type,
+        seniority,
+        salaryMin,
+        salaryMax,
+        description,
+        contract,
+        technologies,
+        location,
+        productId
+      } = payload
       try {
         const response = await axiosInstance.post('offers', {
-          productId: productId,
+          productId,
           email: 'example@email.com',
-          title: title,
-          category: category,
-          type: type,
-          salaryMin: salaryMin,
-          salaryMax: salaryMax,
-          description: description,
-          contract: contract,
-          technologies: technologies,
-          location: location
+          title,
+          category,
+          type,
+          seniority,
+          salaryMin,
+          salaryMax,
+          description,
+          contract,
+          technologies,
+          location
         })
         Vue.toasted.success('Added job offer')
         const sessionId = response.data.id
@@ -110,4 +130,4 @@ export default ({
       }
     }
   }
-})
+}

@@ -26,10 +26,12 @@ app.use(cookieParser())
 const offers = require('./routes/offers')
 const auth = require('./routes/auth')
 const products = require('./routes/products')
+const users = require('./routes/users')
 
 app.use('/api/v1/offers', offers)
 app.use('/api/v1/auth', auth)
 app.use('/api/v1/products', products)
+app.use('/api/v1/users', users)
 
 const cronJob = require('./utils/cronJobValidate')
 cronJob.start()
