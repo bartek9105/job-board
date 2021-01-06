@@ -21,12 +21,6 @@ export default {
     },
     getSessionId(state) {
       return state.sessionId
-    },
-    getTechnologies(state) {
-      const offersTechnologies = new Set(
-        state.jobOffers.data.map(offerObj => offerObj.technologies).flat()
-      )
-      return [...offersTechnologies]
     }
   },
   mutations: {
