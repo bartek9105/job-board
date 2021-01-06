@@ -195,7 +195,7 @@
           class="job-form-unit-validator"
         >
           <span class="job-form-unit__name">Description</span>
-          <Editor @editorContent="description" />
+          <Editor v-model="offer.description" />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>

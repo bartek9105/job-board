@@ -1,9 +1,9 @@
 <template>
   <div class="editor">
     <vue-editor
-      v-model="content"
+      :value="value"
       :editor-toolbar="customToolbar"
-      @text-change="emitEditorContent"
+      @input="$emit('input', $event)"
     />
   </div>
 </template>
@@ -16,18 +16,17 @@ export default {
   components: {
     VueEditor
   },
+  props: {
+    value: {
+      type: String
+    }
+  },
   data() {
     return {
       customToolbar: [
         ['bold', 'italic', 'underline'],
         [{ list: 'ordered' }, { list: 'bullet' }]
-      ],
-      content: ''
-    }
-  },
-  methods: {
-    emitEditorContent() {
-      this.$emit('editorContent', this.content)
+      ]
     }
   }
 }
