@@ -38,8 +38,13 @@
           ref="listElement"
           :key="index"
           :class="{ 'active-item': currentListItem === index }"
+          class="tags__input__suggestion-list__list-element"
           @click="createTechnologyTag(filteredTechnology.name)"
         >
+          <i
+            :class="filteredTechnology.icon"
+            class="tags__input__suggestion-list__list-element__icon"
+          />
           {{ filteredTechnology.name }}
         </li>
       </ul>
@@ -173,11 +178,16 @@ export default {
       z-index: 1;
       max-height: 300px;
       overflow-y: auto;
-      li {
+      &__list-element {
+        @include flex(null, center);
         padding: 10px;
         &:hover {
           background: $bg-grey;
           cursor: pointer;
+        }
+        &__icon {
+          margin-right: 0.5rem;
+          font-size: $font-icon-md;
         }
       }
     }
