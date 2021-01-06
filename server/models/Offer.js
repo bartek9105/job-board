@@ -23,6 +23,10 @@ const offerSchema = new mongoose.Schema({
     type: String,
     enum: ['Full Time', 'Part Time'],
   },
+  seniority: {
+    type: String,
+    enum: ['Junior', 'Regular', 'Senior'],
+  },
   salaryMin: {
     type: Number,
     trim: true,
