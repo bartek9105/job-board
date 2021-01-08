@@ -90,6 +90,7 @@ export default {
     async addJobOffer({ commit }, payload) {
       const {
         title,
+        isRemote,
         category,
         type,
         seniority,
@@ -106,6 +107,7 @@ export default {
           productId,
           email: 'example@email.com',
           title,
+          isRemote,
           category,
           type,
           seniority,

@@ -35,7 +35,11 @@
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
         <div class="checkbox-container">
-          <input type="checkbox" class="job-form-unit__checkbox" />
+          <input
+            v-model="offer.isRemote"
+            type="checkbox"
+            class="job-form-unit__checkbox"
+          />
           <span class="job-form-unit__checkbox__text">Remote</span>
           <input
             v-model="locationCheck"
