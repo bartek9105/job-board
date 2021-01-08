@@ -77,7 +77,9 @@ export default {
     return {
       activeIndex: 1,
       location: '',
-      offer: {}
+      offer: {
+        technologies: []
+      }
     }
   },
   computed: {

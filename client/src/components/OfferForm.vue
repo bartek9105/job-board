@@ -143,7 +143,10 @@
       </div>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Technologies</span>
-        <TagInput @technologies="tagsTechnologies" />
+        <TagInput
+          :technologies="offer.technologies"
+          @technologies="tagsTechnologies"
+        />
       </div>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Type</span>
@@ -251,11 +254,11 @@ export default {
     emitLocation() {
       this.$emit('location', this.offer.location)
     },
-    tagsTechnologies(techs) {
-      this.offer.technologies = techs
-    },
     description(content) {
       this.offer.description = content
+    },
+    tagsTechnologies(technologies) {
+      this.offer.technologies = technologies
     }
   },
   computed: {

@@ -1,14 +1,13 @@
 <template>
   <div class="tags">
     <div class="tags-container">
-      <div v-for="(tag, index) in technologies" :key="index" class="tags__tag">
-        {{ tag }}
-        <font-awesome-icon
-          icon="times-circle"
-          class="tags__tag__delete-icon"
-          @click="deleteTag(index)"
-        />
-      </div>
+      <Tag
+        v-for="(tag, index) in technologies"
+        :key="index"
+        :tag-name="tag"
+        :tag-index="index"
+        @deletedItem="deleteTag"
+      />
     </div>
     <div class="tags-input-container">
       <input
@@ -22,7 +21,6 @@
         @keydown.enter.prevent="onEnter"
       />
       <font-awesome-icon
-        v-if="technologies.length > 0"
         icon="times-circle"
         class="tags__input__delete-all-icon"
         @click="deleteAllTags"
@@ -36,7 +34,7 @@
         <li
           v-for="(filteredTechnology, index) in getTechnologies"
           ref="listElement"
-          :key="index"
+          :key="filteredTechnology._id"
           :class="{ 'active-item': currentListItem === index }"
           class="tags__input__suggestion-list__list-element"
           @click="createTechnologyTag(filteredTechnology.name)"
@@ -54,12 +52,22 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Tag from '@/components/Tag'
 
 export default {
   name: 'TagInput',
+  components: {
+    Tag
+  },
+  props: {
+    technologies: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
-      technologies: [],
+      technologiesLocal: [...this.technologies],
       technology: '',
       displaySuggestionList: false,
       currentListItem: -1
@@ -68,21 +76,20 @@ export default {
   methods: {
     ...mapActions(['fetchTechnologies']),
     createTechnologyTag(technology) {
-      const isTechnologyAdded = this.technologies.find(
+      const isTechnologyAdded = this.technologiesLocal.find(
         technologyEl => technologyEl === technology
       )
       if (!isTechnologyAdded) {
-        this.technologies.push(technology)
+        this.technologiesLocal.push(technology)
         this.technology = ''
-        this.$emit('technologies', this.technologies)
       }
       this.technology = ''
     },
     deleteTag(index) {
-      this.technologies.splice(index, 1)
+      this.technologiesLocal.splice(index, 1)
     },
     deleteAllTags() {
-      this.technologies = []
+      this.technologiesLocal = []
     },
     onArrowDown() {
       if (this.currentListItem < this.getTechnologies.length) {
@@ -130,6 +137,11 @@ export default {
     }
     */
   },
+  watch: {
+    technologiesLocal: function(newVal, oldVal) {
+      this.$emit('technologies', newVal)
+    }
+  },
   mounted() {
     document.addEventListener('click', this.clickOutsideListHandler)
     this.fetchTechnologies()
@@ -149,17 +161,6 @@ export default {
   position: relative;
 }
 .tags {
-  &__tag {
-    @include tag;
-    @include tag-dark;
-    display: inline-block;
-    margin-right: 5px;
-    margin-bottom: $margin-xsm;
-    &__delete-icon {
-      margin-left: 3px;
-      cursor: pointer;
-    }
-  }
   &__input {
     width: 100%;
     margin-right: 1rem;

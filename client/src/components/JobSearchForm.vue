@@ -84,7 +84,11 @@
         <div class="row">
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Technologies</span>
-            <TagInput class="tags" @technologies="technologies" />
+            <TagInput
+              class="tags"
+              :technologies="queries.technologies"
+              @technologies="tagsTechnologies"
+            />
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
@@ -173,7 +177,7 @@ export default {
     clearFilters() {
       this.queries = { technologies: [] }
     },
-    technologies(techs) {
+    tagsTechnologies(techs) {
       this.queries.technologies = techs
     }
   }
