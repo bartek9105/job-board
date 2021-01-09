@@ -1,12 +1,10 @@
 import Vue from 'vue'
-import axiosInstance from '../../services/Api'
 import OfferService from '../../services/offer.service'
 
 export default {
   state: {
     offers: [],
     offer: {},
-    products: [],
     sessionId: ''
   },
   getters: {
@@ -50,14 +48,6 @@ export default {
       try {
         const offers = await OfferService.fetchOffers(offersQueries)
         commit('SET_OFFERS', offers)
-      } catch (error) {
-        console.log(error)
-      }
-    },
-    async fetchProducts({ commit }) {
-      try {
-        const productsData = await axiosInstance.get('products')
-        commit('SET_PRODUCTS', productsData.data)
       } catch (error) {
         console.log(error)
       }

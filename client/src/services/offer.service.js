@@ -1,10 +1,10 @@
-import axiosInstance from './Api'
+import api from './api.service'
 import qs from 'qs'
 
 const OfferService = {
   fetchOffer: async function (offerId) {
     try {
-      const offer = await axiosInstance.get(`offers/${offerId}`)
+      const offer = await api.get(`offers/${offerId}`)
       return offer.data.data
     } catch (error) {
       console.log(error)
@@ -20,7 +20,7 @@ const OfferService = {
           o[e] = offersQueries[e]
           return o
         }, {})
-      const offers = await axiosInstance.get(
+      const offers = await api.get(
         `offers?page=${queriesFilter.page}`,
         {
           params: {
@@ -45,7 +45,7 @@ const OfferService = {
   },
   addOffer: async function (offerData) {
     try {
-      const addedOffer = await axiosInstance.post('offers',
+      const addedOffer = await api.post('offers',
         { email: 'example@gmail.com', ...offerData })
       return addedOffer.data
     } catch (error) {
