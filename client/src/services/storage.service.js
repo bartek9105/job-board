@@ -4,6 +4,9 @@ const StorageService = {
   },
   removeUser: function () {
     window.localStorage.removeItem('user')
+  },
+  getUser: function () {
+    return JSON.parse(window.localStorage.getItem('user')).id
   }
 }
 

@@ -53,10 +53,10 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      return window.localStorage.currentUser
+      return window.localStorage.user
     },
     loggedInUser() {
-      return JSON.parse(window.localStorage.currentUser).name
+      return JSON.parse(window.localStorage.user).name
     }
   }
 }

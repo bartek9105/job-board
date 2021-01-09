@@ -4,6 +4,7 @@ import OfferService from '../../services/offer.service'
 export default {
   state: {
     offers: [],
+    offersByUser: [],
     offer: {},
     sessionId: ''
   },
@@ -14,8 +15,8 @@ export default {
     getOffers(state) {
       return state.offers
     },
-    getProducts(state) {
-      return state.products
+    getOffersByUser(state) {
+      return state.offersByUser
     },
     getSessionId(state) {
       return state.sessionId
@@ -28,8 +29,8 @@ export default {
     SET_OFFERS(state, offersPayload) {
       state.offers = offersPayload
     },
-    SET_PRODUCTS(state, productsPayload) {
-      state.products = productsPayload
+    SET_OFFERS_BY_USER(state, offersPayload) {
+      state.offersByUser = offersPayload
     },
     SET_SESSION_ID(state, sessionId) {
       state.sessionId = sessionId
@@ -52,6 +53,14 @@ export default {
         console.log(error)
       }
     },
+    async fetchOffersByUser({ commit }) {
+      try {
+        const offers = await OfferService.fetchOffersByUser()
+        commit('SET_OFFERS_BY_USER', offers)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async addOffer({ commit }, payload) {
       try {
         const addedOffer = await OfferService.addOffer(payload)
@@ -61,6 +70,6 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    }
+    },
   }
 }

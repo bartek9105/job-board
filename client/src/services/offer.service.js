@@ -1,5 +1,6 @@
 import api from './api.service'
 import qs from 'qs'
+import StorageService from './storage.service'
 
 const OfferService = {
   fetchOffer: async function (offerId) {
@@ -48,6 +49,15 @@ const OfferService = {
       const addedOffer = await api.post('offers',
         { email: 'example@gmail.com', ...offerData })
       return addedOffer.data
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  fetchOffersByUser: async function () {
+    const userId = StorageService.getUser()
+    try {
+      const offers = await api.get(`users/${userId}/offers`)
+      return offers.data
     } catch (error) {
       console.log(error)
     }
