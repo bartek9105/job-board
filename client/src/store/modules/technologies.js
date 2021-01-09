@@ -1,4 +1,4 @@
-import axiosInstance from '../../services/Api'
+import TechnologyService from '../../services/technology.service'
 
 export default ({
   state: {
@@ -17,8 +17,8 @@ export default ({
   actions: {
     async fetchTechnologies({ commit }) {
       try {
-        const technologies = await axiosInstance.get('technologies')
-        commit('SET_TECHNOLOGIES', technologies.data)
+        const technologies = await TechnologyService.fetchTechnologies('technologies')
+        commit('SET_TECHNOLOGIES', technologies)
       } catch (error) {
         console.log(error)
       }
