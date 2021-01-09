@@ -200,7 +200,7 @@ exports.deleteOffer = async (req, res, next) => {
         error: 'Offer not found',
       })
     }
-    if (req.creatorId !== offer.creator._id) {
+    if (req.creatorId !== offer.creator.toString()) {
       res.status(403).send('Not authorized')
     }
     res.status(200).send({

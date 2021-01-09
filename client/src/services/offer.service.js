@@ -60,6 +60,13 @@ const OfferService = {
       console.log(error)
     }
   },
+  deleteOffer: async function (offerId) {
+    try {
+      await api.delete(`offers/${offerId}`)
+    } catch (error) {
+      console.log(error)
+    }
+  },
   fetchOffersByUser: async function () {
     const userId = StorageService.getUserData().id
     try {
