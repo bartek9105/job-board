@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import OfferService from '../../services/offer.service'
+import router from '../../router/index'
 
 export default {
   state: {
@@ -31,6 +32,10 @@ export default {
     },
     SET_OFFERS_BY_USER(state, offersPayload) {
       state.offersByUser = offersPayload
+    },
+    DELETE_OFFER(state, offerId) {
+      const offerIndex = state.offersByUser.findIndex(offer => offer._id === offerId)
+      state.offersByUser.splice(offerIndex, 1)
     },
     SET_SESSION_ID(state, sessionId) {
       state.sessionId = sessionId
@@ -71,5 +76,23 @@ export default {
         console.log(error)
       }
     },
+    async editOffer(_, offerData) {
+      try {
+        await OfferService.editOffer(offerData)
+        Vue.toasted.success('Offer edited')
+        router.replace('/dashboard')
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async removeOffer({ commit }, offerId) {
+      try {
+        await OfferService.deleteOffer(offerId)
+        commit('DELETE_OFFER', offerId)
+        Vue.toasted.success('Offer deleted')
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 }

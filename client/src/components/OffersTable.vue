@@ -81,6 +81,7 @@
 
 <script>
 import { dateISOToString } from '@/utils/date/dateISOToString'
+import { mapActions } from 'vuex'
 export default {
   name: 'OffersTable',
   props: {
@@ -88,11 +89,15 @@ export default {
   },
   methods: {
     dateISOToString,
+    ...mapActions(['removeOffer']),
     goToOffer(offerId) {
       this.$router.push({ path: `/offer/${offerId}` })
     },
     editOffer(offerId) {
       this.$router.push({ path: `/offer/${offerId}/edit` })
+    },
+    deleteOffer(offerId) {
+      this.removeOffer(offerId)
     }
   }
 }

@@ -3,13 +3,13 @@
     <TheNavbar />
     <div class="offer-edit-container">
       <h1>Edit offer</h1>
-      <OfferForm :offer="offer" btn-text="Edit offer" />
+      <OfferForm :offer="offer" btn-text="Edit offer" :save-offer="saveOffer" />
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import OfferForm from '@/components/Forms/Offer/OfferForm'
 import TheNavbar from '@/components/TheNavbar'
 export default {
@@ -24,6 +24,12 @@ export default {
       return this.getOffersByUser.find(
         offer => offer._id === this.$route.params.id
       )
+    }
+  },
+  methods: {
+    ...mapActions(['editOffer']),
+    saveOffer() {
+      this.editOffer(this.offer)
     }
   }
 }
