@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import OfferService from '../../services/offer.service'
+import router from '../../router/index'
 
 export default {
   state: {
@@ -78,6 +79,8 @@ export default {
     async editOffer(_, offerData) {
       try {
         await OfferService.editOffer(offerData)
+        Vue.toasted.success('Offer edited')
+        router.replace('/dashboard')
       } catch (error) {
         console.log(error)
       }
@@ -86,6 +89,7 @@ export default {
       try {
         await OfferService.deleteOffer(offerId)
         commit('DELETE_OFFER', offerId)
+        Vue.toasted.success('Offer deleted')
       } catch (error) {
         console.log(error)
       }
