@@ -54,7 +54,7 @@ const OfferService = {
     }
   },
   fetchOffersByUser: async function () {
-    const userId = StorageService.getUser()
+    const userId = StorageService.getUserData().id
     try {
       const offers = await api.get(`users/${userId}/offers`)
       return offers.data
