@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import qs from 'qs'
 import axiosInstance from '../../services/Api'
+import OfferService from '../../services/offer.service'
 
 export default {
   state: {
@@ -40,41 +40,16 @@ export default {
   actions: {
     async fetchOffer({ commit }, offerId) {
       try {
-        const offer = await axiosInstance.get(`offers/${offerId}`)
-        commit('SET_OFFER', offer.data.data)
+        const offer = await OfferService.fetchOffer(offerId)
+        commit('SET_OFFER', offer)
       } catch (error) {
         console.log(error)
       }
     },
-    async fetchOffers({ commit }, queries) {
+    async fetchOffers({ commit }, offersQueries) {
       try {
-        const queriesFilter = Object.keys(queries)
-          .filter(e => {
-            return queries[e] !== null && queries[e] !== ''
-          })
-          .reduce((o, e) => {
-            o[e] = queries[e]
-            return o
-          }, {})
-        const offersData = await axiosInstance.get(
-          `offers?page=${queriesFilter.page}`,
-          {
-            params: {
-              technologies: { in: queriesFilter.technologies },
-              seniority: queriesFilter.seniority,
-              category: queriesFilter.category,
-              q: queriesFilter.location,
-              type: queriesFilter.type,
-              salary: {
-                lt: queriesFilter.salaryMax,
-                gt: queriesFilter.salaryMin
-              },
-              contract: queriesFilter.contract
-            },
-            paramsSerializer: params => qs.stringify(params)
-          }
-        )
-        commit('SET_OFFERS', offersData.data)
+        const offers = await OfferService.fetchOffers(offersQueries)
+        commit('SET_OFFERS', offers)
       } catch (error) {
         console.log(error)
       }
@@ -88,38 +63,10 @@ export default {
       }
     },
     async addOffer({ commit }, payload) {
-      const {
-        title,
-        isRemote,
-        category,
-        type,
-        seniority,
-        salaryMin,
-        salaryMax,
-        description,
-        contract,
-        technologies,
-        location,
-        productId
-      } = payload
       try {
-        const response = await axiosInstance.post('offers', {
-          productId,
-          email: 'example@email.com',
-          title,
-          isRemote,
-          category,
-          type,
-          seniority,
-          salaryMin,
-          salaryMax,
-          description,
-          contract,
-          technologies,
-          location
-        })
+        const addedOffer = await OfferService.addOffer(payload)
         Vue.toasted.success('Added job offer')
-        const sessionId = response.data.id
+        const sessionId = addedOffer.id
         commit('SET_SESSION_ID', sessionId)
       } catch (error) {
         console.log(error)
