@@ -1,12 +1,11 @@
 import Vue from 'vue'
-import qs from 'qs'
-import axiosInstance from '../../services/Api'
+import OfferService from '../../services/offer.service'
 
 export default {
   state: {
     offers: [],
+    offersByUser: [],
     offer: {},
-    products: [],
     sessionId: ''
   },
   getters: {
@@ -16,8 +15,8 @@ export default {
     getOffers(state) {
       return state.offers
     },
-    getProducts(state) {
-      return state.products
+    getOffersByUser(state) {
+      return state.offersByUser
     },
     getSessionId(state) {
       return state.sessionId
@@ -30,8 +29,8 @@ export default {
     SET_OFFERS(state, offersPayload) {
       state.offers = offersPayload
     },
-    SET_PRODUCTS(state, productsPayload) {
-      state.products = productsPayload
+    SET_OFFERS_BY_USER(state, offersPayload) {
+      state.offersByUser = offersPayload
     },
     SET_SESSION_ID(state, sessionId) {
       state.sessionId = sessionId
@@ -40,90 +39,37 @@ export default {
   actions: {
     async fetchOffer({ commit }, offerId) {
       try {
-        const offer = await axiosInstance.get(`offers/${offerId}`)
-        commit('SET_OFFER', offer.data.data)
+        const offer = await OfferService.fetchOffer(offerId)
+        commit('SET_OFFER', offer)
       } catch (error) {
         console.log(error)
       }
     },
-    async fetchOffers({ commit }, queries) {
+    async fetchOffers({ commit }, offersQueries) {
       try {
-        const queriesFilter = Object.keys(queries)
-          .filter(e => {
-            return queries[e] !== null && queries[e] !== ''
-          })
-          .reduce((o, e) => {
-            o[e] = queries[e]
-            return o
-          }, {})
-        const offersData = await axiosInstance.get(
-          `offers?page=${queriesFilter.page}`,
-          {
-            params: {
-              technologies: { in: queriesFilter.technologies },
-              seniority: queriesFilter.seniority,
-              category: queriesFilter.category,
-              q: queriesFilter.location,
-              type: queriesFilter.type,
-              salary: {
-                lt: queriesFilter.salaryMax,
-                gt: queriesFilter.salaryMin
-              },
-              contract: queriesFilter.contract
-            },
-            paramsSerializer: params => qs.stringify(params)
-          }
-        )
-        commit('SET_OFFERS', offersData.data)
+        const offers = await OfferService.fetchOffers(offersQueries)
+        commit('SET_OFFERS', offers)
       } catch (error) {
         console.log(error)
       }
     },
-    async fetchProducts({ commit }) {
+    async fetchOffersByUser({ commit }) {
       try {
-        const productsData = await axiosInstance.get('products')
-        commit('SET_PRODUCTS', productsData.data)
+        const offers = await OfferService.fetchOffersByUser()
+        commit('SET_OFFERS_BY_USER', offers)
       } catch (error) {
         console.log(error)
       }
     },
     async addOffer({ commit }, payload) {
-      const {
-        title,
-        isRemote,
-        category,
-        type,
-        seniority,
-        salaryMin,
-        salaryMax,
-        description,
-        contract,
-        technologies,
-        location,
-        productId
-      } = payload
       try {
-        const response = await axiosInstance.post('offers', {
-          productId,
-          email: 'example@email.com',
-          title,
-          isRemote,
-          category,
-          type,
-          seniority,
-          salaryMin,
-          salaryMax,
-          description,
-          contract,
-          technologies,
-          location
-        })
+        const addedOffer = await OfferService.addOffer(payload)
         Vue.toasted.success('Added job offer')
-        const sessionId = response.data.id
+        const sessionId = addedOffer.id
         commit('SET_SESSION_ID', sessionId)
       } catch (error) {
         console.log(error)
       }
-    }
+    },
   }
 }

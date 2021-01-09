@@ -6,20 +6,20 @@
         <router-link to="/">
           <li>Offers</li>
         </router-link>
-        <router-link v-if="!isLoggedIn" to="/login">
+        <router-link v-if="!loggedInUser" to="/login">
           <li>Login</li>
         </router-link>
         <router-link to="/offer/post">
           <BaseButton>Post a job</BaseButton>
         </router-link>
         <li
-          v-if="isLoggedIn"
+          v-if="loggedInUser"
           class="main-nav__list__user"
           :class="{ linkActive: showDropdown }"
           @click="showDropdown = !showDropdown"
         >
           <BaseLoggedUserBadge
-            :logged-in-user-name="loggedInUser"
+            :logged-in-user-name="loggedInUser.name"
             class="main-nav__list__user"
           />
           <NavbarDropdown
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import StorageService from '@/services/storage.service'
 import BaseLogo from '@/components/Base/BaseLogo'
 import BaseButton from '@/components/Base/Buttons/BaseButton'
 import NavbarDropdown from '@/components/NavbarDropdown'
@@ -52,11 +53,8 @@ export default {
     }
   },
   computed: {
-    isLoggedIn() {
-      return window.localStorage.currentUser
-    },
     loggedInUser() {
-      return JSON.parse(window.localStorage.currentUser).name
+      return StorageService.getUserData()
     }
   }
 }

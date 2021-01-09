@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const axiosInstance = axios.create({
+const api = axios.create({
   baseURL: 'http://localhost:5000/api/v1/',
   withCredentials: true
 })
@@ -14,7 +14,7 @@ const axiosInterceptor = instance => {
     }
     instance.interceptors.response.eject(interceptor)
     const originalRequest = error.response.config
-    return axiosInstance.post('auth/refresh_token').then(() => {
+    return api.post('auth/refresh_token').then(() => {
       return axios(originalRequest)
     }).catch(error => {
       return Promise.reject(error)
@@ -22,6 +22,6 @@ const axiosInterceptor = instance => {
   })
 }
 
-axiosInterceptor(axiosInstance)
+axiosInterceptor(api)
 
-export default axiosInstance
+export default api

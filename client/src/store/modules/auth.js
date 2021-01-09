@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import axiosInstance from '../../services/Api'
 import router from '../../router'
+import AuthService from '../../services/auth.service'
 
 export default ({
   state: {
@@ -12,14 +12,8 @@ export default ({
   actions: {
     async signIn(_, credentials) {
       try {
-        const { email, password } = credentials
-        const user = await axiosInstance.post('auth/login', {
-          email,
-          password
-        })
-        const { id, name } = user.data.data
+        await AuthService.login(credentials)
         router.push('/')
-        window.localStorage.currentUser = JSON.stringify({ isLoggedIn: true, id, name })
         Vue.toasted.success('Successfuly logged in')
       } catch (error) {
         console.log(error)
@@ -27,11 +21,7 @@ export default ({
     },
     async register(_, credentials) {
       try {
-        const { email, password } = credentials
-        await axiosInstance.post('auth/register', {
-          email,
-          password
-        })
+        await AuthService.register(credentials)
         Vue.toasted.success('Successfuly registered')
         router.push('/login')
       } catch (error) {
@@ -40,8 +30,7 @@ export default ({
     },
     async logout() {
       try {
-        await axiosInstance.post('auth/logout')
-        window.localStorage.removeItem('currentUser')
+        await AuthService.logout()
         Vue.toasted.success('Successfuly logged out')
         window.location.reload()
       } catch (error) {
