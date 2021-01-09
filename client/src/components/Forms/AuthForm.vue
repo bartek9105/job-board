@@ -60,7 +60,7 @@
 
 <script>
 export default {
-  name: 'Auth',
+  name: 'AuthForm',
   props: {
     infoRoute: String
   },
@@ -93,7 +93,7 @@ export default {
   .img-container {
     width: 40%;
     height: 100vh;
-    background: url('../assets/images/banner.jpg') no-repeat;
+    background: url('../../assets/images/banner.jpg') no-repeat;
     background-position: center center;
     background-size: cover;
     .img-overlay {
@@ -105,7 +105,7 @@ export default {
   }
   .form-container {
     @include flex(center, center, column);
-    background: url('../assets/images/pattern.svg') no-repeat;
+    background: url('../../assets/images/pattern.svg') no-repeat;
     width: 60%;
   }
   .form-unit {

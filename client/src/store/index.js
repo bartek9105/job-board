@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import auth from './auth'
-import jobOffers from './jobOffers'
-import users from './users'
-import technologies from './technologies'
+import auth from './modules/auth'
+import offers from './modules/offers'
+import users from './modules/users'
+import technologies from './modules/technologies'
 
 Vue.use(Vuex)
 
@@ -16,7 +16,7 @@ export default new Vuex.Store({
   },
   modules: {
     auth,
-    jobOffers,
+    offers,
     users,
     technologies
   }

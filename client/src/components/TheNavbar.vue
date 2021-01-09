@@ -1,7 +1,7 @@
 <template>
   <div class="nav-container">
     <nav class="main-nav">
-      <Logo :job-text-color="jobTextColor" />
+      <BaseLogo :job-text-color="jobTextColor" />
       <ul class="main-nav__list">
         <router-link to="/">
           <li>Offers</li>
@@ -9,8 +9,8 @@
         <router-link v-if="!isLoggedIn" to="/login">
           <li>Login</li>
         </router-link>
-        <router-link to="/post-offer">
-          <Button>Post a job</Button>
+        <router-link to="/offer/post">
+          <BaseButton>Post a job</BaseButton>
         </router-link>
         <li
           v-if="isLoggedIn"
@@ -18,7 +18,7 @@
           :class="{ linkActive: showDropdown }"
           @click="showDropdown = !showDropdown"
         >
-          <LoggedUser
+          <BaseLoggedUserBadge
             :logged-in-user-name="loggedInUser"
             class="main-nav__list__user"
           />
@@ -33,17 +33,17 @@
 </template>
 
 <script>
-import Logo from '@/components/Logo'
-import Button from '@/components/Base/Button'
+import BaseLogo from '@/components/Base/BaseLogo'
+import BaseButton from '@/components/Base/Buttons/BaseButton'
 import NavbarDropdown from '@/components/NavbarDropdown'
-import LoggedUser from '@/components/LoggedUser'
+import BaseLoggedUserBadge from '@/components/Base/BaseLoggedUserBadge'
 
 export default {
   components: {
-    Logo,
-    Button,
+    BaseLogo,
+    BaseButton,
     NavbarDropdown,
-    LoggedUser
+    BaseLoggedUserBadge
   },
   data() {
     return {

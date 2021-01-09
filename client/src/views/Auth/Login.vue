@@ -1,5 +1,5 @@
 <template>
-  <Auth infoRoute="/register" @email="email" @password="password">
+  <Auth info-route="/register" @email="email" @password="password">
     <template v-slot:header>
       <h1>Login</h1>
     </template>
@@ -10,21 +10,23 @@
       Register
     </template>
     <template v-slot:btn>
-      <Button @click.native="login">Login</Button>
+      <BaseButton @click.native="login">
+        Login
+      </BaseButton>
     </template>
   </Auth>
 </template>
 
 <script>
-import Auth from '@/components/Auth'
-import Button from '@/components/Base/Button'
+import Auth from '@/components/Forms/AuthForm'
+import BaseButton from '@/components/Base/Buttons/BaseButton'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'Login',
   components: {
     Auth,
-    Button
+    BaseButton
   },
   data() {
     return {

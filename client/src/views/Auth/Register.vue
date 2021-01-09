@@ -11,9 +11,9 @@
         Login
       </template>
       <template v-slot:btn>
-        <Button @click.native="signUp">
+        <BaseButton @click.native="signUp">
           Register
-        </Button>
+        </BaseButton>
       </template>
     </Auth>
   </div>
@@ -21,14 +21,14 @@
 
 <script>
 import { mapActions } from 'vuex'
-import Auth from '@/components/Auth'
-import Button from '@/components/Base/Button'
+import Auth from '@/components/Forms/AuthForm'
+import BaseButton from '@/components/Base/Buttons/BaseButton'
 
 export default {
   name: 'Register',
   components: {
     Auth,
-    Button
+    BaseButton
   },
   data() {
     return {

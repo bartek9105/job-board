@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <TheNavbar />
     <div class="offer-edit-container">
       <h1>Edit offer</h1>
       <OfferForm :offer="offer" btn-text="Edit offer" />
@@ -10,13 +10,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import OfferForm from '@/components/OfferForm'
-import Navbar from '@/components/Navbar'
+import OfferForm from '@/components/Forms/Offer/OfferForm'
+import TheNavbar from '@/components/TheNavbar'
 export default {
   name: 'OfferEdit',
   components: {
     OfferForm,
-    Navbar
+    TheNavbar
   },
   computed: {
     ...mapGetters(['getOffersByUser']),

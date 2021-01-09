@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="footer">
-      <Logo :job-text-color="jobTextColor" />
+      <BaseLogo :job-text-color="jobTextColor" />
       <div class="footer__navs-container">
         <nav class="footer-nav">
           <ul>
@@ -48,12 +48,12 @@
 </template>
 
 <script>
-import Logo from '@/components/Logo'
+import BaseLogo from '@/components/Base/BaseLogo'
 
 export default {
-  name: 'Footer',
+  name: 'TheFooter',
   components: {
-    Logo
+    BaseLogo
   },
   data() {
     return {

@@ -37,7 +37,7 @@
 
 <script>
 export default {
-  name: 'Logo',
+  name: 'BaseLogo',
   props: {
     jobTextColor: String
   }

@@ -126,12 +126,12 @@
         </div>
         <div class="row">
           <div class="btn-container">
-            <Button class="add-btn" @click.native="emitFormData">
+            <BaseButton class="add-btn" @click.native="emitFormData">
               {{ buttonText }}
-            </Button>
-            <ClearBtn @click="clearFilters">
+            </BaseButton>
+            <BaseClearButton @click="clearFilters">
               Clear filters
-            </ClearBtn>
+            </BaseClearButton>
           </div>
         </div>
       </form>
@@ -140,16 +140,16 @@
 </template>
 
 <script>
-import Button from '@/components/Base/Button'
+import BaseButton from '@/components/Base/Buttons/BaseButton'
+import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
 import TagInput from '@/components/TagInput'
-import ClearBtn from '@/components/Base/ClearBtn'
 
 export default {
   name: 'JobSearchForm',
   components: {
-    Button,
-    TagInput,
-    ClearBtn
+    BaseButton,
+    BaseClearButton,
+    TagInput
   },
   props: {
     buttonText: String,

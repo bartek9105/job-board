@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'Tag',
+  name: 'BaseTag',
   props: {
     tagName: String,
     tagIndex: Number

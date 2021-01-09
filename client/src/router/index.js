@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Login from '@/views/Auth/Login'
+import Register from '@/views/Auth/Register'
 import Home from '@/views/Home'
-import Login from '@/views/Login'
-import Register from '@/views/Register'
-import PostOffer from '@/views/PostOffer'
-import SingleOffer from '@/views/SingleOffer'
-import Dashboard from '@/views/Dashboard'
-import OfferEdit from '@/views/OfferEdit'
+import OfferDetails from '@/views/Offer/OfferDetails'
+import OfferPost from '@/views/Offer/OfferPost'
+import OfferEdit from '@/views/Offer/OfferEdit'
+import UserDashboard from '@/views/User/UserDashboard'
 
 Vue.use(VueRouter)
 
@@ -27,14 +27,14 @@ const routes = [
     component: Register
   },
   {
-    path: '/post-offer',
-    name: 'PostOffer',
-    component: PostOffer
+    path: '/offer/post',
+    name: 'OfferPost',
+    component: OfferPost
   },
   {
     path: '/offer/:id',
-    name: 'SingleOffer',
-    component: SingleOffer
+    name: 'OfferDetails',
+    component: OfferDetails
   },
   {
     path: '/offer/:id/edit',
@@ -43,8 +43,8 @@ const routes = [
   },
   {
     path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard
+    name: 'UserDashboard',
+    component: UserDashboard
   },
 ]
 

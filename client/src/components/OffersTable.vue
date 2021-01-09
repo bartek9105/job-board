@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { dateISOToString } from '@/utils/dateISOToString'
+import { dateISOToString } from '@/utils/date/dateISOToString'
 export default {
   name: 'OffersTable',
   props: {

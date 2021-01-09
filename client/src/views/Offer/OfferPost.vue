@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Hero>
+    <BaseHero>
       <template v-slot:hero-content>
         <Map :location="location" />
       </template>
-    </Hero>
+    </BaseHero>
     <div class="post-offer-form-container">
       <div class="post-offer-form">
         <h3 class="post-offer-form__heading">
@@ -12,7 +12,7 @@
         </h3>
         <OfferForm
           :offer="offer"
-          :save-offer="addOffer"
+          :save-offer="saveOffer"
           btn-text="Add offer"
           @location="locationData"
         />
@@ -60,15 +60,15 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import Hero from '@/components/Hero'
+import BaseHero from '@/components/Base/BaseHero'
 import Map from '@/components/Map'
-import OfferForm from '@/components/OfferForm'
-import PriceCard from '@/components/PriceCard'
+import OfferForm from '@/components/Forms/Offer/OfferForm'
+import PriceCard from '@/components/Base/BasePriceCard'
 
 export default {
-  name: 'PostOffer',
+  name: 'OfferPost',
   components: {
-    Hero,
+    BaseHero,
     Map,
     OfferForm,
     PriceCard
@@ -86,12 +86,12 @@ export default {
     ...mapGetters(['getProducts'])
   },
   methods: {
-    ...mapActions(['addJobOffer']),
+    ...mapActions(['addOffer']),
     locationData(location) {
       this.location = location
     },
-    addOffer() {
-      this.addJobOffer(this.offer)
+    saveOffer() {
+      this.addOffer(this.offer)
     }
   }
 }

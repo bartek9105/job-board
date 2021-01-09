@@ -1,6 +1,6 @@
 <template>
   <div class="offer">
-    <Hero>
+    <BaseHero>
       <template v-slot:hero-content>
         <div class="offer-hero-container">
           <div class="offer-hero-container-inner">
@@ -10,80 +10,86 @@
               class="offer__logo"
             />
             <div class="offer-hero-details-container">
-              <h1 class="offer__title">{{ getJobOffer.title }}</h1>
+              <h1 class="offer__title">
+                {{ getOffer.title }}
+              </h1>
               <span class="offer__location">
-                <font-awesome-icon
-                  icon="map-marker-alt"
-                  class="offer__icon"
-                ></font-awesome-icon>
-                {{ getJobOffer.location }}
+                <font-awesome-icon icon="map-marker-alt" class="offer__icon" />
+                {{ getOffer.location }}
               </span>
               <div class="offer-hero-details-container-row">
                 <span class="offer__pay">
                   <font-awesome-icon
                     icon="money-bill-wave"
                     class="offer__icon"
-                  ></font-awesome-icon>
-                  {{ getJobOffer.salaryMin }} - {{ getJobOffer.salaryMax }}
+                  />
+                  {{ getOffer.salaryMin }} - {{ getOffer.salaryMax }}
                 </span>
                 <span class="offer__contract">
                   <font-awesome-icon
                     icon="file-signature"
                     class="offer__icon"
-                  ></font-awesome-icon>
-                  {{ getJobOffer.contract }}
+                  />
+                  {{ getOffer.contract }}
                 </span>
                 <span class="offer__type">
-                  <font-awesome-icon
-                    icon="clock"
-                    class="offer__icon"
-                  ></font-awesome-icon>
-                  {{ getJobOffer.type }}
+                  <font-awesome-icon icon="clock" class="offer__icon" />
+                  {{ getOffer.type }}
                 </span>
-                <span class="offer__category">{{ getJobOffer.category }}</span>
+                <span class="offer__category">{{ getOffer.category }}</span>
               </div>
             </div>
           </div>
         </div>
       </template>
-    </Hero>
+    </BaseHero>
     <main class="main-section">
       <div class="offer-details-container">
         <section class="offer-details-section">
-          <h2 class="offer__header">Job Description</h2>
-          <p v-html="getJobOffer.description"></p>
+          <h2 class="offer__header">
+            Job Description
+          </h2>
+          <p v-html="getOffer.description" />
         </section>
         <section class="offer-details-section">
-          <h2 class="offer__header">Technologies</h2>
+          <h2 class="offer__header">
+            Technologies
+          </h2>
           <div class="offer-tag-container">
             <div
-              class="offer__tag"
-              v-for="(technology, index) in getJobOffer.technologies"
+              v-for="(technology, index) in getOffer.technologies"
               :key="index"
+              class="offer__tag"
             >
               {{ technology }}
             </div>
           </div>
         </section>
         <section class="offer-details-section">
-          <h2 class="offer__header">Benefits</h2>
+          <h2 class="offer__header">
+            Benefits
+          </h2>
           <ul ckass="offer__benefits__list">
-            <li v-for="(benefit, index) in getJobOffer.benefits" :key="index">
+            <li v-for="(benefit, index) in getOffer.benefits" :key="index">
               <font-awesome-icon
                 icon="check-circle"
                 class="offer__icon offer__icon--green"
-              ></font-awesome-icon>
+              />
               {{ benefit }}
             </li>
           </ul>
         </section>
         <section class="offer-details-section">
-          <h2 class="offer__header">Apply form</h2>
-          <ApplyForm />
+          <h2 class="offer__header">
+            Apply form
+          </h2>
+          <OfferApplyForm />
         </section>
         <div class="btn-container">
-          <Button class="btn">Apply</Button>
-          <ClearBtn>Reset form</ClearBtn>
+          <BaseButton class="btn">
+            Apply
+          </BaseButton>
+          <BaseClearButton>Reset form</BaseClearButton>
         </div>
       </div>
     </main>
@@ -92,27 +98,27 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Hero from '../components/Hero'
-import Button from '../components/Base/Button'
-import ClearBtn from '../components/Base/ClearBtn'
-import ApplyForm from '../components/ApplyForm'
+import BaseHero from '@/components/Base/BaseHero'
+import BaseButton from '@/components/Base/Buttons/BaseButton'
+import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
+import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
 
 export default {
-  name: 'SingleOffer',
+  name: 'OfferDetails',
   components: {
-    Hero,
-    Button,
-    ClearBtn,
-    ApplyForm
+    BaseHero,
+    BaseButton,
+    BaseClearButton,
+    OfferApplyForm
   },
   methods: {
-    ...mapActions(['fetchJobOffer'])
+    ...mapActions(['fetchOffer'])
   },
   computed: {
-    ...mapGetters(['getJobOffer'])
+    ...mapGetters(['getOffer'])
   },
   mounted() {
-    this.fetchJobOffer(this.$route.params.id)
+    this.fetchOffer(this.$route.params.id)
   }
 }
 </script>

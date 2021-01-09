@@ -1,4 +1,4 @@
-import axiosInstance from '../services/Api'
+import axiosInstance from '../../services/Api'
 
 export default ({
   state: {

@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="tags-container">
-      <Tag
+      <BaseTag
         v-for="(tag, index) in technologies"
         :key="index"
         :tag-name="tag"
@@ -52,12 +52,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Tag from '@/components/Tag'
+import BaseTag from '@/components/Base/BaseTag'
 
 export default {
   name: 'TagInput',
   components: {
-    Tag
+    BaseTag
   },
   props: {
     technologies: {

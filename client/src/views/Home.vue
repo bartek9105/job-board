@@ -1,32 +1,32 @@
 <template>
   <div>
-    <Hero>
+    <BaseHero>
       <template v-slot:hero-content>
         <JobSearch />
       </template>
-    </Hero>
+    </BaseHero>
     <main class="main-section">
       <div class="job-search-form">
         <JobSearchForm
+          button-text="Search"
+          button-text-clear="Clear filters"
           @clicked="formData"
-          buttonText="Search"
-          buttonTextClear="Clear filters"
         />
       </div>
-      <div class="offers" v-if="getJobOffers.data">
+      <div v-if="getOffers.data" class="offers">
         <p class="offers__offers-info">
-          {{ getJobOffers.total }} offers found for specified criteria
+          {{ getOffers.total }} offers found for specified criteria
         </p>
-        <div v-for="offer in getJobOffers.data" :key="offer._id">
+        <div v-for="offer in getOffers.data" :key="offer._id">
           <router-link :to="'/offer/' + offer._id">
             <JobOffer :offer="offer" />
           </router-link>
         </div>
         <Pagination
-          v-if="getJobOffers.data.length > 0"
-          @pageChange="pageNumber"
-          :pages="getJobOffers.pages"
+          v-if="getOffers.data.length > 0"
+          :pages="getOffers.pages"
           class="offers__pagination"
+          @pageChange="pageNumber"
         />
       </div>
     </main>
@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import Hero from '@/components/Hero'
-import JobOffer from '@/components/JobOffer'
-import JobSearchForm from '@/components/JobSearchForm'
+import BaseHero from '@/components/Base/BaseHero'
+import JobOffer from '@/components/Base/BaseOffer'
+import JobSearchForm from '@/components/Forms/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
 import Pagination from '@/components/Pagination'
 
@@ -44,34 +44,34 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
-  data() {
-    return {
-      queries: {}
-    }
-  },
   components: {
-    Hero,
+    BaseHero,
     JobOffer,
     JobSearchForm,
     JobSearch,
     Pagination
   },
+  data() {
+    return {
+      queries: {}
+    }
+  },
   methods: {
-    ...mapActions(['fetchJobOffers']),
+    ...mapActions(['fetchOffers']),
     formData(queries) {
       this.queries = queries
-      this.fetchJobOffers(this.queries)
+      this.fetchOffers(this.queries)
     },
     pageNumber(page) {
       this.queries = { ...this.queries, page: page }
-      this.fetchJobOffers(this.queries)
+      this.fetchOffers(this.queries)
     }
   },
   computed: {
-    ...mapGetters(['getJobOffers'])
+    ...mapGetters(['getOffers'])
   },
   mounted() {
-    this.fetchJobOffers({})
+    this.fetchOffers({})
   }
 }
 </script>

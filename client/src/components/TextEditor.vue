@@ -12,7 +12,7 @@
 import { VueEditor } from 'vue2-editor'
 
 export default {
-  name: 'Editor',
+  name: 'TextEditor',
   components: {
     VueEditor
   },

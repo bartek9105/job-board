@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'ApplyForm'
+  name: 'OfferApplyForm'
 }
 </script>
 

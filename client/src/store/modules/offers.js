@@ -1,20 +1,20 @@
 import Vue from 'vue'
 import qs from 'qs'
-import axiosInstance from '../services/Api'
+import axiosInstance from '../../services/Api'
 
 export default {
   state: {
-    jobOffers: [],
+    offers: [],
     offer: {},
     products: [],
     sessionId: ''
   },
   getters: {
-    getJobOffer(state) {
+    getOffer(state) {
       return state.offer
     },
-    getJobOffers(state) {
-      return state.jobOffers
+    getOffers(state) {
+      return state.offers
     },
     getProducts(state) {
       return state.products
@@ -24,11 +24,11 @@ export default {
     }
   },
   mutations: {
-    SET_JOB_OFFER(state, offer) {
+    SET_OFFER(state, offer) {
       state.offer = offer
     },
-    SET_JOB_OFFERS(state, offersPayload) {
-      state.jobOffers = offersPayload
+    SET_OFFERS(state, offersPayload) {
+      state.offers = offersPayload
     },
     SET_PRODUCTS(state, productsPayload) {
       state.products = productsPayload
@@ -38,15 +38,15 @@ export default {
     }
   },
   actions: {
-    async fetchJobOffer({ commit }, offerId) {
+    async fetchOffer({ commit }, offerId) {
       try {
         const offer = await axiosInstance.get(`offers/${offerId}`)
-        commit('SET_JOB_OFFER', offer.data.data)
+        commit('SET_OFFER', offer.data.data)
       } catch (error) {
         console.log(error)
       }
     },
-    async fetchJobOffers({ commit }, queries) {
+    async fetchOffers({ commit }, queries) {
       try {
         const queriesFilter = Object.keys(queries)
           .filter(e => {
@@ -74,7 +74,7 @@ export default {
             paramsSerializer: params => qs.stringify(params)
           }
         )
-        commit('SET_JOB_OFFERS', offersData.data)
+        commit('SET_OFFERS', offersData.data)
       } catch (error) {
         console.log(error)
       }
@@ -87,7 +87,7 @@ export default {
         console.log(error)
       }
     },
-    async addJobOffer({ commit }, payload) {
+    async addOffer({ commit }, payload) {
       const {
         title,
         isRemote,

@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import axiosInstance from '../services/Api'
-import router from '../router'
+import axiosInstance from '../../services/Api'
+import router from '../../router'
 
 export default ({
   state: {

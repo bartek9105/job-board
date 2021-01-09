@@ -202,19 +202,19 @@
           class="job-form-unit-validator"
         >
           <span class="job-form-unit__name">Description</span>
-          <Editor v-model="offer.description" />
+          <TextEditor v-model="offer.description" />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
       <div class="btn-container">
         <stripe-checkout ref="checkoutRef" :pk="key" :session-id="getSessionId">
           <template slot="checkout-button">
-            <Button class="add-btn" @click.native="saveOffer">
+            <BaseButton class="add-btn" @click.native="saveOffer">
               {{ btnText }}
-            </Button>
-            <ClearBtn @click.native="offer = {}">
+            </BaseButton>
+            <BaseClearButton @click.native="offer = {}">
               Clear form
-            </ClearBtn>
+            </BaseClearButton>
           </template>
         </stripe-checkout>
       </div>
@@ -224,9 +224,9 @@
 
 <script>
 import TagInput from '@/components/TagInput'
-import Editor from '@/components/Editor'
-import Button from '@/components/Base/Button'
-import ClearBtn from '@/components/Base/ClearBtn'
+import TextEditor from '@/components/TextEditor'
+import BaseButton from '@/components/Base/Buttons/BaseButton'
+import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
 import { StripeCheckout } from 'vue-stripe-checkout'
 import { ValidationProvider } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
@@ -235,9 +235,9 @@ export default {
   name: 'OfferForm',
   components: {
     TagInput,
-    Editor,
-    Button,
-    ClearBtn,
+    TextEditor,
+    BaseButton,
+    BaseClearButton,
     StripeCheckout,
     ValidationProvider
   },

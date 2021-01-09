@@ -67,10 +67,10 @@
 </template>
 
 <script>
-import { daysDifference } from '@/utils/daysDifference'
+import { daysDifference } from '@/utils/date/daysDifference'
 
 export default {
-  name: 'JobOffer',
+  name: 'BaseOffer',
   props: {
     offer: Object
   },
