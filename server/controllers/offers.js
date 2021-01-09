@@ -155,11 +155,9 @@ exports.editOffer = async (req, res, next) => {
         error: 'Offer not found',
       })
     }
-
-    if (req.creatorId !== offer.creator._id) {
+    if (req.creatorId !== offer.creator.toString()) {
       res.status(403).send('Not authorized')
     }
-
     const updatedOffer = await Offer.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -167,12 +165,11 @@ exports.editOffer = async (req, res, next) => {
         runValidators: true,
       }
     )
-
     res.status(200).send({
       data: updatedOffer,
     })
   } catch (error) {
-    next(error)
+    console.log(error)
   }
 }
 

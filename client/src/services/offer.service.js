@@ -53,6 +53,13 @@ const OfferService = {
       console.log(error)
     }
   },
+  editOffer: async function (offerData) {
+    try {
+      await api.put(`offers/${offerData._id}`, offerData)
+    } catch (error) {
+      console.log(error)
+    }
+  },
   fetchOffersByUser: async function () {
     const userId = StorageService.getUserData().id
     try {

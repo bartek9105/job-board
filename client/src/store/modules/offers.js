@@ -71,5 +71,13 @@ export default {
         console.log(error)
       }
     },
+    async editOffer(_, offerData) {
+      console.log(offerData)
+      try {
+        await OfferService.editOffer(offerData)
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 }
