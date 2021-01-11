@@ -15,7 +15,7 @@ const {
   listenForPaymentSuccess,
 } = require('../controllers/payment.controller')
 
-const { getProduct } = require('../controllers/products')
+const { getProduct } = require('../controllers/product.controller')
 
 const { isAuth } = require('../middleware/isAuth')
 
