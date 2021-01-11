@@ -7,7 +7,6 @@ const {
   deleteOffer,
   getOfferById,
   updateOfferPaymentStatus,
-  validateOfferPromotionStatus,
 } = require('../services/offer.service')
 const isResourceCreator = require('../utils/isResourceCreator')
 

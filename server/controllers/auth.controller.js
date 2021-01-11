@@ -1,23 +1,12 @@
 const ErrorResponse = require('../utils/errorResponse')
-const bcrypt = require('bcryptjs')
-const Employer = require('../models/Employer')
 const { signJwtToken } = require('../utils/tokenSign')
 const jwt = require('jsonwebtoken')
+const { register, userExists, getMe } = require('../services/auth.service')
+const bcrypt = require('bcryptjs')
 
 exports.register = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body
-
-    const salt = await bcrypt.genSalt(10)
-    const hashPassword = await bcrypt.hash(password, salt)
-
-    const user = await new Employer({
-      name,
-      email,
-      password: hashPassword,
-    })
-    await user.save()
-
+    await register(req.body)
     res.status(200).send('User registered')
   } catch (error) {
     next(error)
@@ -34,26 +23,24 @@ exports.login = async (req, res, next) => {
       )
     }
 
-    const employer = await Employer.findOne({ email })
+    const user = await userExists(email)
 
-    if (!employer) {
+    if (!user) {
       return next(new ErrorResponse('Invalid credentials'), 401)
     }
 
-    const passwordValid = await bcrypt.compare(password, employer.password)
-
+    const passwordValid = await bcrypt.compare(password, user.password)
     if (!passwordValid) {
       return next(new ErrorResponse('Invalid credentials'), 401)
     }
-
     const token = signJwtToken(
-      employer._id,
+      user._id,
       process.env.JWT_SECRET,
       process.env.JWT_EXPIRES
     )
 
     const refreshToken = signJwtToken(
-      employer._id,
+      user._id,
       process.env.JWT_REFRESH_SECRET,
       process.env.JWT_SECRET_EXPIRES
     )
@@ -68,7 +55,7 @@ exports.login = async (req, res, next) => {
       })
       .send({
         status: 'success',
-        data: { id: employer._id, name: employer.name },
+        data: { id: user._id, name: user.name },
       })
   } catch (error) {
     next(error)
@@ -77,16 +64,6 @@ exports.login = async (req, res, next) => {
 
 exports.logout = (req, res) => {
   res.status(200).cookie('token', '').cookie('refreshToken', '').send('Success')
-}
-
-exports.me = async (req, res, next) => {
-  const userId = req.creatorId
-  try {
-    const loggedInUser = await Employer.findById(userId)
-    res.status(200).send(loggedInUser)
-  } catch (error) {
-    next(error)
-  }
 }
 
 exports.refreshToken = async (req, res, next) => {
@@ -109,6 +86,16 @@ exports.refreshToken = async (req, res, next) => {
       .status(200)
       .cookie('token', token, { httpOnly: true })
       .send({ status: 'success' })
+  } catch (error) {
+    next(error)
+  }
+}
+
+exports.me = async (req, res, next) => {
+  const userId = req.creatorId
+  try {
+    const me = await getMe(userId)
+    res.status(200).send(me)
   } catch (error) {
     next(error)
   }
