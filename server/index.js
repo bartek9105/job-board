@@ -23,7 +23,7 @@ app.use(
 )
 app.use(cookieParser())
 
-const offers = require('./routes/offers')
+const offers = require('./routes/offers.route')
 const auth = require('./routes/auth')
 const products = require('./routes/products')
 const users = require('./routes/users')

@@ -1,32 +1,39 @@
 const express = require('express')
 const router = express.Router()
 
-const offersController = require('../controllers/offers')
+const {
+  getOffer,
+  getOffers,
+  addOffer,
+  editOffer,
+  deleteOffer,
+  updateOfferStatus,
+} = require('../controllers/offer.controller.js')
 const paymentController = require('../controllers/payment')
 const productController = require('../controllers/products')
 
 const isAuth = require('../middleware/isAuth')
 
-router.get('/', offersController.getOffers)
+router.get('/', getOffers)
 
-router.get('/:id', offersController.getOffer)
+router.get('/:id', getOffer)
 
 router.post(
   '/',
   isAuth.isAuth,
   productController.getProduct,
-  offersController.addOffer,
+  addOffer,
   paymentController.createPaymentSession
 )
 
 router.post(
   '/webhook',
   paymentController.listenForPaymentSuccess,
-  offersController.updateOfferStatus
+  updateOfferStatus
 )
 
-router.put('/:id', isAuth.isAuth, offersController.editOffer)
+router.put('/:id', isAuth.isAuth, editOffer)
 
-router.delete('/:id', isAuth.isAuth, offersController.deleteOffer)
+router.delete('/:id', isAuth.isAuth, deleteOffer)
 
 module.exports = router
