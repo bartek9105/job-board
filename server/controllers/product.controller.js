@@ -1,8 +1,8 @@
-const Product = require('../models/Product')
+const { getProduct, getProducts } = require('../services/product.service')
 
 exports.getProducts = async (req, res) => {
   try {
-    const products = await Product.find()
+    const products = await getProducts()
     res.send(products)
   } catch (error) {
     console.log(error)
@@ -10,8 +10,9 @@ exports.getProducts = async (req, res) => {
 }
 
 exports.getProduct = async (req, res, next) => {
+  const { productId } = req.body.productId
   try {
-    const product = await Product.find({ _id: req.body.productId })
+    const product = await getProduct(productId)
     req.body.product = product
     next()
   } catch (error) {

@@ -1,7 +1,14 @@
 const Offer = require('../models/Offer')
 const ErrorResponse = require('../utils/errorResponse')
 const _ = require('lodash')
-const setOfferExpiryDate = require('../utils/setOfferExpiryDate')
+const {
+  addOffer,
+  editOffer,
+  deleteOffer,
+  getOfferById,
+  updateOfferPaymentStatus,
+} = require('../services/offer.service')
+const isResourceCreator = require('../utils/isResourceCreator')
 
 exports.getOffers = async (req, res, next) => {
   try {
@@ -82,19 +89,10 @@ exports.getOffers = async (req, res, next) => {
   }
 }
 
-exports.validatePromotionStatus = async () => {
-  try {
-    await Offer.find({
-      promotionExpireAt: { $lt: new Date().toISOString() },
-    }).updateMany({ isPromoted: false })
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 exports.getOffer = async (req, res, next) => {
+  const offerId = req.params.id
   try {
-    const offer = await Offer.findById(req.params.id)
+    const offer = await getOfferById(offerId)
     res.status(200).send({
       data: offer,
     })
@@ -107,78 +105,47 @@ exports.getOffer = async (req, res, next) => {
 }
 
 exports.addOffer = async (req, res, next) => {
+  const offerDTO = { creator: req.creatorId, ...req.body }
   try {
-    if (req.body.product[0].price === 0) {
-      const offer = new Offer({
-        ...req.body,
-        creator: req.creatorId,
-        status: 'free',
-        expireAt: setOfferExpiryDate(7),
-      })
-      await offer.save()
-    } else if (req.body.product[0].duration === '15d') {
-      const offer = new Offer({
-        ...req.body,
-        creator: req.creatorId,
-        status: 'unpaid',
-        expireAt: setOfferExpiryDate(15),
-        isPromoted: true,
-        promotionExpireAt: setOfferExpiryDate(7),
-      })
-      const savedOffer = await offer.save()
-      res.locals.savedOffer = savedOffer
-      next()
-    } else if (req.body.product[0].duration === '30d') {
-      const offer = new Offer({
-        ...req.body,
-        creator: req.cretorId,
-        status: 'unpaid',
-        expireAt: setOfferExpiryDate(30),
-        isPromoted: true,
-        promotionExpireAt: setOfferExpiryDate(15),
-      })
-      const savedOffer = await offer.save()
-      res.locals.savedOffer = savedOffer
-      next()
-    }
+    const offer = await addOffer(offerDTO)
+    const offerId = offer._id.toString()
+    res.locals.offerId = offerId
+    res.status(200).send({
+      status: 'success',
+      data: offer,
+    })
+    next()
   } catch (error) {
-    console.log(error)
     next(error)
   }
 }
 
 exports.editOffer = async (req, res, next) => {
+  const offerId = req.params.id
+  const offerDTO = req.body
   try {
-    const offer = await Offer.findById(req.params.id)
+    const offer = await getOfferById(offerId)
     if (!offer) {
       return res.status(400).send({
         error: 'Offer not found',
       })
     }
-    if (req.creatorId !== offer.creator.toString()) {
+    if (!isResourceCreator(req.creatorId, offer.creator)) {
       res.status(403).send('Not authorized')
     }
-    const updatedOffer = await Offer.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      {
-        runValidators: true,
-      }
-    )
+    const updatedOffer = await editOffer(offerId, offerDTO)
     res.status(200).send({
       data: updatedOffer,
     })
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }
 
 exports.updateOfferStatus = async (req, res, next) => {
+  const { offerId } = req.body
   try {
-    const offer = await Offer.findByIdAndUpdate(
-      { _id: req.body.offerId },
-      { status: 'paid' }
-    )
+    const offer = await updateOfferPaymentStatus(offerId)
     if (!offer) {
       return res.status(400).send({
         error: 'Offer not found',
@@ -193,18 +160,21 @@ exports.updateOfferStatus = async (req, res, next) => {
 }
 
 exports.deleteOffer = async (req, res, next) => {
+  const offerId = req.params.id
   try {
-    const offer = await Offer.findByIdAndRemove(req.params.id)
+    const offer = await deleteOffer(offerId)
     if (!offer) {
       return res.status(400).send({
         error: 'Offer not found',
       })
     }
-    if (req.creatorId !== offer.creator.toString()) {
+    if (!isResourceCreator(req.creatorId, offer.creator)) {
       res.status(403).send('Not authorized')
     }
     res.status(200).send({
-      data: {},
+      data: {
+        status: 'Offer deleted',
+      },
     })
   } catch (error) {
     next(error)

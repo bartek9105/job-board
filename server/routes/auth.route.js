@@ -7,7 +7,7 @@ const {
   me,
   refreshToken,
   logout,
-} = require('../controllers/auth')
+} = require('../controllers/auth.controller')
 
 const { isAuth } = require('../middleware/isAuth')
 
