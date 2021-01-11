@@ -26,7 +26,7 @@ app.use(cookieParser())
 const offers = require('./routes/offers.route')
 const auth = require('./routes/auth.route')
 const products = require('./routes/products.route')
-const users = require('./routes/users')
+const users = require('./routes/users.route')
 const technologies = require('./routes/technologies.route')
 
 app.use('/api/v1/offers', offers)
