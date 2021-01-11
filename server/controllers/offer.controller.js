@@ -108,7 +108,8 @@ exports.addOffer = async (req, res, next) => {
   const offerDTO = { creator: req.creatorId, ...req.body }
   try {
     const offer = await addOffer(offerDTO)
-    res.locals.savedOffer = offer
+    const offerId = offer._id.toString()
+    res.locals.offerId = offerId
     res.status(200).send({
       status: 'success',
       data: offer,

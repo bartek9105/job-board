@@ -9,7 +9,7 @@ const {
   deleteOffer,
   updateOfferStatus,
 } = require('../controllers/offer.controller.js')
-const paymentController = require('../controllers/payment')
+const paymentController = require('../controllers/payment.controller')
 const productController = require('../controllers/products')
 
 const isAuth = require('../middleware/isAuth')
