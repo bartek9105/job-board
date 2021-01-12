@@ -1,7 +1,11 @@
 <template>
   <div class="offer">
     <div class="offer__logo">
-      <img :src="'https://picsum.photos/75'" alt="logo" />
+      <img
+        :src="'https://picsum.photos/75'"
+        alt="logo"
+        class="offer__logo__img"
+      />
     </div>
     <div class="offer-main">
       <div class="offer-top">
@@ -101,7 +105,9 @@ export default {
     @include flex(center, center);
     max-width: 135px;
     margin-right: 35px;
-    border-radius: 100%;
+    &__img {
+      border-radius: 100%;
+    }
   }
   &-top {
     @include flex();
