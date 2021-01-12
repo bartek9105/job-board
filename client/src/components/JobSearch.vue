@@ -32,7 +32,7 @@ export default {
 .job-search {
   @include flex(center, center, column);
   color: $white-blue;
-  height: calc(100% - #{$nav-height});
+  height: calc(100% - #{$nav-height * 2});
   &__heading {
     color: $white-blue;
     margin-bottom: $margin-md;

@@ -124,15 +124,13 @@
             </select>
           </div>
         </div>
-        <div class="row">
-          <div class="btn-container">
-            <BaseButton class="add-btn" @click.native="emitFormData">
-              {{ buttonText }}
-            </BaseButton>
-            <BaseClearButton @click="clearFilters">
-              Clear filters
-            </BaseClearButton>
-          </div>
+        <div class="btn-container">
+          <BaseButton class="add-btn" @click.native="emitFormData">
+            {{ buttonText }}
+          </BaseButton>
+          <BaseClearButton @click="clearFilters">
+            Clear filters
+          </BaseClearButton>
         </div>
       </form>
     </div>
@@ -187,10 +185,11 @@ export default {
 <style lang="scss" scoped>
 .job-search-container {
   .job-search {
+    max-width: $container-width;
+    margin: 0 auto;
     .row {
       @include flex(space-between);
-      max-width: $container-width;
-      margin: 0 auto $margin-lg auto;
+      margin-bottom: $margin-md;
       .tags {
         width: 500px;
       }
