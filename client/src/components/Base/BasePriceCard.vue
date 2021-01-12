@@ -55,7 +55,7 @@ export default {
     text-align: center;
   }
   &__price {
-    font-size: $font-content-xl;
+    font-size: $font-content-lg;
     font-weight: $font-bold;
     margin-right: 5px;
   }

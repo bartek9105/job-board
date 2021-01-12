@@ -121,6 +121,7 @@ export default {
   }
   &__title {
     font-size: $font-content-lg;
+    font-weight: $font-semi-bold;
     margin-right: 40px;
   }
   &__pay {

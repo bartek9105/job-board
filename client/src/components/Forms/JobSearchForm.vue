@@ -133,7 +133,7 @@
               Clear filters
             </BaseClearButton>
           </div>
-          <div>
+          <div class="btn-filter">
             <font-awesome-icon icon="filter" class="job-search__filter-icon" />
             <button
               class="job-search__filter-btn"
@@ -207,8 +207,6 @@ export default {
       }
     }
     &__filter-btn {
-      font-size: $font-content-md;
-      font-weight: $font-bold;
       background: none;
     }
     &__filter-icon {

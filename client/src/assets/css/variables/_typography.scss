@@ -1,21 +1,23 @@
 // Font size
-$font-heading-xs: 1rem;
-$font-heading-sm: 1.5rem;
-$font-heading-md: 2rem;
-$font-heading-lg: 2.5rem;
+$font-heading-sm: 1rem; //16px
+$font-heading-md: 1.125rem; //18px
+$font-heading-lg: 1.25rem; //20px
 
-$font-content-sm: 0.8125rem;
-$font-content-md: 0.875rem;
-$font-content-lg: 1.0625rem;
-$font-content-xl: 2rem;
+$font-content-sm: 0.75rem; //12px
+$font-content-md: 0.8125rem; //13px
+$font-content-lg: 0.875rem; //14px
 
 $font-icon-xs: .75rem;
 $font-icon-sm: 1rem;
 $font-icon-md: 1.5rem;
 $font-icon-lg: 2rem;
 
-$article-line-height: 1.5rem;
+$line-height-compact: 1.3rem;
+$line-height-regular: 1.5rem;
+$line-height-loose: 1.7rem;
 
 //Font weight
 
+$font-regular-bold: 400;
+$font-semi-bold: 600;
 $font-bold: 700;

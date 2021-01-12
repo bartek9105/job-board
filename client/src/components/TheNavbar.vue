@@ -75,8 +75,6 @@ export default {
       a,
       li {
         cursor: pointer;
-        font-size: $font-content-md;
-        font-weight: $font-bold;
         &:hover {
           color: $pink;
         }
@@ -87,6 +85,8 @@ export default {
       }
       &__user {
         position: relative;
+        font-size: $font-content-lg;
+        font-weight: $font-semi-bold;
       }
       &__dropdown {
         position: absolute;
