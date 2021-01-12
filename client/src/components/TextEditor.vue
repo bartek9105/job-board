@@ -26,7 +26,8 @@ export default {
       customToolbar: [
         ['bold', 'italic', 'underline'],
         [{ list: 'ordered' }, { list: 'bullet' }]
-      ]
+      ],
+      editorOptions: {}
     }
   }
 }
@@ -41,5 +42,8 @@ export default {
 }
 .ql-snow {
   @include input-select-border;
+}
+.ql-editor {
+  font-size: $font-content-lg !important;
 }
 </style>
