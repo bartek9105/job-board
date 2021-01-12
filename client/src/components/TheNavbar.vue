@@ -65,7 +65,6 @@ export default {
   width: 100%;
   .main-nav {
     @include flex(space-between, center);
-    @include shadow;
     max-width: $nav-width;
     margin: $margin-center;
     padding: $padding-sm 1rem;

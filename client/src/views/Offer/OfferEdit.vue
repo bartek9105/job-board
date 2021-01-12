@@ -2,8 +2,16 @@
   <div>
     <TheNavbar />
     <div class="offer-edit-container">
-      <h1>Edit offer</h1>
-      <OfferForm :offer="offer" btn-text="Edit offer" :save-offer="saveOffer" />
+      <div class="offer-edit-form-container">
+        <h1 class="offer-edit__title">
+          Edit offer
+        </h1>
+        <OfferForm
+          :offer="offer"
+          btn-text="Edit offer"
+          :save-offer="saveOffer"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -37,7 +45,17 @@ export default {
 
 <style lang="scss">
 .offer-edit-container {
+  background-color: $bg-grey;
+}
+.offer-edit-form-container {
   max-width: $container-width;
   margin: 0 auto;
+  padding: $padding-md 0;
+}
+
+.offer-edit {
+  &__title {
+    margin-bottom: $margin-md;
+  }
 }
 </style>

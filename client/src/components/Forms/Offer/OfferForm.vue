@@ -282,7 +282,7 @@ export default {
   padding: $padding-md 0;
   .job-form-unit {
     @include flex(null, null, column);
-    padding: 0 20px;
+    padding: 0 $padding-md;
     margin-bottom: $margin-md;
     &__name {
       @include input-name;
