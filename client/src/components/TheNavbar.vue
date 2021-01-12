@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       showDropdown: false,
-      jobTextColor: '#182952'
+      jobTextColor: '#fff'
     }
   },
   computed: {
@@ -63,14 +63,13 @@ export default {
 <style lang="scss">
 .nav-container {
   width: 100%;
-  background: $white;
   .main-nav {
     @include flex(space-between, center);
     @include shadow;
-    background: $white;
     max-width: $nav-width;
     margin: $margin-center;
     padding: $padding-sm 1rem;
+    color: $white;
     &__list {
       @include flex(null, center);
       a,
@@ -84,6 +83,7 @@ export default {
       }
       a {
         margin-right: 3rem;
+        color: $white;
       }
       &__user {
         position: relative;
