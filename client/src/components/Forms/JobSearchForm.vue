@@ -81,7 +81,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" :class="{ showFiltersClass: !showFilters }">
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Technologies</span>
             <TagInput
@@ -125,12 +125,24 @@
           </div>
         </div>
         <div class="btn-container">
-          <BaseButton class="add-btn" @click.native="emitFormData">
-            {{ buttonText }}
-          </BaseButton>
-          <BaseClearButton @click="clearFilters">
-            Clear filters
-          </BaseClearButton>
+          <div>
+            <BaseButton class="add-btn" @click.native="emitFormData">
+              {{ buttonText }}
+            </BaseButton>
+            <BaseClearButton @click="clearFilters">
+              Clear filters
+            </BaseClearButton>
+          </div>
+          <div>
+            <font-awesome-icon icon="filter" class="job-search__filter-icon" />
+            <button
+              class="job-search__filter-btn"
+              @click="showFilters = !showFilters"
+            >
+              <span v-if="showFilters">Hide filters</span>
+              <span v-else>More filters</span>
+            </button>
+          </div>
         </div>
       </form>
     </div>
@@ -189,10 +201,19 @@ export default {
     margin: 0 auto;
     .row {
       @include flex(space-between);
-      margin-bottom: $margin-md;
+      margin-bottom: $margin-lg;
       .tags {
         width: 500px;
       }
+    }
+    &__filter-btn {
+      font-size: $font-content-md;
+      font-weight: $font-bold;
+      background: none;
+    }
+    &__filter-icon {
+      font-size: $font-icon-xs;
+      margin-right: 0.5rem;
     }
     &__single-input-container {
       @include flex(null, null, column);
@@ -211,9 +232,15 @@ export default {
         }
       }
     }
+    .btn-container {
+      @include flex(space-between, center);
+    }
     .add-btn {
       margin-right: 1rem;
     }
   }
+}
+.showFiltersClass {
+  display: none !important;
 }
 </style>
