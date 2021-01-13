@@ -4,11 +4,7 @@
       <template v-slot:hero-content>
         <div class="offer-hero-container">
           <div class="offer-hero-container-inner">
-            <img
-              :src="'https://picsum.photos/100'"
-              alt="logo"
-              class="offer__logo"
-            />
+            <BaseCompanyLogo :img-width="90" class="offer__logo" />
             <div class="offer-hero-details-container">
               <h1 class="offer__title">
                 {{ getOffer.title }}
@@ -45,51 +41,56 @@
     </BaseHero>
     <main class="main-section">
       <div class="offer-details-container">
-        <section class="offer-details-section">
-          <h2 class="offer__header">
-            Job Description
-          </h2>
-          <p v-html="getOffer.description" />
-        </section>
-        <section class="offer-details-section">
-          <h2 class="offer__header">
-            Technologies
-          </h2>
-          <div class="offer-tag-container">
-            <div
-              v-for="(technology, index) in getOffer.technologies"
-              :key="index"
-              class="offer__tag"
-            >
-              {{ technology }}
+        <div class="offer-details-offer-info">
+          <section class="offer-details-section">
+            <h2 class="offer__header">
+              Job Description
+            </h2>
+            <p v-html="getOffer.description" />
+          </section>
+          <section class="offer-details-section">
+            <h2 class="offer__header">
+              Technologies
+            </h2>
+            <div class="offer-tag-container">
+              <div
+                v-for="(technology, index) in getOffer.technologies"
+                :key="index"
+                class="offer__tag"
+              >
+                {{ technology }}
+              </div>
             </div>
+          </section>
+          <section class="offer-details-section">
+            <h2 class="offer__header">
+              Benefits
+            </h2>
+            <ul ckass="offer__benefits__list">
+              <li v-for="(benefit, index) in getOffer.benefits" :key="index">
+                <font-awesome-icon
+                  icon="check-circle"
+                  class="offer__icon offer__icon--green"
+                />
+                {{ benefit }}
+              </li>
+            </ul>
+          </section>
+          <section class="offer-details-section">
+            <h2 class="offer__header">
+              Apply form
+            </h2>
+            <OfferApplyForm />
+          </section>
+          <div class="btn-container">
+            <BaseButton class="btn">
+              Apply
+            </BaseButton>
+            <BaseClearButton>Reset form</BaseClearButton>
           </div>
-        </section>
-        <section class="offer-details-section">
-          <h2 class="offer__header">
-            Benefits
-          </h2>
-          <ul ckass="offer__benefits__list">
-            <li v-for="(benefit, index) in getOffer.benefits" :key="index">
-              <font-awesome-icon
-                icon="check-circle"
-                class="offer__icon offer__icon--green"
-              />
-              {{ benefit }}
-            </li>
-          </ul>
-        </section>
-        <section class="offer-details-section">
-          <h2 class="offer__header">
-            Apply form
-          </h2>
-          <OfferApplyForm />
-        </section>
-        <div class="btn-container">
-          <BaseButton class="btn">
-            Apply
-          </BaseButton>
-          <BaseClearButton>Reset form</BaseClearButton>
+        </div>
+        <div class="offer-details-company-info">
+          <BaseCompany :company="getOffer.creator" />
         </div>
       </div>
     </main>
@@ -98,7 +99,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
 import BaseHero from '@/components/Base/BaseHero'
+import BaseCompany from '@/components/Base/BaseCompany'
 import BaseButton from '@/components/Base/Buttons/BaseButton'
 import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
 import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
@@ -106,6 +109,8 @@ import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
 export default {
   name: 'OfferDetails',
   components: {
+    BaseCompanyLogo,
+    BaseCompany,
     BaseHero,
     BaseButton,
     BaseClearButton,
@@ -140,8 +145,9 @@ export default {
   }
 }
 .offer-details-container {
+  @include flex(space-between);
   @include shadow;
-  max-width: $container-width;
+  max-width: 1400px;
   position: relative;
   top: -30px;
   margin: 0 auto;
@@ -156,6 +162,15 @@ export default {
 .main-section {
   background: $bg-grey;
 }
+
+.offer-details-offer-info {
+  width: 75%;
+}
+
+.offer-details-company-info {
+  width: 25%;
+}
+
 .offer-details-section {
   margin-bottom: $margin-md;
   font-size: $font-content-lg;
@@ -170,7 +185,6 @@ export default {
   }
   &__logo {
     margin-right: 50px;
-    border-radius: 100%;
   }
   &__header {
     margin-bottom: $margin-md;

@@ -4,7 +4,7 @@ const setOfferExpiryDate = require('../utils/setOfferExpiryDate')
 const OfferService = {
   getOfferById: async function (offerId) {
     try {
-      const offer = await Offer.findById(offerId)
+      const offer = await Offer.findById(offerId).populate('creator')
       return offer
     } catch (error) {
       console.log(error)

@@ -1,11 +1,7 @@
 <template>
   <div class="offer">
     <div class="offer__logo">
-      <img
-        :src="'https://picsum.photos/75'"
-        alt="logo"
-        class="offer__logo__img"
-      />
+      <BaseCompanyLogo :img-width="75" class="offer__logo__img" />
     </div>
     <div class="offer-main">
       <div class="offer-top">
@@ -72,9 +68,13 @@
 
 <script>
 import { daysDifference } from '@/utils/date/daysDifference'
+import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
 
 export default {
   name: 'BaseOffer',
+  components: {
+    BaseCompanyLogo
+  },
   props: {
     offer: Object
   },
