@@ -148,8 +148,9 @@
       <div class="job-form-unit">
         <span class="job-form-unit__name">Technologies</span>
         <TagInput
-          :technologies="offer.technologies"
-          @technologies="tagsTechnologies"
+          :tag-items="offer.technologies"
+          :list-items="getTechnologies"
+          @items="tagsTechnologies"
         />
       </div>
       <div class="job-form-unit">
@@ -254,7 +255,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchProducts']),
+    ...mapActions(['fetchProducts', 'fetchTechnologies']),
     emitLocation() {
       this.$emit('location', this.offer.location)
     },
@@ -266,10 +267,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getProducts', 'getSessionId'])
+    ...mapGetters(['getProducts', 'getSessionId', 'getTechnologies'])
   },
   mounted() {
     this.fetchProducts()
+    this.fetchTechnologies()
   }
 }
 </script>
