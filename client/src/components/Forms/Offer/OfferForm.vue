@@ -148,8 +148,9 @@
       <div class="job-form-unit">
         <span class="job-form-unit__name">Technologies</span>
         <TagInput
-          :technologies="offer.technologies"
-          @technologies="tagsTechnologies"
+          :tag-items="offer.technologies"
+          :list-items="getTechnologies"
+          @items="tagsTechnologies"
         />
       </div>
       <div class="job-form-unit">
@@ -194,6 +195,14 @@
           </select>
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
+      </div>
+      <div class="job-form-unit">
+        <span class="job-form-unit__name">Benefits</span>
+        <TagInput
+          :tag-items="offer.benefits"
+          :list-items="getBenefits"
+          @items="tagsBenefits"
+        />
       </div>
       <div class="job-form-unit">
         <ValidationProvider
@@ -254,7 +263,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchProducts']),
+    ...mapActions(['fetchProducts', 'fetchTechnologies', 'fetchBenefits']),
     emitLocation() {
       this.$emit('location', this.offer.location)
     },
@@ -263,13 +272,23 @@ export default {
     },
     tagsTechnologies(technologies) {
       this.offer.technologies = technologies
+    },
+    tagsBenefits(benefits) {
+      this.offer.benefits = benefits
     }
   },
   computed: {
-    ...mapGetters(['getProducts', 'getSessionId'])
+    ...mapGetters([
+      'getProducts',
+      'getSessionId',
+      'getTechnologies',
+      'getBenefits'
+    ])
   },
   mounted() {
     this.fetchProducts()
+    this.fetchTechnologies()
+    this.fetchBenefits()
   }
 }
 </script>

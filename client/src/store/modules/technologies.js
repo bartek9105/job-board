@@ -17,7 +17,7 @@ export default ({
   actions: {
     async fetchTechnologies({ commit }) {
       try {
-        const technologies = await TechnologyService.fetchTechnologies('technologies')
+        const technologies = await TechnologyService.fetchTechnologies()
         commit('SET_TECHNOLOGIES', technologies)
       } catch (error) {
         console.log(error)

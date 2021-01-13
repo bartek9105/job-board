@@ -10,7 +10,7 @@ exports.getProducts = async (req, res) => {
 }
 
 exports.getProduct = async (req, res, next) => {
-  const { productId } = req.body.productId
+  const { productId } = req.body
   try {
     const product = await getProduct(productId)
     req.body.product = product

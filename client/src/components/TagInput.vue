@@ -2,7 +2,7 @@
   <div class="tags">
     <div class="tags-container">
       <BaseTag
-        v-for="(tag, index) in technologies"
+        v-for="(tag, index) in itemsLocal"
         :key="index"
         :tag-name="tag"
         :tag-index="index"
@@ -11,7 +11,7 @@
     </div>
     <div class="tags-input-container">
       <input
-        v-model="technology"
+        v-model="item"
         type="text"
         class="tags__input"
         placeholder="Type in technology, press Enter to add more"
@@ -32,12 +32,12 @@
         @blur="displaySuggestionList = false"
       >
         <li
-          v-for="(filteredTechnology, index) in getTechnologies"
+          v-for="(filteredTechnology, index) in listItems"
           ref="listElement"
           :key="filteredTechnology._id"
           :class="{ 'active-item': currentListItem === index }"
           class="tags__input__suggestion-list__list-element"
-          @click="createTechnologyTag(filteredTechnology.name)"
+          @click="createTag(filteredTechnology.name)"
         >
           <i
             :class="filteredTechnology.icon"
@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
 import BaseTag from '@/components/Base/BaseTag'
 
 export default {
@@ -60,39 +59,59 @@ export default {
     BaseTag
   },
   props: {
-    technologies: {
+    tagItems: {
+      type: Array,
+      default: () => []
+    },
+    listItems: {
       type: Array,
       default: () => []
     }
   },
   data() {
     return {
-      technologiesLocal: [...this.technologies],
-      technology: '',
+      itemsLocal: [...this.tagItems],
+      item: '',
       displaySuggestionList: false,
       currentListItem: -1
     }
   },
-  methods: {
-    ...mapActions(['fetchTechnologies']),
-    createTechnologyTag(technology) {
-      const isTechnologyAdded = this.technologiesLocal.find(
-        technologyEl => technologyEl === technology
-      )
-      if (!isTechnologyAdded) {
-        this.technologiesLocal.push(technology)
-        this.technology = ''
+  /*
+  computed: {
+    getFilteredTechnologies() {
+      if (this.technology !== null) {
+        return this.getTechnologies.filter(technology =>
+          technology.match(new RegExp(`^${this.technology}`, 'gi'))
+        )
       }
-      this.technology = ''
+      return this.getTechnologies
+    }
+  }, */
+  watch: {
+    itemsLocal: function(newVal, oldVal) {
+      this.$emit('items', newVal)
+    }
+  },
+  mounted() {
+    document.addEventListener('click', this.clickOutsideListHandler)
+  },
+  methods: {
+    createTag(item) {
+      const isItemAdded = this.itemsLocal.find(itemEl => itemEl === item)
+      if (!isItemAdded) {
+        this.itemsLocal.push(item)
+        this.item = ''
+      }
+      this.item = ''
     },
     deleteTag(index) {
-      this.technologiesLocal.splice(index, 1)
+      this.itemsLocal.splice(index, 1)
     },
     deleteAllTags() {
-      this.technologiesLocal = []
+      this.itemsLocal = []
     },
     onArrowDown() {
-      if (this.currentListItem < this.getTechnologies.length) {
+      if (this.currentListItem < this.itemsLocal.length) {
         this.currentListItem++
         this.fixScrolling()
       }
@@ -104,8 +123,8 @@ export default {
       }
     },
     onEnter() {
-      this.technology = this.getTechnologies[this.currentListItem]
-      this.createTechnologyTag(this.technology.name)
+      this.item = this.listItems[this.currentListItem]
+      this.createTag(this.item.name)
     },
     clickOutsideListHandler(evt) {
       if (!this.$el.contains(evt.target)) {
@@ -123,28 +142,6 @@ export default {
         })
       }
     }
-  },
-  computed: {
-    ...mapGetters(['getTechnologies'])
-    /*
-    getFilteredTechnologies() {
-      if (this.technology !== null) {
-        return this.getTechnologies.filter(technology =>
-          technology.match(new RegExp(`^${this.technology}`, 'gi'))
-        )
-      }
-      return this.getTechnologies
-    }
-    */
-  },
-  watch: {
-    technologiesLocal: function(newVal, oldVal) {
-      this.$emit('technologies', newVal)
-    }
-  },
-  mounted() {
-    document.addEventListener('click', this.clickOutsideListHandler)
-    this.fetchTechnologies()
   }
 }
 </script>
