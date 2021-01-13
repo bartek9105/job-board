@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <TheNavbar />
+    <BaseHero />
     <div class="dashboard">
       <h1 class="dashboard__header">
         Offers added by you
@@ -14,12 +14,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import TheNavbar from '@/components/TheNavbar'
+import BaseHero from '@/components/Base/BaseHero'
 import OffersTable from '@/components/OffersTable'
 export default {
   name: 'Dashboard',
   components: {
-    TheNavbar,
+    BaseHero,
     OffersTable
   },
   computed: {

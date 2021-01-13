@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TheNavbar />
+    <BaseHero />
     <div class="offer-edit-container">
       <div class="offer-edit-form-container">
         <h1 class="offer-edit__title">
@@ -19,12 +19,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import OfferForm from '@/components/Forms/Offer/OfferForm'
-import TheNavbar from '@/components/TheNavbar'
+import BaseHero from '@/components/Base/BaseHero'
 export default {
   name: 'OfferEdit',
   components: {
     OfferForm,
-    TheNavbar
+    BaseHero
   },
   computed: {
     ...mapGetters(['getOffersByUser']),
