@@ -43,6 +43,9 @@
       <div class="offer-details-container">
         <div class="offer-details-offer-info">
           <section class="offer-details-section">
+            <div class="offer__go-back-btn">
+              <BaseGoBackButton />
+            </div>
             <h2 class="offer__header">
               Job Description
             </h2>
@@ -105,6 +108,7 @@ import BaseCompany from '@/components/Base/BaseCompany'
 import BaseButton from '@/components/Base/Buttons/BaseButton'
 import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
 import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
+import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
 
 export default {
   name: 'OfferDetails',
@@ -113,6 +117,7 @@ export default {
     BaseCompany,
     BaseHero,
     BaseButton,
+    BaseGoBackButton,
     BaseClearButton,
     OfferApplyForm
   },
@@ -204,6 +209,9 @@ export default {
   &__category {
     @include tag;
     @include tag-light;
+  }
+  &__go-back-btn {
+    margin-bottom: $margin-lg;
   }
 }
 .offer-tag-container {
