@@ -2,7 +2,7 @@
   <div class="tags">
     <div class="tags-container">
       <BaseTag
-        v-for="(tag, index) in tagItems"
+        v-for="(tag, index) in itemsLocal"
         :key="index"
         :tag-name="tag"
         :tag-index="index"

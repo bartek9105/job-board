@@ -17,7 +17,7 @@ export default ({
   actions: {
     async fetchBenefits({ commit }) {
       try {
-        const benefits = await BenefitService.fetchTechnologies('technologies')
+        const benefits = await BenefitService.fetchBenefits()
         commit('SET_BENEFITS', benefits)
       } catch (error) {
         console.log(error)

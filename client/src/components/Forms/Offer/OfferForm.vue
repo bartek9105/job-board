@@ -197,6 +197,14 @@
         </ValidationProvider>
       </div>
       <div class="job-form-unit">
+        <span class="job-form-unit__name">Benefits</span>
+        <TagInput
+          :tag-items="offer.benefits"
+          :list-items="getBenefits"
+          @items="tagsBenefits"
+        />
+      </div>
+      <div class="job-form-unit">
         <ValidationProvider
           v-slot="{ errors }"
           rules="required"
@@ -255,7 +263,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchProducts', 'fetchTechnologies']),
+    ...mapActions(['fetchProducts', 'fetchTechnologies', 'fetchBenefits']),
     emitLocation() {
       this.$emit('location', this.offer.location)
     },
@@ -264,14 +272,23 @@ export default {
     },
     tagsTechnologies(technologies) {
       this.offer.technologies = technologies
+    },
+    tagsBenefits(benefits) {
+      this.offer.benefits = benefits
     }
   },
   computed: {
-    ...mapGetters(['getProducts', 'getSessionId', 'getTechnologies'])
+    ...mapGetters([
+      'getProducts',
+      'getSessionId',
+      'getTechnologies',
+      'getBenefits'
+    ])
   },
   mounted() {
     this.fetchProducts()
     this.fetchTechnologies()
+    this.fetchBenefits()
   }
 }
 </script>
