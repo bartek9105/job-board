@@ -67,6 +67,7 @@ export default {
     border-radius: 50%;
     background-color: transparent;
     font-size: $font-content-lg;
+    font-weight: $font-regular-bold;
     height: 30px;
     width: 30px;
     &:hover {

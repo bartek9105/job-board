@@ -1,9 +1,17 @@
 <template>
   <div>
-    <TheNavbar />
+    <BaseHero />
     <div class="offer-edit-container">
-      <h1>Edit offer</h1>
-      <OfferForm :offer="offer" btn-text="Edit offer" :save-offer="saveOffer" />
+      <div class="offer-edit-form-container">
+        <h1 class="offer-edit__title">
+          Edit offer
+        </h1>
+        <OfferForm
+          :offer="offer"
+          btn-text="Edit offer"
+          :save-offer="saveOffer"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -11,12 +19,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import OfferForm from '@/components/Forms/Offer/OfferForm'
-import TheNavbar from '@/components/TheNavbar'
+import BaseHero from '@/components/Base/BaseHero'
 export default {
   name: 'OfferEdit',
   components: {
     OfferForm,
-    TheNavbar
+    BaseHero
   },
   computed: {
     ...mapGetters(['getOffersByUser']),
@@ -37,7 +45,17 @@ export default {
 
 <style lang="scss">
 .offer-edit-container {
+  background-color: $bg-grey;
+}
+.offer-edit-form-container {
   max-width: $container-width;
   margin: 0 auto;
+  padding: $padding-md 0;
+}
+
+.offer-edit {
+  &__title {
+    margin-bottom: $margin-md;
+  }
 }
 </style>

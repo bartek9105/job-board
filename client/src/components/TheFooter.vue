@@ -67,7 +67,7 @@ export default {
 .footer {
   @include flex(space-between, null);
   background: $white;
-  font-size: $font-content-md;
+  font-size: $font-content-lg;
   margin: $margin-center;
   max-width: $container-width;
   padding: $padding-lg 0;

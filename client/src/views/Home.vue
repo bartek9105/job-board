@@ -86,7 +86,7 @@ export default {
     &__offers-info {
       color: $dark-blue;
       font-weight: $font-bold;
-      font-size: $font-content-md;
+      font-size: $font-content-lg;
       text-transform: uppercase;
       margin-bottom: $margin-lg;
     }

@@ -81,7 +81,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" :class="{ showFiltersClass: !showFilters }">
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Technologies</span>
             <TagInput
@@ -124,14 +124,24 @@
             </select>
           </div>
         </div>
-        <div class="row">
-          <div class="btn-container">
+        <div class="btn-container">
+          <div>
             <BaseButton class="add-btn" @click.native="emitFormData">
               {{ buttonText }}
             </BaseButton>
             <BaseClearButton @click="clearFilters">
               Clear filters
             </BaseClearButton>
+          </div>
+          <div class="btn-filter">
+            <font-awesome-icon icon="filter" class="job-search__filter-icon" />
+            <button
+              class="job-search__filter-btn"
+              @click="showFilters = !showFilters"
+            >
+              <span v-if="showFilters">Hide filters</span>
+              <span v-else>More filters</span>
+            </button>
           </div>
         </div>
       </form>
@@ -187,13 +197,21 @@ export default {
 <style lang="scss" scoped>
 .job-search-container {
   .job-search {
+    max-width: $container-width;
+    margin: 0 auto;
     .row {
       @include flex(space-between);
-      max-width: $container-width;
-      margin: 0 auto $margin-lg auto;
+      margin-bottom: $margin-lg;
       .tags {
         width: 500px;
       }
+    }
+    &__filter-btn {
+      background: none;
+    }
+    &__filter-icon {
+      font-size: $font-icon-xs;
+      margin-right: 0.5rem;
     }
     &__single-input-container {
       @include flex(null, null, column);
@@ -212,9 +230,15 @@ export default {
         }
       }
     }
+    .btn-container {
+      @include flex(space-between, center);
+    }
     .add-btn {
       margin-right: 1rem;
     }
   }
+}
+.showFiltersClass {
+  display: none !important;
 }
 </style>

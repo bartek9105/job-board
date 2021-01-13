@@ -147,7 +147,7 @@ export default {
   margin: 0 auto;
   background: $white;
   font-size: $font-content-md;
-  line-height: $article-line-height;
+  line-height: $line-height-regular;
   padding: $padding-lg 40px;
   .offer-details-container-row {
     @include flex();
@@ -158,10 +158,15 @@ export default {
 }
 .offer-details-section {
   margin-bottom: $margin-md;
+  font-size: $font-content-lg;
+  color: $dark-blue;
 }
 .offer {
   span {
     margin-right: 15px;
+  }
+  &__title {
+    color: $white;
   }
   &__logo {
     margin-right: 50px;

@@ -48,6 +48,7 @@ export default {
 .logo {
   @include flex(null, center);
   &__text {
+    font-weight: $font-bold;
     margin-right: 1rem;
   }
 }

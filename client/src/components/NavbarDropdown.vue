@@ -60,6 +60,7 @@ export default {
     }
     a {
       width: 100%;
+      color: $dark-blue !important;
     }
     &__item {
       @include flex(null, center);

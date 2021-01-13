@@ -122,7 +122,7 @@ export default {
       }
       &__description {
         font-size: $font-content-sm;
-        line-height: $article-line-height;
+        line-height: $line-height-regular;
       }
     }
   }

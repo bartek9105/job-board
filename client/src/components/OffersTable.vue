@@ -108,7 +108,7 @@ export default {
   @include shadow;
   width: 100%;
   border-collapse: collapse;
-  font-size: $font-content-md;
+  font-size: $font-content-lg;
   color: $grey;
   &__header {
     background-color: $white;
