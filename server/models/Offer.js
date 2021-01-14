@@ -71,6 +71,7 @@ const offerSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  slug: String,
   creator: {
     type: mongoose.Schema.ObjectId,
     ref: 'Employer',
