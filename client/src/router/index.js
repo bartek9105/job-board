@@ -32,9 +32,10 @@ const routes = [
     component: OfferPost
   },
   {
-    path: '/offer/:id',
+    path: '/offer/:slug',
     name: 'OfferDetails',
-    component: OfferDetails
+    component: OfferDetails,
+    props: true
   },
   {
     path: '/offer/:id/edit',

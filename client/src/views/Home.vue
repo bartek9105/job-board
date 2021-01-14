@@ -18,7 +18,12 @@
           {{ getOffers.total }} offers found for specified criteria
         </p>
         <div v-for="offer in getOffers.data" :key="offer._id">
-          <router-link :to="'/offer/' + offer._id">
+          <router-link
+            :to="{
+              name: 'OfferDetails',
+              params: { offerId: offer._id, slug: offer.slug }
+            }"
+          >
             <JobOffer :offer="offer" />
           </router-link>
         </div>

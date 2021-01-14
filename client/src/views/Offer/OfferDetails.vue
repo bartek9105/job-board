@@ -121,6 +121,9 @@ export default {
     BaseClearButton,
     OfferApplyForm
   },
+  props: {
+    offerId: String
+  },
   methods: {
     ...mapActions(['fetchOffer'])
   },
@@ -128,7 +131,7 @@ export default {
     ...mapGetters(['getOffer'])
   },
   mounted() {
-    this.fetchOffer(this.$route.params.id)
+    this.fetchOffer(this.offerId)
   }
 }
 </script>
