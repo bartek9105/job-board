@@ -2,7 +2,7 @@
   <div>
     <BaseHero>
       <template v-slot:hero-content>
-        <JobSearch @searchQuery="query" />
+        <JobSearch :offers-number="offersNumber" @searchQuery="query" />
       </template>
     </BaseHero>
     <main class="main-section">
@@ -28,7 +28,7 @@
           </router-link>
         </div>
         <Pagination
-          v-if="getOffers.data.length > 0"
+          v-if="offersNumber"
           :pages="getOffers.pages"
           class="offers__pagination"
           @pageChange="pageNumber"
@@ -77,7 +77,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getOffers'])
+    ...mapGetters(['getOffers']),
+    offersNumber() {
+      return this.getOffers.data ? this.getOffers.data.length : null
+    }
   },
   mounted() {
     this.fetchOffers({})

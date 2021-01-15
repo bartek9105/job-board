@@ -14,7 +14,7 @@ const isResourceCreator = require('../utils/isResourceCreator')
 exports.getOffers = async (req, res, next) => {
   try {
     const reqQuery = { ...req.query }
-    const removeFields = ['page', 'limit', 'title', 'location']
+    const removeFields = ['page', 'limit', 'title']
     removeFields.forEach((param) => delete reqQuery[param])
 
     const query = JSON.stringify(reqQuery).replace(
@@ -58,7 +58,7 @@ exports.getOffers = async (req, res, next) => {
 
     if (req.query.title) {
       const fuse = new Fuse(offers, {
-        keys: ['title', 'location'],
+        keys: ['title'],
       })
 
       const results = fuse.search(req.query.title)

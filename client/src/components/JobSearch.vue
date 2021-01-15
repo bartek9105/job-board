@@ -1,7 +1,7 @@
 <template>
   <div class="job-search">
     <h1 class="job-search__heading">
-      Search through over 509 code job offers
+      Search through {{ offersNumber }} code job offers
     </h1>
     <form class="job-search__job-form" @submit.prevent>
       <input
@@ -23,6 +23,11 @@ import BaseButton from '@/components/Base/Buttons/BaseButton'
 export default {
   components: {
     BaseButton
+  },
+  props: {
+    offersNumber: {
+      type: Number
+    }
   },
   data() {
     return {
