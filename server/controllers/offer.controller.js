@@ -1,6 +1,6 @@
 const Offer = require('../models/Offer')
 const ErrorResponse = require('../utils/errorResponse')
-const _ = require('lodash')
+
 const {
   addOffer,
   editOffer,
@@ -13,7 +13,6 @@ const isResourceCreator = require('../utils/isResourceCreator')
 exports.getOffers = async (req, res, next) => {
   try {
     const reqQuery = { ...req.query }
-
     const removeFields = ['page', 'limit']
     removeFields.forEach((param) => delete reqQuery[param])
 
@@ -22,32 +21,15 @@ exports.getOffers = async (req, res, next) => {
       (match) => `$${match}`
     )
 
+    const parsedQuery = JSON.parse(query)
+
     const page = parseInt(req.query.page, 10) || 1
     const limit = parseInt(req.query.limit, 10) || 30
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
 
-    const parsedQuery = JSON.parse(query)
-
-    let locationSearch = {}
-
-    if (parsedQuery.q) {
-      locationSearch = {
-        $text: {
-          $search: parsedQuery.q,
-        },
-      }
-    }
-
-    const availableFilters = Object.keys(Offer.schema.paths)
-    const schemaFilters = _.pickBy(
-      parsedQuery,
-      (value, key) => availableFilters.indexOf(key) > -1
-    )
-
     const offers = await Offer.find({
-      ...schemaFilters,
-      ...locationSearch,
+      ...parsedQuery,
       $or: [{ status: 'free' }, { status: 'paid' }],
     })
       .skip(startIndex)
@@ -55,10 +37,7 @@ exports.getOffers = async (req, res, next) => {
       .sort({ isPromoted: -1, createdAt: 'desc' })
       .populate('creator')
 
-    const total = await Offer.find({
-      ...schemaFilters,
-      ...locationSearch,
-    }).countDocuments()
+    const total = await Offer.find().countDocuments()
 
     const pagination = {}
 
