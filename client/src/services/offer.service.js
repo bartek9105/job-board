@@ -21,20 +21,22 @@ const OfferService = {
           o[e] = offersQueries[e]
           return o
         }, {})
+      const { title, technologies, seniority, category, location, type, salaryMin, salaryMax, contract } = queriesFilter
       const offers = await api.get(
         `offers?page=${queriesFilter.page}`,
         {
           params: {
-            technologies: { in: queriesFilter.technologies },
-            seniority: queriesFilter.seniority,
-            category: queriesFilter.category,
-            q: queriesFilter.location,
-            type: queriesFilter.type,
+            title,
+            technologies: { in: technologies },
+            seniority,
+            category,
+            location,
+            type: type,
             salary: {
-              lt: queriesFilter.salaryMax,
-              gt: queriesFilter.salaryMin
+              lt: salaryMax,
+              gt: salaryMin
             },
-            contract: queriesFilter.contract
+            contract
           },
           paramsSerializer: params => qs.stringify(params)
         }

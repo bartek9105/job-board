@@ -1,6 +1,7 @@
 const Offer = require('../models/Offer')
 const ErrorResponse = require('../utils/errorResponse')
-const _ = require('lodash')
+const Fuse = require('fuse.js')
+
 const {
   addOffer,
   editOffer,
@@ -13,8 +14,7 @@ const isResourceCreator = require('../utils/isResourceCreator')
 exports.getOffers = async (req, res, next) => {
   try {
     const reqQuery = { ...req.query }
-
-    const removeFields = ['page', 'limit']
+    const removeFields = ['page', 'limit', 'title']
     removeFields.forEach((param) => delete reqQuery[param])
 
     const query = JSON.stringify(reqQuery).replace(
@@ -22,32 +22,15 @@ exports.getOffers = async (req, res, next) => {
       (match) => `$${match}`
     )
 
+    const parsedQuery = JSON.parse(query)
+
     const page = parseInt(req.query.page, 10) || 1
     const limit = parseInt(req.query.limit, 10) || 30
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
 
-    const parsedQuery = JSON.parse(query)
-
-    let locationSearch = {}
-
-    if (parsedQuery.q) {
-      locationSearch = {
-        $text: {
-          $search: parsedQuery.q,
-        },
-      }
-    }
-
-    const availableFilters = Object.keys(Offer.schema.paths)
-    const schemaFilters = _.pickBy(
-      parsedQuery,
-      (value, key) => availableFilters.indexOf(key) > -1
-    )
-
-    const offers = await Offer.find({
-      ...schemaFilters,
-      ...locationSearch,
+    let offers = await Offer.find({
+      ...parsedQuery,
       $or: [{ status: 'free' }, { status: 'paid' }],
     })
       .skip(startIndex)
@@ -55,10 +38,7 @@ exports.getOffers = async (req, res, next) => {
       .sort({ isPromoted: -1, createdAt: 'desc' })
       .populate('creator')
 
-    const total = await Offer.find({
-      ...schemaFilters,
-      ...locationSearch,
-    }).countDocuments()
+    const total = await Offer.find().countDocuments()
 
     const pagination = {}
 
@@ -74,6 +54,15 @@ exports.getOffers = async (req, res, next) => {
         page: page - 1,
         limit,
       }
+    }
+
+    if (req.query.title) {
+      const fuse = new Fuse(offers, {
+        keys: ['title'],
+      })
+
+      const results = fuse.search(req.query.title)
+      offers = results.map((offer) => offer.item)
     }
 
     const pages = Math.ceil(total / limit)

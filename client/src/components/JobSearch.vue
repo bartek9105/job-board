@@ -1,28 +1,42 @@
 <template>
   <div class="job-search">
     <h1 class="job-search__heading">
-      Search through over 509 code job offers
+      Search through {{ offersNumber }} code job offers
     </h1>
     <form class="job-search__job-form" @submit.prevent>
       <input
-        v-model="titleQuery"
+        v-model="query"
         type="text"
         class="job-search__job-form__input"
         placeholder="Type in job you are looking for"
       />
-      <font-awesome-icon
-        icon="search"
-        class="job-search__job-form__search-icon"
-      />
+      <BaseButton @click.native="emitQuery">
+        Search
+      </BaseButton>
     </form>
   </div>
 </template>
 
 <script>
+import BaseButton from '@/components/Base/Buttons/BaseButton'
+
 export default {
+  components: {
+    BaseButton
+  },
+  props: {
+    offersNumber: {
+      type: Number
+    }
+  },
   data() {
     return {
-      titleQuery: ''
+      query: ''
+    }
+  },
+  methods: {
+    emitQuery() {
+      this.$emit('searchQuery', this.query)
     }
   }
 }
@@ -41,6 +55,7 @@ export default {
     position: relative;
     &__input {
       width: 30rem;
+      margin-right: 1rem;
     }
     &__search-icon {
       color: $pink;
