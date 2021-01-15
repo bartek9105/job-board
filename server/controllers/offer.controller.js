@@ -1,5 +1,6 @@
 const Offer = require('../models/Offer')
 const ErrorResponse = require('../utils/errorResponse')
+const Fuse = require('fuse.js')
 
 const {
   addOffer,
@@ -13,7 +14,7 @@ const isResourceCreator = require('../utils/isResourceCreator')
 exports.getOffers = async (req, res, next) => {
   try {
     const reqQuery = { ...req.query }
-    const removeFields = ['page', 'limit']
+    const removeFields = ['page', 'limit', 'title', 'location']
     removeFields.forEach((param) => delete reqQuery[param])
 
     const query = JSON.stringify(reqQuery).replace(
@@ -28,7 +29,7 @@ exports.getOffers = async (req, res, next) => {
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
 
-    const offers = await Offer.find({
+    let offers = await Offer.find({
       ...parsedQuery,
       $or: [{ status: 'free' }, { status: 'paid' }],
     })
@@ -53,6 +54,14 @@ exports.getOffers = async (req, res, next) => {
         page: page - 1,
         limit,
       }
+    }
+
+    if (req.query.title) {
+      const fuse = new Fuse(offers, {
+        keys: ['title', 'location'],
+      })
+
+      offers = fuse.search(req.query.title)
     }
 
     const pages = Math.ceil(total / limit)
