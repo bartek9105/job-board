@@ -61,7 +61,8 @@ exports.getOffers = async (req, res, next) => {
         keys: ['title', 'location'],
       })
 
-      offers = fuse.search(req.query.title)
+      const results = fuse.search(req.query.title)
+      offers = results.map((offer) => offer.item)
     }
 
     const pages = Math.ceil(total / limit)
