@@ -13,29 +13,40 @@
           </div>
           <div class="user-settings__form-unit">
             <span class="user-settings__form-unit__name">Company size</span>
-            <input type="text" placeholder="Size" />
+            <input v-model="userInfo.size" type="number" placeholder="Size" />
           </div>
           <div class="user-settings__form-unit">
             <span class="user-settings__form-unit__name">Location</span>
-            <input type="text" placeholder="Location" />
+            <input
+              v-model="userInfo.location"
+              type="text"
+              placeholder="Location"
+            />
           </div>
 
           <div class="user-settings__form-unit">
             <span class="user-settings__form-unit__name">Industry</span>
-            <input type="text" placeholder="Industry" />
+            <input
+              v-model="userInfo.industry"
+              type="text"
+              placeholder="Industry"
+            />
           </div>
           <div class="user-settings__form-unit">
             <span class="user-settings__form-unit__name">
               Company stack
-              <TagInput :list-items="getTechnologies" />
+              <TagInput
+                :list-items="getTechnologies"
+                @items="tagsTechnologies"
+              />
             </span>
           </div>
           <div class="user-settings__form-unit">
             <span class="user-settings__form-unit__name">About you</span>
-            <TextEditor />
+            <TextEditor v-model="userInfo.about" />
           </div>
           <div class="btn-container">
-            <BaseButton class="add-btn">
+            <BaseButton class="add-btn" @click.native="updateUser">
               Save
             </BaseButton>
             <BaseClearButton>Clear form</BaseClearButton>
@@ -47,7 +58,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import BaseHero from '@/components/Base/BaseHero'
 import TextEditor from '@/components/TextEditor'
 import TagInput from '@/components/TagInput'
@@ -62,8 +73,28 @@ export default {
     BaseButton,
     BaseClearButton
   },
+  data() {
+    return {
+      userInfo: {
+        size: '',
+        location: '',
+        industry: '',
+        technologies: [],
+        about: ''
+      }
+    }
+  },
   computed: {
     ...mapGetters(['getTechnologies'])
+  },
+  methods: {
+    ...mapActions(['updateUserInfo']),
+    updateUser() {
+      this.updateUserInfo(this.userInfo)
+    },
+    tagsTechnologies(technologies) {
+      this.userInfo.stack = technologies
+    }
   }
 }
 </script>
