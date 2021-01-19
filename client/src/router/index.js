@@ -7,6 +7,7 @@ import OfferDetails from '@/views/Offer/OfferDetails'
 import OfferPost from '@/views/Offer/OfferPost'
 import OfferEdit from '@/views/Offer/OfferEdit'
 import UserDashboard from '@/views/User/UserDashboard'
+import UserSettings from '@/views/User/UserSettings'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,11 @@ const routes = [
     name: 'UserDashboard',
     component: UserDashboard
   },
+  {
+    path: '/settings',
+    name: 'UserSettings',
+    component: UserSettings
+  }
 ]
 
 const router = new VueRouter({
