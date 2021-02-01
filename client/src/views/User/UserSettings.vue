@@ -9,7 +9,7 @@
             <span class="user-settings__form-unit__name"
               >Upload company logo
             </span>
-            <input type="file" />
+            <ImageUploadInput />
           </div>
           <div class="user-settings__form-unit">
             <span class="user-settings__form-unit__name">Company size</span>
@@ -64,6 +64,8 @@ import TextEditor from '@/components/TextEditor'
 import TagInput from '@/components/TagInput'
 import BaseButton from '@/components/Base/Buttons/BaseButton'
 import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
+import ImageUploadInput from '@/components/ImageUploadInput'
+
 export default {
   name: 'UserSettings',
   components: {
@@ -71,7 +73,8 @@ export default {
     TextEditor,
     TagInput,
     BaseButton,
-    BaseClearButton
+    BaseClearButton,
+    ImageUploadInput
   },
   data() {
     return {
@@ -99,7 +102,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .user-settings-container {
   width: 100%;
   background-color: $bg-grey;
