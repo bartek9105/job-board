@@ -27,7 +27,7 @@ const AuthService = {
   },
   getMe: async function (userId) {
     try {
-      const me = await Employer.findById(userId)
+      const me = await Employer.findById(userId, '-password -_id')
       return me
     } catch (error) {
       console.log(error)

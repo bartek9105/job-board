@@ -13,11 +13,11 @@
           @clicked="formData"
         />
       </div>
-      <div v-if="getOffers.data" class="offers">
+      <div v-if="getOffers" class="offers">
         <p class="offers__offers-info">
           {{ getOffers.total }} offers found for specified criteria
         </p>
-        <div v-for="offer in getOffers.data" :key="offer._id">
+        <div v-for="offer in getOffers" :key="offer._id">
           <router-link
             :to="{
               name: 'OfferDetails',
@@ -79,10 +79,10 @@ export default {
   computed: {
     ...mapGetters(['getOffers']),
     offersNumber() {
-      return this.getOffers.data ? this.getOffers.data.length : null
+      return this.getOffers ? this.getOffers.length : null
     }
   },
-  mounted() {
+  created() {
     this.fetchOffers({})
   }
 }

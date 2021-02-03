@@ -5,6 +5,7 @@ import offers from './modules/offers'
 import technologies from './modules/technologies'
 import products from './modules/products'
 import benefits from './modules/benefits'
+import users from './modules/users'
 
 Vue.use(Vuex)
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     offers,
     technologies,
     products,
-    benefits
+    benefits,
+    users
   }
 })

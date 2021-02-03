@@ -8,6 +8,13 @@
           Dashboard
         </li>
       </router-link>
+      <router-link to="/settings">
+        <li class="nav-dropdown__list__item">
+          <font-awesome-icon icon="cog" class="nav-dropdown__list__icon" />
+          Settings
+        </li>
+      </router-link>
+
       <router-link to="/">
         <li class="nav-dropdown__list__item" @click="logoutUser">
           <font-awesome-icon
