@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 const cors = require('cors')
+const fileupload = require('express-fileupload')
 const errorHandler = require('./middleware/error')
 const dbConnection = require('./config/db')
 
@@ -22,6 +23,7 @@ app.use(
   })
 )
 app.use(cookieParser())
+app.use(fileupload())
 
 const offers = require('./routes/offers.route')
 const auth = require('./routes/auth.route')
