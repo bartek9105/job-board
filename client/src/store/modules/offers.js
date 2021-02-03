@@ -34,7 +34,9 @@ export default {
       state.offersByUser = offersPayload
     },
     DELETE_OFFER(state, offerId) {
-      const offerIndex = state.offersByUser.findIndex(offer => offer._id === offerId)
+      const offerByUserIndex = state.offersByUser.findIndex(offer => offer._id === offerId)
+      state.offersByUser.splice(offerByUserIndex, 1)
+      const offerIndex = state.offers.findIndex(offer => offer._id === offerId)
       state.offersByUser.splice(offerIndex, 1)
     },
     SET_SESSION_ID(state, sessionId) {
