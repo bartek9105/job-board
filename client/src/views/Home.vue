@@ -82,7 +82,7 @@ export default {
       return this.getOffers ? this.getOffers.length : null
     }
   },
-  mounted() {
+  created() {
     this.fetchOffers({})
   }
 }
