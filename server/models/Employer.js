@@ -29,7 +29,7 @@ const employerSchema = new mongoose.Schema({
     maxlength: [1000, 'About section cannot be longer than 1000 characters'],
     trim: true,
   },
-  logo: {
+  avatarUrl: {
     type: String,
     default: 'fas fa-building',
     trim: true,

@@ -12,6 +12,8 @@ const UserService = {
   },
   updateUser: async function (userId, userInfo) {
     try {
+      const avatarUrl = await UserService.uploadUserAvatar(userInfo.avatar)
+      userInfo = { ...userInfo, avatarUrl }
       await User.findByIdAndUpdate(userId, userInfo, {
         runValidators: true,
       })
@@ -19,22 +21,21 @@ const UserService = {
       console.log(error)
     }
   },
-  uploadUserAvatar: async function ({ name, mimetype, data }) {
+  uploadUserAvatar: async function (avatar) {
     const storage = new Storage({
       keyFilename: './config/google-credentials.json',
     })
     try {
       const bucket = await storage.bucket(process.env.GCS_BUCKET)
-      const blob = bucket.file(name)
-      const stream = blob.createWriteStream({
-        metadata: {
-          contentType: mimetype,
-        },
-      })
+      const fileName = `${avatar.upload.uuid}-${avatar.upload.filename}`
+      const blob = bucket.file(fileName)
+      const stream = blob.createWriteStream()
 
       stream.on('error', (err) => console.log(err))
-      stream.end(data)
-      return `https://storage.cloud.google.com/${process.env.GCS_BUCKET}/${name}`
+      const imgUrl = avatar.dataURL.split(',')[1]
+      const imgBuffer = Buffer.from(imgUrl, 'base64')
+      stream.end(imgBuffer)
+      return `https://storage.cloud.google.com/${process.env.GCS_BUCKET}/${fileName}`
     } catch (error) {
       console.log(error)
     }

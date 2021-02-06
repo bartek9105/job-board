@@ -3,7 +3,7 @@
     <form @submit.prevent>
       <div class="user-settings__form-unit">
         <span class="user-settings__form-unit__name">Upload company logo </span>
-        <ImageUploadInput />
+        <ImageUploadInput @file="avatarFile" />
       </div>
       <div class="user-settings__form-unit">
         <span class="user-settings__form-unit__name">Company size</span>
@@ -58,12 +58,20 @@ export default {
     userInfo: Object,
     saveOffer: Function
   },
+  data() {
+    return {
+      avatar: null
+    }
+  },
   computed: {
     ...mapGetters(['getTechnologies'])
   },
   methods: {
     tagsTechnologies(technologies) {
       this.userInfo.technologies = technologies
+    },
+    avatarFile(avatar) {
+      this.userInfo.avatar = avatar
     }
   }
 }

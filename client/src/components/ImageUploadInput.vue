@@ -1,5 +1,10 @@
 <template>
-  <vue-dropzone id="dropzone" ref="myVueDropzone" :options="dropzoneOptions" />
+  <vue-dropzone
+    id="dropzone"
+    ref="myVueDropzone"
+    :options="dropzoneOptions"
+    @vdropzone-file-added="getFile"
+  />
 </template>
 
 <script>
@@ -18,6 +23,11 @@ export default {
         maxFilesize: 0.5,
         addRemoveLinks: true
       }
+    }
+  },
+  methods: {
+    getFile(file) {
+      this.$emit('file', file)
     }
   }
 }
