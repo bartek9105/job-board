@@ -1,6 +1,10 @@
 <template>
   <div class="company">
-    <BaseCompanyLogo :img-width="90" />
+    <BaseCompanyLogo
+      :avatar-url="company.avatarUrl"
+      :img-width="100"
+      :img-height="100"
+    />
     <div class="company-details-container">
       <h3 class="company__name">
         {{ company.name }}

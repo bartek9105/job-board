@@ -4,7 +4,13 @@
       <template v-slot:hero-content>
         <div class="offer-hero-container">
           <div class="offer-hero-container-inner">
-            <BaseCompanyLogo :img-width="90" class="offer__logo" />
+            <div class="offer__logo">
+              <BaseCompanyLogo
+                :avatar-url="getOffer.creator.avatarUrl"
+                :img-width="100"
+                :img-height="100"
+              />
+            </div>
             <div class="offer-hero-details-container">
               <h1 class="offer__title">
                 {{ getOffer.title }}
@@ -192,6 +198,7 @@ export default {
     color: $white;
   }
   &__logo {
+    width: 75px;
     margin-right: 50px;
   }
   &__header {

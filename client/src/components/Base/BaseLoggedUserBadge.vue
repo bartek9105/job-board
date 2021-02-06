@@ -1,8 +1,9 @@
 <template>
   <div class="logged-user">
-    <img
-      :src="'https://picsum.photos/30'"
-      alt="logo"
+    <BaseCompanyLogo
+      :avatar-url="getUserInfo.avatarUrl"
+      :img-width="40"
+      :img-height="40"
       class="logged-user__avatar"
     />
     {{ loggedInUserName }}
@@ -11,10 +12,19 @@
 </template>
 
 <script>
+import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'BaseLoggedUserBadge',
+  components: {
+    BaseCompanyLogo
+  },
   props: {
     loggedInUserName: String
+  },
+  computed: {
+    ...mapGetters(['getUserInfo'])
   }
 }
 </script>
@@ -23,6 +33,7 @@ export default {
 .logged-user {
   @include flex(null, center);
   &__avatar {
+    width: 40px;
     border-radius: 50%;
     margin-right: 0.5rem;
   }

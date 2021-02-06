@@ -1,7 +1,11 @@
 <template>
   <div class="offer">
     <div class="offer__logo">
-      <BaseCompanyLogo :img-width="75" class="offer__logo__img" />
+      <BaseCompanyLogo
+        :avatar-url="offer.creator.avatarUrl"
+        :img-width="75"
+        :img-height="75"
+      />
     </div>
     <div class="offer-main">
       <div class="offer-top">
@@ -103,7 +107,6 @@ export default {
   }
   &__logo {
     @include flex(center, center);
-    max-width: 135px;
     margin-right: 35px;
     &__img {
       border-radius: 100%;

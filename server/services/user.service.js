@@ -12,8 +12,11 @@ const UserService = {
   },
   updateUser: async function (userId, userInfo) {
     try {
-      const avatarUrl = await UserService.uploadUserAvatar(userInfo.avatar)
-      userInfo = { ...userInfo, avatarUrl }
+      let avatarUrl
+      if (userInfo.avatar) {
+        avatarUrl = await UserService.uploadUserAvatar(userInfo.avatar)
+        userInfo = { ...userInfo, avatarUrl }
+      }
       await User.findByIdAndUpdate(userId, userInfo, {
         runValidators: true,
       })
