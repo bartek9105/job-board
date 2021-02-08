@@ -15,6 +15,14 @@ const UserService = {
     } catch (error) {
       console.log(error)
     }
+  },
+  fetchUsers: async function () {
+    try {
+      const users = await api.get('users')
+      return users.data
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

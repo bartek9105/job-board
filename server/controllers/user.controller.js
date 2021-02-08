@@ -1,4 +1,8 @@
-const { getUserOffers, updateUser } = require('../services/user.service')
+const {
+  getUserOffers,
+  updateUser,
+  getUsers,
+} = require('../services/user.service')
 
 exports.getUserOffers = async (req, res, next) => {
   const userId = req.params.id
@@ -15,6 +19,15 @@ exports.updateUser = async (req, res, next) => {
   const userInfo = req.body
   try {
     await updateUser(userId, userInfo)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.getUsers = async (req, res, next) => {
+  try {
+    const users = await getUsers()
+    res.send(users)
   } catch (error) {
     console.log(error)
   }

@@ -43,6 +43,14 @@ const UserService = {
       console.log(error)
     }
   },
+  getUsers: async function () {
+    try {
+      const users = await User.find({}, '-password')
+      return users
+    } catch (error) {
+      console.log(error)
+    }
+  },
 }
 
 module.exports = UserService

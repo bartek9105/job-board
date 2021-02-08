@@ -6,6 +6,9 @@
         <router-link to="/">
           <li>Offers</li>
         </router-link>
+        <router-link to="/companies">
+          <li>Companies</li>
+        </router-link>
         <router-link v-if="!loggedInUser" to="/login">
           <li>Login</li>
         </router-link>
