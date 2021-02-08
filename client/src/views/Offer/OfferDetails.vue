@@ -149,6 +149,13 @@ export default {
   computed: {
     ...mapGetters(['getOffer'])
   },
+  watch: {
+    offerId: function() {
+      this.fetchOffer(this.offerId).then(() => {
+        this.isLoading = false
+      })
+    }
+  },
   created() {
     this.fetchOffer(this.offerId).then(() => {
       this.isLoading = false

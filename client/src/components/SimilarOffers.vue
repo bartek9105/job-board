@@ -1,7 +1,14 @@
 <template>
   <div v-if="!isLoading" class="similar-offers-container">
     <div v-for="offer in getOffers" :key="offer._id">
-      <BaseOffer :offer="offer" />
+      <router-link
+        :to="{
+          name: 'OfferDetails',
+          params: { offerId: offer._id, slug: offer.slug }
+        }"
+      >
+        <BaseOffer :offer="offer" />
+      </router-link>
     </div>
   </div>
 </template>
