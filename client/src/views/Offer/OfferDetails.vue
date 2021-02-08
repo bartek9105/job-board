@@ -103,6 +103,9 @@
         </div>
       </div>
     </main>
+    <section class="similar-offers">
+      <SimilarOffers :category="getOffer.category" />
+    </section>
   </div>
 </template>
 
@@ -115,6 +118,7 @@ import BaseButton from '@/components/Base/Buttons/BaseButton'
 import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
 import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
+import SimilarOffers from '@/components/SimilarOffers'
 
 export default {
   name: 'OfferDetails',
@@ -125,10 +129,19 @@ export default {
     BaseButton,
     BaseGoBackButton,
     BaseClearButton,
-    OfferApplyForm
+    OfferApplyForm,
+    SimilarOffers
   },
   props: {
-    offerId: String
+    offerId: {
+      type: String,
+      default: () => ''
+    }
+  },
+  data() {
+    return {
+      isLoading: true
+    }
   },
   methods: {
     ...mapActions(['fetchOffer'])
@@ -136,8 +149,17 @@ export default {
   computed: {
     ...mapGetters(['getOffer'])
   },
-  mounted() {
-    this.fetchOffer(this.offerId)
+  watch: {
+    offerId: function() {
+      this.fetchOffer(this.offerId).then(() => {
+        this.isLoading = false
+      })
+    }
+  },
+  created() {
+    this.fetchOffer(this.offerId).then(() => {
+      this.isLoading = false
+    })
   }
 }
 </script>
@@ -231,5 +253,10 @@ export default {
   .btn {
     margin-right: 20px;
   }
+}
+.similar-offers {
+  width: 100%;
+  background-color: $bg-grey;
+  padding-bottom: $padding-sm;
 }
 </style>
