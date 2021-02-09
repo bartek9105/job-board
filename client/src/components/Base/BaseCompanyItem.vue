@@ -25,7 +25,6 @@
           {{ company.location }}
         </span>
       </div>
-      <div class="company-item__content__about" v-html="company.about" />
     </section>
     <section class="company-item__additional">
       <button class="btn">
@@ -66,6 +65,7 @@ export default {
   border-radius: 3px;
   color: $dark-blue-light;
   font-size: $font-content-md;
+  padding-top: $padding-sm;
   &:hover {
     @include shadow-hover;
     cursor: pointer;
@@ -79,24 +79,13 @@ export default {
     padding: 0 $padding-md;
     .top-content {
       @include flex(space-between, center);
+      margin-bottom: $margin-md;
     }
     .top-content-title {
       @include flex(null, center);
     }
     &__name {
       margin-right: 0.75rem;
-    }
-    &__about {
-      font-size: $font-content-sm;
-      margin: $margin-sm 0;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 20px;
-      height: 40px;
-      max-width: 200px;
     }
     &__icon {
       margin-right: 0.5rem;
