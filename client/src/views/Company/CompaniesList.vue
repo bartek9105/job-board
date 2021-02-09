@@ -36,16 +36,20 @@ export default {
 
 <style lang="scss">
 .company-items-container {
+  @include flex(space-between);
   width: 100%;
   background: $bg-grey;
   padding: $padding-lg 0;
 }
 .company-items {
-  max-width: $container-width;
+  position: relative;
+  top: -100px;
+  max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
+  padding-right: $padding-sm;
 }
 </style>
