@@ -62,7 +62,6 @@ export default {
 <style lang="scss" scoped>
 .company-item {
   @include shadow;
-  max-width: 420px;
   background-color: $white;
   border-radius: 3px;
   color: $dark-blue-light;
@@ -97,6 +96,7 @@ export default {
       text-overflow: ellipsis;
       line-height: 20px;
       height: 40px;
+      max-width: 200px;
     }
     &__icon {
       margin-right: 0.5rem;
