@@ -1,27 +1,48 @@
 <template>
-  <BaseHero>
-    <template v-slot:hero-content>
-      <div class="company-logo">
-        <BaseCompanyLogo
-          :avatar-url="getUser.avatarUrl"
-          :img-width="100"
-          :img-height="100"
-        />
-      </div>
-    </template>
-  </BaseHero>
+  <div class="company">
+    <BaseHero>
+      <HeroContentContainer>
+        <template v-slot:logo>
+          <BaseCompanyLogo
+            :avatar-url="getUser.avatarUrl"
+            :img-width="100"
+            :img-height="100"
+          />
+        </template>
+        <template v-slot:details>
+          <h1>{{ getUser.name }}</h1>
+          <span>
+            <font-awesome-icon icon="map-marker-alt" />
+            {{ getUser.location }}
+          </span>
+          <div>
+            <span>
+              <font-awesome-icon icon="file-signature" />
+              {{ getUser.size }}
+            </span>
+            <span>
+              <font-awesome-icon icon="clock" />
+              {{ getUser.industry }}
+            </span>
+          </div>
+        </template>
+      </HeroContentContainer>
+    </BaseHero>
+  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import BaseHero from '@/components/Base/BaseHero'
 import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
+import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
 
 export default {
   name: 'CompanyDetails',
   components: {
     BaseHero,
-    BaseCompanyLogo
+    BaseCompanyLogo,
+    HeroContentContainer
   },
   methods: {
     ...mapActions(['fetchUser'])
@@ -34,5 +55,3 @@ export default {
   }
 }
 </script>
-
-<style></style>
