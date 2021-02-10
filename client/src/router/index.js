@@ -9,6 +9,7 @@ import OfferEdit from '@/views/Offer/OfferEdit'
 import UserDashboard from '@/views/User/UserDashboard'
 import UserSettings from '@/views/User/UserSettings'
 import CompaniesList from '@/views/Company/CompaniesList'
+import CompanyDetails from '@/views/Company/CompanyDetails'
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,12 @@ const routes = [
     path: '/companies',
     name: 'CompaniesList',
     component: CompaniesList
+  },
+  {
+    path: '/companies/:slug',
+    name: 'CompanyDetails',
+    component: CompanyDetails,
+    props: true
   }
 ]
 

@@ -17,6 +17,10 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+body {
+    background-color: $bg-grey;
+}
+
 a {
     color: $dark-blue;
     text-decoration: none;

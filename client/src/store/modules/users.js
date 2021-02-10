@@ -3,7 +3,8 @@ import UserService from '@/services/user.service'
 export default ({
   state: {
     userInfo: {},
-    users: []
+    users: [],
+    user: {}
   },
   getters: {
     getUserInfo(state) {
@@ -11,6 +12,9 @@ export default ({
     },
     getUsers(state) {
       return state.users
+    },
+    getUser(state) {
+      return state.user
     }
   },
   mutations: {
@@ -19,7 +23,11 @@ export default ({
     },
     SET_USERS(state, usersPayload) {
       state.users = usersPayload
+    },
+    SET_USER(state, userPayload) {
+      state.user = userPayload
     }
+
   },
   actions: {
     async fetchUserInfo({ commit }) {
@@ -41,6 +49,14 @@ export default ({
       try {
         const users = await UserService.fetchUsers(queries)
         commit('SET_USERS', users)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async fetchUser({ commit }, userId) {
+      try {
+        const user = await UserService.fetchUser(userId)
+        commit('SET_USER', user)
       } catch (error) {
         console.log(error)
       }

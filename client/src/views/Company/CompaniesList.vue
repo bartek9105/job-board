@@ -30,7 +30,14 @@
     <div class="company-items-container">
       <div class="company-items">
         <div v-for="company in getUsers" :key="company._id">
-          <BaseCompanyItem :company="company" />
+          <router-link
+            :to="{
+              name: 'CompanyDetails',
+              params: { userId: company._id, slug: company.slug }
+            }"
+          >
+            <BaseCompanyItem :company="company" />
+          </router-link>
         </div>
       </div>
     </div>

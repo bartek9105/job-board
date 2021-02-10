@@ -27,6 +27,14 @@ const UserService = {
     } catch (error) {
       console.log(error)
     }
+  },
+  fetchUser: async function (userId) {
+    try {
+      const user = await api.get(`users/${userId}`)
+      return user.data
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

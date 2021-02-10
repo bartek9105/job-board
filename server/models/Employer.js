@@ -38,6 +38,9 @@ const employerSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  slug: {
+    type: String,
+  },
   refreshToken: String,
   resetPasswordToken: String,
   resetPasswordExpire: Date,

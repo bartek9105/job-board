@@ -1,49 +1,37 @@
 <template>
   <div class="offer">
     <BaseHero>
-      <template v-slot:hero-content>
-        <div class="offer-hero-container">
-          <div class="offer-hero-container-inner">
-            <div class="offer__logo">
-              <BaseCompanyLogo
-                :avatar-url="getOffer.creator.avatarUrl"
-                :img-width="100"
-                :img-height="100"
-              />
-            </div>
-            <div class="offer-hero-details-container">
-              <h1 class="offer__title">
-                {{ getOffer.title }}
-              </h1>
-              <span class="offer__location">
-                <font-awesome-icon icon="map-marker-alt" class="offer__icon" />
-                {{ getOffer.location }}
-              </span>
-              <div class="offer-hero-details-container-row">
-                <span class="offer__pay">
-                  <font-awesome-icon
-                    icon="money-bill-wave"
-                    class="offer__icon"
-                  />
-                  {{ getOffer.salaryMin }} - {{ getOffer.salaryMax }}
-                </span>
-                <span class="offer__contract">
-                  <font-awesome-icon
-                    icon="file-signature"
-                    class="offer__icon"
-                  />
-                  {{ getOffer.contract }}
-                </span>
-                <span class="offer__type">
-                  <font-awesome-icon icon="clock" class="offer__icon" />
-                  {{ getOffer.type }}
-                </span>
-                <span class="offer__category">{{ getOffer.category }}</span>
-              </div>
-            </div>
+      <HeroContentContainer>
+        <template v-slot:logo>
+          <BaseCompanyLogo
+            :avatar-url="getOffer.creator.avatarUrl"
+            :img-width="100"
+            :img-height="100"
+          />
+        </template>
+        <template v-slot:details>
+          <h1>{{ getOffer.title }}</h1>
+          <span>
+            <font-awesome-icon icon="map-marker-alt" />
+            {{ getOffer.location }}
+          </span>
+          <div>
+            <span>
+              <font-awesome-icon icon="money-bill-wave" />
+              {{ getOffer.salaryMin }} - {{ getOffer.salaryMax }}
+            </span>
+            <span>
+              <font-awesome-icon icon="file-signature" />
+              {{ getOffer.contract }}
+            </span>
+            <span>
+              <font-awesome-icon icon="clock" />
+              {{ getOffer.type }}
+            </span>
+            <span>{{ getOffer.category }}</span>
           </div>
-        </div>
-      </template>
+        </template>
+      </HeroContentContainer>
     </BaseHero>
     <main class="main-section">
       <div class="offer-details-container">
@@ -119,6 +107,7 @@ import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
 import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
 import SimilarOffers from '@/components/SimilarOffers'
+import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
 
 export default {
   name: 'OfferDetails',
@@ -130,7 +119,8 @@ export default {
     BaseGoBackButton,
     BaseClearButton,
     OfferApplyForm,
-    SimilarOffers
+    SimilarOffers,
+    HeroContentContainer
   },
   props: {
     offerId: {
@@ -165,21 +155,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.offer-hero-container {
-  @include flex(center, center);
-  max-width: $container-width;
-  margin: 0 $margin-center;
-  color: $white;
-  height: calc(100% - #{$nav-height});
-  .offer-hero-container-inner {
-    @include flex();
-    .offer-hero-details-container {
-      @include flex(space-between, null, column);
-      font-size: $font-content-md;
-      color: $white-blue;
-    }
-  }
-}
 .offer-details-container {
   @include flex(space-between);
   @include shadow;
@@ -215,13 +190,6 @@ export default {
 .offer {
   span {
     margin-right: 15px;
-  }
-  &__title {
-    color: $white;
-  }
-  &__logo {
-    width: 75px;
-    margin-right: 50px;
   }
   &__header {
     margin-bottom: $margin-md;
