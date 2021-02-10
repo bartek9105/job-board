@@ -14,5 +14,6 @@ export default {
 .container {
   max-width: $container-width;
   margin: $margin-center;
+  padding: $padding-lg 0;
 }
 </style>

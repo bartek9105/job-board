@@ -5,45 +5,43 @@
         <JobSearch :offers-number="offersNumber" @searchQuery="query" />
       </template>
     </BaseHero>
-    <main class="main-section">
-      <div class="job-search-form">
-        <JobSearchForm
-          button-text="Search"
-          button-text-clear="Clear filters"
-          @clicked="formData"
-        />
-      </div>
-      <div v-if="getOffers" class="offers">
-        <p class="offers__offers-info">
-          {{ getOffers.total }} offers found for specified criteria
-        </p>
-        <div v-for="offer in getOffers" :key="offer._id">
-          <router-link
-            :to="{
-              name: 'OfferDetails',
-              params: { offerId: offer._id, slug: offer.slug }
-            }"
-          >
-            <JobOffer :offer="offer" />
-          </router-link>
-        </div>
-        <Pagination
-          v-if="offersNumber"
-          :pages="getOffers.pages"
-          class="offers__pagination"
-          @pageChange="pageNumber"
-        />
-      </div>
+    <main>
+      <section class="job-search-form">
+        <Container>
+          <JobSearchForm
+            button-text="Search"
+            button-text-clear="Clear filters"
+            @clicked="formData"
+          />
+        </Container>
+      </section>
+      <section>
+        <Container>
+          <div v-if="getOffers" class="offers-list">
+            <p class="offers-list__offers-info">
+              {{ offersSearchInfo }}
+            </p>
+            <BaseOffersList :offers="getOffers" />
+            <Pagination
+              v-if="offersNumber"
+              :pages="getOffers.pages"
+              class="offers-list__pagination"
+              @pageChange="pageNumber"
+            />
+          </div>
+        </Container>
+      </section>
     </main>
   </div>
 </template>
 
 <script>
 import BaseHero from '@/components/Base/BaseHero'
-import JobOffer from '@/components/Base/BaseOffer'
 import JobSearchForm from '@/components/Forms/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
 import Pagination from '@/components/Pagination'
+import Container from '@/components/Base/UIContainers/Container'
+import BaseOffersList from '@/components/Base/BaseOffersList'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -51,10 +49,11 @@ export default {
   name: 'Home',
   components: {
     BaseHero,
-    JobOffer,
     JobSearchForm,
     JobSearch,
-    Pagination
+    Pagination,
+    Container,
+    BaseOffersList
   },
   data() {
     return {
@@ -80,6 +79,9 @@ export default {
     ...mapGetters(['getOffers']),
     offersNumber() {
       return this.getOffers ? this.getOffers.length : null
+    },
+    offersSearchInfo() {
+      return `${this.getOffers.length} offers found for specified criteria`
     }
   },
   created() {
@@ -88,28 +90,20 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.main-section {
-  background: $bg-grey;
-  .offers {
-    max-width: $container-width;
-    margin: $margin-center;
-    padding: $padding-lg 0;
-    &__offers-info {
-      color: $dark-blue;
-      font-weight: $font-bold;
-      font-size: $font-content-lg;
-      text-transform: uppercase;
-      margin-bottom: $margin-lg;
-    }
-    &__pagination {
-      margin-top: $margin-lg;
-    }
+<style lang="scss" scoped>
+.job-search-form {
+  background-color: $white;
+}
+.offers-list {
+  &__offers-info {
+    color: $dark-blue;
+    font-weight: $font-bold;
+    font-size: $font-content-lg;
+    text-transform: uppercase;
+    margin-bottom: $margin-lg;
   }
-  .job-search-form {
-    background: $white;
-    width: 100%;
-    padding: $padding-lg 0;
+  &__pagination {
+    margin-top: $margin-lg;
   }
 }
 </style>
