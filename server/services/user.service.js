@@ -51,6 +51,14 @@ const UserService = {
       console.log(error)
     }
   },
+  getUser: async function (userId) {
+    try {
+      const user = await User.findById(userId)
+      return user
+    } catch (error) {
+      console.log(error)
+    }
+  },
 }
 
 module.exports = UserService

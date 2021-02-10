@@ -2,6 +2,7 @@ const {
   getUserOffers,
   updateUser,
   getUsers,
+  getUser,
 } = require('../services/user.service')
 
 exports.getUserOffers = async (req, res, next) => {
@@ -26,11 +27,20 @@ exports.updateUser = async (req, res, next) => {
 
 exports.getUsers = async (req, res, next) => {
   const queries = req.query
-  console.log(queries)
   try {
     const users = await getUsers(queries)
     res.send(users)
   } catch (error) {
     console.log(error)
+  }
+}
+
+exports.getUser = async (req, res, next) => {
+  const userId = req.params.id
+  try {
+    const user = await getUser(userId)
+    res.send(user)
+  } catch (error) {
+    next(error)
   }
 }
