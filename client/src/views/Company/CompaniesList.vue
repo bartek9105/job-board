@@ -7,20 +7,23 @@
             <label for="company" class="company-search-form__item__label"
               >Company name</label
             >
-            <input type="text" name="company" />
+            <input v-model="company.name" type="text" name="company" />
           </div>
           <div class="company-search-form__item">
             <label for="location" class="company-search-form__item__label"
               >Location</label
             >
-            <input type="text" name="location" />
+            <input v-model="company.location" type="text" name="location" />
           </div>
           <div class="company-search-form__item">
             <label for="industry" class="company-search-form__item__label"
               >Industry</label
             >
-            <input type="text" name="industry" />
+            <input v-model="company.industry" type="text" name="industry" />
           </div>
+          <BaseButton @click.native="searchCompany">
+            Search
+          </BaseButton>
         </form>
       </template>
     </BaseHero>
@@ -38,15 +41,26 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseCompanyItem from '@/components/Base/BaseCompanyItem'
 import BaseHero from '@/components/Base/BaseHero'
+import BaseButton from '@/components/Base/Buttons/BaseButton'
 
 export default {
   name: 'CompaniesList',
   components: {
     BaseCompanyItem,
-    BaseHero
+    BaseHero,
+    BaseButton
+  },
+  data() {
+    return {
+      company: {}
+    }
   },
   methods: {
-    ...mapActions(['fetchUsers'])
+    ...mapActions(['fetchUsers']),
+    searchCompany() {
+      this.fetchUsers(this.company)
+      this.company = {}
+    }
   },
   computed: {
     ...mapGetters(['getUsers'])
@@ -61,7 +75,7 @@ export default {
 .company-search-form {
   @include flex(center, center);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr 1fr auto;
   grid-column-gap: 1rem;
   max-width: $container-width;
   height: calc(100% - #{$nav-height * 2});

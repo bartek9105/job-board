@@ -3,8 +3,8 @@
     <section class="company-item__logo">
       <BaseCompanyLogo
         :avatar-url="company.avatarUrl"
-        img-width="124"
-        img-height="124"
+        :img-width="124"
+        :img-height="124"
       />
     </section>
     <section class="company-item__content">

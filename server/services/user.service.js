@@ -43,9 +43,9 @@ const UserService = {
       console.log(error)
     }
   },
-  getUsers: async function () {
+  getUsers: async function (queries) {
     try {
-      const users = await User.find({}, '-password')
+      const users = await User.find(queries, '-password')
       return users
     } catch (error) {
       console.log(error)

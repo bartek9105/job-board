@@ -25,8 +25,10 @@ exports.updateUser = async (req, res, next) => {
 }
 
 exports.getUsers = async (req, res, next) => {
+  const queries = req.query
+  console.log(queries)
   try {
-    const users = await getUsers()
+    const users = await getUsers(queries)
     res.send(users)
   } catch (error) {
     console.log(error)

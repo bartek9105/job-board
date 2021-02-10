@@ -37,9 +37,9 @@ export default ({
         console.log(error)
       }
     },
-    async fetchUsers({ commit }) {
+    async fetchUsers({ commit }, queries) {
       try {
-        const users = await UserService.fetchUsers()
+        const users = await UserService.fetchUsers(queries)
         commit('SET_USERS', users)
       } catch (error) {
         console.log(error)
