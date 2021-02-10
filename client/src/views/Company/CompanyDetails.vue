@@ -55,6 +55,12 @@ export default {
     BaseCompanyLogo,
     HeroContentContainer
   },
+  props: {
+    userId: {
+      type: String,
+      default: () => ''
+    }
+  },
   methods: {
     ...mapActions(['fetchUser'])
   },
@@ -62,7 +68,7 @@ export default {
     ...mapGetters(['getUser'])
   },
   created() {
-    this.fetchUser(this.$route.params.id)
+    this.fetchUser(this.userId)
   }
 }
 </script>

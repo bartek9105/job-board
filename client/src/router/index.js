@@ -61,7 +61,7 @@ const routes = [
     component: CompaniesList
   },
   {
-    path: '/companies/:id',
+    path: '/companies/:slug',
     name: 'CompanyDetails',
     component: CompanyDetails,
     props: true
