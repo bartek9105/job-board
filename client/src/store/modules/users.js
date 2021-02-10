@@ -2,16 +2,23 @@ import UserService from '@/services/user.service'
 
 export default ({
   state: {
-    userInfo: {}
+    userInfo: {},
+    users: []
   },
   getters: {
     getUserInfo(state) {
       return state.userInfo
+    },
+    getUsers(state) {
+      return state.users
     }
   },
   mutations: {
     SET_USER_INFO(state, userInfoPayload) {
       state.userInfo = userInfoPayload
+    },
+    SET_USERS(state, usersPayload) {
+      state.users = usersPayload
     }
   },
   actions: {
@@ -26,6 +33,14 @@ export default ({
     async updateUserInfo(_, userInfo) {
       try {
         await UserService.updateUserInfo(userInfo)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async fetchUsers({ commit }, queries) {
+      try {
+        const users = await UserService.fetchUsers(queries)
+        commit('SET_USERS', users)
       } catch (error) {
         console.log(error)
       }

@@ -8,6 +8,7 @@ import OfferPost from '@/views/Offer/OfferPost'
 import OfferEdit from '@/views/Offer/OfferEdit'
 import UserDashboard from '@/views/User/UserDashboard'
 import UserSettings from '@/views/User/UserSettings'
+import CompaniesList from '@/views/Company/CompaniesList'
 
 Vue.use(VueRouter)
 
@@ -52,6 +53,11 @@ const routes = [
     path: '/settings',
     name: 'UserSettings',
     component: UserSettings
+  },
+  {
+    path: '/companies',
+    name: 'CompaniesList',
+    component: CompaniesList
   }
 ]
 

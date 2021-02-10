@@ -15,6 +15,18 @@ const UserService = {
     } catch (error) {
       console.log(error)
     }
+  },
+  fetchUsers: async function (queries) {
+    try {
+      const users = await api.get('users', {
+        params: {
+          ...queries
+        }
+      })
+      return users.data
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
