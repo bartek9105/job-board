@@ -58,33 +58,11 @@
           rules="required"
           class="job-form-unit-validator"
         >
-          <select
-            v-model="offer.category"
+          <BaseSelect
+            :option-values="offerDetails.CATEGORIES"
             name="category"
-            class="job-form-unit__input"
-          >
-            <option value="Frontend">
-              Frontend
-            </option>
-            <option value="Backend">
-              Backend
-            </option>
-            <option value="UX/UI">
-              UI/UX
-            </option>
-            <option value="Devops">
-              DevOps
-            </option>
-            <option value="Data Science">
-              Data Science
-            </option>
-            <option value="Testing">
-              Testing
-            </option>
-            <option value="PM">
-              PM
-            </option>
-          </select>
+            @value-change="getValue"
+          />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
@@ -95,24 +73,11 @@
           rules="required"
           class="job-form-unit-validator"
         >
-          <select
-            v-model="offer.seniority"
-            name="type"
-            class="job-form-unit__input"
-          >
-            <option value="Intern">
-              Intern
-            </option>
-            <option value="Junior">
-              Junior
-            </option>
-            <option value="Regular">
-              Regular
-            </option>
-            <option value="Senior">
-              Senior
-            </option>
-          </select>
+          <BaseSelect
+            :option-values="offerDetails.SENIORITIES"
+            name="seniority"
+            @value-change="getValue"
+          />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
@@ -160,14 +125,12 @@
           rules="required"
           class="job-form-unit-validator"
         >
-          <select v-model="offer.type" name="type" class="job-form-unit__input">
-            <option value="Full Time">
-              Full Time
-            </option>
-            <option value="Part Time">
-              Part Time
-            </option>
-          </select>
+          <BaseSelect
+            :option-values="offerDetails.TYPES"
+            name="type"
+            @value-change="getValue"
+          />
+
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
@@ -178,21 +141,12 @@
           rules="required"
           class="job-form-unit-validator"
         >
-          <select
-            v-model="offer.contract"
-            name="type"
-            class="job-form-unit__input"
-          >
-            <option value="B2B">
-              B2B
-            </option>
-            <option value="Employment contract">
-              Employment contract
-            </option>
-            <option value="Mandatory contract">
-              Mandatory contract
-            </option>
-          </select>
+          <BaseSelect
+            :option-values="offerDetails.CONTRACTS"
+            name="contract"
+            @value-change="getValue"
+          />
+
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
@@ -237,6 +191,8 @@ import TextEditor from '@/components/TextEditor'
 import { StripeCheckout } from 'vue-stripe-checkout'
 import { ValidationProvider } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
+import BaseSelect from '@/components/Base/BaseSelect'
+import offerDetails from '@/constants/offerDetails'
 
 export default {
   name: 'OfferForm',
@@ -244,7 +200,8 @@ export default {
     TagInput,
     TextEditor,
     StripeCheckout,
-    ValidationProvider
+    ValidationProvider,
+    BaseSelect
   },
   props: {
     offer: Object,
@@ -271,6 +228,9 @@ export default {
     },
     tagsBenefits(benefits) {
       this.offer.benefits = benefits
+    },
+    getValue(value, name) {
+      this.offer[name] = value
     }
   },
   computed: {
@@ -285,6 +245,9 @@ export default {
     this.fetchProducts()
     this.fetchTechnologies()
     this.fetchBenefits()
+  },
+  created() {
+    this.offerDetails = offerDetails
   }
 }
 </script>

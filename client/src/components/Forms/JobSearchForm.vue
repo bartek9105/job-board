@@ -14,54 +14,21 @@
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Category</span>
-            <select
-              v-model="queries.category"
+            <BaseSelect
+              :option-values="offerDetails.CATEGORIES"
               name="category"
               class="job-search__search-input"
-            >
-              <option value="Frontend">
-                Frontend
-              </option>
-              <option value="Backend">
-                Backend
-              </option>
-              <option value="UX/UI">
-                UI/UX
-              </option>
-              <option value="Devops">
-                DevOps
-              </option>
-              <option value="Devops">
-                Data Science
-              </option>
-              <option value="Devops">
-                Testing
-              </option>
-              <option value="Devops">
-                PM
-              </option>
-            </select>
+              @value-change="getValue"
+            />
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Seniority</span>
-            <select
-              v-model="queries.seniority"
-              name="type"
+            <BaseSelect
+              :option-values="offerDetails.SENIORITIES"
+              name="seniority"
               class="job-search__search-input"
-            >
-              <option value="Intern">
-                Intern
-              </option>
-              <option value="Junior">
-                Junior
-              </option>
-              <option value="Regular">
-                Regular
-              </option>
-              <option value="Senior">
-                Senior
-              </option>
-            </select>
+              @value-change="getValue"
+            />
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Salary</span>
@@ -92,36 +59,21 @@
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
-            <select
-              v-model="queries.type"
+            <BaseSelect
+              :option-values="offerDetails.TYPES"
               name="type"
               class="job-search__search-input"
-            >
-              <option value="Full Time">
-                Full Time
-              </option>
-              <option value="Part Time">
-                Part Time
-              </option>
-            </select>
+              @value-change="getValue"
+            />
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Contract</span>
-            <select
-              v-model="queries.contract"
-              name="type"
+            <BaseSelect
+              :option-values="offerDetails.CONTRACTS"
+              name="contract"
               class="job-search__search-input"
-            >
-              <option value="B2B">
-                B2B
-              </option>
-              <option value="Employment contract">
-                Employment contract
-              </option>
-              <option value="Mandatory contract">
-                Mandatory contract
-              </option>
-            </select>
+              @value-change="getValue"
+            />
           </div>
         </div>
         <div class="btn-container">
@@ -151,11 +103,14 @@
 
 <script>
 import TagInput from '@/components/TagInput'
+import BaseSelect from '@/components/Base/BaseSelect'
+import offerDetails from '@/constants/offerDetails'
 
 export default {
   name: 'JobSearchForm',
   components: {
-    TagInput
+    TagInput,
+    BaseSelect
   },
   props: {
     buttonText: String,
@@ -176,6 +131,9 @@ export default {
       showFilters: false
     }
   },
+  created() {
+    this.offerDetails = offerDetails
+  },
   methods: {
     emitFormData() {
       this.$emit('clicked', this.queries)
@@ -185,6 +143,9 @@ export default {
     },
     tagsTechnologies(techs) {
       this.queries.technologies = techs
+    },
+    getValue(value, name) {
+      this.queries[name] = value
     }
   }
 }
