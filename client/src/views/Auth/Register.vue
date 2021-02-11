@@ -22,13 +22,11 @@
 <script>
 import { mapActions } from 'vuex'
 import Auth from '@/components/Forms/AuthForm'
-import BaseButton from '@/components/Base/Buttons/BaseButton'
 
 export default {
   name: 'Register',
   components: {
-    Auth,
-    BaseButton
+    Auth
   },
   data() {
     return {

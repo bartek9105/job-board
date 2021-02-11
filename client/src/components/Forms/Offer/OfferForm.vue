@@ -234,8 +234,6 @@
 <script>
 import TagInput from '@/components/TagInput'
 import TextEditor from '@/components/TextEditor'
-import BaseButton from '@/components/Base/Buttons/BaseButton'
-import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
 import { StripeCheckout } from 'vue-stripe-checkout'
 import { ValidationProvider } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
@@ -245,8 +243,6 @@ export default {
   components: {
     TagInput,
     TextEditor,
-    BaseButton,
-    BaseClearButton,
     StripeCheckout,
     ValidationProvider
   },

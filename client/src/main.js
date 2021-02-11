@@ -10,8 +10,22 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './utils/formValidationRules'
 import './assets/css/index.scss'
 import Container from '@/components/Base/UIContainers/Container'
+import ContentContainer from '@/components/Base/UIContainers/ContentContainer'
+import BaseButton from '@/components/Base/Buttons/BaseButton'
+import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
+import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
+import BaseOffersList from '@/components/Base/BaseOffersList'
+import Pagination from '@/components/Pagination'
+import BaseHero from '@/components/Base/BaseHero'
 
 Vue.component('Container', Container)
+Vue.component('ContentContainer', ContentContainer)
+Vue.component('BaseButton', BaseButton)
+Vue.component('BaseClearButton', BaseClearButton)
+Vue.component('BaseCompanyLogo', BaseCompanyLogo)
+Vue.component('BaseOffersList', BaseOffersList)
+Vue.component('Pagination', Pagination)
+Vue.component('BaseHero', BaseHero)
 
 library.add(faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, faHeart, faMoneyBillWave, faFileSignature, faClock, faCheckCircle, faSearch, faFacebook, faGoogle, faSortDown, faSortUp, faColumns, faSignOutAlt, faCheck, faTimes, faEdit, faTimesCircle, faFilter, faIndustry, faUser, faArrowLeft, faCog, faBriefcase)
 Vue.component('font-awesome-icon', FontAwesomeIcon)

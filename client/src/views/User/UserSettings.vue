@@ -10,13 +10,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import BaseHero from '@/components/Base/BaseHero'
 import UserInfoForm from '@/components/Forms/UserInfoForm'
 
 export default {
   name: 'UserSettings',
   components: {
-    BaseHero,
     UserInfoForm
   },
   computed: {

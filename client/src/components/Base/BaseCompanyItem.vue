@@ -42,13 +42,8 @@
 </template>
 
 <script>
-import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
-
 export default {
   name: 'BaseCompanyItem',
-  components: {
-    BaseCompanyLogo
-  },
   props: {
     company: {
       type: Object,

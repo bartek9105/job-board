@@ -99,11 +99,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
-import BaseHero from '@/components/Base/BaseHero'
 import BaseCompany from '@/components/Base/BaseCompany'
-import BaseButton from '@/components/Base/Buttons/BaseButton'
-import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
 import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
 import SimilarOffers from '@/components/SimilarOffers'
@@ -112,12 +108,8 @@ import HeroContentContainer from '@/components/Base/UIContainers/HeroContentCont
 export default {
   name: 'OfferDetails',
   components: {
-    BaseCompanyLogo,
     BaseCompany,
-    BaseHero,
-    BaseButton,
     BaseGoBackButton,
-    BaseClearButton,
     OfferApplyForm,
     SimilarOffers,
     HeroContentContainer

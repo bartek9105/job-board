@@ -12,14 +12,10 @@
 </template>
 
 <script>
-import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'BaseLoggedUserBadge',
-  components: {
-    BaseCompanyLogo
-  },
   props: {
     loggedInUserName: String
   },

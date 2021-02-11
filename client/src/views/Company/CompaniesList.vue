@@ -35,15 +35,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import BaseHero from '@/components/Base/BaseHero'
-import BaseButton from '@/components/Base/Buttons/BaseButton'
 import BaseCompaniesList from '@/components/Base/BaseCompaniesList'
 
 export default {
   name: 'CompaniesList',
   components: {
-    BaseHero,
-    BaseButton,
     BaseCompaniesList
   },
   data() {

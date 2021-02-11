@@ -14,12 +14,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import BaseHero from '@/components/Base/BaseHero'
 import OffersTable from '@/components/OffersTable'
 export default {
   name: 'Dashboard',
   components: {
-    BaseHero,
     OffersTable
   },
   computed: {

@@ -72,13 +72,9 @@
 
 <script>
 import { daysDifference } from '@/utils/date/daysDifference'
-import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
 
 export default {
   name: 'BaseOffer',
-  components: {
-    BaseCompanyLogo
-  },
   props: {
     offer: Object
   },

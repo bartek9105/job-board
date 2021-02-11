@@ -19,14 +19,12 @@
 
 <script>
 import Auth from '@/components/Forms/AuthForm'
-import BaseButton from '@/components/Base/Buttons/BaseButton'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'Login',
   components: {
-    Auth,
-    BaseButton
+    Auth
   },
   data() {
     return {

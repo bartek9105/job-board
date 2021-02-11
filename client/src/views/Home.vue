@@ -36,24 +36,16 @@
 </template>
 
 <script>
-import BaseHero from '@/components/Base/BaseHero'
 import JobSearchForm from '@/components/Forms/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
-import Pagination from '@/components/Pagination'
-import Container from '@/components/Base/UIContainers/Container'
-import BaseOffersList from '@/components/Base/BaseOffersList'
 
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
-    BaseHero,
     JobSearchForm,
-    JobSearch,
-    Pagination,
-    Container,
-    BaseOffersList
+    JobSearch
   },
   data() {
     return {

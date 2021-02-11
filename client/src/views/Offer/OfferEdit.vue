@@ -19,12 +19,10 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import OfferForm from '@/components/Forms/Offer/OfferForm'
-import BaseHero from '@/components/Base/BaseHero'
 export default {
   name: 'OfferEdit',
   components: {
-    OfferForm,
-    BaseHero
+    OfferForm
   },
   computed: {
     ...mapGetters(['getOffersByUser']),

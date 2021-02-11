@@ -40,8 +40,6 @@
 <script>
 import TextEditor from '@/components/TextEditor'
 import TagInput from '@/components/TagInput'
-import BaseButton from '@/components/Base/Buttons/BaseButton'
-import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
 import ImageUploadInput from '@/components/ImageUploadInput'
 import { mapGetters } from 'vuex'
 
@@ -50,8 +48,6 @@ export default {
   components: {
     TextEditor,
     TagInput,
-    BaseButton,
-    BaseClearButton,
     ImageUploadInput
   },
   props: {

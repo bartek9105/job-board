@@ -49,13 +49,11 @@
 
 <script>
 import BaseLogo from '@/components/Base/BaseLogo'
-import Container from '@/components/Base/UIContainers/Container'
 
 export default {
   name: 'TheFooter',
   components: {
-    BaseLogo,
-    Container
+    BaseLogo
   },
   data() {
     return {

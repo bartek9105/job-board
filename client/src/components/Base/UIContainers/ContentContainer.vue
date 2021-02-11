@@ -7,12 +7,8 @@
 </template>
 
 <script>
-import Container from '@/components/Base/UIContainers/Container'
 export default {
-  name: 'ContentContainer',
-  components: {
-    Container
-  }
+  name: 'ContentContainer'
 }
 </script>
 

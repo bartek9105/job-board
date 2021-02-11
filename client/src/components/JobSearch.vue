@@ -18,12 +18,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/Base/Buttons/BaseButton'
-
 export default {
-  components: {
-    BaseButton
-  },
   props: {
     offersNumber: {
       type: Number

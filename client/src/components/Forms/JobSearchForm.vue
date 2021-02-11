@@ -150,15 +150,11 @@
 </template>
 
 <script>
-import BaseButton from '@/components/Base/Buttons/BaseButton'
-import BaseClearButton from '@/components/Base/Buttons/BaseClearButton'
 import TagInput from '@/components/TagInput'
 
 export default {
   name: 'JobSearchForm',
   components: {
-    BaseButton,
-    BaseClearButton,
     TagInput
   },
   props: {

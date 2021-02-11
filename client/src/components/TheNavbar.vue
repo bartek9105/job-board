@@ -38,14 +38,12 @@
 <script>
 import StorageService from '@/services/storage.service'
 import BaseLogo from '@/components/Base/BaseLogo'
-import BaseButton from '@/components/Base/Buttons/BaseButton'
 import NavbarDropdown from '@/components/NavbarDropdown'
 import BaseLoggedUserBadge from '@/components/Base/BaseLoggedUserBadge'
 
 export default {
   components: {
     BaseLogo,
-    BaseButton,
     NavbarDropdown,
     BaseLoggedUserBadge
   },

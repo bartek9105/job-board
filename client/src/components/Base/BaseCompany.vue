@@ -23,14 +23,8 @@
 </template>
 
 <script>
-import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
-import BaseButton from '@/components/Base/Buttons/BaseButton'
 export default {
   name: 'BaseCompany',
-  components: {
-    BaseCompanyLogo,
-    BaseButton
-  },
   props: {
     company: Object
   }

@@ -42,17 +42,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import BaseHero from '@/components/Base/BaseHero'
-import BaseCompanyLogo from '@/components/Base/BaseCompanyLogo'
 import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
-import ContentContainer from '@/components/Base/UIContainers/ContentContainer'
 
 export default {
   name: 'CompanyDetails',
   components: {
-    BaseHero,
-    ContentContainer,
-    BaseCompanyLogo,
     HeroContentContainer
   },
   props: {

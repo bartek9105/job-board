@@ -60,7 +60,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import BaseHero from '@/components/Base/BaseHero'
 import Map from '@/components/Map'
 import OfferForm from '@/components/Forms/Offer/OfferForm'
 import PriceCard from '@/components/Base/BasePriceCard'
@@ -68,7 +67,6 @@ import PriceCard from '@/components/Base/BasePriceCard'
 export default {
   name: 'OfferPost',
   components: {
-    BaseHero,
     Map,
     OfferForm,
     PriceCard
