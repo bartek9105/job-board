@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './modules/auth'
 import offers from './modules/offers'
-import technologies from './modules/technologies'
 import products from './modules/products'
 import benefits from './modules/benefits'
 import users from './modules/users'
@@ -19,7 +18,6 @@ export default new Vuex.Store({
   modules: {
     auth,
     offers,
-    technologies,
     products,
     benefits,
     users

@@ -114,7 +114,7 @@
         <span class="job-form-unit__name">Technologies</span>
         <TagInput
           :tag-items="offer.technologies"
-          :list-items="getTechnologies"
+          :list-items="technologies"
           @items="tagsTechnologies"
         />
       </div>
@@ -193,6 +193,7 @@ import { ValidationProvider } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
 import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
+import technologies from '@/constants/technologies'
 
 export default {
   name: 'OfferForm',
@@ -216,7 +217,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchProducts', 'fetchTechnologies', 'fetchBenefits']),
+    ...mapActions(['fetchProducts', 'fetchBenefits']),
     emitLocation() {
       this.$emit('location', this.offer.location)
     },
@@ -234,20 +235,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'getProducts',
-      'getSessionId',
-      'getTechnologies',
-      'getBenefits'
-    ])
+    ...mapGetters(['getProducts', 'getSessionId', 'getBenefits'])
   },
   mounted() {
     this.fetchProducts()
-    this.fetchTechnologies()
     this.fetchBenefits()
   },
   created() {
     this.offerDetails = offerDetails
+    this.technologies = technologies
   }
 }
 </script>

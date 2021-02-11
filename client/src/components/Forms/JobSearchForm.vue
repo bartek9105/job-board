@@ -53,7 +53,7 @@
             <span class="job-search__input-name">Technologies</span>
             <TagInput
               class="tags"
-              :technologies="queries.technologies"
+              :list-items="technologies"
               @technologies="tagsTechnologies"
             />
           </div>
@@ -105,6 +105,7 @@
 import TagInput from '@/components/TagInput'
 import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
+import technologies from '@/constants/technologies'
 
 export default {
   name: 'JobSearchForm',
@@ -133,6 +134,7 @@ export default {
   },
   created() {
     this.offerDetails = offerDetails
+    this.technologies = technologies
   },
   methods: {
     emitFormData() {

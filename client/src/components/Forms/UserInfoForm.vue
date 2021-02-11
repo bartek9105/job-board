@@ -20,7 +20,7 @@
       <div class="user-settings__form-unit">
         <span class="user-settings__form-unit__name">
           Company stack
-          <TagInput :list-items="getTechnologies" @items="tagsTechnologies" />
+          <TagInput :list-items="technologies" @items="tagsTechnologies" />
         </span>
       </div>
       <div class="user-settings__form-unit">
@@ -41,7 +41,7 @@
 import TextEditor from '@/components/TextEditor'
 import TagInput from '@/components/TagInput'
 import ImageUploadInput from '@/components/ImageUploadInput'
-import { mapGetters } from 'vuex'
+import technologies from '@/constants/technologies'
 
 export default {
   name: 'UserInfoForm',
@@ -59,8 +59,8 @@ export default {
       avatar: null
     }
   },
-  computed: {
-    ...mapGetters(['getTechnologies'])
+  created() {
+    this.technologies = technologies
   },
   methods: {
     tagsTechnologies(technologies) {
