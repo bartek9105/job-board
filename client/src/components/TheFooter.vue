@@ -25,17 +25,24 @@
           <span>Follow us</span>
           <div class="footer__socials-container">
             <a href="#">
-              <i class="social-icon fab fa-linkedin" />
+              <font-awesome-icon
+                :icon="['fab', 'facebook']"
+                class="social-icon"
+              />
+            </a>
+            <a href="#">
+              <font-awesome-icon
+                :icon="['fab', 'linkedin']"
+                class="social-icon"
+              />
             </a>
             <a href="#" />
+            <font-awesome-icon :icon="['fab', 'google']" class="social-icon" />
             <a href="#">
-              <i class="social-icon fab fa-instagram" />
-            </a>
-            <a href="#">
-              <i class="social-icon fab fa-github" />
-            </a>
-            <a href="#">
-              <i class="social-icon fas fa-globe-americas" />
+              <font-awesome-icon
+                :icon="['fab', 'instagram']"
+                class="social-icon"
+              />
             </a>
           </div>
         </div>
@@ -63,7 +70,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .footer {
   background-color: $white;
   &__navs-container {
@@ -80,7 +87,7 @@ export default {
   &__socials {
     @include flex(null, null, column);
     &-container {
-      margin-top: $margin-md;
+      margin-top: $margin-sm;
       .social-icon {
         font-size: $font-icon-md;
         margin-right: 20px;

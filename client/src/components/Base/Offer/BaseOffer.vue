@@ -184,6 +184,7 @@ export default {
   &__like-btn {
     background: none;
     font-size: $font-icon-sm;
+    color: $dark-blue-lighter;
   }
 }
 </style>

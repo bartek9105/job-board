@@ -71,7 +71,7 @@ export default {
     async addOffer({ commit }, payload) {
       try {
         const addedOffer = await OfferService.addOffer(payload)
-        Vue.toasted.success('Added job offer')
+        Vue.toasted.success('Offer added', { icon: 'check-circle' })
         const sessionId = addedOffer.id
         commit('SET_SESSION_ID', sessionId)
       } catch (error) {
@@ -81,7 +81,7 @@ export default {
     async editOffer(_, offerData) {
       try {
         await OfferService.editOffer(offerData)
-        Vue.toasted.success('Offer edited')
+        Vue.toasted.success('Offer edited', { icon: 'check-circle' })
         router.replace('/dashboard')
       } catch (error) {
         console.log(error)
@@ -91,7 +91,7 @@ export default {
       try {
         await OfferService.deleteOffer(offerId)
         commit('DELETE_OFFER', offerId)
-        Vue.toasted.success('Offer deleted')
+        Vue.toasted.success('Offer deleted', { icon: 'check-circle' })
       } catch (error) {
         console.log(error)
       }

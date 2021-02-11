@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import UserService from '@/services/user.service'
 
 export default ({
@@ -41,6 +42,7 @@ export default ({
     async updateUserInfo(_, userInfo) {
       try {
         await UserService.updateUserInfo(userInfo)
+        Vue.toasted.success('User info updated', { icon: 'check-circle' })
       } catch (error) {
         console.log(error)
       }

@@ -14,7 +14,7 @@ export default ({
       try {
         await AuthService.login(credentials)
         router.push('/')
-        Vue.toasted.success('Successfuly logged in')
+        Vue.toasted.success('Successfuly logged in', { icon: 'check-circle' })
       } catch (error) {
         console.log(error)
       }
@@ -22,7 +22,7 @@ export default ({
     async register(_, credentials) {
       try {
         await AuthService.register(credentials)
-        Vue.toasted.success('Successfuly registered')
+        Vue.toasted.success('Successfuly registered', { icon: 'check-circle' })
         router.push('/login')
       } catch (error) {
         console.log(error)
@@ -31,7 +31,7 @@ export default ({
     async logout() {
       try {
         await AuthService.logout()
-        Vue.toasted.success('Successfuly logged out')
+        Vue.toasted.success('Successfuly logged out', { icon: 'check-circle' })
         window.location.reload()
       } catch (error) {
         console.log(error)

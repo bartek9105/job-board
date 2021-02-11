@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import Toasted from 'vue-toasted'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faGoogle, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, faHeart, faMoneyBillWave, faFileSignature, faClock, faCheckCircle, faSearch, faSortDown, faSortUp, faColumns, faSignOutAlt, faCheck, faTimes, faEdit, faTimesCircle, faFilter, faIndustry, faUser, faArrowLeft, faCog, faBriefcase } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './utils/formValidationRules'
@@ -27,20 +27,13 @@ Vue.component('BaseOffersList', BaseOffersList)
 Vue.component('Pagination', Pagination)
 Vue.component('BaseHero', BaseHero)
 
-library.add(faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, faHeart, faMoneyBillWave, faFileSignature, faClock, faCheckCircle, faSearch, faFacebook, faGoogle, faSortDown, faSortUp, faColumns, faSignOutAlt, faCheck, faTimes, faEdit, faTimesCircle, faFilter, faIndustry, faUser, faArrowLeft, faCog, faBriefcase)
+library.add(faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, faHeart, faMoneyBillWave, faFileSignature, faClock, faCheckCircle, faSearch, faFacebook, faGoogle, faLinkedin, faInstagram, faSortDown, faSortUp, faColumns, faSignOutAlt, faCheck, faTimes, faEdit, faTimesCircle, faFilter, faIndustry, faUser, faArrowLeft, faCog, faBriefcase)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(Toasted, {
+  iconPack: 'fontawesome',
   position: 'bottom-center',
   duration: 2000
-})
-
-Vue.toasted.register('success', {
-  type: 'success',
-})
-
-Vue.toasted.register('error', {
-  type: 'error'
 })
 
 Vue.config.productionTip = false
