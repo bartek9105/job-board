@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'BaseCompany',
+  name: 'BaseCompanyInfo',
   props: {
     company: Object
   }

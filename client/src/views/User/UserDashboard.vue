@@ -14,7 +14,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import OffersTable from '@/components/OffersTable'
+import OffersTable from '@/components/Base/Offer/OffersTable'
 export default {
   name: 'Dashboard',
   components: {

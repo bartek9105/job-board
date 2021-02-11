@@ -35,7 +35,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import BaseCompaniesList from '@/components/Base/BaseCompaniesList'
+import BaseCompaniesList from '@/components/Base/Company/BaseCompaniesList'
 
 export default {
   name: 'CompaniesList',

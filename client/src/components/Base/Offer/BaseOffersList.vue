@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import JobOffer from '@/components/Base/BaseOffer'
+import JobOffer from '@/components/Base/Offer/BaseOffer'
 
 export default {
   name: 'BaseOffersList',

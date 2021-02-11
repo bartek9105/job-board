@@ -91,18 +91,20 @@
         </div>
       </div>
     </main>
-    <section class="similar-offers">
-      <SimilarOffers :category="getOffer.category" />
+    <section>
+      <Container>
+        <SimilarOffersList :category="getOffer.category" />
+      </Container>
     </section>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import BaseCompany from '@/components/Base/BaseCompany'
+import BaseCompany from '@/components/Base/Company/BaseCompanyInfo'
 import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
-import SimilarOffers from '@/components/SimilarOffers'
+import SimilarOffersList from '@/components/Base/Offer/SimilarOffersList'
 import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
 
 export default {
@@ -111,7 +113,7 @@ export default {
     BaseCompany,
     BaseGoBackButton,
     OfferApplyForm,
-    SimilarOffers,
+    SimilarOffersList,
     HeroContentContainer
   },
   props: {
@@ -213,10 +215,5 @@ export default {
   .btn {
     margin-right: 20px;
   }
-}
-.similar-offers {
-  width: 100%;
-  background-color: $bg-grey;
-  padding-bottom: $padding-sm;
 }
 </style>

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import BaseCompanyItem from '@/components/Base/BaseCompanyItem'
+import BaseCompanyItem from '@/components/Base/Company/BaseCompanyItem'
 
 export default {
   name: 'BaseCompaniesList',
