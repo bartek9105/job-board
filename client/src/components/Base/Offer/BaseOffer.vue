@@ -14,7 +14,7 @@
         </div>
         <div class="offer__pay">
           <font-awesome-icon icon="money-bill-wave" class="offer__pay__icon" />
-          {{ offer.salaryMin }} - {{ offer.salaryMax }} PLN
+          {{ salaryRange }}
         </div>
         <div class="offer__city">
           <font-awesome-icon
@@ -77,6 +77,11 @@ export default {
   name: 'BaseOffer',
   props: {
     offer: Object
+  },
+  computed: {
+    salaryRange() {
+      return `${this.offer.salaryMin} - ${this.offer.salaryMax} PLN`
+    }
   },
   methods: {
     daysDifference

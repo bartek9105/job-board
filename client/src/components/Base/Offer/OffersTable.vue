@@ -2,26 +2,12 @@
   <table class="offers-table">
     <thead class="offers-table__header">
       <tr class="offers-table__header__row">
-        <th class="offers-table__header__row__cell">
-          Title
-        </th>
-        <th class="offers-table__header__row__cell">
-          Category
-        </th>
-        <th class="offers-table__header__row__cell">
-          Status
-        </th>
-        <th class="offers-table__header__row__cell">
-          Created
-        </th>
-        <th class="offers-table__header__row__cell">
-          Expires
-        </th>
-        <th class="offers-table__header__row__cell">
-          Promoted
-        </th>
-        <th class="offers-table__header__row__cell">
-          Actions
+        <th
+          v-for="(header, index) in tableHeaders"
+          :key="index"
+          class="offers-table__header__row__cell"
+        >
+          {{ header }}
         </th>
       </tr>
     </thead>
@@ -86,6 +72,19 @@ export default {
   name: 'OffersTable',
   props: {
     offers: Array
+  },
+  data() {
+    return {
+      tableHeaders: [
+        'Title',
+        'Category',
+        'Status',
+        'Created',
+        'Expires',
+        'Promoted',
+        'Actions'
+      ]
+    }
   },
   methods: {
     dateISOToString,
