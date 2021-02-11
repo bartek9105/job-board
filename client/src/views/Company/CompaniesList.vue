@@ -27,35 +27,24 @@
         </form>
       </template>
     </BaseHero>
-    <div class="company-items-container">
-      <div class="company-items">
-        <div v-for="company in getUsers" :key="company._id">
-          <router-link
-            :to="{
-              name: 'CompanyDetails',
-              params: { userId: company._id, slug: company.slug }
-            }"
-          >
-            <BaseCompanyItem :company="company" />
-          </router-link>
-        </div>
-      </div>
-    </div>
+    <Container>
+      <BaseCompaniesList :companies="getUsers" class="company-items" />
+    </Container>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import BaseCompanyItem from '@/components/Base/BaseCompanyItem'
 import BaseHero from '@/components/Base/BaseHero'
 import BaseButton from '@/components/Base/Buttons/BaseButton'
+import BaseCompaniesList from '@/components/Base/BaseCompaniesList'
 
 export default {
   name: 'CompaniesList',
   components: {
-    BaseCompanyItem,
     BaseHero,
-    BaseButton
+    BaseButton,
+    BaseCompaniesList
   },
   data() {
     return {
@@ -95,11 +84,6 @@ export default {
       margin-bottom: $margin-sm;
     }
   }
-}
-.company-items-container {
-  width: 100%;
-  background: $bg-grey;
-  padding: $padding-lg 0;
 }
 .company-items {
   position: relative;

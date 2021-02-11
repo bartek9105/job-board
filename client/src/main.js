@@ -9,6 +9,9 @@ import { faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './utils/formValidationRules'
 import './assets/css/index.scss'
+import Container from '@/components/Base/UIContainers/Container'
+
+Vue.component('Container', Container)
 
 library.add(faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, faHeart, faMoneyBillWave, faFileSignature, faClock, faCheckCircle, faSearch, faFacebook, faGoogle, faSortDown, faSortUp, faColumns, faSignOutAlt, faCheck, faTimes, faEdit, faTimesCircle, faFilter, faIndustry, faUser, faArrowLeft, faCog, faBriefcase)
 Vue.component('font-awesome-icon', FontAwesomeIcon)

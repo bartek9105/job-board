@@ -25,11 +25,9 @@
           <span>Follow us</span>
           <div class="footer__socials-container">
             <a href="#">
-              <font-awesome-icon icon="linkedin" />
+              <i class="social-icon fab fa-linkedin" />
             </a>
-            <a href="#">
-              <i class="social-icon fab fa-facebook" />
-            </a>
+            <a href="#" />
             <a href="#">
               <i class="social-icon fab fa-instagram" />
             </a>
