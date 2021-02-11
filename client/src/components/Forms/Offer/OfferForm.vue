@@ -154,7 +154,7 @@
         <span class="job-form-unit__name">Benefits</span>
         <TagInput
           :tag-items="offer.benefits"
-          :list-items="getBenefits"
+          :list-items="benefits"
           @items="tagsBenefits"
         />
       </div>
@@ -194,6 +194,7 @@ import { mapActions, mapGetters } from 'vuex'
 import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
+import benefits from '@/constants/benefits'
 
 export default {
   name: 'OfferForm',
@@ -217,7 +218,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchProducts', 'fetchBenefits']),
+    ...mapActions(['fetchProducts']),
     emitLocation() {
       this.$emit('location', this.offer.location)
     },
@@ -235,15 +236,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getProducts', 'getSessionId', 'getBenefits'])
+    ...mapGetters(['getProducts', 'getSessionId'])
   },
   mounted() {
     this.fetchProducts()
-    this.fetchBenefits()
   },
   created() {
     this.offerDetails = offerDetails
     this.technologies = technologies
+    this.benefits = benefits
   }
 }
 </script>
