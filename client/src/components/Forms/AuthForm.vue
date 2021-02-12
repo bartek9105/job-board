@@ -106,6 +106,8 @@ export default {
   .form-container {
     @include flex(center, center, column);
     background: url('../../assets/images/pattern.svg') no-repeat;
+    background-position: center center;
+    background-size: cover;
     width: 60%;
   }
   .form-unit {
