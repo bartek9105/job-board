@@ -28,12 +28,12 @@
       </template>
     </BaseHero>
     <Container>
-      <div v-if="!getIsLoading">
-        <BaseCompaniesList :companies="getUsers" class="company-items" />
-      </div>
-      <div v-else>
-        <BaseSpinner />
-      </div>
+      <BaseCompaniesList
+        v-if="!getIsLoading"
+        :companies="getUsers"
+        class="company-items"
+      />
+      <BaseSpinner v-else />
     </Container>
   </div>
 </template>

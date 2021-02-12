@@ -8,9 +8,7 @@
       <div v-if="!getIsLoading" class="dashboard__offers">
         <OffersTable :offers="getOffersByUser" />
       </div>
-      <div v-else>
-        <BaseSpinner />
-      </div>
+      <BaseSpinner v-else />
     </div>
   </div>
 </template>

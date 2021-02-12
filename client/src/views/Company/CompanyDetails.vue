@@ -34,9 +34,7 @@
           <h3>About us</h3>
           <p v-html="getUser.about" />
         </section>
-        <div v-else>
-          <BaseSpinner />
-        </div>
+        <BaseSpinner v-else />
       </main>
     </ContentContainer>
   </div>

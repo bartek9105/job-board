@@ -18,7 +18,10 @@
 export default {
   name: 'BaseCompanyLogo',
   props: {
-    avatarUrl: String,
+    avatarUrl: {
+      type: String,
+      default: () => ''
+    },
     imgWidth: Number,
     imgHeight: Number
   },

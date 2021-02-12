@@ -4,6 +4,7 @@
       <HeroContentContainer>
         <template v-slot:logo>
           <BaseCompanyLogo
+            v-if="Object.entries(getOffer).length > 0"
             :avatar-url="getOffer.creator.avatarUrl"
             :img-width="100"
             :img-height="100"
@@ -90,16 +91,18 @@
           </div>
         </div>
         <div class="offer-details-company-info">
-          <BaseCompany :company="getOffer.creator" />
+          <BaseCompany
+            v-if="Object.entries(getOffer).length > 0"
+            :company="getOffer.creator"
+          />
         </div>
       </div>
-      <div v-else>
-        <BaseSpinner />
-      </div>
+      <BaseSpinner v-else />
     </main>
     <section>
       <Container>
-        <SimilarOffersList :category="getOffer.category" />
+        <SimilarOffersList v-if="!getIsLoading" :category="getOffer.category" />
+        <BaseSpinner v-else />
       </Container>
     </section>
   </div>
@@ -128,11 +131,6 @@ export default {
       default: () => ''
     }
   },
-  data() {
-    return {
-      isLoading: true
-    }
-  },
   methods: {
     ...mapActions(['fetchOffer'])
   },
@@ -141,15 +139,11 @@ export default {
   },
   watch: {
     offerId: function() {
-      this.fetchOffer(this.offerId).then(() => {
-        this.isLoading = false
-      })
+      this.fetchOffer(this.offerId)
     }
   },
   created() {
-    this.fetchOffer(this.offerId).then(() => {
-      this.isLoading = false
-    })
+    this.fetchOffer(this.offerId)
   }
 }
 </script>
