@@ -20,11 +20,8 @@ export default {
   computed: {
     ...mapGetters(['getUserInfo'])
   },
-  mounted() {
-    this.fetchUserInfo()
-  },
   methods: {
-    ...mapActions(['updateUserInfo', 'fetchUserInfo']),
+    ...mapActions(['updateUserInfo']),
     updateUser() {
       this.updateUserInfo(this.getUserInfo)
     }
