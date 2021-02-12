@@ -16,6 +16,7 @@
         v-for="offer in offers"
         :key="offer._id"
         class="offers-table__body__row"
+        @click="goToOffer(offer._id, offer.slug)"
       >
         <td
           class="offers-table__body__row__cell offers-table__body__row__cell__title"
@@ -46,7 +47,7 @@
             class="offers-table__body__row__cell__icon__times"
           />
         </td>
-        <td class="offers-table__body__row__cell">
+        <td class="offers-table__body__row__cell" @click.stop="">
           <div class="offers-table__body__row__cell__icons-container">
             <font-awesome-icon
               icon="edit"
@@ -89,11 +90,11 @@ export default {
   methods: {
     dateISOToString,
     ...mapActions(['removeOffer']),
-    goToOffer(offerId) {
-      this.$router.push({ path: `/offer/${offerId}` })
+    goToOffer(offerId, slug) {
+      this.$router.push({ name: 'OfferDetails', params: { offerId, slug } })
     },
     editOffer(offerId) {
-      this.$router.push({ path: `/offer/${offerId}/edit` })
+      this.$router.push({ path: `offer/${offerId}/edit` })
     },
     deleteOffer(offerId) {
       this.removeOffer(offerId)
