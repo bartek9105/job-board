@@ -97,7 +97,6 @@ export default {
 
 <style lang="scss">
 .post-offer-form-container {
-  background: $bg-grey;
   padding: $padding-lg 40px;
   .post-offer-form {
     max-width: $container-width;

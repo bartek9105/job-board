@@ -42,9 +42,6 @@ export default {
 </script>
 
 <style lang="scss">
-.offer-edit-container {
-  background-color: $bg-grey;
-}
 .offer-edit-form-container {
   max-width: $container-width;
   margin: 0 auto;

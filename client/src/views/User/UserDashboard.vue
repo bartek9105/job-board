@@ -34,9 +34,6 @@ export default {
 </script>
 
 <style lang="scss">
-.dashboard-container {
-  background-color: $bg-grey;
-}
 .dashboard {
   max-width: $nav-width;
   margin: 0 auto;

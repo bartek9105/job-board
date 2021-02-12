@@ -37,7 +37,7 @@
         </template>
       </HeroContentContainer>
     </BaseHero>
-    <main class="main-section">
+    <main>
       <div class="offer-details-container">
         <div v-if="!getIsLoading" class="offer-details-offer-info">
           <section class="offer-details-section">
@@ -164,9 +164,6 @@ export default {
   .offer-details-container-row {
     @include flex();
   }
-}
-.main-section {
-  background: $bg-grey;
 }
 
 .offer-details-offer-info {
