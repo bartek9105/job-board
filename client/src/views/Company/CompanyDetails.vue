@@ -2,7 +2,7 @@
   <div class="company">
     <BaseHero>
       <HeroContentContainer>
-        <template v-slot:logo>
+        <template v-if="!getIsLoading" v-slot:logo>
           <BaseCompanyLogo
             :avatar-url="getUser.avatarUrl"
             :img-width="100"
@@ -30,11 +30,13 @@
     </BaseHero>
     <ContentContainer>
       <main>
-        <section>
+        <section v-if="!getIsLoading">
           <h3>About us</h3>
           <p v-html="getUser.about" />
         </section>
-        <section />
+        <div v-else>
+          <BaseSpinner />
+        </div>
       </main>
     </ContentContainer>
   </div>
@@ -59,7 +61,7 @@ export default {
     ...mapActions(['fetchUser'])
   },
   computed: {
-    ...mapGetters(['getUser'])
+    ...mapGetters(['getUser', 'getIsLoading'])
   },
   created() {
     this.fetchUser(this.userId)

@@ -9,7 +9,7 @@
             :img-height="100"
           />
         </template>
-        <template v-slot:details>
+        <template v-if="!getIsLoading" v-slot:details>
           <h1>{{ getOffer.title }}</h1>
           <span>
             <font-awesome-icon icon="map-marker-alt" />
@@ -31,10 +31,13 @@
             <span>{{ getOffer.category }}</span>
           </div>
         </template>
+        <template v-else v-slot:details>
+          <BaseSpinner />
+        </template>
       </HeroContentContainer>
     </BaseHero>
     <main class="main-section">
-      <div class="offer-details-container">
+      <div v-if="!getIsLoading" class="offer-details-container">
         <div class="offer-details-offer-info">
           <section class="offer-details-section">
             <div class="offer__go-back-btn">
@@ -90,6 +93,9 @@
           <BaseCompany :company="getOffer.creator" />
         </div>
       </div>
+      <div v-else>
+        <BaseSpinner />
+      </div>
     </main>
     <section>
       <Container>
@@ -131,7 +137,7 @@ export default {
     ...mapActions(['fetchOffer'])
   },
   computed: {
-    ...mapGetters(['getOffer'])
+    ...mapGetters(['getOffer', 'getIsLoading'])
   },
   watch: {
     offerId: function() {

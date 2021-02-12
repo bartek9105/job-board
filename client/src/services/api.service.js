@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../store/index'
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api/v1/',
@@ -6,7 +7,12 @@ const api = axios.create({
 })
 
 const axiosInterceptor = instance => {
+  instance.interceptors.request.use(request => {
+    store.dispatch('setIsLoading', true)
+    return request
+  })
   const interceptor = instance.interceptors.response.use(response => {
+    store.dispatch('setIsLoading', false)
     return response
   }, error => {
     if (error.response.status !== 401) {
