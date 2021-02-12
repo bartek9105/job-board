@@ -10,6 +10,7 @@ import UserDashboard from '@/views/User/UserDashboard'
 import UserSettings from '@/views/User/UserSettings'
 import CompaniesList from '@/views/Company/CompaniesList'
 import CompanyDetails from '@/views/Company/CompanyDetails'
+import NotFound from '@/views/NotFound'
 
 Vue.use(VueRouter)
 
@@ -65,6 +66,11 @@ const routes = [
     name: 'CompanyDetails',
     component: CompanyDetails,
     props: true
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: NotFound,
   }
 ]
 

@@ -14,7 +14,11 @@ export default {
   },
   computed: {
     isLoginOrRegister() {
-      return this.$route.name === 'Login' || this.$route.name === 'Register'
+      return (
+        this.$route.name === 'Login' ||
+        this.$route.name === 'Register' ||
+        this.$route.name === 'NotFound'
+      )
     }
   }
 }
