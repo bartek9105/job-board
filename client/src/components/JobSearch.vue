@@ -1,14 +1,14 @@
 <template>
   <div class="job-search">
     <h1 class="job-search__heading">
-      Search through {{ offersNumber }} code job offers
+      Type in offer name you are looking for
     </h1>
     <form class="job-search__job-form" @submit.prevent>
       <input
         v-model="query"
         type="text"
         class="job-search__job-form__input"
-        placeholder="Type in job you are looking for"
+        placeholder="Offer title"
       />
       <BaseButton @click.native="emitQuery">
         Search
@@ -19,11 +19,6 @@
 
 <script>
 export default {
-  props: {
-    offersNumber: {
-      type: Number
-    }
-  },
   data() {
     return {
       query: ''

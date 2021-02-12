@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseOffersList :offers="getOffers" />
+    <BaseOffersList :offers="getOffers.data" />
   </div>
 </template>
 

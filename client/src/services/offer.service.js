@@ -41,7 +41,7 @@ const OfferService = {
           paramsSerializer: params => qs.stringify(params)
         }
       )
-      return offers.data.data
+      return offers.data
     } catch (error) {
       console.log(error)
     }

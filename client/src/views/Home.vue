@@ -1,7 +1,7 @@
 <template>
   <div>
     <BaseHero>
-      <JobSearch :offers-number="offersNumber" @searchQuery="query" />
+      <JobSearch @searchQuery="query" />
     </BaseHero>
     <main>
       <section class="job-search-form">
@@ -15,20 +15,17 @@
       </section>
       <section>
         <Container>
-          <div v-if="!getIsLoading" class="offers-list">
+          <div class="offers-list">
             <p class="offers-list__offers-info">
-              {{ offersSearchInfo }}
+              {{ foundOffersNumber }}
             </p>
-            <BaseOffersList :offers="getOffers" />
+            <BaseOffersList v-if="!getIsLoading" :offers="getOffers.data" />
+            <BaseSpinner v-else />
             <Pagination
-              v-if="offersNumber"
               :pages="getOffers.pages"
               class="offers-list__pagination"
               @pageChange="pageNumber"
             />
-          </div>
-          <div v-else>
-            <BaseSpinner />
           </div>
         </Container>
       </section>
@@ -70,11 +67,10 @@ export default {
   },
   computed: {
     ...mapGetters(['getOffers', 'getIsLoading']),
-    offersNumber() {
-      return this.getOffers ? this.getOffers.length : null
-    },
-    offersSearchInfo() {
-      return `${this.getOffers.length} offers found for specified criteria`
+    foundOffersNumber() {
+      return this.getOffers.data
+        ? `${this.getOffers.data.length} offers found for specified criteria`
+        : null
     }
   },
   created() {
