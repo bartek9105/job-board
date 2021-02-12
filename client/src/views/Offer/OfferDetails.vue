@@ -38,8 +38,8 @@
       </HeroContentContainer>
     </BaseHero>
     <main class="main-section">
-      <div v-if="!getIsLoading" class="offer-details-container">
-        <div class="offer-details-offer-info">
+      <div class="offer-details-container">
+        <div v-if="!getIsLoading" class="offer-details-offer-info">
           <section class="offer-details-section">
             <div class="offer__go-back-btn">
               <BaseGoBackButton />
@@ -90,14 +90,15 @@
             <BaseClearButton>Reset form</BaseClearButton>
           </div>
         </div>
-        <div class="offer-details-company-info">
+        <BaseSpinner v-else />
+        <div v-if="!getIsLoading" class="offer-details-company-info">
           <BaseCompany
             v-if="Object.entries(getOffer).length > 0"
             :company="getOffer.creator"
           />
         </div>
+        <BaseSpinner v-else />
       </div>
-      <BaseSpinner v-else />
     </main>
     <section>
       <Container>
