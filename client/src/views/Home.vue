@@ -1,9 +1,7 @@
 <template>
   <div>
     <BaseHero>
-      <template v-slot:hero-content>
-        <JobSearch :offers-number="offersNumber" @searchQuery="query" />
-      </template>
+      <JobSearch :offers-number="offersNumber" @searchQuery="query" />
     </BaseHero>
     <main>
       <section class="job-search-form">
