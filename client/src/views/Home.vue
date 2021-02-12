@@ -17,7 +17,7 @@
       </section>
       <section>
         <Container>
-          <div v-if="getOffers" class="offers-list">
+          <div v-if="!getIsLoading" class="offers-list">
             <p class="offers-list__offers-info">
               {{ offersSearchInfo }}
             </p>
@@ -28,6 +28,9 @@
               class="offers-list__pagination"
               @pageChange="pageNumber"
             />
+          </div>
+          <div v-else>
+            <BaseSpinner />
           </div>
         </Container>
       </section>
@@ -68,7 +71,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getOffers']),
+    ...mapGetters(['getOffers', 'getIsLoading']),
     offersNumber() {
       return this.getOffers ? this.getOffers.length : null
     },

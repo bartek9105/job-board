@@ -5,9 +5,10 @@
       <h1 class="dashboard__header">
         Offers added by you
       </h1>
-      <div class="dashboard__offers">
+      <div v-if="!getIsLoading" class="dashboard__offers">
         <OffersTable :offers="getOffersByUser" />
       </div>
+      <BaseSpinner v-else />
     </div>
   </div>
 </template>
@@ -21,7 +22,7 @@ export default {
     OffersTable
   },
   computed: {
-    ...mapGetters(['getOffersByUser'])
+    ...mapGetters(['getOffersByUser', 'getIsLoading'])
   },
   mounted() {
     this.fetchOffersByUser()

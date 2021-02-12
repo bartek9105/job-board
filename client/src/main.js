@@ -17,6 +17,7 @@ import BaseCompanyLogo from '@/components/Base/Company/BaseCompanyLogo'
 import BaseOffersList from '@/components/Base/Offer/BaseOffersList'
 import Pagination from '@/components/Pagination'
 import BaseHero from '@/components/Base/BaseHero'
+import BaseSpinner from '@/components/Base/BaseSpinner'
 
 Vue.component('Container', Container)
 Vue.component('ContentContainer', ContentContainer)
@@ -26,6 +27,7 @@ Vue.component('BaseCompanyLogo', BaseCompanyLogo)
 Vue.component('BaseOffersList', BaseOffersList)
 Vue.component('Pagination', Pagination)
 Vue.component('BaseHero', BaseHero)
+Vue.component('BaseSpinner', BaseSpinner)
 
 library.add(faUserSecret, faLongArrowAltLeft, faLongArrowAltRight, faMapMarkerAlt, faHeart, faMoneyBillWave, faFileSignature, faClock, faCheckCircle, faSearch, faFacebook, faGoogle, faLinkedin, faInstagram, faSortDown, faSortUp, faColumns, faSignOutAlt, faCheck, faTimes, faEdit, faTimesCircle, faFilter, faIndustry, faUser, faArrowLeft, faCog, faBriefcase)
 Vue.component('font-awesome-icon', FontAwesomeIcon)

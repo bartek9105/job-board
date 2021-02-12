@@ -4,12 +4,13 @@
       <HeroContentContainer>
         <template v-slot:logo>
           <BaseCompanyLogo
+            v-if="Object.entries(getOffer).length > 0"
             :avatar-url="getOffer.creator.avatarUrl"
             :img-width="100"
             :img-height="100"
           />
         </template>
-        <template v-slot:details>
+        <template v-if="!getIsLoading" v-slot:details>
           <h1>{{ getOffer.title }}</h1>
           <span>
             <font-awesome-icon icon="map-marker-alt" />
@@ -31,11 +32,14 @@
             <span>{{ getOffer.category }}</span>
           </div>
         </template>
+        <template v-else v-slot:details>
+          <BaseSpinner />
+        </template>
       </HeroContentContainer>
     </BaseHero>
     <main class="main-section">
       <div class="offer-details-container">
-        <div class="offer-details-offer-info">
+        <div v-if="!getIsLoading" class="offer-details-offer-info">
           <section class="offer-details-section">
             <div class="offer__go-back-btn">
               <BaseGoBackButton />
@@ -86,14 +90,20 @@
             <BaseClearButton>Reset form</BaseClearButton>
           </div>
         </div>
-        <div class="offer-details-company-info">
-          <BaseCompany :company="getOffer.creator" />
+        <BaseSpinner v-else />
+        <div v-if="!getIsLoading" class="offer-details-company-info">
+          <BaseCompany
+            v-if="Object.entries(getOffer).length > 0"
+            :company="getOffer.creator"
+          />
         </div>
+        <BaseSpinner v-else />
       </div>
     </main>
     <section>
       <Container>
-        <SimilarOffersList :category="getOffer.category" />
+        <SimilarOffersList v-if="!getIsLoading" :category="getOffer.category" />
+        <BaseSpinner v-else />
       </Container>
     </section>
   </div>
@@ -122,28 +132,19 @@ export default {
       default: () => ''
     }
   },
-  data() {
-    return {
-      isLoading: true
-    }
-  },
   methods: {
     ...mapActions(['fetchOffer'])
   },
   computed: {
-    ...mapGetters(['getOffer'])
+    ...mapGetters(['getOffer', 'getIsLoading'])
   },
   watch: {
     offerId: function() {
-      this.fetchOffer(this.offerId).then(() => {
-        this.isLoading = false
-      })
+      this.fetchOffer(this.offerId)
     }
   },
   created() {
-    this.fetchOffer(this.offerId).then(() => {
-      this.isLoading = false
-    })
+    this.fetchOffer(this.offerId)
   }
 }
 </script>

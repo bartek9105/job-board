@@ -28,7 +28,12 @@
       </template>
     </BaseHero>
     <Container>
-      <BaseCompaniesList :companies="getUsers" class="company-items" />
+      <BaseCompaniesList
+        v-if="!getIsLoading"
+        :companies="getUsers"
+        class="company-items"
+      />
+      <BaseSpinner v-else />
     </Container>
   </div>
 </template>
@@ -55,7 +60,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getUsers'])
+    ...mapGetters(['getUsers', 'getIsLoading'])
   },
   created() {
     this.fetchUsers()

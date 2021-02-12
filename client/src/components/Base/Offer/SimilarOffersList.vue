@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isLoading">
+  <div>
     <BaseOffersList :offers="getOffers" />
   </div>
 </template>
@@ -28,9 +28,7 @@ export default {
   },
   watch: {
     category: function() {
-      this.fetchOffers({ category: this.category }).then(() => {
-        this.isLoading = false
-      })
+      this.fetchOffers({ category: this.category })
     }
   }
 }
