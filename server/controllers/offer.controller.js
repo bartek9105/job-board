@@ -1,5 +1,6 @@
 const Offer = require('../models/Offer')
 const ErrorResponse = require('../utils/errorResponse')
+const geocodedData = require('../utils/geocoder')
 const Fuse = require('fuse.js')
 
 const {
@@ -97,6 +98,12 @@ exports.getOffer = async (req, res, next) => {
 }
 
 exports.addOffer = async (req, res, next) => {
+  const location = await geocodedData(
+    req.body.location.address,
+    req.body.location.city,
+    req.body.location.country
+  )
+  req.body.location = location
   const offerDTO = { creator: req.creatorId, ...req.body }
   try {
     const offer = await addOffer(offerDTO)

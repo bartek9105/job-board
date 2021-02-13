@@ -35,8 +35,7 @@ const employerSchema = new mongoose.Schema({
     trim: true,
   },
   location: {
-    type: String,
-    trim: true,
+    type: Object,
   },
   slug: {
     type: String,
