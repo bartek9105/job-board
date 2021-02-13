@@ -21,6 +21,7 @@
         @keydown.enter.prevent="onEnter"
       />
       <font-awesome-icon
+        v-if="itemsLocal.length > 0"
         icon="times-circle"
         class="tags__input__delete-all-icon"
         @click="deleteAllTags"
