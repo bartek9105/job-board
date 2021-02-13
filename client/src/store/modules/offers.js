@@ -4,7 +4,7 @@ import router from '../../router/index'
 
 export default {
   state: {
-    offers: [],
+    offers: {},
     offersByUser: [],
     offer: {},
     sessionId: ''

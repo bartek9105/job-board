@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseOffersList :offers="getOffers.data" />
+    <BaseOffersList :offers="getOffers" @pageChange="pageNumber" />
   </div>
 </template>
 
@@ -21,7 +21,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchOffers'])
+    ...mapActions(['fetchOffers']),
+    pageNumber(page) {
+      this.fetchOffers({ category: this.category, page })
+    }
   },
   computed: {
     ...mapGetters(['getOffers'])

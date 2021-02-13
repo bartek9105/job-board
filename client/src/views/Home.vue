@@ -19,13 +19,7 @@
             <p class="offers-list__offers-info">
               {{ foundOffersNumber }}
             </p>
-            <BaseOffersList v-if="!getIsLoading" :offers="getOffers.data" />
-            <BaseSpinner v-else />
-            <Pagination
-              :pages="getOffers.pages"
-              class="offers-list__pagination"
-              @pageChange="pageNumber"
-            />
+            <BaseOffersList :offers="getOffers" @pageChange="pageNumber" />
           </div>
         </Container>
       </section>

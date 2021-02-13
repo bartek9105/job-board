@@ -1,20 +1,25 @@
 <template>
   <div>
-    <div v-for="offer in offers" :key="offer._id">
-      <router-link
-        :to="{
-          name: 'OfferDetails',
-          params: { offerId: offer._id, slug: offer.slug }
-        }"
-      >
-        <JobOffer :offer="offer" />
-      </router-link>
+    <div v-if="!getIsLoading">
+      <div v-for="offer in offers.data" :key="offer._id">
+        <router-link
+          :to="{
+            name: 'OfferDetails',
+            params: { offerId: offer._id, slug: offer.slug }
+          }"
+        >
+          <JobOffer :offer="offer" />
+        </router-link>
+      </div>
     </div>
+    <BaseSpinner v-else />
+    <Pagination :pages="offers.pages" @pageChange="pageNumber" />
   </div>
 </template>
 
 <script>
 import JobOffer from '@/components/Base/Offer/BaseOffer'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'BaseOffersList',
@@ -22,7 +27,28 @@ export default {
     JobOffer
   },
   props: {
-    offers: Array
+    offers: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  data() {
+    return {
+      page: Number
+    }
+  },
+  computed: {
+    ...mapGetters(['getIsLoading'])
+  },
+  watch: {
+    page: function() {
+      this.$emit('pageChange', this.page)
+    }
+  },
+  methods: {
+    pageNumber(page) {
+      this.page = page
+    }
   }
 }
 </script>

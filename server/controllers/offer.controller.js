@@ -25,7 +25,7 @@ exports.getOffers = async (req, res, next) => {
     const parsedQuery = JSON.parse(query)
 
     const page = parseInt(req.query.page, 10) || 1
-    const limit = parseInt(req.query.limit, 10) || 30
+    const limit = parseInt(req.query.limit, 10) || 2
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
 
@@ -38,7 +38,10 @@ exports.getOffers = async (req, res, next) => {
       .sort({ isPromoted: -1, createdAt: 'desc' })
       .populate('creator')
 
-    const total = await Offer.find().countDocuments()
+    const total = await Offer.find({
+      ...parsedQuery,
+      $or: [{ status: 'free' }, { status: 'paid' }],
+    }).countDocuments()
 
     const pagination = {}
 

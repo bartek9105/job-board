@@ -102,8 +102,7 @@
     </main>
     <section>
       <Container>
-        <SimilarOffersList v-if="!getIsLoading" :category="getOffer.category" />
-        <BaseSpinner v-else />
+        <SimilarOffersList :category="getOffer.category" />
       </Container>
     </section>
   </div>
