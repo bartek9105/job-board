@@ -43,8 +43,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  created() {
-    store.dispatch('fetchUserInfo')
-  },
   render: h => h(App)
 }).$mount('#app')

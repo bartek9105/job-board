@@ -10,9 +10,10 @@ export default ({
   mutations: {
   },
   actions: {
-    async signIn(_, credentials) {
+    async signIn({ dispatch }, credentials) {
       try {
         await AuthService.login(credentials)
+        dispatch('fetchUserInfo')
         router.push('/')
         Vue.toasted.success('Successfuly logged in', { icon: 'check-circle' })
       } catch (error) {
