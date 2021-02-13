@@ -1,15 +1,17 @@
 <template>
-  <div class="dashboard-container">
+  <div>
     <BaseHero />
-    <div class="dashboard">
-      <h1 class="dashboard__header">
-        Offers added by you
-      </h1>
-      <div v-if="!getIsLoading" class="dashboard__offers">
-        <OffersTable :offers="getOffersByUser" />
+    <Container>
+      <div class="dashboard">
+        <h1 class="dashboard__header">
+          Offers added by you
+        </h1>
+        <div v-if="!getIsLoading" class="dashboard__offers">
+          <OffersTable :offers="getOffersByUser" />
+        </div>
+        <BaseSpinner v-else />
       </div>
-      <BaseSpinner v-else />
-    </div>
+    </Container>
   </div>
 </template>
 
@@ -33,11 +35,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .dashboard {
-  max-width: $nav-width;
-  margin: 0 auto;
-  padding: $padding-lg 0;
   &__offers {
     margin-top: $margin-md;
   }

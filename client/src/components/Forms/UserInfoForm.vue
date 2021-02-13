@@ -20,8 +20,8 @@
       <div class="user-settings__form-unit">
         <span class="user-settings__form-unit__name">
           Company stack
-          <TagInput :list-items="technologies" @items="tagsTechnologies" />
         </span>
+        <TagInput :list-items="technologies" @items="tagsTechnologies" />
       </div>
       <div class="user-settings__form-unit">
         <span class="user-settings__form-unit__name">About you</span>

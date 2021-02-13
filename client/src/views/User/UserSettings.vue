@@ -1,10 +1,11 @@
 <template>
   <div>
     <BaseHero />
-    <div class="user-settings-container">
+    <Container>
       <h1>Add info about your company</h1>
       <UserInfoForm :user-info="getUserInfo" :save-offer="updateUser" />
-    </div>
+      <Container />
+    </Container>
   </div>
 </template>
 
@@ -29,8 +30,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.user-settings-container {
-  width: 100%;
+<style lang="scss" scoped>
+h1 {
+  margin-bottom: $margin-md;
 }
 </style>

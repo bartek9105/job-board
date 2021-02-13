@@ -7,9 +7,9 @@
     </BaseHero>
     <div class="post-offer-form-container">
       <div class="post-offer-form">
-        <h3 class="post-offer-form__heading">
+        <h1 class="post-offer-form__heading">
           Post your job offer
-        </h3>
+        </h1>
         <OfferForm
           :offer="offer"
           :save-offer="saveOffer"
