@@ -21,7 +21,7 @@
             icon="map-marker-alt"
             class="offer__city__marker-icon"
           />
-          {{ offer.location }}
+          {{ offer.location.city }}
         </div>
         <div v-if="offer.isPromoted" class="offer__promoted">
           Featured

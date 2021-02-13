@@ -7,43 +7,33 @@
 <script>
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import axios from 'axios'
 
 export default {
   name: 'Map',
   props: {
-    location: String
+    location: Object,
+    title: String,
+    company: String
   },
   data() {
     return {
-      coordinates: [54, 18],
+      coordinates: [this.location.latitude, this.location.longitude],
       map: {}
     }
   },
   watch: {
-    location: async function(newLocation, oldLocation) {
-      await this.fetchCoordinates()
+    location: function(newLocation, oldLocation) {
       this.map.remove()
-      this.mapSetup()
-    }
+      this.mapSetup([newLocation.latitude, newLocation.longitude])
+    },
+    deep: true
   },
   mounted() {
-    this.mapSetup()
+    this.mapSetup(this.coordinates)
   },
   methods: {
-    async fetchCoordinates() {
-      try {
-        const data = await axios.get(
-          `http://open.mapquestapi.com/geocoding/v1/address?key=${process.env.VUE_APP_MAPQUEST_KEY}&location=${this.location}`
-        )
-        const result = data.data.results[0].locations[0].latLng
-        this.coordinates = [result.lat, result.lng]
-      } catch (error) {
-        console.log(error)
-      }
-    },
-    async mapSetup() {
-      this.map = L.map('map').setView(this.coordinates, 12)
+    async mapSetup(coordinates) {
+      this.map = L.map('map').setView(coordinates, 12)
       await L.tileLayer(
         `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.VUE_APP_MAPBOX_ACCESS_TOKEN}`,
         {
@@ -59,10 +49,8 @@ export default {
         html: '<i class="fas fa-map-marker-alt marker-icon"></i>',
         iconSize: [30, 40]
       })
-      const marker = L.marker(this.coordinates, { icon: myIcon }).addTo(
-        this.map
-      )
-      marker.bindPopup("I'm a popup!").openPopup()
+      const marker = L.marker(coordinates, { icon: myIcon }).addTo(this.map)
+      marker.bindPopup(`${this.title}<br>${this.company}`).openPopup()
     }
   }
 }

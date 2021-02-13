@@ -41,8 +41,7 @@ const offerSchema = new mongoose.Schema({
     trim: true,
   },
   location: {
-    type: String,
-    trim: true,
+    type: Object,
   },
   isRemote: {
     type: Boolean,

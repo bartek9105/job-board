@@ -14,7 +14,7 @@
           <h1>{{ getOffer.title }}</h1>
           <span>
             <font-awesome-icon icon="map-marker-alt" />
-            {{ getOffer.location }}
+            {{ getOffer.location.city }}
           </span>
           <div>
             <span>
@@ -90,6 +90,15 @@
               </BaseButton>
               <BaseClearButton>Reset form</BaseClearButton>
             </div>
+            <section>
+              <Map
+                v-if="Object.entries(getOffer).length > 0"
+                class="offer__map"
+                :location="getOffer.location"
+                :title="getOffer.title"
+                :company="getOffer.creator.name"
+              />
+            </section>
           </div>
           <BaseSpinner v-else />
           <div v-if="!getIsLoading" class="offer-details-company-info">
@@ -117,10 +126,12 @@ import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
 import SimilarOffersList from '@/components/Base/Offer/SimilarOffersList'
 import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
+import Map from '@/components/Map'
 
 export default {
   name: 'OfferDetails',
   components: {
+    Map,
     BaseCompany,
     BaseGoBackButton,
     OfferApplyForm,
@@ -196,6 +207,9 @@ export default {
   }
   &__go-back-btn {
     margin-bottom: $margin-lg;
+  }
+  &__map {
+    margin-top: $margin-md;
   }
 }
 .offer-tag-container {

@@ -25,12 +25,25 @@
           class="job-form-unit-validator"
         >
           <input
-            v-model="offer.location"
+            v-model="offer.location.address"
+            type="text"
+            class="job-form-unit__input"
+            placeholder="Address"
+            :disabled="locationCheck"
+          />
+          <input
+            v-model="offer.location.city"
             type="text"
             class="job-form-unit__input"
             placeholder="City"
             :disabled="locationCheck"
-            @change="emitLocation"
+          />
+          <input
+            v-model="offer.location.country"
+            type="text"
+            class="job-form-unit__input"
+            placeholder="Country"
+            :disabled="locationCheck"
           />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
