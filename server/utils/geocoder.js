@@ -13,7 +13,7 @@ const geocodedData = async ({ address, country, city }) => {
       country,
       city,
     })
-    return res
+    return res[0]
   } catch (error) {
     console.log(error)
   }

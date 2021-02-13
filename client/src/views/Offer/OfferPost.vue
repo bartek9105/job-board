@@ -76,7 +76,12 @@ export default {
       activeIndex: 1,
       location: '',
       offer: {
-        technologies: []
+        technologies: [],
+        location: {
+          address: '',
+          city: '',
+          country: ''
+        }
       }
     }
   },
