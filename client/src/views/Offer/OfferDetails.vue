@@ -14,7 +14,7 @@
           <h1>{{ getOffer.title }}</h1>
           <span>
             <font-awesome-icon icon="map-marker-alt" />
-            {{ getOffer.location }}
+            {{ getOffer.location.city }}
           </span>
           <div>
             <span>
