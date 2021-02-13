@@ -38,67 +38,69 @@
       </HeroContentContainer>
     </BaseHero>
     <main>
-      <div class="offer-details-container">
-        <div v-if="!getIsLoading" class="offer-details-offer-info">
-          <section class="offer-details-section">
-            <div class="offer__go-back-btn">
-              <BaseGoBackButton />
-            </div>
-            <h2 class="offer__header">
-              Job Description
-            </h2>
-            <p v-html="getOffer.description" />
-          </section>
-          <section class="offer-details-section">
-            <h2 class="offer__header">
-              Technologies
-            </h2>
-            <div class="offer-tag-container">
-              <div
-                v-for="(technology, index) in getOffer.technologies"
-                :key="index"
-                class="offer__tag"
-              >
-                {{ technology }}
+      <ContentContainer>
+        <div class="offer-details-container">
+          <div v-if="!getIsLoading" class="offer-details-offer-info">
+            <section class="offer-details-section">
+              <div class="offer__go-back-btn">
+                <BaseGoBackButton />
               </div>
+              <h2 class="offer__header">
+                Job Description
+              </h2>
+              <p v-html="getOffer.description" />
+            </section>
+            <section class="offer-details-section">
+              <h2 class="offer__header">
+                Technologies
+              </h2>
+              <div class="offer-tag-container">
+                <div
+                  v-for="(technology, index) in getOffer.technologies"
+                  :key="index"
+                  class="offer__tag"
+                >
+                  {{ technology }}
+                </div>
+              </div>
+            </section>
+            <section class="offer-details-section">
+              <h2 class="offer__header">
+                Benefits
+              </h2>
+              <ul ckass="offer__benefits__list">
+                <li v-for="(benefit, index) in getOffer.benefits" :key="index">
+                  <font-awesome-icon
+                    icon="check-circle"
+                    class="offer__icon offer__icon--green"
+                  />
+                  {{ benefit }}
+                </li>
+              </ul>
+            </section>
+            <section class="offer-details-section">
+              <h2 class="offer__header">
+                Apply form
+              </h2>
+              <OfferApplyForm />
+            </section>
+            <div class="btn-container">
+              <BaseButton class="btn">
+                Apply
+              </BaseButton>
+              <BaseClearButton>Reset form</BaseClearButton>
             </div>
-          </section>
-          <section class="offer-details-section">
-            <h2 class="offer__header">
-              Benefits
-            </h2>
-            <ul ckass="offer__benefits__list">
-              <li v-for="(benefit, index) in getOffer.benefits" :key="index">
-                <font-awesome-icon
-                  icon="check-circle"
-                  class="offer__icon offer__icon--green"
-                />
-                {{ benefit }}
-              </li>
-            </ul>
-          </section>
-          <section class="offer-details-section">
-            <h2 class="offer__header">
-              Apply form
-            </h2>
-            <OfferApplyForm />
-          </section>
-          <div class="btn-container">
-            <BaseButton class="btn">
-              Apply
-            </BaseButton>
-            <BaseClearButton>Reset form</BaseClearButton>
           </div>
+          <BaseSpinner v-else />
+          <div v-if="!getIsLoading" class="offer-details-company-info">
+            <BaseCompany
+              v-if="Object.entries(getOffer).length > 0"
+              :company="getOffer.creator"
+            />
+          </div>
+          <BaseSpinner v-else />
         </div>
-        <BaseSpinner v-else />
-        <div v-if="!getIsLoading" class="offer-details-company-info">
-          <BaseCompany
-            v-if="Object.entries(getOffer).length > 0"
-            :company="getOffer.creator"
-          />
-        </div>
-        <BaseSpinner v-else />
-      </div>
+      </ContentContainer>
     </main>
     <section>
       <Container>
@@ -151,15 +153,6 @@ export default {
 <style lang="scss" scoped>
 .offer-details-container {
   @include flex(space-between);
-  @include shadow;
-  max-width: 1400px;
-  position: relative;
-  top: -30px;
-  margin: 0 auto;
-  background: $white;
-  font-size: $font-content-md;
-  line-height: $line-height-regular;
-  padding: $padding-lg 40px;
   .offer-details-container-row {
     @include flex();
   }

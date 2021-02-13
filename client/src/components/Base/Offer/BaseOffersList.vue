@@ -13,7 +13,11 @@
       </div>
     </div>
     <BaseSpinner v-else />
-    <Pagination :pages="offers.pages" @pageChange="pageNumber" />
+    <Pagination
+      :pages="offers.pages"
+      class="pagination"
+      @pageChange="pageNumber"
+    />
   </div>
 </template>
 
@@ -53,4 +57,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.pagination {
+  margin-top: $margin-lg;
+}
+</style>
