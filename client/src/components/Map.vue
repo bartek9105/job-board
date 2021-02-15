@@ -1,6 +1,6 @@
 <template>
   <div class="map-container">
-    <div id="map" />
+    <div id="map" :style="{ height: mapHeight + 'px' }" />
   </div>
 </template>
 
@@ -11,6 +11,9 @@ import 'leaflet/dist/leaflet.css'
 export default {
   name: 'Map',
   props: {
+    mapHeight: {
+      type: Number
+    },
     location: {
       type: Object
     },
@@ -100,7 +103,6 @@ export default {
 <style lang="scss">
 #map {
   width: 100%;
-  height: 100%;
   .leaflet-div-icon {
     border: none;
     background: transparent;

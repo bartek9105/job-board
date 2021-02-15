@@ -97,6 +97,7 @@
                 :location="getOffer.location"
                 :title="getOffer.title"
                 :company="getOffer.creator.name"
+                :map-height="300"
               />
             </section>
           </div>

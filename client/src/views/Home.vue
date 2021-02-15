@@ -40,7 +40,13 @@
               @offerId="hoveredOfferId"
             />
           </div>
-          <Map :locations="getOffers.data" :offer-id="offerId" />
+          <div>
+            <Map
+              :locations="getOffers.data"
+              :offer-id="offerId"
+              :map-height="650"
+            />
+          </div>
         </div>
       </section>
     </main>
