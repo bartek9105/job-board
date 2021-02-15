@@ -11,13 +11,24 @@ import 'leaflet/dist/leaflet.css'
 export default {
   name: 'Map',
   props: {
-    location: Object,
-    title: String,
-    company: String
+    location: {
+      type: Object
+    },
+    title: {
+      type: String,
+      default: () => 'Offer title'
+    },
+    company: {
+      type: String,
+      default: () => 'Company name'
+    },
+    locations: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
-      coordinates: [this.location.latitude, this.location.longitude],
       map: {}
     }
   },
@@ -26,14 +37,20 @@ export default {
       this.map.remove()
       this.mapSetup([newLocation.latitude, newLocation.longitude])
     },
+    locations: function(newLocations, oldLocations) {
+      this.map.remove()
+      this.mapSetup(newLocations)
+    },
     deep: true
   },
   mounted() {
-    this.mapSetup(this.coordinates)
+    this.location
+      ? this.mapSetup([this.location.latitude, this.location.longitude])
+      : this.mapSetup(this.locations)
   },
   methods: {
     async mapSetup(coordinates) {
-      this.map = L.map('map').setView(coordinates, 12)
+      this.map = L.map('map').setView([50, 20], 4)
       await L.tileLayer(
         `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.VUE_APP_MAPBOX_ACCESS_TOKEN}`,
         {
@@ -49,8 +66,18 @@ export default {
         html: '<i class="fas fa-map-marker-alt marker-icon"></i>',
         iconSize: [30, 40]
       })
-      const marker = L.marker(coordinates, { icon: myIcon }).addTo(this.map)
-      marker.bindPopup(`${this.title}<br>${this.company}`).openPopup()
+      if (this.location) {
+        const marker = L.marker(coordinates, { icon: myIcon }).addTo(this.map)
+        marker.bindPopup(`${this.title}<br>${this.company}`).openPopup()
+      } else {
+        coordinates.map(location => {
+          const marker = L.marker(
+            [location.location.latitude, location.location.longitude],
+            { icon: myIcon }
+          ).addTo(this.map)
+          marker.bindPopup(`${location.title}<br>${location.creator.name}`)
+        })
+      }
     }
   }
 }

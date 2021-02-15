@@ -26,7 +26,7 @@ exports.getOffers = async (req, res, next) => {
     const parsedQuery = JSON.parse(query)
 
     const page = parseInt(req.query.page, 10) || 1
-    const limit = parseInt(req.query.limit, 10) || 2
+    const limit = parseInt(req.query.limit, 10) || 20
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
 

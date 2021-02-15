@@ -1,5 +1,5 @@
 <template>
-  <div class="offer">
+  <div v-if="Object.entries(getOffer).length > 0" class="offer">
     <BaseHero>
       <HeroContentContainer>
         <template v-slot:logo>

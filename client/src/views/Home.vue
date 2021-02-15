@@ -22,6 +22,7 @@
             <BaseOffersList :offers="getOffers" @pageChange="pageNumber" />
           </div>
         </Container>
+        <Map :locations="getOffers.data" />
       </section>
     </main>
   </div>
@@ -30,14 +31,15 @@
 <script>
 import JobSearchForm from '@/components/Forms/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
-
+import Map from '@/components/Map'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
     JobSearchForm,
-    JobSearch
+    JobSearch,
+    Map
   },
   data() {
     return {
