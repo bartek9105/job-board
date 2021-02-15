@@ -14,14 +14,40 @@
         </Container>
       </section>
       <section>
-        <Container>
+        <div class="offers-list__offers-info">
+          <p class="offers-list__offers-info__count">
+            {{ foundOffersNumber }}
+          </p>
+          <div class="offers-list__offers-info__toggle">
+            <span class="offers-list__offers-info__toggle-text">Show map</span>
+            <ToggleSwitch @change.native="showMap = !showMap" />
+          </div>
+        </div>
+        <Container v-if="!showMap">
           <div class="offers-list">
-            <p class="offers-list__offers-info">
-              {{ foundOffersNumber }}
-            </p>
-            <BaseOffersList :offers="getOffers" @pageChange="pageNumber" />
+            <BaseOffersList
+              :offers="getOffers"
+              @pageChange="pageNumber"
+              @offerId="hoveredOfferId"
+            />
           </div>
         </Container>
+        <div v-else class="offers-map">
+          <div class="offers-list">
+            <BaseOffersList
+              :offers="getOffers"
+              @pageChange="pageNumber"
+              @offerId="hoveredOfferId"
+            />
+          </div>
+          <div>
+            <Map
+              :locations="getOffers.data"
+              :offer-id="offerId"
+              :map-height="650"
+            />
+          </div>
+        </div>
       </section>
     </main>
   </div>
@@ -30,22 +56,30 @@
 <script>
 import JobSearchForm from '@/components/Forms/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
-
+import Map from '@/components/Map'
+import ToggleSwitch from '@/components/Base/ToggleSwitch'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
     JobSearchForm,
-    JobSearch
+    JobSearch,
+    Map,
+    ToggleSwitch
   },
   data() {
     return {
-      queries: {}
+      queries: {},
+      offerId: '',
+      showMap: false
     }
   },
   methods: {
     ...mapActions(['fetchOffers']),
+    hoveredOfferId(offerId) {
+      this.offerId = offerId
+    },
     formData(queries) {
       this.queries = { ...this.queries, ...queries }
       this.fetchOffers(this.queries)
@@ -79,14 +113,34 @@ export default {
 }
 .offers-list {
   &__offers-info {
-    color: $dark-blue;
-    font-weight: $font-bold;
-    font-size: $font-content-lg;
-    text-transform: uppercase;
-    margin-bottom: $margin-lg;
+    @include flex(space-between, center);
+    max-width: $container-width;
+    margin: $margin-lg auto;
+    &__count {
+      color: $dark-blue;
+      font-weight: $font-bold;
+      font-size: $font-content-lg;
+      text-transform: uppercase;
+    }
+    &__toggle {
+      @include flex(null, center);
+    }
+    &__toggle-text {
+      margin-right: 1rem;
+      font-weight: $font-bold;
+      text-transform: uppercase;
+      font-size: $font-content-lg;
+    }
   }
-  &__pagination {
-    margin-top: $margin-lg;
+}
+.offers-map {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  padding-top: $padding-lg;
+  margin-bottom: $margin-lg;
+  .offers-list {
+    padding: 0 $padding-sm;
   }
 }
 </style>

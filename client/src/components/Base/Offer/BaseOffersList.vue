@@ -8,7 +8,7 @@
             params: { offerId: offer._id, slug: offer.slug }
           }"
         >
-          <JobOffer :offer="offer" />
+          <JobOffer :offer="offer" @mouseover.native="emitOfferId(offer._id)" />
         </router-link>
       </div>
     </div>
@@ -52,6 +52,9 @@ export default {
   methods: {
     pageNumber(page) {
       this.page = page
+    },
+    emitOfferId(offerId) {
+      this.$emit('offerId', offerId)
     }
   }
 }

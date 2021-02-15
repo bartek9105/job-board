@@ -1,6 +1,6 @@
 <template>
   <div class="map-container">
-    <div id="map" />
+    <div id="map" :style="{ height: mapHeight + 'px' }" />
   </div>
 </template>
 
@@ -11,14 +11,33 @@ import 'leaflet/dist/leaflet.css'
 export default {
   name: 'Map',
   props: {
-    location: Object,
-    title: String,
-    company: String
+    mapHeight: {
+      type: Number
+    },
+    location: {
+      type: Object
+    },
+    title: {
+      type: String,
+      default: () => 'Offer title'
+    },
+    company: {
+      type: String,
+      default: () => 'Company name'
+    },
+    locations: {
+      type: Array,
+      default: () => []
+    },
+    offerId: {
+      type: String,
+      default: () => '602a3a569d6c640df857743d'
+    }
   },
   data() {
     return {
-      coordinates: [this.location.latitude, this.location.longitude],
-      map: {}
+      map: {},
+      markers: {}
     }
   },
   watch: {
@@ -26,14 +45,30 @@ export default {
       this.map.remove()
       this.mapSetup([newLocation.latitude, newLocation.longitude])
     },
+    locations: function(newLocations, oldLocations) {
+      this.map.remove()
+      this.mapSetup(newLocations, this.offerId)
+    },
+    offerId: function(newId, oldId) {
+      const offer = this.locations.find(location => {
+        return location._id === newId
+      })
+      this.markers[newId]
+        .bindPopup(
+          `<span class="offer-title">${offer.title}</span><br><span class="offer-salary">${offer.salaryMin} - ${offer.salaryMax} PLN</span><br><span class="company-name">${offer.creator.name}</span>`
+        )
+        .openPopup()
+    },
     deep: true
   },
   mounted() {
-    this.mapSetup(this.coordinates)
+    this.location
+      ? this.mapSetup([this.location.latitude, this.location.longitude])
+      : this.mapSetup(this.locations)
   },
   methods: {
-    async mapSetup(coordinates) {
-      this.map = L.map('map').setView(coordinates, 12)
+    async mapSetup(coordinates, offerId) {
+      this.map = L.map('map').setView([50, 20], 4)
       await L.tileLayer(
         `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.VUE_APP_MAPBOX_ACCESS_TOKEN}`,
         {
@@ -49,8 +84,17 @@ export default {
         html: '<i class="fas fa-map-marker-alt marker-icon"></i>',
         iconSize: [30, 40]
       })
-      const marker = L.marker(coordinates, { icon: myIcon }).addTo(this.map)
-      marker.bindPopup(`${this.title}<br>${this.company}`).openPopup()
+      if (this.location) {
+        const marker = L.marker(coordinates, { icon: myIcon }).addTo(this.map)
+        marker.bindPopup(`${this.title}<br>${this.company}`).openPopup()
+      } else {
+        coordinates.map(location => {
+          this.markers[location._id] = L.marker(
+            [location.location.latitude, location.location.longitude],
+            { icon: myIcon }
+          ).addTo(this.map)
+        })
+      }
     }
   }
 }
@@ -58,7 +102,7 @@ export default {
 
 <style lang="scss">
 #map {
-  height: 317px;
+  width: 100%;
   .leaflet-div-icon {
     border: none;
     background: transparent;
@@ -67,5 +111,17 @@ export default {
       color: $dark-blue;
     }
   }
+}
+.offer-title {
+  display: block;
+  margin-bottom: -5px;
+  color: $dark-blue;
+  font-size: $font-content-lg;
+  font-weight: $font-bold;
+}
+.company-name,
+.offer-salary {
+  color: $dark-blue;
+  font-size: $font-content-md;
 }
 </style>

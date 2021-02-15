@@ -1,5 +1,5 @@
 <template>
-  <div class="offer">
+  <div v-if="Object.entries(getOffer).length > 0" class="offer">
     <BaseHero>
       <HeroContentContainer>
         <template v-slot:logo>
@@ -97,6 +97,7 @@
                 :location="getOffer.location"
                 :title="getOffer.title"
                 :company="getOffer.creator.name"
+                :map-height="300"
               />
             </section>
           </div>
