@@ -25,11 +25,16 @@ export default {
     locations: {
       type: Array,
       default: () => []
+    },
+    offerId: {
+      type: String,
+      default: () => '602a3a569d6c640df857743d'
     }
   },
   data() {
     return {
-      map: {}
+      map: {},
+      markers: {}
     }
   },
   watch: {
@@ -39,7 +44,15 @@ export default {
     },
     locations: function(newLocations, oldLocations) {
       this.map.remove()
-      this.mapSetup(newLocations)
+      this.mapSetup(newLocations, this.offerId)
+    },
+    offerId: function(newId, oldId) {
+      const offer = this.locations.find(location => {
+        return location._id === newId
+      })
+      this.markers[newId]
+        .bindPopup(`${offer.title}<br>${offer.creator.name}`)
+        .openPopup()
     },
     deep: true
   },
@@ -49,7 +62,7 @@ export default {
       : this.mapSetup(this.locations)
   },
   methods: {
-    async mapSetup(coordinates) {
+    async mapSetup(coordinates, offerId) {
       this.map = L.map('map').setView([50, 20], 4)
       await L.tileLayer(
         `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.VUE_APP_MAPBOX_ACCESS_TOKEN}`,
@@ -71,11 +84,10 @@ export default {
         marker.bindPopup(`${this.title}<br>${this.company}`).openPopup()
       } else {
         coordinates.map(location => {
-          const marker = L.marker(
+          this.markers[location._id] = L.marker(
             [location.location.latitude, location.location.longitude],
             { icon: myIcon }
           ).addTo(this.map)
-          marker.bindPopup(`${location.title}<br>${location.creator.name}`)
         })
       }
     }

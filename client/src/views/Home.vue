@@ -19,10 +19,14 @@
             <p class="offers-list__offers-info">
               {{ foundOffersNumber }}
             </p>
-            <BaseOffersList :offers="getOffers" @pageChange="pageNumber" />
+            <BaseOffersList
+              :offers="getOffers"
+              @pageChange="pageNumber"
+              @offerId="hoveredOfferId"
+            />
           </div>
         </Container>
-        <Map :locations="getOffers.data" />
+        <Map :locations="getOffers.data" :offer-id="offerId" />
       </section>
     </main>
   </div>
@@ -43,11 +47,15 @@ export default {
   },
   data() {
     return {
-      queries: {}
+      queries: {},
+      offerId: ''
     }
   },
   methods: {
     ...mapActions(['fetchOffers']),
+    hoveredOfferId(offerId) {
+      this.offerId = offerId
+    },
     formData(queries) {
       this.queries = { ...this.queries, ...queries }
       this.fetchOffers(this.queries)
