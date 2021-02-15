@@ -51,7 +51,9 @@ export default {
         return location._id === newId
       })
       this.markers[newId]
-        .bindPopup(`${offer.title}<br>${offer.creator.name}`)
+        .bindPopup(
+          `<span class="offer-title">${offer.title}</span><br><span class="offer-salary">${offer.salaryMin} - ${offer.salaryMax} PLN</span><br><span class="company-name">${offer.creator.name}</span>`
+        )
         .openPopup()
     },
     deep: true
@@ -107,5 +109,17 @@ export default {
       color: $dark-blue;
     }
   }
+}
+.offer-title {
+  display: block;
+  margin-bottom: -5px;
+  color: $dark-blue;
+  font-size: $font-content-lg;
+  font-weight: $font-bold;
+}
+.company-name,
+.offer-salary {
+  color: $dark-blue;
+  font-size: $font-content-md;
 }
 </style>
