@@ -6,6 +6,7 @@
     :max="50000"
     :step="1000"
     :interval="1000"
+    :tooltip="'always'"
     @change="emitValue"
   />
 </template>
@@ -18,9 +19,15 @@ export default {
   components: {
     VueSlider
   },
+  props: {
+    salaryRange: {
+      type: Array,
+      default: () => [0, 50000]
+    }
+  },
   data() {
     return {
-      value: [0, 50000]
+      value: [...this.salaryRange]
     }
   },
   methods: {

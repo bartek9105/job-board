@@ -19,7 +19,7 @@
           <div>
             <span>
               <font-awesome-icon icon="money-bill-wave" />
-              {{ getOffer.salaryMin }} - {{ getOffer.salaryMax }}
+              {{ getOffer.salaryRange[0] }} - {{ getOffer.salaryRange[1] }}
             </span>
             <span>
               <font-awesome-icon icon="file-signature" />

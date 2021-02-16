@@ -101,12 +101,6 @@
           rules="required"
           class="job-form-unit-validator"
         >
-          <input
-            v-model="salaryRange"
-            type="number"
-            placeholder="MIN"
-            class="job-form-unit__input job-form-unit__input--salary"
-          />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
         <ValidationProvider
@@ -114,13 +108,10 @@
           rules="required"
           class="job-form-unit-validator"
         >
-          <input
-            v-model="offer.salaryMax"
-            type="number"
-            placeholder="MAX"
-            class="job-form-unit__input job-form-unit__input--salary"
+          <BaseSalaryRangeSlider
+            :salary-range="offer.salaryRange"
+            @salaryRange="salary"
           />
-          <BaseSalaryRangeSlider @salaryRange="salary" />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
@@ -230,8 +221,7 @@ export default {
     return {
       locationCheck: false,
       key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
-      activeIndex: 1,
-      salaryRange: []
+      activeIndex: 1
     }
   },
   methods: {
@@ -252,7 +242,7 @@ export default {
       this.offer[name] = value
     },
     salary(salary) {
-      this.salaryRange = salary
+      this.offer.salaryRange = salary
     }
   },
   computed: {
