@@ -102,7 +102,7 @@
           class="job-form-unit-validator"
         >
           <input
-            v-model="offer.salaryMin"
+            v-model="salaryRange"
             type="number"
             placeholder="MIN"
             class="job-form-unit__input job-form-unit__input--salary"
@@ -120,6 +120,7 @@
             placeholder="MAX"
             class="job-form-unit__input job-form-unit__input--salary"
           />
+          <BaseSalaryRangeSlider @salaryRange="salary" />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
       </div>
@@ -208,6 +209,7 @@ import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
 import benefits from '@/constants/benefits'
+import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
 
 export default {
   name: 'OfferForm',
@@ -216,7 +218,8 @@ export default {
     TextEditor,
     StripeCheckout,
     ValidationProvider,
-    BaseSelect
+    BaseSelect,
+    BaseSalaryRangeSlider
   },
   props: {
     offer: Object,
@@ -227,7 +230,8 @@ export default {
     return {
       locationCheck: false,
       key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
-      activeIndex: 1
+      activeIndex: 1,
+      salaryRange: []
     }
   },
   methods: {
@@ -246,6 +250,9 @@ export default {
     },
     getValue(value, name) {
       this.offer[name] = value
+    },
+    salary(salary) {
+      this.salaryRange = salary
     }
   },
   computed: {
