@@ -81,7 +81,8 @@ export default {
           address: '',
           city: '',
           country: ''
-        }
+        },
+        salaryRange: [0, 50000]
       }
     }
   },

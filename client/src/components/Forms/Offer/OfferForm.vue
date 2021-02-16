@@ -108,7 +108,9 @@
           rules="required"
           class="job-form-unit-validator"
         >
+          {{ offer.salaryRange[0] }} - {{ offer.salaryRange[1] }}
           <BaseSalaryRangeSlider
+            class="salary-range-slider"
             :salary-range="offer.salaryRange"
             @salaryRange="salary"
           />
@@ -296,6 +298,9 @@ export default {
         font-size: $font-content-sm;
         margin-right: 13px;
       }
+    }
+    .salary-range-slider {
+      margin-top: $margin-md;
     }
   }
   .btn-container {

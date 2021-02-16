@@ -6,7 +6,7 @@
     :max="50000"
     :step="1000"
     :interval="1000"
-    :tooltip="'always'"
+    :tooltip="'none'"
     @change="emitValue"
   />
 </template>
