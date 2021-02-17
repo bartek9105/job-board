@@ -29,7 +29,7 @@
               <font-awesome-icon icon="clock" />
               {{ getOffer.type }}
             </span>
-            <span>{{ getOffer.category }}</span>
+            <span class="offer__category">{{ getOffer.category }}</span>
           </div>
         </template>
         <template v-else v-slot:details>
@@ -214,7 +214,6 @@ export default {
     }
   }
   &__category {
-    @include tag;
     @include tag-light;
   }
   &__go-back-btn {

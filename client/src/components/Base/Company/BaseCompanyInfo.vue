@@ -40,6 +40,7 @@ export default {
   }
   &__icon {
     margin-right: 0.5rem;
+    color: $dark-blue-lighter;
   }
 }
 .company-details-container {
