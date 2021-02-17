@@ -114,6 +114,7 @@
     </main>
     <section>
       <Container>
+        <span class="similar-offers-text">Similar offers</span>
         <SimilarOffersList :category="getOffer.category" />
       </Container>
     </section>
@@ -220,5 +221,10 @@ export default {
   .btn {
     margin-right: 20px;
   }
+}
+.similar-offers-text {
+  @include input-name;
+  display: block;
+  margin-bottom: $margin-md;
 }
 </style>
