@@ -19,7 +19,7 @@ exports.getOffers = async (req, res, next) => {
     removeFields.forEach((param) => delete reqQuery[param])
 
     const query = JSON.stringify(reqQuery).replace(
-      /\b(gt|gte|lt|lte|in)\b/g,
+      /\b(gt|gte|lt|lte|in|ne)\b/g,
       (match) => `$${match}`
     )
 

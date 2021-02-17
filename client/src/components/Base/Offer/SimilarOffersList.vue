@@ -13,7 +13,8 @@ export default {
     category: {
       type: String,
       default: () => ''
-    }
+    },
+    excludedOfferId: String
   },
   data() {
     return {
@@ -27,11 +28,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getOffers'])
+    ...mapGetters(['getOffers']),
+    compundProperty() {
+      return [this.category, this.excludedOfferId].join()
+    }
   },
   watch: {
-    category: function() {
-      this.fetchOffers({ category: this.category })
+    compundProperty: {
+      immediate: true,
+      handler: function() {
+        this.fetchOffers({ category: this.category, _id: this.excludedOfferId })
+      }
     }
   }
 }

@@ -125,7 +125,10 @@
     <section>
       <Container>
         <span class="similar-offers-text">Similar offers</span>
-        <SimilarOffersList :category="getOffer.category" />
+        <SimilarOffersList
+          :excluded-offer-id="getOffer._id"
+          :category="getOffer.category"
+        />
       </Container>
     </section>
   </div>
