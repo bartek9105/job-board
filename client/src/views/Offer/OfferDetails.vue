@@ -12,10 +12,15 @@
         </template>
         <template v-if="!getIsLoading" v-slot:details>
           <h1>{{ getOffer.title }}</h1>
-          <span>
-            <font-awesome-icon icon="map-marker-alt" />
-            {{ getOffer.location.city }}
-          </span>
+          <div>
+            <span>
+              <font-awesome-icon icon="map-marker-alt" />
+              {{ getOffer.location.city }}
+            </span>
+            <span v-if="getOffer.isRemote">
+              Remote
+            </span>
+          </div>
           <div>
             <span>
               <font-awesome-icon icon="money-bill-wave" />

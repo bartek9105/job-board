@@ -23,6 +23,9 @@
           />
           {{ offer.location.city }}
         </div>
+        <div v-if="offer.isRemote" class="offer__remote">
+          Remote
+        </div>
         <div v-if="offer.isPromoted" class="offer__promoted">
           Featured
         </div>
