@@ -29,7 +29,7 @@
               <font-awesome-icon icon="clock" />
               {{ getOffer.type }}
             </span>
-            <span>{{ getOffer.category }}</span>
+            <span class="offer__category">{{ getOffer.category }}</span>
           </div>
         </template>
         <template v-else v-slot:details>
@@ -103,10 +103,20 @@
           </div>
           <BaseSpinner v-else />
           <div v-if="!getIsLoading" class="offer-details-company-info">
-            <BaseCompany
-              v-if="Object.entries(getOffer).length > 0"
-              :company="getOffer.creator"
-            />
+            <router-link
+              :to="{
+                name: 'CompanyDetails',
+                params: {
+                  userId: getOffer.creator._id,
+                  slug: getOffer.creator.slug
+                }
+              }"
+            >
+              <BaseCompany
+                v-if="Object.entries(getOffer).length > 0"
+                :company="getOffer.creator"
+              />
+            </router-link>
           </div>
           <BaseSpinner v-else />
         </div>
@@ -114,7 +124,11 @@
     </main>
     <section>
       <Container>
-        <SimilarOffersList :category="getOffer.category" />
+        <span class="similar-offers-text">Similar offers</span>
+        <SimilarOffersList
+          :excluded-offer-id="getOffer._id"
+          :category="getOffer.category"
+        />
       </Container>
     </section>
   </div>
@@ -203,7 +217,6 @@ export default {
     }
   }
   &__category {
-    @include tag;
     @include tag-light;
   }
   &__go-back-btn {
@@ -220,5 +233,10 @@ export default {
   .btn {
     margin-right: 20px;
   }
+}
+.similar-offers-text {
+  @include input-name;
+  display: block;
+  margin-bottom: $margin-md;
 }
 </style>

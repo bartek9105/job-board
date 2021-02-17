@@ -15,9 +15,9 @@
       </section>
       <section>
         <div class="offers-list__offers-info">
-          <p class="offers-list__offers-info__count">
+          <span class="offers-list__offers-info__count">
             {{ foundOffersNumber }}
-          </p>
+          </span>
           <div class="offers-list__offers-info__toggle">
             <span class="offers-list__offers-info__toggle-text">Show map</span>
             <ToggleSwitch @change.native="showMap = !showMap" />
@@ -117,19 +117,14 @@ export default {
     max-width: $container-width;
     margin: $margin-lg auto;
     &__count {
-      color: $dark-blue;
-      font-weight: $font-bold;
-      font-size: $font-content-lg;
-      text-transform: uppercase;
+      @include input-name;
     }
     &__toggle {
       @include flex(null, center);
     }
     &__toggle-text {
       margin-right: 1rem;
-      font-weight: $font-bold;
-      text-transform: uppercase;
-      font-size: $font-content-lg;
+      @include input-name;
     }
   }
 }

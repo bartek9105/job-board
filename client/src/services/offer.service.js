@@ -21,11 +21,14 @@ const OfferService = {
           o[e] = offersQueries[e]
           return o
         }, {})
-      const { title, technologies, seniority, category, location, type, salaryMin, salaryMax, contract } = queriesFilter
+      const { _id, title, technologies, seniority, category, location, type, salaryMin, salaryMax, contract } = queriesFilter
       const offers = await api.get(
         `offers?page=${queriesFilter.page}`,
         {
           params: {
+            _id: {
+              ne: _id
+            },
             title,
             technologies: { in: technologies },
             seniority,
