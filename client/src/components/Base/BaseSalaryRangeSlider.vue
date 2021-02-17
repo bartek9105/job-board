@@ -46,6 +46,9 @@ export default {
 .vue-slider-rail {
   background-color: $light-blue;
 }
+.salary-range-slider {
+  padding: 0 !important;
+}
 .vue-slider-process,
 .vue-slider-dot-handle,
 .vue-slider-dot-handle::after,
