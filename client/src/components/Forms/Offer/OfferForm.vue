@@ -5,7 +5,7 @@
         <span class="job-form-unit__name">Title</span>
         <ValidationProvider
           v-slot="{ errors }"
-          rules="required|max"
+          rules="required|maxTitle"
           class="job-form-unit-validator"
         >
           <input
@@ -169,7 +169,7 @@
       <div class="job-form-unit">
         <ValidationProvider
           v-slot="{ errors }"
-          rules="required"
+          rules="required|maxDescription"
           class="job-form-unit-validator"
         >
           <span class="job-form-unit__name">Description</span>

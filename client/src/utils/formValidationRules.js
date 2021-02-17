@@ -11,9 +11,16 @@ extend('required', {
   computesRequired: true
 })
 
-extend('max', {
+extend('maxTitle', {
   validate(value) {
-    return value.length <= 30
+    return value.length <= 50
   },
-  message: 'Max length is 30 characters'
+  message: 'Max length is 50 characters'
+})
+
+extend('maxDescription', {
+  validate(value) {
+    return value.length <= 10000
+  },
+  message: 'Max length is 10000 characters'
 })
