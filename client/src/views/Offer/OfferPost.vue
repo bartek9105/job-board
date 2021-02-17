@@ -82,7 +82,8 @@ export default {
           city: '',
           country: ''
         },
-        salaryRange: [0, 50000]
+        salaryMin: 0,
+        salaryMax: 50000
       }
     }
   },

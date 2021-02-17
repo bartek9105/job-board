@@ -108,10 +108,11 @@
           rules="required"
           class="job-form-unit-validator"
         >
-          {{ offer.salaryRange[0] }} - {{ offer.salaryRange[1] }}
+          {{ offer.salaryMin }} - {{ offer.salaryMax }}
           <BaseSalaryRangeSlider
             class="salary-range-slider"
-            :salary-range="offer.salaryRange"
+            :salary-min="offer.salaryMin"
+            :salary-max="offer.salaryMax"
             @salaryRange="salary"
           />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
@@ -244,7 +245,9 @@ export default {
       this.offer[name] = value
     },
     salary(salary) {
-      this.offer.salaryRange = salary
+      const [salaryMin, salaryMax] = salary
+      this.offer.salaryMin = salaryMin
+      this.offer.salaryMax = salaryMax
     }
   },
   computed: {

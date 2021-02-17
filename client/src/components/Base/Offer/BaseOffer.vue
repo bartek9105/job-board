@@ -14,7 +14,7 @@
         </div>
         <div class="offer__pay">
           <font-awesome-icon icon="money-bill-wave" class="offer__pay__icon" />
-          {{ offer.salaryRange[0] }} - {{ offer.salaryRange[1] }}
+          {{ offer.salaryMin }} - {{ offer.salaryMax }}
         </div>
         <div class="offer__city">
           <font-awesome-icon

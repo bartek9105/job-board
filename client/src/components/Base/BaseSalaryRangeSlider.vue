@@ -20,14 +20,18 @@ export default {
     VueSlider
   },
   props: {
-    salaryRange: {
-      type: Array,
-      default: () => [0, 50000]
+    salaryMin: {
+      type: Number,
+      default: () => 0
+    },
+    salaryMax: {
+      type: Number,
+      default: () => 50000
     }
   },
   data() {
     return {
-      value: [...this.salaryRange]
+      value: [this.salaryMin, this.salaryMax]
     }
   },
   methods: {

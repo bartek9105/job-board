@@ -27,8 +27,13 @@ const offerSchema = new mongoose.Schema({
     type: String,
     enum: ['Intern', 'Junior', 'Regular', 'Senior'],
   },
-  salaryRange: {
-    type: Array,
+  salaryMin: {
+    type: Number,
+    trim: true,
+  },
+  salaryMax: {
+    type: Number,
+    trim: true,
   },
   description: {
     type: String,
