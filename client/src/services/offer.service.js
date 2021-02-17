@@ -31,10 +31,12 @@ const OfferService = {
             seniority,
             category,
             location,
-            type: type,
-            salary: {
-              lt: salaryMax,
-              gt: salaryMin
+            type,
+            salaryMin: {
+              gte: salaryMin
+            },
+            salaryMax: {
+              lte: salaryMax
             },
             contract
           },

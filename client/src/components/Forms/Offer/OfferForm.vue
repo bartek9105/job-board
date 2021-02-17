@@ -101,12 +101,6 @@
           rules="required"
           class="job-form-unit-validator"
         >
-          <input
-            v-model="offer.salaryMin"
-            type="number"
-            placeholder="MIN"
-            class="job-form-unit__input job-form-unit__input--salary"
-          />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
         <ValidationProvider
@@ -114,11 +108,12 @@
           rules="required"
           class="job-form-unit-validator"
         >
-          <input
-            v-model="offer.salaryMax"
-            type="number"
-            placeholder="MAX"
-            class="job-form-unit__input job-form-unit__input--salary"
+          {{ offer.salaryMin }} - {{ offer.salaryMax }}
+          <BaseSalaryRangeSlider
+            class="salary-range-slider"
+            :salary-min="offer.salaryMin"
+            :salary-max="offer.salaryMax"
+            @salaryRange="salary"
           />
           <span class="job-form-unit__error">{{ errors[0] }}</span>
         </ValidationProvider>
@@ -208,6 +203,7 @@ import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
 import benefits from '@/constants/benefits'
+import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
 
 export default {
   name: 'OfferForm',
@@ -216,7 +212,8 @@ export default {
     TextEditor,
     StripeCheckout,
     ValidationProvider,
-    BaseSelect
+    BaseSelect,
+    BaseSalaryRangeSlider
   },
   props: {
     offer: Object,
@@ -246,6 +243,11 @@ export default {
     },
     getValue(value, name) {
       this.offer[name] = value
+    },
+    salary(salary) {
+      const [salaryMin, salaryMax] = salary
+      this.offer.salaryMin = salaryMin
+      this.offer.salaryMax = salaryMax
     }
   },
   computed: {
@@ -299,6 +301,9 @@ export default {
         font-size: $font-content-sm;
         margin-right: 13px;
       }
+    }
+    .salary-range-slider {
+      margin-top: $margin-md;
     }
   }
   .btn-container {

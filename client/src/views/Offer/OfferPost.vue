@@ -81,7 +81,9 @@ export default {
           address: '',
           city: '',
           country: ''
-        }
+        },
+        salaryMin: 0,
+        salaryMax: 50000
       }
     }
   },

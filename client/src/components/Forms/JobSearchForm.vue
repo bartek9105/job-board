@@ -33,17 +33,12 @@
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Salary</span>
             <div class="job-search__salary-inputs">
-              <input
-                v-model="queries.salaryMin"
-                type="number"
-                placeholder="MIN"
-                class="job-search__search-input salary-input job-search__search-input--salary"
-              />
-              <input
-                v-model="queries.salaryMax"
-                type="number"
-                placeholder="MAX"
-                class="job-search__search-input salary-input job-search__search-input--salary"
+              {{ queries.salaryMin }} - {{ queries.salaryMax }}
+              <BaseSalaryRangeSlider
+                class="salary-range-slider"
+                :salary-min="queries.salaryMin"
+                :salary-max="queries.salaryMax"
+                @salaryRange="salary"
               />
             </div>
           </div>
@@ -106,12 +101,14 @@ import TagInput from '@/components/TagInput'
 import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
+import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
 
 export default {
   name: 'JobSearchForm',
   components: {
     TagInput,
-    BaseSelect
+    BaseSelect,
+    BaseSalaryRangeSlider
   },
   props: {
     buttonText: String,
@@ -124,8 +121,8 @@ export default {
         location: null,
         category: null,
         seniority: null,
-        salaryMin: null,
-        salaryMax: null,
+        salaryMin: 0,
+        salaryMax: 50000,
         type: null,
         contract: null
       },
@@ -148,6 +145,11 @@ export default {
     },
     getValue(value, name) {
       this.queries[name] = value
+    },
+    salary(salary) {
+      const [salaryMin, salaryMax] = salary
+      this.queries.salaryMin = salaryMin
+      this.queries.salaryMax = salaryMax
     }
   }
 }
@@ -159,7 +161,9 @@ export default {
     max-width: $container-width;
     margin: 0 auto;
     .row {
-      @include flex(space-between);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 1rem;
       margin-bottom: $margin-lg;
       .tags {
         width: 500px;
@@ -199,5 +203,8 @@ export default {
 }
 .showFiltersClass {
   display: none !important;
+}
+.salary-range-slider {
+  margin-top: 0.5rem;
 }
 </style>
