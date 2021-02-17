@@ -45,5 +45,6 @@ export default {
 }
 .ql-editor {
   font-size: $font-content-lg !important;
+  color: $dark-blue;
 }
 </style>

@@ -27,21 +27,21 @@
           <input
             v-model="offer.location.address"
             type="text"
-            class="job-form-unit__input"
+            class="job-form-unit__input job-form-unit__input__location"
             placeholder="Address"
             :disabled="locationCheck"
           />
           <input
             v-model="offer.location.city"
             type="text"
-            class="job-form-unit__input"
+            class="job-form-unit__input job-form-unit__input__location"
             placeholder="City"
             :disabled="locationCheck"
           />
           <input
             v-model="offer.location.country"
             type="text"
-            class="job-form-unit__input"
+            class="job-form-unit__input job-form-unit__input__location"
             placeholder="Country"
             :disabled="locationCheck"
           />
@@ -279,8 +279,8 @@ export default {
       margin-bottom: $margin-sm;
     }
     &__input {
-      &--salary {
-        width: 20%;
+      &__location {
+        margin-bottom: $margin-sm;
       }
     }
     &__error {
