@@ -58,9 +58,6 @@ export default {
     grid-template-columns: (50% 30% auto);
     justify-content: center;
     column-gap: 0.5rem;
-    &__input {
-      border: none !important;
-    }
     &__search-icon {
       color: $pink;
       position: absolute;

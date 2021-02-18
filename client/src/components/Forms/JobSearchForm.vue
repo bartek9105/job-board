@@ -160,7 +160,8 @@ export default {
       margin-bottom: $margin-lg;
     }
     &__salary-inputs {
-      @include flex(null);
+      @include flex(null, center);
+      height: 100%;
     }
     .salary {
       white-space: nowrap;

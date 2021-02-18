@@ -19,7 +19,12 @@
             {{ foundOffersNumber }}
           </span>
           <div class="offers-list__offers-info__toggle">
-            <span class="offers-list__offers-info__toggle-text">Show map</span>
+            <span v-if="!showMap" class="offers-list__offers-info__toggle-text"
+              >Show map</span
+            >
+            <span v-else class="offers-list__offers-info__toggle-text"
+              >Hide map</span
+            >
             <ToggleSwitch @change.native="showMap = !showMap" />
           </div>
         </div>
