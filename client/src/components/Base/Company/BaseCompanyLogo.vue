@@ -1,16 +1,22 @@
 <template>
-  <div
-    class="company-logo-container"
-    :style="{ width: imgWidth + 'px', height: imgHeight + 'px' }"
-  >
-    <img
-      v-show="isImageLoaded"
-      :src="avatarUrl"
-      alt="logo"
-      class="company-logo"
-      @load="loaded"
-    />
-    <div v-show="!isImageLoaded" class="skeleton" />
+  <div>
+    <div
+      v-if="avatarUrl"
+      class="company-logo-container"
+      :style="{ width: imgWidth + 'px', height: imgHeight + 'px' }"
+    >
+      <img
+        v-show="isImageLoaded"
+        :src="avatarUrl"
+        alt="logo"
+        class="company-logo"
+        @load="loaded"
+      />
+      <div v-show="!isImageLoaded" class="skeleton" />
+    </div>
+    <div v-else class="company-logo-container">
+      <font-awesome-icon icon="building" class="company-building-logo" />
+    </div>
   </div>
 </template>
 
@@ -50,6 +56,12 @@ export default {
   width: 100%;
   height: auto;
   border-radius: 5px;
+}
+
+.company-building-logo {
+  width: 100%;
+  height: auto;
+  color: $light-blue;
 }
 
 .skeleton {

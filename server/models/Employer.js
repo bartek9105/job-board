@@ -31,7 +31,6 @@ const employerSchema = new mongoose.Schema({
   },
   avatarUrl: {
     type: String,
-    default: 'fas fa-building',
     trim: true,
   },
   location: {

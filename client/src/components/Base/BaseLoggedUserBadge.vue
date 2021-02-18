@@ -30,6 +30,7 @@ export default {
   @include flex(null, center);
   &__avatar {
     width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 0.5rem;
   }

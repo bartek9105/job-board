@@ -66,8 +66,9 @@ export default {
     cursor: pointer;
   }
   &__logo {
-    @include flex(center);
-    margin-bottom: $margin-sm;
+    width: 124px;
+    height: 124px;
+    margin: 0 auto $margin-md auto;
   }
   &__content {
     border-bottom: 1px solid $dark-blue-lighter;
