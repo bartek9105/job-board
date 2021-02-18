@@ -80,18 +80,24 @@ export default {
           zoomOffset: -1
         }
       ).addTo(this.map)
-      const myIcon = L.divIcon({
-        html: '<i class="fas fa-map-marker-alt marker-icon"></i>',
-        iconSize: [30, 40]
-      })
       if (this.location) {
-        const marker = L.marker(coordinates, { icon: myIcon }).addTo(this.map)
+        const marker = L.marker(coordinates, {
+          icon: L.divIcon({
+            html: `<i class="fas fa-map-marker-alt marker-icon"></i>`,
+            iconSize: [30, 40]
+          })
+        }).addTo(this.map)
         marker.bindPopup(`${this.title}<br>${this.company}`).openPopup()
       } else {
         coordinates.map(location => {
           this.markers[location._id] = L.marker(
             [location.location.latitude, location.location.longitude],
-            { icon: myIcon }
+            {
+              icon: L.divIcon({
+                html: `<i class="fas fa-map-marker-alt marker-icon" style="color: ${location.category.color};"></i>`,
+                iconSize: [30, 40]
+              })
+            }
           ).addTo(this.map)
         })
       }

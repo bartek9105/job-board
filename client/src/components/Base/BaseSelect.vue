@@ -1,7 +1,8 @@
 <template>
   <select v-model="value" :name="name" @change="valueChange">
     <option v-for="(value, index) in optionValues" :key="index" :value="value">
-      {{ value }}
+      <span v-if="value.name">{{ value.name }}</span>
+      <span v-else>{{ value }}</span>
     </option>
   </select>
 </template>

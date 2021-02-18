@@ -1,5 +1,8 @@
 <template>
-  <div class="offer">
+  <div
+    class="offer"
+    :style="{ borderLeft: '5px solid' + offer.category.color }"
+  >
     <div class="offer__logo">
       <BaseCompanyLogo
         :avatar-url="offer.creator.avatarUrl"
@@ -60,7 +63,7 @@
     <div class="offer-additional">
       <div class="offer-tags">
         <div class="offer__tag offer__tag--light">
-          {{ offer.category }}
+          {{ offer.category.name }}
         </div>
         <div class="offer__tag offer__tag--light">
           {{ daysDifference(new Date(), offer.createdAt) }}d ago

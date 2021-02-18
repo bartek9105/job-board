@@ -1,6 +1,7 @@
 import api from './api.service'
 import qs from 'qs'
 import StorageService from './storage.service'
+import offerDetails from '../constants/offerDetails'
 
 const OfferService = {
   fetchOffer: async function (offerId) {
@@ -46,12 +47,20 @@ const OfferService = {
           paramsSerializer: params => qs.stringify(params)
         }
       )
+      offers.data.data.map(offer => {
+        offerDetails.CATEGORIES.map(category => {
+          if (category.name === offer.category) {
+            offer.category = { name: offer.category, color: category.color }
+          }
+        })
+      })
       return offers.data
     } catch (error) {
       console.log(error)
     }
   },
   addOffer: async function (offerData) {
+    offerData.category = offerData.category.name
     try {
       const addedOffer = await api.post('offers',
         { email: 'example@gmail.com', ...offerData })
