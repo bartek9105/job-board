@@ -1,6 +1,5 @@
 @mixin input-select-border {
     border: $input-select-border !important;
-    border-radius: $border-radius-sm;
 }
 
 @mixin input-name {

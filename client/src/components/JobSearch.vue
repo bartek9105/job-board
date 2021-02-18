@@ -5,10 +5,16 @@
     </h1>
     <form class="job-search__job-form" @submit.prevent>
       <input
-        v-model="query"
+        v-model="query.title"
         type="text"
         class="job-search__job-form__input"
-        placeholder="Offer title"
+        placeholder="Title or keyword"
+      />
+      <input
+        v-model="query.location"
+        type="text"
+        class="job-search__job-form__input"
+        placeholder="Location"
       />
       <BaseButton @click.native="emitQuery">
         Search
@@ -21,7 +27,10 @@
 export default {
   data() {
     return {
-      query: ''
+      query: {
+        title: '',
+        location: ''
+      }
     }
   },
   methods: {
@@ -35,6 +44,8 @@ export default {
 <style lang="scss" scoped>
 .job-search {
   @include flex(center, center, column);
+  max-width: 800px;
+  margin: $margin-center;
   color: $white-blue;
   height: calc(100% - #{$nav-height * 2});
   &__heading {
@@ -42,10 +53,13 @@ export default {
     margin-bottom: $margin-md;
   }
   &__job-form {
-    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: (50% 30% auto);
+    justify-content: center;
+    column-gap: 0.5rem;
     &__input {
-      width: 30rem;
-      margin-right: 1rem;
+      border: none !important;
     }
     &__search-icon {
       color: $pink;

@@ -88,8 +88,8 @@ export default {
       this.queries = { ...this.queries, page: page }
       this.fetchOffers(this.queries)
     },
-    query(queryTitle) {
-      this.queries = { ...this.queries, title: queryTitle }
+    query({ title, location }) {
+      this.queries = { ...this.queries, title, location }
       this.fetchOffers(this.queries)
     }
   },

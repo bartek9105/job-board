@@ -4,15 +4,6 @@
       <form @submit.prevent>
         <div class="row">
           <div class="job-search__single-input-container">
-            <span class="job-search__input-name">Location</span>
-            <input
-              v-model="queries.location"
-              type="text"
-              class="job-search__search-input"
-              placeholder="City"
-            />
-          </div>
-          <div class="job-search__single-input-container">
             <span class="job-search__input-name">Category</span>
             <BaseSelect
               :option-values="offerDetails.CATEGORIES"
@@ -33,7 +24,9 @@
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Salary</span>
             <div class="job-search__salary-inputs">
-              {{ queries.salaryMin }} - {{ queries.salaryMax }}
+              <span class="salary"
+                >{{ queries.salaryMin }} - {{ queries.salaryMax }} PLN
+              </span>
               <BaseSalaryRangeSlider
                 class="salary-range-slider"
                 :salary-min="queries.salaryMin"
@@ -44,14 +37,6 @@
           </div>
         </div>
         <div class="row" :class="{ showFiltersClass: !showFilters }">
-          <div class="job-search__single-input-container">
-            <span class="job-search__input-name">Technologies</span>
-            <TagInput
-              class="tags"
-              :list-items="technologies"
-              @technologies="tagsTechnologies"
-            />
-          </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
             <BaseSelect
@@ -68,6 +53,14 @@
               name="contract"
               class="job-search__search-input"
               @value-change="getValue"
+            />
+          </div>
+          <div class="job-search__single-input-container">
+            <span class="job-search__input-name">Technologies</span>
+            <TagInput
+              class="tags"
+              :list-items="technologies"
+              @technologies="tagsTechnologies"
             />
           </div>
         </div>
@@ -118,7 +111,6 @@ export default {
     return {
       queries: {
         technologies: [],
-        location: null,
         category: null,
         seniority: null,
         salaryMin: 0,
@@ -160,14 +152,19 @@ export default {
   .job-search {
     max-width: $container-width;
     margin: 0 auto;
+    color: $dark-blue;
     .row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      column-gap: 1rem;
+      grid-template-columns: (20% 20% auto);
+      column-gap: 3rem;
       margin-bottom: $margin-lg;
-      .tags {
-        width: 500px;
-      }
+    }
+    &__salary-inputs {
+      @include flex(null);
+    }
+    .salary {
+      white-space: nowrap;
+      font-size: 1rem;
     }
     &__filter-btn {
       background: none;
@@ -184,7 +181,7 @@ export default {
       margin-bottom: $margin-md;
     }
     &__search-input {
-      width: 200px;
+      width: 100%;
       &--salary {
         width: 90px;
         margin-right: 20px;
@@ -205,6 +202,8 @@ export default {
   display: none !important;
 }
 .salary-range-slider {
+  width: 100% !important;
   margin-top: 0.5rem;
+  margin-left: 2rem;
 }
 </style>
