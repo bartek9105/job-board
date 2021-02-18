@@ -29,6 +29,8 @@ export default {
     @include flex(space-between, null);
     &__logo {
       margin-right: 2rem;
+      width: 100px;
+      height: 100px;
     }
     &__details {
       @include flex(space-between, null, column);
