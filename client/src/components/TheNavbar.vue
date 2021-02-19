@@ -2,6 +2,7 @@
   <div class="nav-container">
     <nav class="main-nav">
       <BaseLogo :job-text-color="jobTextColor" />
+      <font-awesome-icon icon="bars" class="menu-icon" @click="navMenuState" />
       <ul class="main-nav__list">
         <router-link to="/">
           <li>Offers</li>
@@ -50,12 +51,19 @@ export default {
   data() {
     return {
       showDropdown: false,
-      jobTextColor: '#fff'
+      jobTextColor: '#182952',
+      isNavMenuOpened: false
     }
   },
   computed: {
     loggedInUser() {
       return StorageService.getUserData()
+    }
+  },
+  methods: {
+    navMenuState() {
+      this.isNavMenuOpened = !this.isNavMenuOpened
+      this.$emit('navMenuOpen', this.isNavMenuOpened)
     }
   }
 }
@@ -63,18 +71,25 @@ export default {
 
 <style lang="scss">
 .nav-container {
+  background-color: white;
   width: 100%;
-  @media (max-width: 750px) {
-    display: none;
-  }
   .main-nav {
     @include flex(space-between, center);
     max-width: $nav-width;
     margin: $margin-center;
     padding: $padding-sm 1rem;
-    color: $white;
+    .menu-icon {
+      display: none;
+      cursor: pointer;
+      @media (max-width: 750px) {
+        display: block;
+      }
+    }
     &__list {
       @include flex(null, center);
+      @media (max-width: 750px) {
+        display: none;
+      }
       a,
       li {
         cursor: pointer;
@@ -84,7 +99,6 @@ export default {
       }
       a {
         margin-right: 3rem;
-        color: $white;
       }
       &__user {
         position: relative;

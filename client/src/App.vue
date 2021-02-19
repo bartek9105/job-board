@@ -1,16 +1,25 @@
 <template>
   <div id="app">
+    <NavMobile v-if="isNavMenuOpened" @navMenuOpen="navMenu" />
+    <TheNavbar @navMenuOpen="navMenu" />
     <router-view />
-    <Footer v-if="!isLoginOrRegister" />
   </div>
 </template>
 
 <script>
-import Footer from '@/components/TheFooter'
+import TheNavbar from '@/components/TheNavbar'
+import NavMobile from '@/components/Mobile/NavMobile'
 
 export default {
+  name: 'App',
   components: {
-    Footer
+    TheNavbar,
+    NavMobile
+  },
+  data() {
+    return {
+      isNavMenuOpened: false
+    }
   },
   computed: {
     isLoginOrRegister() {
@@ -19,6 +28,11 @@ export default {
         this.$route.name === 'Register' ||
         this.$route.name === 'NotFound'
       )
+    }
+  },
+  methods: {
+    navMenu(isOpened) {
+      this.isNavMenuOpened = isOpened
     }
   }
 }
