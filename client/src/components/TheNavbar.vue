@@ -64,6 +64,9 @@ export default {
 <style lang="scss">
 .nav-container {
   width: 100%;
+  @media (max-width: 750px) {
+    display: none;
+  }
   .main-nav {
     @include flex(space-between, center);
     max-width: $nav-width;

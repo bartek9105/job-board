@@ -153,6 +153,7 @@ export default {
     max-width: $container-width;
     margin: 0 auto;
     color: $dark-blue;
+    padding: 0 $padding-md;
     .row {
       display: grid;
       grid-template-columns: (20% 20% auto);
