@@ -6,14 +6,28 @@
         class="job-search-form-mobile__input"
         placeholder="Title or keyword"
       />
-      <font-awesome-icon icon="filter" />
+      <font-awesome-icon
+        icon="filter"
+        class="filter-icon"
+        @click="isMobileFiltersOpen = !isMobileFiltersOpen"
+      />
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'JobSearchMobile'
+  name: 'JobSearchMobile',
+  data() {
+    return {
+      isMobileFiltersOpen: false
+    }
+  },
+  watch: {
+    isMobileFiltersOpen: function(newValue, oldValue) {
+      this.$emit('openMobileFilters', newValue)
+    }
+  }
 }
 </script>
 
@@ -29,5 +43,8 @@ export default {
     width: 100%;
     margin-right: 1rem;
   }
+}
+.filter-icon {
+  cursor: pointer;
 }
 </style>

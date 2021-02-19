@@ -2,7 +2,7 @@
   <div class="job-search-container">
     <div class="job-search">
       <form @submit.prevent>
-        <div class="row">
+        <div class="row" :class="{ displayAsColumn: isMobile }">
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Category</span>
             <BaseSelect
@@ -36,7 +36,10 @@
             </div>
           </div>
         </div>
-        <div class="row" :class="{ showFiltersClass: !showFilters }">
+        <div
+          class="row"
+          :class="{ showFiltersClass: !showFilters, displayAsColumn: isMobile }"
+        >
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
             <BaseSelect
@@ -73,7 +76,7 @@
               Clear filters
             </BaseClearButton>
           </div>
-          <div class="btn-filter">
+          <div v-if="!isMobile" class="btn-filter">
             <font-awesome-icon icon="filter" class="job-search__filter-icon" />
             <button
               class="job-search__filter-btn"
@@ -105,7 +108,8 @@ export default {
   },
   props: {
     buttonText: String,
-    buttonTextClear: String
+    buttonTextClear: String,
+    isMobile: Boolean
   },
   data() {
     return {
@@ -153,7 +157,6 @@ export default {
     max-width: $container-width;
     margin: 0 auto;
     color: $dark-blue;
-    padding: 0 $padding-md;
     .row {
       display: grid;
       grid-template-columns: (20% 20% auto);
@@ -180,7 +183,8 @@ export default {
     }
     &__input-name {
       @include input-name;
-      margin-bottom: $margin-md;
+      //margin-bottom: $margin-md;
+      margin: $margin-sm 0;
     }
     &__search-input {
       width: 100%;
@@ -202,6 +206,11 @@ export default {
 }
 .showFiltersClass {
   display: none !important;
+}
+.displayAsColumn {
+  display: flex !important;
+  flex-direction: column;
+  margin-bottom: 0 !important;
 }
 .salary-range-slider {
   width: 100% !important;

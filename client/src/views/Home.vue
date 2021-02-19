@@ -1,61 +1,70 @@
 <template>
   <div>
-    <BaseHero class="hero">
-      <JobSearch @searchQuery="query" />
-    </BaseHero>
-    <JobSearchMobile class="job-search-mobile" />
-    <main class="offers">
-      <section class="offers__filters">
-        <Container>
-          <JobSearchForm
-            button-text="Search"
-            button-text-clear="Clear filters"
-            @clicked="formData"
-          />
-        </Container>
-      </section>
-      <section class="offers__list">
-        <div class="offers__list__info">
-          <span class="offers__list__info__count">
-            {{ foundOffersNumber }}
-          </span>
-          <div class="offers__list__info__map-toggle">
-            <span v-if="!showMap" class="offers__list__info__map-toggle__text"
-              >Show map</span
-            >
-            <span v-else class="offers__list__info__map-toggle__text"
-              >Hide map</span
-            >
-            <ToggleSwitch @change.native="showMap = !showMap" />
+    <JobSearchFiltersMobile
+      v-if="mobileFiltersOpen"
+      @openMobileFilters="mobileFilters"
+    />
+    <div v-else>
+      <BaseHero class="hero">
+        <JobSearch @searchQuery="query" />
+      </BaseHero>
+      <JobSearchMobile
+        class="job-search-mobile"
+        @openMobileFilters="mobileFilters"
+      />
+      <main class="offers">
+        <section class="offers__filters">
+          <Container>
+            <JobSearchForm
+              button-text="Search"
+              button-text-clear="Clear filters"
+              @clicked="formData"
+            />
+          </Container>
+        </section>
+        <section class="offers__list">
+          <div class="offers__list__info">
+            <span class="offers__list__info__count">
+              {{ foundOffersNumber }}
+            </span>
+            <div class="offers__list__info__map-toggle">
+              <span v-if="!showMap" class="offers__list__info__map-toggle__text"
+                >Show map</span
+              >
+              <span v-else class="offers__list__info__map-toggle__text"
+                >Hide map</span
+              >
+              <ToggleSwitch @change.native="showMap = !showMap" />
+            </div>
           </div>
-        </div>
-        <!-- If map is hidden, display offers list in the center -->
-        <Container v-if="!showMap">
-          <BaseOffersList
-            :offers="getOffers"
-            @pageChange="pageNumber"
-            @offerId="hoveredOfferId"
-          />
-        </Container>
-        <!-- If map is shown, display offers list on the left side and map on the right side -->
-        <div v-else class="offers__map">
-          <div class="offers__map__list">
+          <!-- If map is hidden, display offers list in the center -->
+          <Container v-if="!showMap">
             <BaseOffersList
               :offers="getOffers"
               @pageChange="pageNumber"
               @offerId="hoveredOfferId"
             />
+          </Container>
+          <!-- If map is shown, display offers list on the left side and map on the right side -->
+          <div v-else class="offers__map">
+            <div class="offers__map__list">
+              <BaseOffersList
+                :offers="getOffers"
+                @pageChange="pageNumber"
+                @offerId="hoveredOfferId"
+              />
+            </div>
+            <div>
+              <Map
+                :locations="getOffers.data"
+                :offer-id="offerId"
+                :map-height="650"
+              />
+            </div>
           </div>
-          <div>
-            <Map
-              :locations="getOffers.data"
-              :offer-id="offerId"
-              :map-height="650"
-            />
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </div>
   </div>
 </template>
 
@@ -65,6 +74,7 @@ import JobSearch from '@/components/JobSearch'
 import Map from '@/components/Map'
 import ToggleSwitch from '@/components/Base/ToggleSwitch'
 import JobSearchMobile from '@/components/Mobile/JobSearchMobile'
+import JobSearchFiltersMobile from '@/components/Mobile/JobSearchFiltersMobile'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -73,6 +83,7 @@ export default {
     JobSearchForm,
     JobSearch,
     JobSearchMobile,
+    JobSearchFiltersMobile,
     Map,
     ToggleSwitch
   },
@@ -80,7 +91,8 @@ export default {
     return {
       queries: {},
       offerId: '',
-      showMap: false
+      showMap: false,
+      mobileFiltersOpen: false
     }
   },
   methods: {
@@ -99,6 +111,9 @@ export default {
     query({ title, location }) {
       this.queries = { ...this.queries, title, location }
       this.fetchOffers(this.queries)
+    },
+    mobileFilters(isOpened) {
+      this.mobileFiltersOpen = isOpened
     }
   },
   computed: {
