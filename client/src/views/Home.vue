@@ -40,28 +40,33 @@
           </div>
         </div>
         <!-- If map is hidden, display offers list in the center -->
-        <Container v-if="!showMap">
-          <BaseOffersList
-            :offers="getOffers"
-            @pageChange="pageNumber"
-            @offerId="hoveredOfferId"
-          />
-        </Container>
-        <!-- If map is shown, display offers list on the left side and map on the right side -->
-        <div v-else class="offers__map">
-          <div class="offers__map__list">
+        <div v-if="isOffers">
+          <Container v-if="!showMap">
             <BaseOffersList
               :offers="getOffers"
               @pageChange="pageNumber"
               @offerId="hoveredOfferId"
             />
+          </Container>
+          <!-- If map is shown, display offers list on the left side and map on the right side -->
+          <div v-else class="offers__map">
+            <div class="offers__map__list">
+              <BaseOffersList
+                :offers="getOffers"
+                @pageChange="pageNumber"
+                @offerId="hoveredOfferId"
+              />
+            </div>
+            <Map
+              :locations="getOffers.data"
+              :offer-id="offerId"
+              :map-height="650"
+            />
           </div>
-          <Map
-            :locations="getOffers.data"
-            :offer-id="offerId"
-            :map-height="650"
-          />
         </div>
+        <BaseNoResults v-else>
+          Ughhh... Sorry, we couldn't find any offers with this criteria!
+        </BaseNoResults>
       </section>
     </main>
   </div>
@@ -72,6 +77,7 @@ import JobSearchForm from '@/components/Forms/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
 import Map from '@/components/Map'
 import ToggleSwitch from '@/components/Base/ToggleSwitch'
+import BaseNoResults from '@/components/Base/BaseNoResults'
 import JobSearchMobile from '@/components/Mobile/JobSearchMobile'
 import JobSearchFiltersMobile from '@/components/Mobile/JobSearchFiltersMobile'
 import { mapGetters, mapActions } from 'vuex'
@@ -84,7 +90,8 @@ export default {
     JobSearchMobile,
     JobSearchFiltersMobile,
     Map,
-    ToggleSwitch
+    ToggleSwitch,
+    BaseNoResults
   },
   data() {
     return {
@@ -121,6 +128,9 @@ export default {
       return this.getOffers.data
         ? `${this.getOffers.data.length} offers found for specified criteria`
         : null
+    },
+    isOffers() {
+      return this.getOffers.data && this.getOffers.data.length > 0
     }
   },
   created() {

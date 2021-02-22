@@ -8,16 +8,20 @@
             params: { offerId: offer._id, slug: offer.slug }
           }"
         >
-          <JobOffer :offer="offer" @mouseover.native="emitOfferId(offer._id)" />
+          <JobOffer
+            v-if="offer"
+            :offer="offer"
+            @mouseover.native="emitOfferId(offer._id)"
+          />
         </router-link>
       </div>
+      <Pagination
+        :pages="offers.pages"
+        class="pagination"
+        @pageChange="pageNumber"
+      />
     </div>
     <BaseSpinner v-else />
-    <Pagination
-      :pages="offers.pages"
-      class="pagination"
-      @pageChange="pageNumber"
-    />
   </div>
 </template>
 
