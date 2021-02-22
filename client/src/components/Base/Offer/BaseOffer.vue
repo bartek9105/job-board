@@ -16,7 +16,7 @@
           <div class="offer__title">
             {{ offer.title }}
           </div>
-          <div class="offer__salary">
+          <div v-if="!isSmall" class="offer__salary">
             <font-awesome-icon
               icon="money-bill-wave"
               class="offer__pay__icon"
@@ -30,7 +30,7 @@
             />
             {{ offer.location.city }}
           </div>
-          <div v-if="offer.isRemote" class="offer__remote">
+          <div v-if="offer.isRemote && !isMedium" class="offer__remote">
             Remote
           </div>
           <div v-if="offer.isPromoted" class="offer__promoted">
@@ -38,7 +38,7 @@
           </div>
         </div>
         <div>
-          <div class="offer-top-right">
+          <div v-if="!isSmall" class="offer-top-right">
             <div class="offer__category">
               {{ offer.category.name }}
             </div>
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="offer-bottom">
+      <div v-if="!isMedium" class="offer-bottom">
         <div
           v-for="technology in offer.technologies.slice(0, 3)"
           :key="technology.id"
@@ -80,6 +80,7 @@
 
 <script>
 import { daysDifference } from '@/utils/date/daysDifference'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'BaseOffer',
@@ -87,6 +88,7 @@ export default {
     offer: Object
   },
   computed: {
+    ...mapGetters(['isSmall', 'isMedium']),
     salaryRange() {
       return `${this.offer.salaryMin} - ${this.offer.salaryMax} PLN`
     }
@@ -98,6 +100,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media (max-width: 768px) {
+  .offer {
+    align-items: center;
+    &-top {
+      margin-bottom: 0 !important;
+      &-center {
+        flex-direction: column;
+      }
+      &-right {
+        flex-direction: column;
+      }
+    }
+    &__category {
+      margin-right: 0 !important;
+      margin-bottom: 0.5rem;
+    }
+    &__title,
+    &__salary {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+@media (max-width: 576px) {
+  .offer {
+    padding: 0 !important;
+    margin-bottom: 0.5rem !important;
+    &__title {
+      margin-right: 0 !important;
+      width: 200px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &__logo {
+      margin-right: 0 !important;
+    }
+  }
+}
 .offer {
   @include flex(space-between);
   @include shadow;
@@ -105,10 +145,6 @@ export default {
   color: $dark-blue;
   padding: $padding-sm 35px;
   margin-bottom: $margin-sm;
-  @media (max-width: 500px) {
-    margin-bottom: 0.5rem !important;
-    padding: $padding-sm !important;
-  }
   &:hover {
     @include shadow-hover;
     @include transition;
@@ -121,9 +157,6 @@ export default {
   &__logo {
     @include flex(center, center);
     margin-right: 35px;
-    @media (max-width: 500px) {
-      display: none;
-    }
     &__img {
       border-radius: 100%;
     }
@@ -133,9 +166,6 @@ export default {
     margin-bottom: $margin-sm;
     &-center {
       @include flex();
-      @media (max-width: 900px) {
-        @include flex(null, null, column);
-      }
     }
   }
   &-main {
@@ -162,44 +192,24 @@ export default {
       margin-right: 0.5rem;
     }
   }
-  &__title,
-  &__salary,
-  &__city {
-    @media (max-width: 700px) {
-      width: 100px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
   &-top-right {
     @include flex();
-    @media (max-width: 900px) {
-      @include flex(null, null, column);
-    }
   }
   &__category {
     margin-right: 1rem;
     @include tag-light;
-    @media (max-width: 900px) {
-      margin-right: 0;
-    }
   }
   &__created {
     @include tag-light;
   }
   &-bottom {
     @include flex();
-    @media (max-width: 900px) {
-      display: none;
-    }
   }
   &__technology {
     @include tag-dark;
     margin-right: 1rem;
     &__list {
       @include shadow;
-      display: none;
       position: absolute;
       top: 30px;
       left: 0;
@@ -216,9 +226,6 @@ export default {
   }
   &__contract {
     @include tag-light;
-    @media (max-width: 1050px) {
-      display: none;
-    }
     &:last-of-type {
       margin-right: 0;
     }

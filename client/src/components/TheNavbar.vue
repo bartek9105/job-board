@@ -3,7 +3,7 @@
     <nav class="main-nav">
       <BaseLogo :job-text-color="jobTextColor" />
       <font-awesome-icon
-        v-if="isMobile"
+        v-if="isMedium"
         icon="bars"
         class="menu-icon"
         @click="navMenuState"
@@ -65,7 +65,7 @@ export default {
     loggedInUser() {
       return StorageService.getUserData()
     },
-    ...mapGetters(['isMobile'])
+    ...mapGetters(['isMedium'])
   },
   methods: {
     navMenuState() {
@@ -77,6 +77,8 @@ export default {
 </script>
 
 <style lang="scss">
+@media (max-width: 576px) {
+}
 .nav-container {
   background-color: white;
   width: 100%;

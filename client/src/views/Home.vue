@@ -1,72 +1,69 @@
 <template>
   <div>
     <JobSearchFiltersMobile
-      v-if="mobileFiltersOpen"
+      v-if="mobileFiltersOpen && isMedium"
       @openMobileFilters="mobileFilters"
     />
-    <div>
-      <BaseHero v-if="!isMobile" class="hero">
-        <JobSearch @searchQuery="query" />
-      </BaseHero>
-      <JobSearchMobile
-        v-else
-        class="job-search-mobile"
-        @openMobileFilters="mobileFilters"
-      />
-      <main class="offers">
-        <section class="offers__filters">
-          <Container>
-            <JobSearchForm
-              v-if="!isMobile"
-              button-text="Search"
-              button-text-clear="Clear filters"
-              @clicked="formData"
-            />
-          </Container>
-        </section>
-        <section class="offers__list">
-          <div class="offers__list__info">
-            <span class="offers__list__info__count">
-              {{ foundOffersNumber }}
-            </span>
-            <div v-if="!isMobile" class="offers__list__info__map-toggle">
-              <span v-if="!showMap" class="offers__list__info__map-toggle__text"
-                >Show map</span
-              >
-              <span v-else class="offers__list__info__map-toggle__text"
-                >Hide map</span
-              >
-              <ToggleSwitch @change.native="showMap = !showMap" />
-            </div>
+    <BaseHero v-if="!isMedium">
+      <JobSearch @searchQuery="query" />
+    </BaseHero>
+    <JobSearchMobile
+      v-else
+      class="hero__job-search-mobile"
+      @openMobileFilters="mobileFilters"
+    />
+    <main class="offers">
+      <section class="offers__filters">
+        <Container>
+          <JobSearchForm
+            v-if="!isMedium"
+            button-text="Search"
+            button-text-clear="Clear filters"
+            @clicked="formData"
+          />
+        </Container>
+      </section>
+      <section class="offers__list">
+        <div class="offers__list__info">
+          <span class="offers__list__info__count">
+            {{ foundOffersNumber }}
+          </span>
+          <div v-if="!isMedium">
+            <ToggleSwitch @change.native="showMap = !showMap">
+              <template v-slot:toggleOn>
+                <span>Hide Map </span>
+              </template>
+              <template v-slot:toggleOff>
+                <span>Show Map </span>
+              </template>
+            </ToggleSwitch>
           </div>
-          <!-- If map is hidden, display offers list in the center -->
-          <Container v-if="!showMap">
+        </div>
+        <!-- If map is hidden, display offers list in the center -->
+        <Container v-if="!showMap">
+          <BaseOffersList
+            :offers="getOffers"
+            @pageChange="pageNumber"
+            @offerId="hoveredOfferId"
+          />
+        </Container>
+        <!-- If map is shown, display offers list on the left side and map on the right side -->
+        <div v-else class="offers__map">
+          <div class="offers__map__list">
             <BaseOffersList
               :offers="getOffers"
               @pageChange="pageNumber"
               @offerId="hoveredOfferId"
             />
-          </Container>
-          <!-- If map is shown, display offers list on the left side and map on the right side -->
-          <div v-else class="offers__map">
-            <div class="offers__map__list">
-              <BaseOffersList
-                :offers="getOffers"
-                @pageChange="pageNumber"
-                @offerId="hoveredOfferId"
-              />
-            </div>
-            <div>
-              <Map
-                :locations="getOffers.data"
-                :offer-id="offerId"
-                :map-height="650"
-              />
-            </div>
           </div>
-        </section>
-      </main>
-    </div>
+          <Map
+            :locations="getOffers.data"
+            :offer-id="offerId"
+            :map-height="650"
+          />
+        </div>
+      </section>
+    </main>
   </div>
 </template>
 
@@ -119,7 +116,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getOffers', 'getIsLoading', 'isMobile']),
+    ...mapGetters(['getOffers', 'getIsLoading', 'isMedium']),
     foundOffersNumber() {
       return this.getOffers.data
         ? `${this.getOffers.data.length} offers found for specified criteria`
@@ -142,9 +139,12 @@ export default {
     margin-bottom: $margin-md !important;
   }
 }
-.job-search-mobile {
-  display: flex;
-  padding: $padding-sm;
+
+.hero {
+  &__job-search-mobile {
+    display: flex;
+    padding: 0.875rem;
+  }
 }
 
 .offers {
@@ -160,13 +160,6 @@ export default {
       margin: $margin-lg auto;
       &__count {
         @include input-name;
-      }
-      &__map-toggle {
-        @include flex(null, center);
-        &__text {
-          margin-right: 1rem;
-          @include input-name;
-        }
       }
     }
   }

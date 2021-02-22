@@ -9,7 +9,7 @@
       <font-awesome-icon
         icon="filter"
         class="filter-icon"
-        @click="isMobileFiltersOpen = !isMobileFiltersOpen"
+        @click="isMediumFiltersOpen = !isMediumFiltersOpen"
       />
     </form>
   </div>
@@ -20,11 +20,11 @@ export default {
   name: 'JobSearchMobile',
   data() {
     return {
-      isMobileFiltersOpen: false
+      isMediumFiltersOpen: false
     }
   },
   watch: {
-    isMobileFiltersOpen: function(newValue, oldValue) {
+    isMediumFiltersOpen: function(newValue, oldValue) {
       this.$emit('openMobileFilters', newValue)
     }
   }

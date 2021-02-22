@@ -16,8 +16,11 @@ export default new Vuex.Store({
     getIsLoading(state) {
       return state.isLoading
     },
-    isMobile(state) {
+    isMedium(state) {
       return state.windowWidth <= 768
+    },
+    isSmall(state) {
+      return state.windowWidth <= 576
     }
   },
   mutations: {

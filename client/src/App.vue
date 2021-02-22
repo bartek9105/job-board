@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <NavMobile v-if="isNavMenuOpened" @navMenuOpen="navMenu" />
+    <NavMobile v-if="isNavMenuOpened && isMedium" @navMenuOpen="navMenu" />
     <TheNavbar @navMenuOpen="navMenu" />
     <router-view />
   </div>
@@ -9,6 +9,7 @@
 <script>
 import TheNavbar from '@/components/TheNavbar'
 import NavMobile from '@/components/Mobile/NavMobile'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -22,6 +23,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['isMedium']),
     isLoginOrRegister() {
       return (
         this.$route.name === 'Login' ||
