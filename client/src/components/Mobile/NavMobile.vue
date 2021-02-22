@@ -95,6 +95,10 @@ export default {
   width: 100vw;
   height: 100vh;
   padding: $padding-sm;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
   @media (max-width: 750px) {
     display: block;
   }

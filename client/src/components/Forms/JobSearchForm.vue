@@ -23,7 +23,10 @@
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Salary</span>
-            <div class="job-search__salary-inputs">
+            <div
+              class="job-search__salary-inputs"
+              :class="{ salaryUnit: isMobile }"
+            >
               <span class="salary"
                 >{{ queries.salaryMin }} - {{ queries.salaryMax }} PLN
               </span>
@@ -210,10 +213,14 @@ export default {
 .displayAsColumn {
   display: flex !important;
   flex-direction: column;
-  margin-bottom: 0 !important;
+  margin-bottom: $margin-sm !important;
+}
+.salaryUnit {
+  flex-direction: column;
+  align-items: start !important;
 }
 .salary-range-slider {
-  width: 100% !important;
+  width: 90% !important;
   margin-top: 0.5rem;
   margin-left: 2rem;
 }

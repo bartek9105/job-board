@@ -39,13 +39,16 @@ export default {
   width: 100vw;
   height: 100vh;
   background-color: $white;
-  padding: $padding-md;
+  padding: $padding-sm;
 }
 .job-search-filters-top {
   @include flex(space-between, center);
+  h3 {
+    text-transform: uppercase;
+  }
 }
 .job-search-form-container {
-  margin-top: $margin-lg;
+  margin-top: $margin-sm;
 }
 .close-icon {
   cursor: pointer;

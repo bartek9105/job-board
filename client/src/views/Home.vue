@@ -137,7 +137,7 @@ export default {
   }
   .job-search-mobile {
     display: flex !important;
-    padding: $padding-md;
+    padding: $padding-sm;
   }
   .offers__list__info__map-toggle {
     display: none !important;
@@ -162,7 +162,7 @@ export default {
     }
   }
   &__list {
-    padding: 0 $padding-md;
+    padding: 0 $padding-sm;
     &__info {
       @include flex(space-between, center);
       max-width: $container-width;
