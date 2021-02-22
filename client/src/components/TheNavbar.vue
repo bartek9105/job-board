@@ -2,7 +2,13 @@
   <div class="nav-container">
     <nav class="main-nav">
       <BaseLogo :job-text-color="jobTextColor" />
-      <ul class="main-nav__list">
+      <font-awesome-icon
+        v-if="isMedium"
+        icon="bars"
+        class="menu-icon"
+        @click="navMenuState"
+      />
+      <ul v-else class="main-nav__list">
         <router-link to="/">
           <li>Offers</li>
         </router-link>
@@ -40,6 +46,7 @@ import StorageService from '@/services/storage.service'
 import BaseLogo from '@/components/Base/BaseLogo'
 import NavbarDropdown from '@/components/NavbarDropdown'
 import BaseLoggedUserBadge from '@/components/Base/BaseLoggedUserBadge'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -50,26 +57,39 @@ export default {
   data() {
     return {
       showDropdown: false,
-      jobTextColor: '#fff'
+      jobTextColor: '#182952',
+      isNavMenuOpened: false
     }
   },
   computed: {
     loggedInUser() {
       return StorageService.getUserData()
+    },
+    ...mapGetters(['isMedium'])
+  },
+  methods: {
+    navMenuState() {
+      this.isNavMenuOpened = !this.isNavMenuOpened
+      this.$emit('navMenuOpen', this.isNavMenuOpened)
     }
   }
 }
 </script>
 
 <style lang="scss">
+@media (max-width: 576px) {
+}
 .nav-container {
+  background-color: white;
   width: 100%;
   .main-nav {
     @include flex(space-between, center);
     max-width: $nav-width;
     margin: $margin-center;
     padding: $padding-sm 1rem;
-    color: $white;
+    .menu-icon {
+      cursor: pointer;
+    }
     &__list {
       @include flex(null, center);
       a,
@@ -81,7 +101,6 @@ export default {
       }
       a {
         margin-right: 3rem;
-        color: $white;
       }
       &__user {
         position: relative;

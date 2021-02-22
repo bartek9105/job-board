@@ -1,6 +1,5 @@
 <template>
   <header class="hero">
-    <TheNavbar />
     <slot />
     <div class="hero__animatedCircle hero__circle-1" />
     <div class="hero__animatedCircle hero__circle-2" />
@@ -9,13 +8,8 @@
 </template>
 
 <script>
-import TheNavbar from '@/components/TheNavbar'
-
 export default {
-  name: 'BaseHero',
-  components: {
-    TheNavbar
-  }
+  name: 'BaseHero'
 }
 </script>
 

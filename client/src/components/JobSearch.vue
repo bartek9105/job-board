@@ -48,6 +48,11 @@ export default {
   margin: $margin-center;
   color: $white-blue;
   height: calc(100% - #{$nav-height * 2});
+  padding: 0 $padding-md;
+  text-align: center;
+  @media (max-width: 750px) {
+    height: 100%;
+  }
   &__heading {
     color: $white-blue;
     margin-bottom: $margin-md;
@@ -58,6 +63,12 @@ export default {
     grid-template-columns: (50% 30% auto);
     justify-content: center;
     column-gap: 0.5rem;
+    @media (max-width: 750px) {
+      @include flex(center, null, column);
+      &__input {
+        margin-bottom: $margin-sm;
+      }
+    }
     &__search-icon {
       color: $pink;
       position: absolute;

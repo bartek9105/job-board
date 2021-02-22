@@ -12,32 +12,47 @@
     </div>
     <div class="offer-main">
       <div class="offer-top">
-        <div class="offer__title">
-          {{ offer.title }}
+        <div class="offer-top-center">
+          <div class="offer__title">
+            {{ offer.title }}
+          </div>
+          <div v-if="!isSmall" class="offer__salary">
+            <font-awesome-icon
+              icon="money-bill-wave"
+              class="offer__pay__icon"
+            />
+            {{ offer.salaryMin }} - {{ offer.salaryMax }}
+          </div>
+          <div class="offer__city">
+            <font-awesome-icon
+              icon="map-marker-alt"
+              class="offer__city__marker-icon"
+            />
+            {{ offer.location.city }}
+          </div>
+          <div v-if="offer.isRemote && !isMedium" class="offer__remote">
+            Remote
+          </div>
+          <div v-if="offer.isPromoted" class="offer__promoted">
+            Featured
+          </div>
         </div>
-        <div class="offer__pay">
-          <font-awesome-icon icon="money-bill-wave" class="offer__pay__icon" />
-          {{ offer.salaryMin }} - {{ offer.salaryMax }}
-        </div>
-        <div class="offer__city">
-          <font-awesome-icon
-            icon="map-marker-alt"
-            class="offer__city__marker-icon"
-          />
-          {{ offer.location.city }}
-        </div>
-        <div v-if="offer.isRemote" class="offer__remote">
-          Remote
-        </div>
-        <div v-if="offer.isPromoted" class="offer__promoted">
-          Featured
+        <div>
+          <div v-if="!isSmall" class="offer-top-right">
+            <div class="offer__category">
+              {{ offer.category.name }}
+            </div>
+            <div class="offer__created">
+              {{ daysDifference(new Date(), offer.createdAt) }}d ago
+            </div>
+          </div>
         </div>
       </div>
-      <div class="offer-tags">
+      <div v-if="!isMedium" class="offer-bottom">
         <div
           v-for="technology in offer.technologies.slice(0, 3)"
           :key="technology.id"
-          class="offer__tag"
+          class="offer__technology"
         >
           {{ technology }}
         </div>
@@ -55,29 +70,17 @@
             </li>
           </ul>
         </div>
-        <div class="offer__tag offer__tag--light">
+        <div class="offer__contract">
           {{ offer.contract }}
         </div>
       </div>
-    </div>
-    <div class="offer-additional">
-      <div class="offer-tags">
-        <div class="offer__tag offer__tag--light">
-          {{ offer.category.name }}
-        </div>
-        <div class="offer__tag offer__tag--light">
-          {{ daysDifference(new Date(), offer.createdAt) }}d ago
-        </div>
-      </div>
-      <button class="offer__like-btn">
-        <font-awesome-icon icon="heart" />
-      </button>
     </div>
   </div>
 </template>
 
 <script>
 import { daysDifference } from '@/utils/date/daysDifference'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'BaseOffer',
@@ -85,6 +88,7 @@ export default {
     offer: Object
   },
   computed: {
+    ...mapGetters(['isSmall', 'isMedium']),
     salaryRange() {
       return `${this.offer.salaryMin} - ${this.offer.salaryMax} PLN`
     }
@@ -96,6 +100,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media (max-width: 768px) {
+  .offer {
+    align-items: center;
+    &-top {
+      margin-bottom: 0 !important;
+      &-center {
+        flex-direction: column;
+      }
+      &-right {
+        flex-direction: column;
+      }
+    }
+    &__category {
+      margin-right: 0 !important;
+      margin-bottom: 0.5rem;
+    }
+    &__title,
+    &__salary {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+@media (max-width: 576px) {
+  .offer {
+    padding: 0 !important;
+    margin-bottom: 0.5rem !important;
+    &__title {
+      margin-right: 0 !important;
+      width: 200px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &__logo {
+      margin-right: 0 !important;
+    }
+  }
+}
 .offer {
   @include flex(space-between);
   @include shadow;
@@ -120,21 +162,21 @@ export default {
     }
   }
   &-top {
-    @include flex();
+    @include flex(space-between, center);
     margin-bottom: $margin-sm;
+    &-center {
+      @include flex();
+    }
   }
   &-main {
     flex: 1;
-  }
-  &-top {
-    @include flex(null, center);
   }
   &__title {
     font-size: $font-content-lg;
     font-weight: $font-semi-bold;
     margin-right: 40px;
   }
-  &__pay {
+  &__salary {
     font-size: $font-content-md;
     opacity: $opacity-high;
     margin-right: 40px;
@@ -150,26 +192,24 @@ export default {
       margin-right: 0.5rem;
     }
   }
-  &-tags {
+  &-top-right {
     @include flex();
   }
-  &__tag {
+  &__category {
+    margin-right: 1rem;
+    @include tag-light;
+  }
+  &__created {
+    @include tag-light;
+  }
+  &-bottom {
+    @include flex();
+  }
+  &__technology {
     @include tag-dark;
-    margin-right: 20px;
-    &--sm {
-      &:hover .offer__tag__list {
-        display: block;
-      }
-    }
-    &--light {
-      @include tag-light;
-      &:last-of-type {
-        margin-right: 0;
-      }
-    }
+    margin-right: 1rem;
     &__list {
       @include shadow;
-      display: none;
       position: absolute;
       top: 30px;
       left: 0;
@@ -184,13 +224,11 @@ export default {
       }
     }
   }
-  &-additional {
-    @include flex(space-between, flex-end, column);
-  }
-  &__like-btn {
-    background: none;
-    font-size: $font-icon-sm;
-    color: $dark-blue-lighter;
+  &__contract {
+    @include tag-light;
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 }
 </style>

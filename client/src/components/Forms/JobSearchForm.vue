@@ -2,7 +2,7 @@
   <div class="job-search-container">
     <div class="job-search">
       <form @submit.prevent>
-        <div class="row">
+        <div class="row" :class="{ displayAsColumn: isMedium }">
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Category</span>
             <BaseSelect
@@ -23,7 +23,10 @@
           </div>
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Salary</span>
-            <div class="job-search__salary-inputs">
+            <div
+              class="job-search__salary-inputs"
+              :class="{ salaryUnit: isMedium }"
+            >
               <span class="salary"
                 >{{ queries.salaryMin }} - {{ queries.salaryMax }} PLN
               </span>
@@ -36,7 +39,10 @@
             </div>
           </div>
         </div>
-        <div class="row" :class="{ showFiltersClass: !showFilters }">
+        <div
+          class="row"
+          :class="{ showFiltersClass: !showFilters, displayAsColumn: isMedium }"
+        >
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
             <BaseSelect
@@ -73,7 +79,7 @@
               Clear filters
             </BaseClearButton>
           </div>
-          <div class="btn-filter">
+          <div v-if="!isMedium" class="btn-filter">
             <font-awesome-icon icon="filter" class="job-search__filter-icon" />
             <button
               class="job-search__filter-btn"
@@ -95,6 +101,7 @@ import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
 import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'JobSearchForm',
@@ -143,6 +150,9 @@ export default {
       this.queries.salaryMin = salaryMin
       this.queries.salaryMax = salaryMax
     }
+  },
+  computed: {
+    ...mapGetters(['isMedium'])
   }
 }
 </script>
@@ -179,7 +189,8 @@ export default {
     }
     &__input-name {
       @include input-name;
-      margin-bottom: $margin-md;
+      //margin-bottom: $margin-md;
+      margin: $margin-sm 0;
     }
     &__search-input {
       width: 100%;
@@ -202,8 +213,17 @@ export default {
 .showFiltersClass {
   display: none !important;
 }
+.displayAsColumn {
+  display: flex !important;
+  flex-direction: column;
+  margin-bottom: $margin-sm !important;
+}
+.salaryUnit {
+  flex-direction: column;
+  align-items: start !important;
+}
 .salary-range-slider {
-  width: 100% !important;
+  width: 90% !important;
   margin-top: 0.5rem;
   margin-left: 2rem;
 }

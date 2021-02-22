@@ -1,18 +1,32 @@
 <template>
   <div class="toggle">
-    <input id="switch" type="checkbox" /><label for="switch">Toggle</label>
+    <slot v-if="toggleSwitch" name="toggleOn" />
+    <slot v-else name="toggleOff" />
+    <input id="switch" v-model="toggleSwitch" type="checkbox" /><label
+      for="switch"
+      >Toggle</label
+    >
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ToggleSwitch'
+  name: 'ToggleSwitch',
+  data() {
+    return {
+      toggleSwitch: false
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .toggle {
-  @include flex();
+  @include flex(null, center);
+  span {
+    @include input-name;
+    margin-right: 1rem;
+  }
 }
 
 input[type='checkbox'] {

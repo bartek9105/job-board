@@ -1,57 +1,66 @@
 <template>
   <div>
-    <BaseHero>
+    <JobSearchFiltersMobile
+      v-if="mobileFiltersOpen && isMedium"
+      @openMobileFilters="mobileFilters"
+    />
+    <BaseHero v-if="!isMedium">
       <JobSearch @searchQuery="query" />
     </BaseHero>
-    <main>
-      <section class="job-search-form">
+    <JobSearchMobile
+      v-else
+      class="hero__job-search-mobile"
+      @openMobileFilters="mobileFilters"
+    />
+    <main class="offers">
+      <section class="offers__filters">
         <Container>
           <JobSearchForm
+            v-if="!isMedium"
             button-text="Search"
             button-text-clear="Clear filters"
             @clicked="formData"
           />
         </Container>
       </section>
-      <section>
-        <div class="offers-list__offers-info">
-          <span class="offers-list__offers-info__count">
+      <section class="offers__list">
+        <div class="offers__list__info">
+          <span class="offers__list__info__count">
             {{ foundOffersNumber }}
           </span>
-          <div class="offers-list__offers-info__toggle">
-            <span v-if="!showMap" class="offers-list__offers-info__toggle-text"
-              >Show map</span
-            >
-            <span v-else class="offers-list__offers-info__toggle-text"
-              >Hide map</span
-            >
-            <ToggleSwitch @change.native="showMap = !showMap" />
+          <div v-if="!isMedium">
+            <ToggleSwitch @change.native="showMap = !showMap">
+              <template v-slot:toggleOn>
+                <span>Hide Map </span>
+              </template>
+              <template v-slot:toggleOff>
+                <span>Show Map </span>
+              </template>
+            </ToggleSwitch>
           </div>
         </div>
+        <!-- If map is hidden, display offers list in the center -->
         <Container v-if="!showMap">
-          <div class="offers-list">
-            <BaseOffersList
-              :offers="getOffers"
-              @pageChange="pageNumber"
-              @offerId="hoveredOfferId"
-            />
-          </div>
+          <BaseOffersList
+            :offers="getOffers"
+            @pageChange="pageNumber"
+            @offerId="hoveredOfferId"
+          />
         </Container>
-        <div v-else class="offers-map">
-          <div class="offers-list">
+        <!-- If map is shown, display offers list on the left side and map on the right side -->
+        <div v-else class="offers__map">
+          <div class="offers__map__list">
             <BaseOffersList
               :offers="getOffers"
               @pageChange="pageNumber"
               @offerId="hoveredOfferId"
             />
           </div>
-          <div>
-            <Map
-              :locations="getOffers.data"
-              :offer-id="offerId"
-              :map-height="650"
-            />
-          </div>
+          <Map
+            :locations="getOffers.data"
+            :offer-id="offerId"
+            :map-height="650"
+          />
         </div>
       </section>
     </main>
@@ -63,6 +72,8 @@ import JobSearchForm from '@/components/Forms/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
 import Map from '@/components/Map'
 import ToggleSwitch from '@/components/Base/ToggleSwitch'
+import JobSearchMobile from '@/components/Mobile/JobSearchMobile'
+import JobSearchFiltersMobile from '@/components/Mobile/JobSearchFiltersMobile'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -70,6 +81,8 @@ export default {
   components: {
     JobSearchForm,
     JobSearch,
+    JobSearchMobile,
+    JobSearchFiltersMobile,
     Map,
     ToggleSwitch
   },
@@ -77,7 +90,8 @@ export default {
     return {
       queries: {},
       offerId: '',
-      showMap: false
+      showMap: false,
+      mobileFiltersOpen: false
     }
   },
   methods: {
@@ -96,10 +110,13 @@ export default {
     query({ title, location }) {
       this.queries = { ...this.queries, title, location }
       this.fetchOffers(this.queries)
+    },
+    mobileFilters(isOpened) {
+      this.mobileFiltersOpen = isOpened
     }
   },
   computed: {
-    ...mapGetters(['getOffers', 'getIsLoading']),
+    ...mapGetters(['getOffers', 'getIsLoading', 'isMedium']),
     foundOffersNumber() {
       return this.getOffers.data
         ? `${this.getOffers.data.length} offers found for specified criteria`
@@ -113,34 +130,48 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.job-search-form {
-  background-color: $white;
-}
-.offers-list {
-  &__offers-info {
-    @include flex(space-between, center);
-    max-width: $container-width;
-    margin: $margin-lg auto;
-    &__count {
-      @include input-name;
-    }
-    &__toggle {
-      @include flex(null, center);
-    }
-    &__toggle-text {
-      margin-right: 1rem;
-      @include input-name;
-    }
+@media (max-width: 768px) {
+  .offers__list__info {
+    margin: $margin-md auto !important;
+  }
+  .container {
+    padding: 0 !important;
+    margin-bottom: $margin-md !important;
   }
 }
-.offers-map {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 60% 40%;
-  padding-top: $padding-lg;
-  margin-bottom: $margin-lg;
-  .offers-list {
+
+.hero {
+  &__job-search-mobile {
+    display: flex;
+    padding: 0.875rem;
+  }
+}
+
+.offers {
+  &__filters {
+    width: 100%;
+    background-color: $white;
+  }
+  &__list {
     padding: 0 $padding-sm;
+    &__info {
+      @include flex(space-between, center);
+      max-width: $container-width;
+      margin: $margin-lg auto;
+      &__count {
+        @include input-name;
+      }
+    }
+  }
+  &__map {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    padding-top: $padding-lg;
+    margin-bottom: $margin-lg;
+    &__list {
+      padding: 0 $padding-sm;
+    }
   }
 }
 </style>
