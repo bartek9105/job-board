@@ -36,10 +36,14 @@ export default {
 
 <style lang="scss" scoped>
 .job-search-filters {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background-color: $white;
   padding: $padding-sm;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
 }
 .job-search-filters-top {
   @include flex(space-between, center);

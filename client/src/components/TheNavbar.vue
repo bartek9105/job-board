@@ -2,8 +2,13 @@
   <div class="nav-container">
     <nav class="main-nav">
       <BaseLogo :job-text-color="jobTextColor" />
-      <font-awesome-icon icon="bars" class="menu-icon" @click="navMenuState" />
-      <ul class="main-nav__list">
+      <font-awesome-icon
+        v-if="isMobile"
+        icon="bars"
+        class="menu-icon"
+        @click="navMenuState"
+      />
+      <ul v-else class="main-nav__list">
         <router-link to="/">
           <li>Offers</li>
         </router-link>
@@ -41,6 +46,7 @@ import StorageService from '@/services/storage.service'
 import BaseLogo from '@/components/Base/BaseLogo'
 import NavbarDropdown from '@/components/NavbarDropdown'
 import BaseLoggedUserBadge from '@/components/Base/BaseLoggedUserBadge'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -58,7 +64,8 @@ export default {
   computed: {
     loggedInUser() {
       return StorageService.getUserData()
-    }
+    },
+    ...mapGetters(['isMobile'])
   },
   methods: {
     navMenuState() {
@@ -79,17 +86,10 @@ export default {
     margin: $margin-center;
     padding: $padding-sm 1rem;
     .menu-icon {
-      display: none;
       cursor: pointer;
-      @media (max-width: 750px) {
-        display: block;
-      }
     }
     &__list {
       @include flex(null, center);
-      @media (max-width: 750px) {
-        display: none;
-      }
       a,
       li {
         cursor: pointer;

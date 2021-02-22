@@ -90,18 +90,14 @@ export default {
 
 <style lang="scss" scoped>
 .nav-mobile {
-  display: none;
   background-color: white;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   padding: $padding-sm;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
-  @media (max-width: 750px) {
-    display: block;
-  }
+  z-index: 9999;
   .nav-mobile-top {
     @include flex(space-between, center);
     margin-bottom: $margin-lg;
@@ -110,8 +106,6 @@ export default {
     }
   }
   .main-nav {
-    height: 85%;
-    @include flex(null, null, column);
     &__list {
       a,
       li {

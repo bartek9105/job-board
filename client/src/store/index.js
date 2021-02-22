@@ -9,16 +9,23 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLoading: null
+    isLoading: null,
+    windowWidth: null
   },
   getters: {
     getIsLoading(state) {
       return state.isLoading
+    },
+    isMobile(state) {
+      return state.windowWidth <= 768
     }
   },
   mutations: {
     SET_IS_LOADING(state, isLoading) {
       state.isLoading = isLoading
+    },
+    SET_WINDOW_WIDTH(state, windowWidth) {
+      state.windowWidth = windowWidth
     }
   },
   actions: {

@@ -43,5 +43,13 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  mounted() {
+    window.addEventListener('resize', () => {
+      store.commit('SET_WINDOW_WIDTH', window.innerWidth)
+    })
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize')
+  },
   render: h => h(App)
 }).$mount('#app')

@@ -4,11 +4,12 @@
       v-if="mobileFiltersOpen"
       @openMobileFilters="mobileFilters"
     />
-    <div v-else>
-      <BaseHero class="hero">
+    <div>
+      <BaseHero v-if="!isMobile" class="hero">
         <JobSearch @searchQuery="query" />
       </BaseHero>
       <JobSearchMobile
+        v-else
         class="job-search-mobile"
         @openMobileFilters="mobileFilters"
       />
@@ -16,6 +17,7 @@
         <section class="offers__filters">
           <Container>
             <JobSearchForm
+              v-if="!isMobile"
               button-text="Search"
               button-text-clear="Clear filters"
               @clicked="formData"
@@ -27,7 +29,7 @@
             <span class="offers__list__info__count">
               {{ foundOffersNumber }}
             </span>
-            <div class="offers__list__info__map-toggle">
+            <div v-if="!isMobile" class="offers__list__info__map-toggle">
               <span v-if="!showMap" class="offers__list__info__map-toggle__text"
                 >Show map</span
               >
@@ -117,7 +119,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getOffers', 'getIsLoading']),
+    ...mapGetters(['getOffers', 'getIsLoading', 'isMobile']),
     foundOffersNumber() {
       return this.getOffers.data
         ? `${this.getOffers.data.length} offers found for specified criteria`
@@ -131,17 +133,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (max-width: 750px) {
-  .hero {
-    display: none;
-  }
-  .job-search-mobile {
-    display: flex !important;
-    padding: $padding-sm;
-  }
-  .offers__list__info__map-toggle {
-    display: none !important;
-  }
+@media (max-width: 768px) {
   .offers__list__info {
     margin: $margin-md auto !important;
   }
@@ -151,15 +143,14 @@ export default {
   }
 }
 .job-search-mobile {
-  display: none;
+  display: flex;
+  padding: $padding-sm;
 }
+
 .offers {
   &__filters {
     width: 100%;
     background-color: $white;
-    @media (max-width: 750px) {
-      display: none;
-    }
   }
   &__list {
     padding: 0 $padding-sm;
