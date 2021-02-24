@@ -19,34 +19,51 @@
       </div>
       <div class="job-form-unit">
         <span class="job-form-unit__name">Location</span>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required"
-          class="job-form-unit-validator"
-        >
-          <input
-            v-model="offer.location.address"
-            type="text"
-            class="job-form-unit__input job-form-unit__input__location"
-            placeholder="Address"
-            :disabled="locationCheck"
-          />
-          <input
-            v-model="offer.location.city"
-            type="text"
-            class="job-form-unit__input job-form-unit__input__location"
-            placeholder="City"
-            :disabled="locationCheck"
-          />
-          <input
-            v-model="offer.location.country"
-            type="text"
-            class="job-form-unit__input job-form-unit__input__location"
-            placeholder="Country"
-            :disabled="locationCheck"
-          />
-          <span class="job-form-unit__error">{{ errors[0] }}</span>
-        </ValidationProvider>
+        <div class="job-form-unit__location">
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            class="job-form-unit-validator"
+          >
+            <input
+              v-model="offer.location.address"
+              type="text"
+              class="job-form-unit__input job-form-unit__location__input"
+              placeholder="Address"
+              :disabled="locationCheck"
+            />
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            class="job-form-unit-validator"
+          >
+            <input
+              v-model="offer.location.city"
+              type="text"
+              class="job-form-unit__input job-form-unit__location__input"
+              placeholder="City"
+              :disabled="locationCheck"
+            />
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            class="job-form-unit-validator"
+          >
+            <input
+              v-model="offer.location.country"
+              type="text"
+              class="job-form-unit__input job-form-unit__location__input"
+              placeholder="Country"
+              :disabled="locationCheck"
+            />
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
         <div class="checkbox-container">
           <input
             v-model="offer.isRemote"
@@ -54,6 +71,13 @@
             class="job-form-unit__checkbox"
           />
           <span class="job-form-unit__checkbox__text">Remote</span>
+          <input
+            v-model="offer.isPartlyRemote"
+            type="checkbox"
+            class="job-form-unit__checkbox"
+          />
+          <span class="job-form-unit__checkbox__text">Partly remote</span>
+
           <input
             v-model="locationCheck"
             type="checkbox"
@@ -273,27 +297,35 @@ export default {
   .job-form-unit {
     @include flex(null, null, column);
     padding: 0 $padding-md;
-    margin-bottom: $margin-md;
+    margin-bottom: 2.5rem;
+    select {
+      width: 100%;
+    }
     &__name {
       @include input-name;
       margin-bottom: $margin-sm;
     }
-    &__input {
-      &__location {
-        margin-bottom: $margin-sm;
-      }
-    }
     &__error {
       font-size: $font-content-sm;
-      margin-top: $margin-sm;
       color: $error;
+      position: absolute;
+      top: 45px;
+    }
+    &__location {
+      @include flex(space-between, center);
+      &__input {
+        margin-right: 1rem;
+        position: relative;
+      }
     }
     &-validator {
       @include flex(null, null, column);
+      width: 100%;
+      position: relative;
     }
     .checkbox-container {
       @include flex(null, center);
-      margin-bottom: $margin-sm;
+      margin-top: $margin-md;
     }
     &__checkbox {
       margin-right: 10px;

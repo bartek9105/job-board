@@ -1,15 +1,18 @@
 <template>
   <div>
-    <BaseHero>
-      <template v-slot:hero-content>
-        <Map :location="location" />
-      </template>
-    </BaseHero>
     <div class="post-offer-form-container">
       <div class="post-offer-form">
-        <h1 class="post-offer-form__heading">
-          Post your job offer
-        </h1>
+        <header class="post-offer-form__header">
+          <h1 class="post-offer-form__header__heading">
+            Post your job offer
+          </h1>
+          <span>or</span>
+          <router-link to="/settings">
+            <span class="post-offer-form__header__additional">
+              Edit company info first</span
+            >
+          </router-link>
+        </header>
         <OfferForm
           :offer="offer"
           :save-offer="saveOffer"
@@ -60,14 +63,12 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import Map from '@/components/Map'
 import OfferForm from '@/components/Forms/Offer/OfferForm'
 import PriceCard from '@/components/Base/BasePriceCard'
 
 export default {
   name: 'OfferPost',
   components: {
-    Map,
     OfferForm,
     PriceCard
   },
@@ -108,8 +109,17 @@ export default {
   .post-offer-form {
     max-width: $container-width;
     margin: $margin-center;
-    &__heading {
+    &__header {
+      @include flex(null, center);
       margin-bottom: $margin-md;
+      &__heading {
+        margin-right: 1rem;
+      }
+      &__additional {
+        font-size: $font-content-lg;
+        font-weight: $font-bold;
+        margin-left: 1rem;
+      }
     }
     &__price-card {
       &__list {
