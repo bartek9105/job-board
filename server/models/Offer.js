@@ -35,13 +35,23 @@ const offerSchema = new mongoose.Schema(
       type: String,
       enum: ['Intern', 'Junior', 'Regular', 'Senior'],
     },
-    salaryMin: {
-      type: Number,
-      trim: true,
-    },
-    salaryMax: {
-      type: Number,
-      trim: true,
+    salary: {
+      salaryMin: {
+        type: Number,
+        trim: true,
+        required: true,
+      },
+      salaryMax: {
+        type: Number,
+        trim: true,
+        required: true,
+      },
+      currency: {
+        type: String,
+        trim: true,
+        required: true,
+        enum: ['PLN', 'EUR', 'USD', 'GBP', 'CHF', 'CAD', 'AUD'],
+      },
     },
     description: {
       type: String,

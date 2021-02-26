@@ -21,7 +21,7 @@
               icon="money-bill-wave"
               class="offer__pay__icon"
             />
-            {{ offer.salaryMin }} - {{ offer.salaryMax }}
+            {{ salaryRange }}
           </div>
           <div class="offer__city">
             <font-awesome-icon
@@ -90,7 +90,7 @@ export default {
   computed: {
     ...mapGetters(['isSmall', 'isMedium']),
     salaryRange() {
-      return `${this.offer.salaryMin} - ${this.offer.salaryMax} PLN`
+      return `${this.offer.salary.salaryMin} - ${this.offer.salary.salaryMax} ${this.offer.salary.currency}`
     }
   },
   methods: {

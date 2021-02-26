@@ -83,8 +83,11 @@ export default {
           city: '',
           country: ''
         },
-        salaryMin: 0,
-        salaryMax: 50000,
+        salary: {
+          salaryMin: 0,
+          salaryMax: 50000,
+          currency: ''
+        },
         category: {
           color: '',
           name: ''

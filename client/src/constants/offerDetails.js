@@ -59,5 +59,6 @@ export default {
   ],
   SENIORITIES: ['Intern', 'Junior', 'Regular', 'Senior'],
   TYPES: ['Full Time', 'Part Time'],
-  CONTRACTS: ['B2B', 'Employment contract', 'Mandatory contract']
+  CONTRACTS: ['B2B', 'Employment contract', 'Mandatory contract'],
+  CURRENCIES: ["PLN", "EUR", "USD", "GBP", "CHF", "CAD", "AUD"]
 }

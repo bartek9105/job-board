@@ -20,7 +20,7 @@
         </div>
         <div class="job-form-unit">
           <span class="job-form-unit__name">Location</span>
-          <div class="job-form-unit__location">
+          <div class="job-form-unit__row">
             <ValidationProvider
               v-slot="{ errors }"
               rules="required"
@@ -29,7 +29,7 @@
               <input
                 v-model="offer.location.address"
                 type="text"
-                class="job-form-unit__input job-form-unit__location__input"
+                class="job-form-unit__input job-form-unit__row__input"
                 placeholder="Address"
                 :disabled="locationCheck"
               />
@@ -43,13 +43,12 @@
               <input
                 v-model="offer.location.city"
                 type="text"
-                class="job-form-unit__input job-form-unit__location__input"
+                class="job-form-unit__input job-form-unit__row__input"
                 placeholder="City"
                 :disabled="locationCheck"
               />
               <span class="job-form-unit__error">{{ errors[0] }}</span>
             </ValidationProvider>
-
             <ValidationProvider
               v-slot="{ errors }"
               rules="required"
@@ -58,7 +57,7 @@
               <input
                 v-model="offer.location.country"
                 type="text"
-                class="job-form-unit__input job-form-unit__location__input"
+                class="job-form-unit__input job-form-unit__row__input"
                 placeholder="Country"
                 :disabled="locationCheck"
               />
@@ -90,54 +89,70 @@
           </div>
         </div>
         <div class="job-form-unit">
-          <span class="job-form-unit__name">Category</span>
-          <ValidationProvider
-            v-slot="{ errors }"
-            rules="required"
-            class="job-form-unit-validator"
-          >
-            <BaseSelect
-              v-model="offer.category.name"
-              :option-values="offerDetails.CATEGORIES"
-              name="category"
-              @value-change="getValue"
-            />
-            <span class="job-form-unit__error">{{ errors[0] }}</span>
-          </ValidationProvider>
+          <div class="job-form-unit__row">
+            <div class="job-form-unit__row__col">
+              <span class="job-form-unit__name">Category</span>
+              <ValidationProvider
+                v-slot="{ errors }"
+                rules="required"
+                class="job-form-unit-validator"
+              >
+                <BaseSelect
+                  v-model="offer.category.name"
+                  :option-values="offerDetails.CATEGORIES"
+                  name="category"
+                  @value-change="getValue"
+                />
+                <span class="job-form-unit__error">{{ errors[0] }}</span>
+              </ValidationProvider>
+            </div>
+            <div class="job-form-unit__row__col">
+              <span class="job-form-unit__name">Seniority</span>
+              <ValidationProvider
+                v-slot="{ errors }"
+                rules="required"
+                class="job-form-unit-validator"
+              >
+                <BaseSelect
+                  v-model="offer.seniority"
+                  :option-values="offerDetails.SENIORITIES"
+                  name="seniority"
+                  @value-change="getValue"
+                />
+                <span class="job-form-unit__error">{{ errors[0] }}</span>
+              </ValidationProvider>
+            </div>
+          </div>
         </div>
         <div class="job-form-unit">
-          <span class="job-form-unit__name">Seniority</span>
-          <ValidationProvider
-            v-slot="{ errors }"
-            rules="required"
-            class="job-form-unit-validator"
-          >
-            <BaseSelect
-              v-model="offer.seniority"
-              :option-values="offerDetails.SENIORITIES"
-              name="seniority"
-              @value-change="getValue"
-            />
-            <span class="job-form-unit__error">{{ errors[0] }}</span>
-          </ValidationProvider>
-        </div>
-        <div class="job-form-unit">
-          <span class="job-form-unit__name">Salary</span>
-          <ValidationProvider
-            v-slot="{ errors }"
-            rules="required"
-            class="job-form-unit-validator"
-          >
-            {{ offer.salaryMin }} - {{ offer.salaryMax }}
-            <BaseSalaryRangeSlider
-              v-model="offer.salaryMin"
-              class="salary-range-slider"
-              :salary-min="offer.salaryMin"
-              :salary-max="offer.salaryMax"
-              @salaryRange="salary"
-            />
-            <span class="job-form-unit__error">{{ errors[0] }}</span>
-          </ValidationProvider>
+          <div class="job-form-unit__row-salary">
+            <div class="job-form-unit__row__col">
+              <span class="job-form-unit__name">Salary (monthly)</span>
+              {{ offer.salary.salaryMin }} - {{ offer.salary.salaryMax }}
+              <BaseSalaryRangeSlider
+                class="salary-range-slider"
+                :salary-min="offer.salary.salaryMin"
+                :salary-max="offer.salary.salaryMax"
+                @salaryRange="salary"
+              />
+            </div>
+            <div class="job-form-unit__row__col">
+              <span class="job-form-unit__name">Currency</span>
+              <ValidationProvider
+                v-slot="{ errors }"
+                rules="required"
+                class="job-form-unit-validator"
+              >
+                <BaseSelect
+                  v-model="offer.salary.currency"
+                  name="salary"
+                  :option-values="offerDetails.CURRENCIES"
+                  @value-change="getSalaryCurrency"
+                />
+                <span class="job-form-unit__error">{{ errors[0] }}</span>
+              </ValidationProvider>
+            </div>
+          </div>
         </div>
         <div class="job-form-unit">
           <span class="job-form-unit__name">Technologies</span>
@@ -157,38 +172,44 @@
           </ValidationProvider>
         </div>
         <div class="job-form-unit">
-          <span class="job-form-unit__name">Type</span>
-          <ValidationProvider
-            v-slot="{ errors }"
-            rules="required"
-            class="job-form-unit-validator"
-          >
-            <BaseSelect
-              v-model="offer.type"
-              :option-values="offerDetails.TYPES"
-              name="type"
-              @value-change="getValue"
-            />
+          <div class="job-form-unit__row">
+            <div class="job-form-unit__row__col">
+              <span class="job-form-unit__name">Type</span>
+              <ValidationProvider
+                v-slot="{ errors }"
+                rules="required"
+                class="job-form-unit-validator"
+              >
+                <BaseSelect
+                  v-model="offer.type"
+                  :option-values="offerDetails.TYPES"
+                  name="type"
+                  @value-change="getValue"
+                />
 
-            <span class="job-form-unit__error">{{ errors[0] }}</span>
-          </ValidationProvider>
-        </div>
-        <div class="job-form-unit">
-          <span class="job-form-unit__name">Contract</span>
-          <ValidationProvider
-            v-slot="{ errors }"
-            rules="required"
-            class="job-form-unit-validator"
-          >
-            <BaseSelect
-              v-model="offer.contract"
-              :option-values="offerDetails.CONTRACTS"
-              name="contract"
-              @value-change="getValue"
-            />
+                <span class="job-form-unit__error">{{ errors[0] }}</span>
+              </ValidationProvider>
+            </div>
+            <div class="job-form-unit__row__col">
+              <span class="job-form-unit__name">Contract</span>
+              <div class="job-form-unit__row__col">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required"
+                  class="job-form-unit-validator"
+                >
+                  <BaseSelect
+                    v-model="offer.contract"
+                    :option-values="offerDetails.CONTRACTS"
+                    name="contract"
+                    @value-change="getValue"
+                  />
 
-            <span class="job-form-unit__error">{{ errors[0] }}</span>
-          </ValidationProvider>
+                  <span class="job-form-unit__error">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="job-form-unit">
           <span class="job-form-unit__name">Benefits</span>
@@ -300,10 +321,13 @@ export default {
     getValue(value, name) {
       this.offer[name] = value
     },
+    getSalaryCurrency(value, name) {
+      this.offer.salary.currency = value
+    },
     salary(salary) {
       const [salaryMin, salaryMax] = salary
-      this.offer.salaryMin = salaryMin
-      this.offer.salaryMax = salaryMax
+      this.offer.salary.salaryMin = salaryMin
+      this.offer.salary.salaryMax = salaryMax
     }
   },
   computed: {
@@ -349,12 +373,21 @@ export default {
         top: 315px;
       }
     }
-    &__location {
+    &__row {
       @include flex(space-between, center);
-      &__input {
+      &__col {
+        @include flex(null, null, column);
+        width: 100%;
         margin-right: 1rem;
-        position: relative;
       }
+      &__input {
+        position: relative;
+        margin-right: 1rem;
+      }
+    }
+    &__row-salary {
+      display: grid;
+      grid-template-columns: 70% 30%;
     }
     &-validator {
       @include flex(null, null, column);
@@ -373,7 +406,7 @@ export default {
       }
     }
     .salary-range-slider {
-      margin-top: $margin-md;
+      margin: $margin-md $margin-md 0 0;
     }
   }
   .btn-container {

@@ -24,7 +24,7 @@
           <div>
             <span>
               <font-awesome-icon icon="money-bill-wave" />
-              {{ getOffer.salaryMin }} - {{ getOffer.salaryMax }}
+              {{ salaryRange }}
             </span>
             <span>
               <font-awesome-icon icon="file-signature" />
@@ -168,7 +168,10 @@ export default {
     ...mapActions(['fetchOffer'])
   },
   computed: {
-    ...mapGetters(['getOffer', 'getIsLoading'])
+    ...mapGetters(['getOffer', 'getIsLoading']),
+    salaryRange() {
+      return `${this.getOffer.salary.salaryMin} - ${this.getOffer.salary.salaryMax} ${this.getOffer.salary.currency}`
+    }
   },
   watch: {
     offerId: function() {
