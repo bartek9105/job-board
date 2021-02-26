@@ -1,219 +1,244 @@
 <template>
   <div class="job-form-container">
-    <form @submit.prevent>
-      <div class="job-form-unit">
-        <span class="job-form-unit__name">Title</span>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required|maxTitle"
-          class="job-form-unit-validator"
-        >
-          <input
-            v-model="offer.title"
-            type="text"
-            class="job-form-unit__input"
-            placeholder="Title"
-          />
-          <span class="job-form-unit__error">{{ errors[0] }}</span>
-        </ValidationProvider>
-      </div>
-      <div class="job-form-unit">
-        <span class="job-form-unit__name">Location</span>
-        <div class="job-form-unit__location">
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form @submit.prevent="handleSubmit(onSubmit)">
+        <div class="job-form-unit">
+          <span class="job-form-unit__name">Title</span>
           <ValidationProvider
             v-slot="{ errors }"
-            rules="required"
+            rules="required|maxTitle"
             class="job-form-unit-validator"
           >
             <input
-              v-model="offer.location.address"
+              v-model="offer.title"
               type="text"
-              class="job-form-unit__input job-form-unit__location__input"
-              placeholder="Address"
-              :disabled="locationCheck"
-            />
-            <span class="job-form-unit__error">{{ errors[0] }}</span>
-          </ValidationProvider>
-          <ValidationProvider
-            v-slot="{ errors }"
-            rules="required"
-            class="job-form-unit-validator"
-          >
-            <input
-              v-model="offer.location.city"
-              type="text"
-              class="job-form-unit__input job-form-unit__location__input"
-              placeholder="City"
-              :disabled="locationCheck"
-            />
-            <span class="job-form-unit__error">{{ errors[0] }}</span>
-          </ValidationProvider>
-
-          <ValidationProvider
-            v-slot="{ errors }"
-            rules="required"
-            class="job-form-unit-validator"
-          >
-            <input
-              v-model="offer.location.country"
-              type="text"
-              class="job-form-unit__input job-form-unit__location__input"
-              placeholder="Country"
-              :disabled="locationCheck"
+              class="job-form-unit__input"
+              placeholder="Title"
             />
             <span class="job-form-unit__error">{{ errors[0] }}</span>
           </ValidationProvider>
         </div>
-        <div class="checkbox-container">
-          <input
-            v-model="offer.isRemote"
-            type="checkbox"
-            class="job-form-unit__checkbox"
-          />
-          <span class="job-form-unit__checkbox__text">Remote</span>
-          <input
-            v-model="offer.isPartlyRemote"
-            type="checkbox"
-            class="job-form-unit__checkbox"
-          />
-          <span class="job-form-unit__checkbox__text">Partly remote</span>
+        <div class="job-form-unit">
+          <span class="job-form-unit__name">Location</span>
+          <div class="job-form-unit__location">
+            <ValidationProvider
+              v-slot="{ errors }"
+              rules="required"
+              class="job-form-unit-validator"
+            >
+              <input
+                v-model="offer.location.address"
+                type="text"
+                class="job-form-unit__input job-form-unit__location__input"
+                placeholder="Address"
+                :disabled="locationCheck"
+              />
+              <span class="job-form-unit__error">{{ errors[0] }}</span>
+            </ValidationProvider>
+            <ValidationProvider
+              v-slot="{ errors }"
+              rules="required"
+              class="job-form-unit-validator"
+            >
+              <input
+                v-model="offer.location.city"
+                type="text"
+                class="job-form-unit__input job-form-unit__location__input"
+                placeholder="City"
+                :disabled="locationCheck"
+              />
+              <span class="job-form-unit__error">{{ errors[0] }}</span>
+            </ValidationProvider>
 
-          <input
-            v-model="locationCheck"
-            type="checkbox"
-            class="job-form-unit__checkbox"
-          />
-          <span class="job-form-unit__checkbox__text"
-            >Same as company headquarters address</span
-          >
+            <ValidationProvider
+              v-slot="{ errors }"
+              rules="required"
+              class="job-form-unit-validator"
+            >
+              <input
+                v-model="offer.location.country"
+                type="text"
+                class="job-form-unit__input job-form-unit__location__input"
+                placeholder="Country"
+                :disabled="locationCheck"
+              />
+              <span class="job-form-unit__error">{{ errors[0] }}</span>
+            </ValidationProvider>
+          </div>
+          <div class="checkbox-container">
+            <input
+              v-model="offer.isRemote"
+              type="checkbox"
+              class="job-form-unit__checkbox"
+            />
+            <span class="job-form-unit__checkbox__text">Remote</span>
+            <input
+              v-model="offer.isPartlyRemote"
+              type="checkbox"
+              class="job-form-unit__checkbox"
+            />
+            <span class="job-form-unit__checkbox__text">Partly remote</span>
+
+            <input
+              v-model="locationCheck"
+              type="checkbox"
+              class="job-form-unit__checkbox"
+            />
+            <span class="job-form-unit__checkbox__text"
+              >Same as company headquarters address</span
+            >
+          </div>
         </div>
-      </div>
-      <div class="job-form-unit">
-        <span class="job-form-unit__name">Category</span>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required"
-          class="job-form-unit-validator"
-        >
-          <BaseSelect
-            :option-values="offerDetails.CATEGORIES"
-            name="category"
-            @value-change="getValue"
-          />
-          <span class="job-form-unit__error">{{ errors[0] }}</span>
-        </ValidationProvider>
-      </div>
-      <div class="job-form-unit">
-        <span class="job-form-unit__name">Seniority</span>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required"
-          class="job-form-unit-validator"
-        >
-          <BaseSelect
-            :option-values="offerDetails.SENIORITIES"
-            name="seniority"
-            @value-change="getValue"
-          />
-          <span class="job-form-unit__error">{{ errors[0] }}</span>
-        </ValidationProvider>
-      </div>
-      <div class="job-form-unit">
-        <span class="job-form-unit__name">Salary</span>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required"
-          class="job-form-unit-validator"
-        >
-          <span class="job-form-unit__error">{{ errors[0] }}</span>
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required"
-          class="job-form-unit-validator"
-        >
-          {{ offer.salaryMin }} - {{ offer.salaryMax }}
-          <BaseSalaryRangeSlider
-            class="salary-range-slider"
-            :salary-min="offer.salaryMin"
-            :salary-max="offer.salaryMax"
-            @salaryRange="salary"
-          />
-          <span class="job-form-unit__error">{{ errors[0] }}</span>
-        </ValidationProvider>
-      </div>
-      <div class="job-form-unit">
-        <span class="job-form-unit__name">Technologies</span>
-        <TagInput
-          :tag-items="offer.technologies"
-          :list-items="technologies"
-          @items="tagsTechnologies"
-        />
-      </div>
-      <div class="job-form-unit">
-        <span class="job-form-unit__name">Type</span>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required"
-          class="job-form-unit-validator"
-        >
-          <BaseSelect
-            :option-values="offerDetails.TYPES"
-            name="type"
-            @value-change="getValue"
-          />
+        <div class="job-form-unit">
+          <span class="job-form-unit__name">Category</span>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            class="job-form-unit-validator"
+          >
+            <BaseSelect
+              v-model="offer.category.name"
+              :option-values="offerDetails.CATEGORIES"
+              name="category"
+              @value-change="getValue"
+            />
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="job-form-unit">
+          <span class="job-form-unit__name">Seniority</span>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            class="job-form-unit-validator"
+          >
+            <BaseSelect
+              v-model="offer.seniority"
+              :option-values="offerDetails.SENIORITIES"
+              name="seniority"
+              @value-change="getValue"
+            />
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="job-form-unit">
+          <span class="job-form-unit__name">Salary</span>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            class="job-form-unit-validator"
+          >
+            {{ offer.salaryMin }} - {{ offer.salaryMax }}
+            <BaseSalaryRangeSlider
+              v-model="offer.salaryMin"
+              class="salary-range-slider"
+              :salary-min="offer.salaryMin"
+              :salary-max="offer.salaryMax"
+              @salaryRange="salary"
+            />
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="job-form-unit">
+          <span class="job-form-unit__name">Technologies</span>
+          <ValidationProvider
+            v-slot="{ errors }"
+            ref="technologyProvider"
+            rules="arrayEmpty"
+            class="job-form-unit-validator"
+          >
+            <TagInput
+              v-model="offer.technologies"
+              :tag-items="offer.technologies"
+              :list-items="technologies"
+              @items="tagsTechnologies"
+            />
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="job-form-unit">
+          <span class="job-form-unit__name">Type</span>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            class="job-form-unit-validator"
+          >
+            <BaseSelect
+              v-model="offer.type"
+              :option-values="offerDetails.TYPES"
+              name="type"
+              @value-change="getValue"
+            />
 
-          <span class="job-form-unit__error">{{ errors[0] }}</span>
-        </ValidationProvider>
-      </div>
-      <div class="job-form-unit">
-        <span class="job-form-unit__name">Contract</span>
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required"
-          class="job-form-unit-validator"
-        >
-          <BaseSelect
-            :option-values="offerDetails.CONTRACTS"
-            name="contract"
-            @value-change="getValue"
-          />
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="job-form-unit">
+          <span class="job-form-unit__name">Contract</span>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required"
+            class="job-form-unit-validator"
+          >
+            <BaseSelect
+              v-model="offer.contract"
+              :option-values="offerDetails.CONTRACTS"
+              name="contract"
+              @value-change="getValue"
+            />
 
-          <span class="job-form-unit__error">{{ errors[0] }}</span>
-        </ValidationProvider>
-      </div>
-      <div class="job-form-unit">
-        <span class="job-form-unit__name">Benefits</span>
-        <TagInput
-          :tag-items="offer.benefits"
-          :list-items="benefits"
-          @items="tagsBenefits"
-        />
-      </div>
-      <div class="job-form-unit">
-        <ValidationProvider
-          v-slot="{ errors }"
-          rules="required|maxDescription"
-          class="job-form-unit-validator"
-        >
-          <span class="job-form-unit__name">Description</span>
-          <TextEditor v-model="offer.description" />
-          <span class="job-form-unit__error">{{ errors[0] }}</span>
-        </ValidationProvider>
-      </div>
-      <div class="btn-container">
-        <stripe-checkout ref="checkoutRef" :pk="key" :session-id="getSessionId">
-          <template slot="checkout-button">
-            <BaseButton class="add-btn" @click.native="saveOffer">
-              {{ btnText }}
-            </BaseButton>
-            <BaseClearButton @click.native="offer = {}">
-              Clear form
-            </BaseClearButton>
-          </template>
-        </stripe-checkout>
-      </div>
-    </form>
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="job-form-unit">
+          <span class="job-form-unit__name">Benefits</span>
+          <ValidationProvider
+            v-slot="{ errors }"
+            ref="benefitProvider"
+            rules="arrayEmpty"
+            class="job-form-unit-validator"
+          >
+            <TagInput
+              v-model="offer.technologies"
+              :tag-items="offer.benefits"
+              :list-items="benefits"
+              @items="tagsBenefits"
+            />
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="job-form-unit">
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required|maxDescription"
+            class="job-form-unit-validator"
+          >
+            <span class="job-form-unit__name">Description</span>
+            <TextEditor v-model="offer.description" />
+            <span
+              class="job-form-unit__error job-form-unit__error--description"
+              >{{ errors[0] }}</span
+            >
+          </ValidationProvider>
+        </div>
+        <div class="btn-container">
+          <stripe-checkout
+            ref="checkoutRef"
+            :pk="key"
+            :session-id="getSessionId"
+          >
+            <template slot="checkout-button">
+              <BaseButton class="add-btn" @click="onSubmit">
+                {{ btnText }}
+              </BaseButton>
+              <BaseClearButton @click.native="offer = {}">
+                Clear form
+              </BaseClearButton>
+            </template>
+          </stripe-checkout>
+        </div>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 
@@ -221,7 +246,7 @@
 import TagInput from '@/components/TagInput'
 import TextEditor from '@/components/TextEditor'
 import { StripeCheckout } from 'vue-stripe-checkout'
-import { ValidationProvider } from 'vee-validate'
+import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
 import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
@@ -235,6 +260,7 @@ export default {
     TagInput,
     TextEditor,
     StripeCheckout,
+    ValidationObserver,
     ValidationProvider,
     BaseSelect,
     BaseSalaryRangeSlider
@@ -248,11 +274,15 @@ export default {
     return {
       locationCheck: false,
       key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
-      activeIndex: 1
+      activeIndex: 1,
+      isValid: null
     }
   },
   methods: {
     ...mapActions(['fetchProducts']),
+    onSubmit() {
+      this.saveOffer()
+    },
     emitLocation() {
       this.$emit('location', this.offer.location)
     },
@@ -261,9 +291,11 @@ export default {
     },
     tagsTechnologies(technologies) {
       this.offer.technologies = technologies
+      this.$refs.technologyProvider.reset()
     },
     tagsBenefits(benefits) {
       this.offer.benefits = benefits
+      this.$refs.benefitProvider.reset()
     },
     getValue(value, name) {
       this.offer[name] = value
@@ -275,7 +307,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getProducts', 'getSessionId'])
+    ...mapGetters(['getProducts', 'getSessionId']),
+    isArrayNotEmpty() {
+      return this.offer.technologies.length > 0
+    }
   },
   mounted() {
     this.fetchProducts()
@@ -310,6 +345,9 @@ export default {
       color: $error;
       position: absolute;
       top: 45px;
+      &--description {
+        top: 315px;
+      }
     }
     &__location {
       @include flex(space-between, center);

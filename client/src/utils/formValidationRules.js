@@ -24,3 +24,11 @@ extend('maxDescription', {
   },
   message: 'Max length is 10000 characters'
 })
+
+extend('arrayEmpty', {
+  validate(value) {
+    return value.length > 0
+  },
+  message: 'This field is required',
+  computesRequired: true
+})

@@ -84,7 +84,16 @@ export default {
           country: ''
         },
         salaryMin: 0,
-        salaryMax: 50000
+        salaryMax: 50000,
+        category: {
+          color: '',
+          name: ''
+        },
+        contract: '',
+        description: '',
+        seniority: '',
+        title: '',
+        type: ''
       }
     }
   },
