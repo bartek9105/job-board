@@ -155,6 +155,7 @@ export default {
   .price-cards-container {
     @include flex(space-between);
     margin-top: $margin-md;
+    margin-bottom: 5rem;
   }
 }
 .cardActive {
