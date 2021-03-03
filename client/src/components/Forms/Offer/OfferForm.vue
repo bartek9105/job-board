@@ -243,24 +243,18 @@
             >
           </ValidationProvider>
         </div>
-        <div v-if="displayOfferPreview" class="offer-add">
-          <div class="offer-add__details">
-            <div>
-              {{ offer.title }}
-              <BaseClearButton @click.native="offerPreview">
-                Offer preview
-              </BaseClearButton>
-            </div>
-            <div class="btn-container">
-              <BaseButton class="add-btn" @click.native="onSubmit">
-                {{ btnText }}
-              </BaseButton>
-              <BaseClearButton @click.native="offer = {}">
-                Clear form
-              </BaseClearButton>
-            </div>
-          </div>
-        </div>
+        <BaseOfferPreviewPanel
+          v-if="displayOfferPreview"
+          :title="offer.title"
+          subtitle="Offer Preview"
+        >
+          <BaseButton class="add-btn" @click.native="onSubmit">
+            {{ btnText }}
+          </BaseButton>
+          <BaseClearButton @click.native="offerPreview">
+            Offer preview
+          </BaseClearButton>
+        </BaseOfferPreviewPanel>
       </form>
     </ValidationObserver>
   </div>
@@ -276,6 +270,7 @@ import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
 import benefits from '@/constants/benefits'
 import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
+import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel'
 
 export default {
   name: 'OfferForm',
@@ -285,7 +280,8 @@ export default {
     ValidationObserver,
     ValidationProvider,
     BaseSelect,
-    BaseSalaryRangeSlider
+    BaseSalaryRangeSlider,
+    BaseOfferPreviewPanel
   },
   props: {
     offer: Object,
