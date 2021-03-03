@@ -128,7 +128,8 @@
           <div class="job-form-unit__row-salary">
             <div class="job-form-unit__row__col">
               <span class="job-form-unit__name">Salary (monthly)</span>
-              {{ offer.salary.salaryMin }} - {{ offer.salary.salaryMax }}
+              {{ offer.salary.salaryMin }} -
+              {{ offer.salary.salaryMax }}
               <BaseSalaryRangeSlider
                 class="salary-range-slider"
                 :salary-min="offer.salary.salaryMin"
@@ -246,13 +247,12 @@
           <div class="offer-add__details">
             <div>
               {{ offer.title }}
-              <BaseClearButton>
+              <BaseClearButton @click.native="offerPreview">
                 Offer preview
               </BaseClearButton>
             </div>
-
             <div class="btn-container">
-              <BaseButton class="add-btn" @click="onSubmit">
+              <BaseButton class="add-btn" @click.native="onSubmit">
                 {{ btnText }}
               </BaseButton>
               <BaseClearButton @click.native="offer = {}">
@@ -305,6 +305,14 @@ export default {
     ...mapActions(['fetchProducts']),
     onSubmit() {
       this.saveOffer()
+      if (!this.offer.isPreview) {
+        localStorage.removeItem('offer')
+      }
+    },
+    offerPreview() {
+      this.offer.isPreview = true
+      localStorage.setItem('offer', JSON.stringify(this.offer))
+      this.onSubmit()
     },
     emitLocation() {
       this.$emit('location', this.offer.location)

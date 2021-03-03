@@ -62,9 +62,8 @@ const OfferService = {
   addOffer: async function (offerData) {
     offerData.category = offerData.category.name
     try {
-      const addedOffer = await api.post('offers',
-        { email: 'example@gmail.com', ...offerData })
-      return addedOffer.data
+      const addedOffer = await api.post('offers', offerData)
+      return addedOffer.data.offerId
     } catch (error) {
       console.log(error)
     }

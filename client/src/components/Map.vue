@@ -109,6 +109,7 @@ export default {
 <style lang="scss">
 #map {
   width: 100%;
+  z-index: 1;
   .leaflet-div-icon {
     border: none;
     background: transparent;

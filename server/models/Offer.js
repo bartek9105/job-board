@@ -88,6 +88,10 @@ const offerSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    isPreview: {
+      type: Boolean,
+      required: true,
+    },
     slug: String,
     creator: {
       type: mongoose.Schema.ObjectId,

@@ -72,8 +72,9 @@ export default {
       try {
         const addedOffer = await OfferService.addOffer(payload)
         Vue.toasted.success('Offer added', { icon: 'check-circle' })
-        const sessionId = addedOffer.id
+        const sessionId = addedOffer._id
         commit('SET_SESSION_ID', sessionId)
+        return addedOffer
       } catch (error) {
         console.log(error)
       }

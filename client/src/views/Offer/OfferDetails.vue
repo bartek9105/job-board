@@ -136,6 +136,24 @@
         />
       </Container>
     </section>
+    <div v-if="getOffer.isPreview" class="offer-add">
+      <div class="offer-add__details">
+        <div>
+          <h2 class="offer-add__details__header">
+            This is an offer preview
+          </h2>
+          <span>Add this offer or go back to form to revise it</span>
+        </div>
+        <div class="btn-container">
+          <BaseButton class="add-btn" @click.native="addPreviewOffer">
+            Add offer
+          </BaseButton>
+          <BaseClearButton @click.native="goBackToForm">
+            Back to form
+          </BaseClearButton>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -165,7 +183,19 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchOffer'])
+    ...mapActions(['fetchOffer', 'editOffer', 'removeOffer']),
+    addPreviewOffer() {
+      this.getOffer.isPreview = false
+      localStorage.removeItem('offer')
+      this.editOffer(this.getOffer)
+    },
+    goBackToForm() {
+      this.removeOffer(this.getOffer._id)
+      const offer = JSON.parse(localStorage.getItem('offer'))
+      offer.isPreview = false
+      localStorage.setItem('offer', JSON.stringify(offer))
+      this.$router.push('offer/post')
+    }
   },
   computed: {
     ...mapGetters(['getOffer', 'getIsLoading']),
@@ -185,6 +215,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.offer-add {
+  @include shadow;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  padding: $padding-md;
+  width: 100%;
+  z-index: 1;
+  &__details {
+    @include flex(space-between, center);
+    max-width: $container-width;
+    margin: $margin-center;
+    &__header {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 .offer-details-container {
   @include flex(space-between);
   .offer-details-container-row {
