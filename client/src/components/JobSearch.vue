@@ -43,11 +43,9 @@ export default {
 
 <style lang="scss" scoped>
 .job-search {
-  @include flex(center, center, column);
-  max-width: 800px;
+  width: 800px;
   margin: $margin-center;
   color: $white-blue;
-  height: calc(100% - #{$nav-height * 2});
   padding: 0 $padding-md;
   text-align: center;
   @media (max-width: 750px) {
