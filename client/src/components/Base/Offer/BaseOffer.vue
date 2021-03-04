@@ -58,10 +58,12 @@
         </div>
         <div
           v-if="offer.technologies.length > 3"
-          class="offer__tag offer__tag--sm"
+          class="offer__tag offer__tag--sm offer__additional-techs"
+          @mouseover="showTechnologies = true"
+          @mouseleave="showTechnologies = false"
         >
           + {{ offer.technologies.length - 3 }}
-          <ul class="offer__tag__list">
+          <ul v-if="showTechnologies" class="offer__tag__list">
             <li
               v-for="technology in offer.technologies.slice(3)"
               :key="technology.id"
@@ -86,6 +88,11 @@ export default {
   name: 'BaseOffer',
   props: {
     offer: Object
+  },
+  data() {
+    return {
+      showTechnologies: false
+    }
   },
   computed: {
     ...mapGetters(['isSmall', 'isMedium']),
@@ -203,7 +210,7 @@ export default {
     @include tag-light;
   }
   &-bottom {
-    @include flex();
+    @include flex(null, center);
   }
   &__technology {
     @include tag-dark;
@@ -228,6 +235,29 @@ export default {
     @include tag-light;
     &:last-of-type {
       margin-right: 0;
+    }
+  }
+  &__additional-techs {
+    @include tag-dark;
+    margin-right: 1rem;
+  }
+  &__tag {
+    position: relative;
+    &__list {
+      @include shadow;
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      background-color: $dark-blue;
+      color: $white;
+      z-index: 1;
+      padding: $padding-sm $padding-md;
+      border-radius: $border-radius-sm;
+      li {
+        &:not(:last-of-type) {
+          margin-bottom: 0.5rem;
+        }
+      }
     }
   }
 }
