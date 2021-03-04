@@ -15,13 +15,13 @@
           />
         </router-link>
       </div>
-      <Pagination
-        :pages="offers.pages"
-        class="pagination"
-        @pageChange="pageNumber"
-      />
     </div>
     <BaseSpinner v-else />
+    <Pagination
+      :pages="offers.pages"
+      class="pagination"
+      @pageChange="pageNumber"
+    />
   </div>
 </template>
 
