@@ -32,6 +32,7 @@ exports.getOffers = async (req, res, next) => {
 
     let offers = await Offer.find({
       ...parsedQuery,
+      isPreview: false,
       $or: [{ status: 'free' }, { status: 'paid' }],
     })
       .skip(startIndex)
@@ -41,6 +42,7 @@ exports.getOffers = async (req, res, next) => {
 
     const total = await Offer.find({
       ...parsedQuery,
+      isPreview: false,
       $or: [{ status: 'free' }, { status: 'paid' }],
     }).countDocuments()
 
@@ -107,7 +109,7 @@ exports.addOffer = async (req, res, next) => {
     res.locals.offerId = offerId
     res.status(200).send({
       status: 'success',
-      data: offer,
+      offerId: offer._id,
     })
     next()
   } catch (error) {

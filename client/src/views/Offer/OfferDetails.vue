@@ -136,6 +136,17 @@
         />
       </Container>
     </section>
+    <BaseOfferPreviewPanel
+      v-if="getOffer.isPreview"
+      title="This is how your offer is gonna look like"
+    >
+      <BaseButton class="add-btn" @click.native="addPreviewOffer">
+        Add offer
+      </BaseButton>
+      <BaseClearButton @click.native="goBackToForm">
+        Back to form
+      </BaseClearButton>
+    </BaseOfferPreviewPanel>
   </div>
 </template>
 
@@ -147,6 +158,7 @@ import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
 import SimilarOffersList from '@/components/Base/Offer/SimilarOffersList'
 import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
 import Map from '@/components/Map'
+import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel'
 
 export default {
   name: 'OfferDetails',
@@ -156,7 +168,8 @@ export default {
     BaseGoBackButton,
     OfferApplyForm,
     SimilarOffersList,
-    HeroContentContainer
+    HeroContentContainer,
+    BaseOfferPreviewPanel
   },
   props: {
     offerId: {
@@ -165,7 +178,19 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchOffer'])
+    ...mapActions(['fetchOffer', 'editOffer', 'removeOffer']),
+    addPreviewOffer() {
+      this.getOffer.isPreview = false
+      localStorage.removeItem('offer')
+      this.editOffer(this.getOffer)
+    },
+    goBackToForm() {
+      this.removeOffer(this.getOffer._id)
+      const offer = JSON.parse(localStorage.getItem('offer'))
+      offer.isPreview = false
+      localStorage.setItem('offer', JSON.stringify(offer))
+      this.$router.push('offer/post')
+    }
   },
   computed: {
     ...mapGetters(['getOffer', 'getIsLoading']),
@@ -246,5 +271,8 @@ export default {
   @include input-name;
   display: block;
   margin-bottom: $margin-md;
+}
+.add-btn {
+  margin-right: 1rem;
 }
 </style>

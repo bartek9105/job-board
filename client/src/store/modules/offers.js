@@ -36,8 +36,8 @@ export default {
     DELETE_OFFER(state, offerId) {
       const offerByUserIndex = state.offersByUser.findIndex(offer => offer._id === offerId)
       state.offersByUser.splice(offerByUserIndex, 1)
-      const offerIndex = state.offers.findIndex(offer => offer._id === offerId)
-      state.offers.splice(offerIndex, 1)
+      const offerIndex = state.offers.data.findIndex(offer => offer._id === offerId)
+      state.offers.data.splice(offerIndex, 1)
     },
     SET_SESSION_ID(state, sessionId) {
       state.sessionId = sessionId
@@ -72,8 +72,9 @@ export default {
       try {
         const addedOffer = await OfferService.addOffer(payload)
         Vue.toasted.success('Offer added', { icon: 'check-circle' })
-        const sessionId = addedOffer.id
+        const sessionId = addedOffer._id
         commit('SET_SESSION_ID', sessionId)
+        return addedOffer
       } catch (error) {
         console.log(error)
       }

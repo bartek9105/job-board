@@ -128,7 +128,8 @@
           <div class="job-form-unit__row-salary">
             <div class="job-form-unit__row__col">
               <span class="job-form-unit__name">Salary (monthly)</span>
-              {{ offer.salary.salaryMin }} - {{ offer.salary.salaryMax }}
+              {{ offer.salary.salaryMin }} -
+              {{ offer.salary.salaryMax }}
               <BaseSalaryRangeSlider
                 class="salary-range-slider"
                 :salary-min="offer.salary.salaryMin"
@@ -242,22 +243,18 @@
             >
           </ValidationProvider>
         </div>
-        <div class="btn-container">
-          <stripe-checkout
-            ref="checkoutRef"
-            :pk="key"
-            :session-id="getSessionId"
-          >
-            <template slot="checkout-button">
-              <BaseButton class="add-btn" @click="onSubmit">
-                {{ btnText }}
-              </BaseButton>
-              <BaseClearButton @click.native="offer = {}">
-                Clear form
-              </BaseClearButton>
-            </template>
-          </stripe-checkout>
-        </div>
+        <BaseOfferPreviewPanel
+          v-if="displayOfferPreview"
+          :title="offer.title"
+          subtitle="Offer Preview"
+        >
+          <BaseButton class="add-btn" @click.native="onSubmit">
+            {{ btnText }}
+          </BaseButton>
+          <BaseClearButton @click.native="offerPreview">
+            Offer preview
+          </BaseClearButton>
+        </BaseOfferPreviewPanel>
       </form>
     </ValidationObserver>
   </div>
@@ -266,7 +263,6 @@
 <script>
 import TagInput from '@/components/TagInput'
 import TextEditor from '@/components/TextEditor'
-import { StripeCheckout } from 'vue-stripe-checkout'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
 import BaseSelect from '@/components/Base/BaseSelect'
@@ -274,17 +270,18 @@ import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
 import benefits from '@/constants/benefits'
 import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
+import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel'
 
 export default {
   name: 'OfferForm',
   components: {
     TagInput,
     TextEditor,
-    StripeCheckout,
     ValidationObserver,
     ValidationProvider,
     BaseSelect,
-    BaseSalaryRangeSlider
+    BaseSalaryRangeSlider,
+    BaseOfferPreviewPanel
   },
   props: {
     offer: Object,
@@ -296,13 +293,22 @@ export default {
       locationCheck: false,
       key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
       activeIndex: 1,
-      isValid: null
+      isValid: null,
+      scroll: 0
     }
   },
   methods: {
     ...mapActions(['fetchProducts']),
     onSubmit() {
       this.saveOffer()
+      if (!this.offer.isPreview) {
+        localStorage.removeItem('offer')
+      }
+    },
+    offerPreview() {
+      this.offer.isPreview = true
+      localStorage.setItem('offer', JSON.stringify(this.offer))
+      this.onSubmit()
     },
     emitLocation() {
       this.$emit('location', this.offer.location)
@@ -328,12 +334,18 @@ export default {
       const [salaryMin, salaryMax] = salary
       this.offer.salary.salaryMin = salaryMin
       this.offer.salary.salaryMax = salaryMax
+    },
+    handleScroll() {
+      this.scroll = window.scrollY
     }
   },
   computed: {
     ...mapGetters(['getProducts', 'getSessionId']),
     isArrayNotEmpty() {
       return this.offer.technologies.length > 0
+    },
+    displayOfferPreview() {
+      return this.scroll >= 900
     }
   },
   mounted() {
@@ -343,6 +355,7 @@ export default {
     this.offerDetails = offerDetails
     this.technologies = technologies
     this.benefits = benefits
+    window.addEventListener('scroll', this.handleScroll)
   }
 }
 </script>
@@ -353,6 +366,20 @@ export default {
   margin: $margin-center;
   background: $white;
   padding: $padding-md 0;
+  .offer-add {
+    @include shadow;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: white;
+    padding: $padding-md;
+    width: 100%;
+    &__details {
+      @include flex(space-between, center);
+      max-width: $container-width;
+      margin: $margin-center;
+    }
+  }
   .job-form-unit {
     @include flex(null, null, column);
     padding: 0 $padding-md;
@@ -408,9 +435,6 @@ export default {
     .salary-range-slider {
       margin: $margin-md $margin-md 0 0;
     }
-  }
-  .btn-container {
-    padding: $padding-md 0 0 2rem;
   }
   .add-btn {
     margin-right: 1rem;

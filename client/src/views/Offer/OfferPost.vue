@@ -96,7 +96,8 @@ export default {
         description: '',
         seniority: '',
         title: '',
-        type: ''
+        type: '',
+        isPreview: false
       }
     }
   },
@@ -108,8 +109,14 @@ export default {
     locationData(location) {
       this.location = location
     },
-    saveOffer() {
-      this.addOffer(this.offer)
+    async saveOffer() {
+      const offerId = await this.addOffer(this.offer)
+      this.$router.push({ name: 'OfferDetails', params: { offerId } })
+    }
+  },
+  created() {
+    if (localStorage.offer) {
+      this.offer = JSON.parse(localStorage.offer)
     }
   }
 }
@@ -155,6 +162,7 @@ export default {
   .price-cards-container {
     @include flex(space-between);
     margin-top: $margin-md;
+    margin-bottom: 5rem;
   }
 }
 .cardActive {
