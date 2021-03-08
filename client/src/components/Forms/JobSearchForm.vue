@@ -39,10 +39,7 @@
             </div>
           </div>
         </div>
-        <div
-          class="row"
-          :class="{ showFiltersClass: !showFilters, displayAsColumn: isMedium }"
-        >
+        <div class="row" :class="{ displayAsColumn: isMedium }">
           <div class="job-search__single-input-container">
             <span class="job-search__input-name">Type</span>
             <BaseSelect
@@ -78,16 +75,6 @@
             <BaseClearButton @click="clearFilters">
               Clear filters
             </BaseClearButton>
-          </div>
-          <div v-if="!isMedium" class="btn-filter">
-            <font-awesome-icon icon="filter" class="job-search__filter-icon" />
-            <button
-              class="job-search__filter-btn"
-              @click="showFilters = !showFilters"
-            >
-              <span v-if="showFilters">Hide filters</span>
-              <span v-else>More filters</span>
-            </button>
           </div>
         </div>
       </form>
@@ -160,9 +147,15 @@ export default {
 <style lang="scss" scoped>
 .job-search-container {
   .job-search {
+    @include shadow-hover;
+    background-color: $white;
     max-width: $container-width;
     margin: 0 auto;
     color: $dark-blue;
+    padding: $padding-md $padding-lg;
+    border-radius: 0 0 5px 5px;
+    position: relative;
+    z-index: 2;
     .row {
       display: grid;
       grid-template-columns: (20% 20% auto);

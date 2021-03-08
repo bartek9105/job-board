@@ -1,6 +1,7 @@
 <template>
   <div v-if="Object.entries(getOffer).length > 0" class="offer">
     <BaseHero>
+      <TheNavbar />
       <HeroContentContainer>
         <template v-slot:logo>
           <BaseCompanyLogo
@@ -159,6 +160,7 @@ import SimilarOffersList from '@/components/Base/Offer/SimilarOffersList'
 import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
 import Map from '@/components/Map'
 import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel'
+import TheNavbar from '@/components/TheNavbar'
 
 export default {
   name: 'OfferDetails',
@@ -169,7 +171,8 @@ export default {
     OfferApplyForm,
     SimilarOffersList,
     HeroContentContainer,
-    BaseOfferPreviewPanel
+    BaseOfferPreviewPanel,
+    TheNavbar
   },
   props: {
     offerId: {

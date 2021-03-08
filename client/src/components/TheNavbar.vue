@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       showDropdown: false,
-      jobTextColor: '#182952',
+      jobTextColor: '#fff',
       isNavMenuOpened: false
     }
   },
@@ -77,11 +77,9 @@ export default {
 </script>
 
 <style lang="scss">
-@media (max-width: 576px) {
-}
 .nav-container {
-  background-color: white;
   width: 100%;
+  color: $white;
   .main-nav {
     @include flex(space-between, center);
     max-width: $nav-width;
@@ -94,6 +92,7 @@ export default {
       @include flex(null, center);
       a,
       li {
+        color: $white;
         cursor: pointer;
         &:hover {
           color: $pink;

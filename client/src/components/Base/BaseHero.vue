@@ -15,7 +15,6 @@ export default {
 
 <style lang="scss">
 .hero {
-  @include flex(null, center);
   width: 100%;
   height: $hero-height;
   background: linear-gradient(164deg, #161b4b, #3440a8);

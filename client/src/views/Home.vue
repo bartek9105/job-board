@@ -4,25 +4,18 @@
       v-if="mobileFiltersOpen && isMedium"
       @openMobileFilters="mobileFilters"
     />
-    <BaseHero v-if="!isMedium">
+    <BaseHero>
+      <TheNavbar />
       <JobSearch @searchQuery="query" />
     </BaseHero>
+    <!--
     <JobSearchMobile
       v-else
       class="hero__job-search-mobile"
       @openMobileFilters="mobileFilters"
     />
+    -->
     <main class="offers">
-      <section class="offers__filters">
-        <Container>
-          <JobSearchForm
-            v-if="!isMedium"
-            button-text="Search"
-            button-text-clear="Clear filters"
-            @clicked="formData"
-          />
-        </Container>
-      </section>
       <section class="offers__list">
         <div class="offers__list__info">
           <span class="offers__list__info__count">
@@ -73,25 +66,25 @@
 </template>
 
 <script>
-import JobSearchForm from '@/components/Forms/JobSearchForm'
 import JobSearch from '@/components/JobSearch'
 import Map from '@/components/Map'
 import ToggleSwitch from '@/components/Base/ToggleSwitch'
 import BaseNoResults from '@/components/Base/BaseNoResults'
-import JobSearchMobile from '@/components/Mobile/JobSearchMobile'
+// import JobSearchMobile from '@/components/Mobile/JobSearchMobile'
 import JobSearchFiltersMobile from '@/components/Mobile/JobSearchFiltersMobile'
+import TheNavbar from '@/components/TheNavbar'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
-    JobSearchForm,
     JobSearch,
-    JobSearchMobile,
+    //  JobSearchMobile,
     JobSearchFiltersMobile,
     Map,
     ToggleSwitch,
-    BaseNoResults
+    BaseNoResults,
+    TheNavbar
   },
   data() {
     return {
@@ -167,7 +160,7 @@ export default {
     &__info {
       @include flex(space-between, center);
       max-width: $container-width;
-      margin: $margin-lg auto;
+      margin: 5rem auto 0 auto;
       &__count {
         @include input-name;
       }

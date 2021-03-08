@@ -1,32 +1,55 @@
 <template>
-  <div class="job-search">
-    <h1 class="job-search__heading">
-      Type in offer name you are looking for
-    </h1>
-    <form class="job-search__job-form" @submit.prevent>
-      <input
-        v-model="query.title"
-        type="text"
-        class="job-search__job-form__input"
-        placeholder="Title or keyword"
-      />
-      <input
-        v-model="query.location"
-        type="text"
-        class="job-search__job-form__input"
-        placeholder="Location"
-      />
-      <BaseButton @click.native="emitQuery">
-        Search
-      </BaseButton>
-    </form>
+  <div>
+    <div class="job-search">
+      <form class="job-search__job-form" @submit.prevent>
+        <input
+          v-model="query.title"
+          type="text"
+          class="job-search__job-form__input job-search__job-form__input--title"
+          placeholder="Title or keyword"
+        />
+        <font-awesome-icon
+          icon="search"
+          class="job-search__job-form__icon job-search__job-form__icon--title"
+        />
+        <input
+          v-model="query.location"
+          type="text"
+          class="job-search__job-form__input job-search__job-form__input--location"
+          placeholder="Location"
+        />
+        <font-awesome-icon
+          icon="map-marker-alt"
+          class="job-search__job-form__icon job-search__job-form__icon--location"
+        />
+        <button @click="showMoreFilters = !showMoreFilters">
+          <font-awesome-icon icon="filter" />
+        </button>
+        <button class="job-search__btn" @click="emitQuery">
+          <font-awesome-icon
+            icon="search"
+            class="job-search__job-form__icon--btn"
+          />
+        </button>
+      </form>
+    </div>
+    <JobSearchForm
+      v-if="showMoreFilters"
+      button-text="Search"
+      button-text-clear="Clear filters"
+    />
   </div>
 </template>
 
 <script>
+import JobSearchForm from '@/components/Forms/JobSearchForm.vue'
 export default {
+  components: {
+    JobSearchForm
+  },
   data() {
     return {
+      showMoreFilters: false,
       query: {
         title: '',
         location: ''
@@ -43,35 +66,41 @@ export default {
 
 <style lang="scss" scoped>
 .job-search {
-  width: 800px;
+  max-width: $container-width;
   margin: $margin-center;
   color: $white-blue;
-  padding: 0 $padding-md;
   text-align: center;
-  @media (max-width: 750px) {
-    height: 100%;
-  }
-  &__heading {
-    color: $white-blue;
-    margin-bottom: $margin-md;
+  &__btn {
+    background-color: $pink;
+    border-radius: 0 8px 8px 0;
   }
   &__job-form {
+    @include shadow;
+    margin-top: 65px;
     width: 100%;
     display: grid;
-    grid-template-columns: (50% 30% auto);
-    justify-content: center;
-    column-gap: 0.5rem;
-    @media (max-width: 750px) {
-      @include flex(center, null, column);
-      &__input {
-        margin-bottom: $margin-sm;
-      }
+    grid-template-columns: (65% 20% auto auto);
+    position: relative;
+    z-index: 3;
+    &__input {
+      border: 0 !important;
+      height: 65px;
+      padding-left: 3rem;
     }
-    &__search-icon {
-      color: $pink;
+    &__icon {
       position: absolute;
-      top: 8px;
-      right: 10px;
+      color: $dark-blue;
+      &--title {
+        top: 25px;
+        left: 20px;
+      }
+      &--location {
+        top: 25px;
+        left: 730px;
+      }
+      &--btn {
+        color: $white;
+      }
     }
   }
 }
