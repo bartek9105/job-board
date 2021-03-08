@@ -1,6 +1,7 @@
 <template>
   <div v-if="Object.entries(getOffer).length > 0" class="offer">
-    <BaseHero>
+    <BaseOfferSummary v-if="displayOfferSummary" :offer="getOffer" />
+    <BaseHero hero-height="300">
       <TheNavbar />
       <HeroContentContainer>
         <template v-slot:logo>
@@ -44,7 +45,7 @@
       </HeroContentContainer>
     </BaseHero>
     <main>
-      <ContentContainer>
+      <ContentContainer class="wrapper">
         <div class="offer-details-container">
           <div v-if="!getIsLoading" class="offer-details-offer-info">
             <section class="offer-details-section">
@@ -84,17 +85,10 @@
                 </li>
               </ul>
             </section>
-            <section class="offer-details-section">
-              <h2 class="offer__header">
-                Apply form
-              </h2>
-              <OfferApplyForm />
-            </section>
             <div class="btn-container">
               <BaseButton class="btn">
                 Apply
               </BaseButton>
-              <BaseClearButton>Reset form</BaseClearButton>
             </div>
             <section>
               <Map
@@ -106,23 +100,6 @@
                 :map-height="300"
               />
             </section>
-          </div>
-          <BaseSpinner v-else />
-          <div v-if="!getIsLoading" class="offer-details-company-info">
-            <router-link
-              :to="{
-                name: 'CompanyDetails',
-                params: {
-                  userId: getOffer.creator._id,
-                  slug: getOffer.creator.slug
-                }
-              }"
-            >
-              <BaseCompany
-                v-if="Object.entries(getOffer).length > 0"
-                :company="getOffer.creator"
-              />
-            </router-link>
           </div>
           <BaseSpinner v-else />
         </div>
@@ -153,31 +130,34 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import BaseCompany from '@/components/Base/Company/BaseCompanyInfo'
-import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
 import SimilarOffersList from '@/components/Base/Offer/SimilarOffersList'
 import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
 import Map from '@/components/Map'
 import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel'
+import BaseOfferSummary from '@/components/Base/Offer/BaseOfferSummary'
 import TheNavbar from '@/components/TheNavbar'
 
 export default {
   name: 'OfferDetails',
   components: {
     Map,
-    BaseCompany,
     BaseGoBackButton,
-    OfferApplyForm,
     SimilarOffersList,
     HeroContentContainer,
     BaseOfferPreviewPanel,
-    TheNavbar
+    TheNavbar,
+    BaseOfferSummary
   },
   props: {
     offerId: {
       type: String,
       default: () => ''
+    }
+  },
+  data() {
+    return {
+      scroll: 0
     }
   },
   methods: {
@@ -193,12 +173,18 @@ export default {
       offer.isPreview = false
       localStorage.setItem('offer', JSON.stringify(offer))
       this.$router.push('offer/post')
+    },
+    handleScroll() {
+      this.scroll = window.scrollY
     }
   },
   computed: {
     ...mapGetters(['getOffer', 'getIsLoading']),
     salaryRange() {
       return `${this.getOffer.salary.salaryMin} - ${this.getOffer.salary.salaryMax} ${this.getOffer.salary.currency}`
+    },
+    displayOfferSummary() {
+      return this.scroll >= 300
     }
   },
   watch: {
@@ -208,24 +194,21 @@ export default {
   },
   created() {
     this.fetchOffer(this.offerId)
+    window.addEventListener('scroll', this.handleScroll)
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+  margin-top: -40px !important;
+  padding-bottom: 0 !important;
+}
 .offer-details-container {
   @include flex(space-between);
   .offer-details-container-row {
     @include flex();
   }
-}
-
-.offer-details-offer-info {
-  width: 75%;
-}
-
-.offer-details-company-info {
-  width: 25%;
 }
 
 .offer-details-section {
@@ -243,6 +226,7 @@ export default {
   &__tag {
     @include tag;
     @include tag-dark;
+    margin-bottom: 0.5rem;
     margin-right: 10px;
   }
   &__icon {
@@ -263,7 +247,8 @@ export default {
   }
 }
 .offer-tag-container {
-  @include flex();
+  @include flex(null, center);
+  flex-wrap: wrap;
 }
 .btn-container {
   .btn {
