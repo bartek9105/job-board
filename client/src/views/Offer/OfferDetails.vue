@@ -196,20 +196,13 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   margin-top: -40px !important;
+  padding-bottom: 0 !important;
 }
 .offer-details-container {
   @include flex(space-between);
   .offer-details-container-row {
     @include flex();
   }
-}
-
-.offer-details-offer-info {
-  width: 75%;
-}
-
-.offer-details-company-info {
-  width: 25%;
 }
 
 .offer-details-section {
@@ -227,6 +220,7 @@ export default {
   &__tag {
     @include tag;
     @include tag-dark;
+    margin-bottom: 0.5rem;
     margin-right: 10px;
   }
   &__icon {
@@ -247,7 +241,8 @@ export default {
   }
 }
 .offer-tag-container {
-  @include flex();
+  @include flex(null, center);
+  flex-wrap: wrap;
 }
 .btn-container {
   .btn {
