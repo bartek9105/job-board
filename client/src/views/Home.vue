@@ -169,7 +169,7 @@ export default {
   &__map {
     width: 100%;
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 50% 50%;
     padding-top: $padding-lg;
     margin-bottom: $margin-lg;
     &__list {
