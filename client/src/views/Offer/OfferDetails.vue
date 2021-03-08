@@ -217,28 +217,6 @@ export default {
   color: $dark-blue;
 }
 .offer {
-  &__summary {
-    @include flex(space-between, center);
-    @include shadow-hover;
-    background-color: $white;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    padding: $padding-sm $padding-md;
-    &__left {
-      @include flex(null, center);
-    }
-    &__details {
-      font-size: $font-content-md;
-      margin-left: 2rem;
-      color: $dark-blue;
-      &__icon {
-        margin-right: 0.5rem;
-      }
-    }
-  }
   span {
     margin-right: 15px;
   }
