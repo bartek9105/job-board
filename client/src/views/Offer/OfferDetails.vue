@@ -1,5 +1,6 @@
 <template>
   <div v-if="Object.entries(getOffer).length > 0" class="offer">
+    <BaseOfferSummary v-if="displayOfferSummary" :offer="getOffer" />
     <BaseHero hero-height="300">
       <TheNavbar />
       <HeroContentContainer>
@@ -134,6 +135,7 @@ import SimilarOffersList from '@/components/Base/Offer/SimilarOffersList'
 import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
 import Map from '@/components/Map'
 import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel'
+import BaseOfferSummary from '@/components/Base/Offer/BaseOfferSummary'
 import TheNavbar from '@/components/TheNavbar'
 
 export default {
@@ -144,12 +146,18 @@ export default {
     SimilarOffersList,
     HeroContentContainer,
     BaseOfferPreviewPanel,
-    TheNavbar
+    TheNavbar,
+    BaseOfferSummary
   },
   props: {
     offerId: {
       type: String,
       default: () => ''
+    }
+  },
+  data() {
+    return {
+      scroll: 0
     }
   },
   methods: {
@@ -165,12 +173,18 @@ export default {
       offer.isPreview = false
       localStorage.setItem('offer', JSON.stringify(offer))
       this.$router.push('offer/post')
+    },
+    handleScroll() {
+      this.scroll = window.scrollY
     }
   },
   computed: {
     ...mapGetters(['getOffer', 'getIsLoading']),
     salaryRange() {
       return `${this.getOffer.salary.salaryMin} - ${this.getOffer.salary.salaryMax} ${this.getOffer.salary.currency}`
+    },
+    displayOfferSummary() {
+      return this.scroll >= 300
     }
   },
   watch: {
@@ -180,6 +194,7 @@ export default {
   },
   created() {
     this.fetchOffer(this.offerId)
+    window.addEventListener('scroll', this.handleScroll)
   }
 }
 </script>
@@ -202,6 +217,28 @@ export default {
   color: $dark-blue;
 }
 .offer {
+  &__summary {
+    @include flex(space-between, center);
+    @include shadow-hover;
+    background-color: $white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding: $padding-sm $padding-md;
+    &__left {
+      @include flex(null, center);
+    }
+    &__details {
+      font-size: $font-content-md;
+      margin-left: 2rem;
+      color: $dark-blue;
+      &__icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
   span {
     margin-right: 15px;
   }
