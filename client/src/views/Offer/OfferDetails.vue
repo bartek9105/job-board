@@ -84,17 +84,10 @@
                 </li>
               </ul>
             </section>
-            <section class="offer-details-section">
-              <h2 class="offer__header">
-                Apply form
-              </h2>
-              <OfferApplyForm />
-            </section>
             <div class="btn-container">
               <BaseButton class="btn">
                 Apply
               </BaseButton>
-              <BaseClearButton>Reset form</BaseClearButton>
             </div>
             <section>
               <Map
@@ -136,7 +129,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
 import SimilarOffersList from '@/components/Base/Offer/SimilarOffersList'
 import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
@@ -149,7 +141,6 @@ export default {
   components: {
     Map,
     BaseGoBackButton,
-    OfferApplyForm,
     SimilarOffersList,
     HeroContentContainer,
     BaseOfferPreviewPanel,
