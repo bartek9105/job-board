@@ -108,23 +108,6 @@
             </section>
           </div>
           <BaseSpinner v-else />
-          <div v-if="!getIsLoading" class="offer-details-company-info">
-            <router-link
-              :to="{
-                name: 'CompanyDetails',
-                params: {
-                  userId: getOffer.creator._id,
-                  slug: getOffer.creator.slug
-                }
-              }"
-            >
-              <BaseCompany
-                v-if="Object.entries(getOffer).length > 0"
-                :company="getOffer.creator"
-              />
-            </router-link>
-          </div>
-          <BaseSpinner v-else />
         </div>
       </ContentContainer>
     </main>
@@ -153,7 +136,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import BaseCompany from '@/components/Base/Company/BaseCompanyInfo'
 import OfferApplyForm from '@/components/Forms/Offer/OfferApplyForm'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
 import SimilarOffersList from '@/components/Base/Offer/SimilarOffersList'
@@ -166,7 +148,6 @@ export default {
   name: 'OfferDetails',
   components: {
     Map,
-    BaseCompany,
     BaseGoBackButton,
     OfferApplyForm,
     SimilarOffersList,
