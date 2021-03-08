@@ -1,6 +1,6 @@
 <template>
   <div v-if="Object.entries(getOffer).length > 0" class="offer">
-    <BaseHero>
+    <BaseHero hero-height="300">
       <TheNavbar />
       <HeroContentContainer>
         <template v-slot:logo>
@@ -44,7 +44,7 @@
       </HeroContentContainer>
     </BaseHero>
     <main>
-      <ContentContainer>
+      <ContentContainer class="wrapper">
         <div class="offer-details-container">
           <div v-if="!getIsLoading" class="offer-details-offer-info">
             <section class="offer-details-section">
@@ -194,6 +194,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+  margin-top: -40px !important;
+}
 .offer-details-container {
   @include flex(space-between);
   .offer-details-container-row {

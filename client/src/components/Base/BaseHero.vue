@@ -1,5 +1,5 @@
 <template>
-  <header class="hero">
+  <header class="hero" :style="{ height: heroHeight + 'px' }">
     <slot />
     <div class="hero__animatedCircle hero__circle-1" />
     <div class="hero__animatedCircle hero__circle-2" />
@@ -9,14 +9,16 @@
 
 <script>
 export default {
-  name: 'BaseHero'
+  name: 'BaseHero',
+  props: {
+    heroHeight: String
+  }
 }
 </script>
 
 <style lang="scss">
 .hero {
   width: 100%;
-  height: $hero-height;
   background: linear-gradient(164deg, #161b4b, #3440a8);
   background-size: 400% 400%;
   animation: GradientBackground 12s ease infinite;
