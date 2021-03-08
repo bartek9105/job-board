@@ -1,6 +1,10 @@
 <template>
   <div class="no-results">
-    <font-awesome-icon icon="search" class="no-results__search-icon" />
+    <img
+      src="@/assets/images/notfound.svg"
+      alt="Not found"
+      class="no-results__img"
+    />
     <span class="no-results__text">
       <slot />
     </span>
@@ -14,14 +18,14 @@ export default {}
 <style lang="scss" scoped>
 .no-results {
   @include flex(center, center, column);
-  &__search-icon {
-    font-size: 2rem;
-    color: $dark-blue-light;
-    margin-bottom: $margin-md;
+  margin: 8rem 0;
+  &__img {
+    max-width: 400px;
   }
   &__text {
     font-size: 1.3rem;
     color: $dark-blue-light;
+    margin-top: $margin-lg;
   }
 }
 </style>
