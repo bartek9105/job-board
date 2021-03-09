@@ -55,7 +55,7 @@ export default {
       })
       this.markers[newId]
         .bindPopup(
-          `<span class="offer-title">${offer.title}</span><br><span class="offer-salary">${offer.salaryMin} - ${offer.salaryMax} PLN</span><br><span class="company-name">${offer.creator.name}</span>`
+          `<span class="offer-title">${offer.title}</span><br><span class="offer-salary">${offer.salary.salaryMin} - ${offer.salary.salaryMax} ${offer.salary.currency}</span><br><span class="company-name">${offer.creator.name}</span>`
         )
         .openPopup()
     },
