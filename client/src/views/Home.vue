@@ -45,10 +45,14 @@
           <div v-else class="offers__map">
             <div class="offers__map__list">
               <BaseOffersList
+                v-if="!showOfferDetails"
+                :is-clickable="!showMap"
                 :offers="getOffers"
                 @pageChange="pageNumber"
                 @offerId="hoveredOfferId"
+                @click.native="showOfferDetails = true"
               />
+              <BaseMapOffer v-if="showOfferDetails" :offer-id="offerId" />
             </div>
             <Map
               :locations="getOffers.data"
@@ -73,6 +77,7 @@ import BaseNoResults from '@/components/Base/BaseNoResults'
 // import JobSearchMobile from '@/components/Mobile/JobSearchMobile'
 import JobSearchFiltersMobile from '@/components/Mobile/JobSearchFiltersMobile'
 import TheNavbar from '@/components/TheNavbar'
+import BaseMapOffer from '@/components/Base/Offer/BaseMapOffer'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -84,14 +89,16 @@ export default {
     Map,
     ToggleSwitch,
     BaseNoResults,
-    TheNavbar
+    TheNavbar,
+    BaseMapOffer
   },
   data() {
     return {
       queries: {},
       offerId: '',
       showMap: false,
-      mobileFiltersOpen: false
+      mobileFiltersOpen: false,
+      showOfferDetails: false
     }
   },
   methods: {

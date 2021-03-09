@@ -3,6 +3,7 @@
     <div v-if="!getIsLoading">
       <div v-for="offer in offers.data" :key="offer._id">
         <router-link
+          :event="isClickable ? 'click' : ''"
           :to="{
             name: 'OfferDetails',
             params: { offerId: offer._id, slug: offer.slug }
@@ -38,6 +39,10 @@ export default {
     offers: {
       type: Object,
       default: () => {}
+    },
+    isClickable: {
+      type: Boolean,
+      default: () => true
     }
   },
   data() {
