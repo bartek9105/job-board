@@ -1,10 +1,8 @@
 <template>
-  <router-link to="/">
-    <button class="go-back-btn">
-      <font-awesome-icon icon="arrow-left" class="go-back-btn__icon" />
-      <span class="go-back-btn__text">Go Back</span>
-    </button>
-  </router-link>
+  <button class="go-back-btn">
+    <font-awesome-icon icon="arrow-left" class="go-back-btn__icon" />
+    <span class="go-back-btn__text">Go Back</span>
+  </button>
 </template>
 
 <script>

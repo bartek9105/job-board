@@ -52,7 +52,11 @@
                 @offerId="hoveredOfferId"
                 @click.native="showOfferDetails = true"
               />
-              <BaseMapOffer v-if="showOfferDetails" :offer-id="offerId" />
+              <BaseMapOffer
+                v-if="showOfferDetails"
+                :offer-id="offerId"
+                @close="closeOfferDetails"
+              />
             </div>
             <Map
               :locations="getOffers.data"
@@ -120,6 +124,9 @@ export default {
     },
     mobileFilters(isOpened) {
       this.mobileFiltersOpen = isOpened
+    },
+    closeOfferDetails(isOpened) {
+      this.showOfferDetails = isOpened
     }
   },
   computed: {

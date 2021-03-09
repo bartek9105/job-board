@@ -50,7 +50,9 @@
           <div v-if="!getIsLoading" class="offer-details-offer-info">
             <section class="offer-details-section">
               <div class="offer__go-back-btn">
-                <BaseGoBackButton />
+                <router-link to="/">
+                  <BaseGoBackButton />
+                </router-link>
               </div>
               <h2 class="offer__header">
                 Job Description
