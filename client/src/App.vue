@@ -41,10 +41,10 @@ export default {
 </script>
 
 <style lang="scss">
-ul::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 0.5em;
 }
-ul::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: $dark-blue;
   border-radius: $border-radius-sm;
 }
