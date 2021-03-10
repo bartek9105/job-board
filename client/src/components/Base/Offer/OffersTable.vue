@@ -36,26 +36,26 @@
           {{ dateISOToString(offer.expireAt) }}
         </td>
         <td class="offers-table__body__row__cell">
-          <font-awesome-icon
+          <check-circle-icon
             v-if="offer.isPromoted"
-            icon="check"
+            size="1.5x"
             class="offers-table__body__row__cell__icon__check"
           />
-          <font-awesome-icon
+          <x-icon
             v-else
-            icon="times"
+            size="1.5x"
             class="offers-table__body__row__cell__icon__times"
           />
         </td>
         <td class="offers-table__body__row__cell" @click.stop="">
           <div class="offers-table__body__row__cell__icons-container">
-            <font-awesome-icon
-              icon="edit"
+            <edit-icon
+              size="1.25x"
               class="offers-table__body__row__cell__icon offers-table__body__row__cell__icon__edit"
               @click="editOffer(offer._id)"
             />
-            <font-awesome-icon
-              icon="times"
+            <x-icon
+              size="1.5x"
               class="offers-table__body__row__cell__icon offers-table__body__row__cell__icon__delete"
               @click="deleteOffer(offer._id)"
             />
@@ -69,8 +69,15 @@
 <script>
 import { dateISOToString } from '@/utils/date/dateISOToString'
 import { mapActions } from 'vuex'
+import { CheckCircleIcon, XIcon, EditIcon } from 'vue-feather-icons'
+
 export default {
   name: 'OffersTable',
+  components: {
+    CheckCircleIcon,
+    XIcon,
+    EditIcon
+  },
   props: {
     offers: Array
   },

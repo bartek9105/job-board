@@ -15,14 +15,19 @@
       <div v-show="!isImageLoaded" class="skeleton" />
     </div>
     <div v-else class="company-logo-container">
-      <font-awesome-icon icon="building" class="company-building-logo" />
+      <home-icon size="1.5x" class="company-building-logo" />
     </div>
   </div>
 </template>
 
 <script>
+import { HomeIcon } from 'vue-feather-icons'
+
 export default {
   name: 'BaseCompanyLogo',
+  components: {
+    HomeIcon
+  },
   props: {
     avatarUrl: {
       type: String,

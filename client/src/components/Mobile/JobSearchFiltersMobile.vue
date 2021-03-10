@@ -2,11 +2,7 @@
   <div class="job-search-filters">
     <div class="job-search-filters-top">
       <h3>Filter offers</h3>
-      <font-awesome-icon
-        icon="times"
-        class="close-icon"
-        @click="closeMobileFilters"
-      />
+      <x-icon size="1.5x" class="close-icon" @click="closeMobileFilters" />
     </div>
     <div class="job-search-form-container">
       <JobSearchForm
@@ -20,11 +16,13 @@
 
 <script>
 import JobSearchForm from '@/components/Forms/JobSearchForm'
+import { XIcon } from 'vue-feather-icons'
 
 export default {
   name: 'JobSearchFiltersMobile',
   components: {
-    JobSearchForm
+    JobSearchForm,
+    XIcon
   },
   methods: {
     closeMobileFilters() {

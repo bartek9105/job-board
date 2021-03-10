@@ -20,9 +20,9 @@
         @keydown.up="onArrowUp"
         @keydown.enter.prevent="onEnter"
       />
-      <font-awesome-icon
+      <x-icon
         v-if="itemsLocal.length > 0"
-        icon="times-circle"
+        size="1x"
         class="tags__input__delete-all-icon"
         @click="deleteAllTags"
       />
@@ -53,11 +53,13 @@
 
 <script>
 import BaseTag from '@/components/Base/BaseTag'
+import { XIcon } from 'vue-feather-icons'
 
 export default {
   name: 'TagInput',
   components: {
-    BaseTag
+    BaseTag,
+    XIcon
   },
   props: {
     tagItems: {

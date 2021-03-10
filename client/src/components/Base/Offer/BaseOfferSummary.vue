@@ -4,17 +4,10 @@
       <h2>{{ offer.title }}</h2>
       <div class="summary__details">
         <span>
-          <font-awesome-icon
-            icon="map-marker-alt"
-            class="summary__details__icon"
-          />
+          <map-pin-icon size="1.25x" class="summary__details__icon" />
           {{ offer.location.city }}
         </span>
         <span>
-          <font-awesome-icon
-            icon="money-bill-wave"
-            class="summary__details__icon"
-          />
           {{ offer.salary.salaryMin }} - {{ offer.salary.salaryMax }}
         </span>
       </div>
@@ -24,8 +17,13 @@
 </template>
 
 <script>
+import { MapPinIcon } from 'vue-feather-icons'
+
 export default {
   name: 'BaseOfferSummary',
+  components: {
+    MapPinIcon
+  },
   props: {
     offer: Object
   }

@@ -12,16 +12,16 @@
         <template v-slot:details>
           <h1>{{ getUser.name }}</h1>
           <span>
-            <font-awesome-icon icon="map-marker-alt" />
+            <map-pin-icon size="1.25x" />
             {{ getUser.location }}
           </span>
           <div>
             <span>
-              <font-awesome-icon icon="file-signature" />
+              <briefcase-icon size="1.25x" />
               {{ getUser.size }}
             </span>
             <span>
-              <font-awesome-icon icon="clock" />
+              <home-icon size="1.25x" />
               {{ getUser.industry }}
             </span>
           </div>
@@ -43,11 +43,15 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
+import { MapPinIcon, BriefcaseIcon, HomeIcon } from 'vue-feather-icons'
 
 export default {
   name: 'CompanyDetails',
   components: {
-    HeroContentContainer
+    HeroContentContainer,
+    MapPinIcon,
+    BriefcaseIcon,
+    HomeIcon
   },
   props: {
     userId: {

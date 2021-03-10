@@ -7,15 +7,19 @@
       class="logged-user__avatar"
     />
     {{ loggedInUserName }}
-    <font-awesome-icon icon="sort-down" class="logged-user__icon" />
+    <chevron-down-icon size="1.25x" class="logged-user__icon" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { ChevronDownIcon } from 'vue-feather-icons'
 
 export default {
   name: 'BaseLoggedUserBadge',
+  components: {
+    ChevronDownIcon
+  },
   props: {
     loggedInUserName: String
   },

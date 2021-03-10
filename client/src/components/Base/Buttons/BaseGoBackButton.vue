@@ -1,18 +1,24 @@
 <template>
   <button class="go-back-btn">
-    <font-awesome-icon icon="arrow-left" class="go-back-btn__icon" />
+    <arrow-left-icon size="1.25x" class="go-back-btn__icon" />
     <span class="go-back-btn__text">Go Back</span>
   </button>
 </template>
 
 <script>
+import { ArrowLeftIcon } from 'vue-feather-icons'
+
 export default {
-  name: 'BaseGoBackButton'
+  name: 'BaseGoBackButton',
+  components: {
+    ArrowLeftIcon
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .go-back-btn {
+  @include flex(null, center);
   background-color: $white-blue;
   color: $dark-blue;
   padding: $padding-xsm $padding-sm;

@@ -1,26 +1,22 @@
 <template>
   <div v-if="showDropdown" class="nav-dropdown">
-    <font-awesome-icon icon="sort-up" class="nav-dropdown__icon" />
     <ul class="nav-dropdown__list">
       <router-link to="/dashboard">
         <li class="nav-dropdown__list__item">
-          <font-awesome-icon icon="columns" class="nav-dropdown__list__icon" />
+          <columns-icon size="1.25x" class="nav-dropdown__list__icon" />
           Dashboard
         </li>
       </router-link>
       <router-link to="/settings">
         <li class="nav-dropdown__list__item">
-          <font-awesome-icon icon="cog" class="nav-dropdown__list__icon" />
+          <settings-icon size="1.25x" class="nav-dropdown__list__icon" />
           Settings
         </li>
       </router-link>
 
       <router-link to="/">
         <li class="nav-dropdown__list__item" @click="logoutUser">
-          <font-awesome-icon
-            icon="sign-out-alt"
-            class="nav-dropdown__list__icon"
-          />
+          <log-out-icon size="1.25x" class="nav-dropdown__list__icon" />
           Logout
         </li>
       </router-link>
@@ -30,9 +26,15 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { ColumnsIcon, SettingsIcon, LogOutIcon } from 'vue-feather-icons'
 
 export default {
   name: 'NavbarDropdown',
+  components: {
+    ColumnsIcon,
+    SettingsIcon,
+    LogOutIcon
+  },
   props: {
     showDropdown: Boolean
   },

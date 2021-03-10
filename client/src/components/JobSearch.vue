@@ -8,8 +8,8 @@
           class="job-search__job-form__input job-search__job-form__input--title"
           placeholder="Title or keyword"
         />
-        <font-awesome-icon
-          icon="search"
+        <search-icon
+          size="1.25x"
           class="job-search__job-form__icon job-search__job-form__icon--title"
         />
         <input
@@ -18,18 +18,15 @@
           class="job-search__job-form__input job-search__job-form__input--location"
           placeholder="Location"
         />
-        <font-awesome-icon
-          icon="map-marker-alt"
+        <map-pin-icon
+          size="1.25x"
           class="job-search__job-form__icon job-search__job-form__icon--location"
         />
         <button @click="showMoreFilters = !showMoreFilters">
-          <font-awesome-icon icon="filter" />
+          <filter-icon size="1.25x" />
         </button>
         <button class="job-search__btn" @click="emitQuery">
-          <font-awesome-icon
-            icon="search"
-            class="job-search__job-form__icon--btn"
-          />
+          <search-icon size="1.5x" class="job-search__job-form__icon--btn" />
         </button>
       </form>
     </div>
@@ -43,9 +40,14 @@
 
 <script>
 import JobSearchForm from '@/components/Forms/JobSearchForm.vue'
+import { SearchIcon, MapPinIcon, FilterIcon } from 'vue-feather-icons'
+
 export default {
   components: {
-    JobSearchForm
+    JobSearchForm,
+    SearchIcon,
+    MapPinIcon,
+    FilterIcon
   },
   data() {
     return {
@@ -91,12 +93,12 @@ export default {
       position: absolute;
       color: $dark-blue;
       &--title {
-        top: 25px;
-        left: 20px;
+        top: 22px;
+        left: 15px;
       }
       &--location {
-        top: 25px;
-        left: 730px;
+        top: 22px;
+        left: 720px;
       }
       &--btn {
         color: $white;

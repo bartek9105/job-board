@@ -16,7 +16,7 @@
           <h1>{{ getOffer.title }}</h1>
           <div>
             <span>
-              <font-awesome-icon icon="map-marker-alt" />
+              <map-pin-icon size="1.25x" />
               {{ getOffer.location.city }}
             </span>
             <span v-if="getOffer.isRemote">
@@ -25,15 +25,14 @@
           </div>
           <div>
             <span>
-              <font-awesome-icon icon="money-bill-wave" />
               {{ salaryRange }}
             </span>
             <span>
-              <font-awesome-icon icon="file-signature" />
+              <briefcase-icon size="1.25x" />
               {{ getOffer.contract }}
             </span>
             <span>
-              <font-awesome-icon icon="clock" />
+              <clock-icon size="1.25x" />
               {{ getOffer.type }}
             </span>
             <span class="offer__category">{{ getOffer.category }}</span>
@@ -79,8 +78,8 @@
               </h2>
               <ul ckass="offer__benefits__list">
                 <li v-for="(benefit, index) in getOffer.benefits" :key="index">
-                  <font-awesome-icon
-                    icon="check-circle"
+                  <check-circle-icon
+                    size="1.5x"
                     class="offer__icon offer__icon--green"
                   />
                   {{ benefit }}
@@ -139,6 +138,12 @@ import Map from '@/components/Map'
 import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel'
 import BaseOfferSummary from '@/components/Base/Offer/BaseOfferSummary'
 import TheNavbar from '@/components/TheNavbar'
+import {
+  CheckCircleIcon,
+  MapPinIcon,
+  BriefcaseIcon,
+  ClockIcon
+} from 'vue-feather-icons'
 
 export default {
   name: 'OfferDetails',
@@ -149,7 +154,11 @@ export default {
     HeroContentContainer,
     BaseOfferPreviewPanel,
     TheNavbar,
-    BaseOfferSummary
+    BaseOfferSummary,
+    CheckCircleIcon,
+    MapPinIcon,
+    BriefcaseIcon,
+    ClockIcon
   },
   props: {
     offerId: {

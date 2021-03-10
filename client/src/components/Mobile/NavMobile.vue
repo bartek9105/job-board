@@ -2,11 +2,7 @@
   <div class="nav-mobile">
     <div class="nav-mobile-top">
       <BaseLogo :job-text-color="jobTextColor" />
-      <font-awesome-icon
-        icon="times"
-        class="close-icon"
-        @click="closeNavMenu"
-      />
+      <x-icon size="1.25x" class="close-icon" @click="closeNavMenu" />
     </div>
     <nav class="main-nav">
       <ul class="main-nav__list">
@@ -33,10 +29,7 @@
         </router-link>
         <router-link to="/">
           <li class="main-nav__list__item" @click="logoutUser">
-            <font-awesome-icon
-              icon="sign-out-alt"
-              class="main-nav__list__icon"
-            />
+            <log-out-icon size="1.25x" class="main-nav__list__icon" />
             Logout
           </li>
         </router-link>
@@ -58,13 +51,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import StorageService from '@/services/storage.service'
 import BaseLogo from '@/components/Base/BaseLogo'
-import { mapActions } from 'vuex'
+import { XIcon, LogOutIcon } from 'vue-feather-icons'
 
 export default {
   components: {
-    BaseLogo
+    BaseLogo,
+    XIcon,
+    LogOutIcon
   },
   data() {
     return {

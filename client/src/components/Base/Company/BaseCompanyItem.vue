@@ -18,10 +18,7 @@
           </span>
         </div>
         <span class="company-item__content__location">
-          <font-awesome-icon
-            icon="map-marker-alt"
-            class="company-item__content__icon"
-          />
+          <map-pin-icon size="1.5x" class="company-item__content__icon" />
           {{ company.location }}
         </span>
       </div>
@@ -31,10 +28,7 @@
         More info
       </button>
       <span class="company-item__additional__jobs">
-        <font-awesome-icon
-          icon="briefcase"
-          class="company-item__content__icon"
-        />
+        <briefcase-icon size="1.5x" class="company-item__content__icon" />
         20 jobs offers
       </span>
     </section>
@@ -42,8 +36,14 @@
 </template>
 
 <script>
+import { BriefcaseIcon, MapPinIcon } from 'vue-feather-icons'
+
 export default {
   name: 'BaseCompanyItem',
+  components: {
+    BriefcaseIcon,
+    MapPinIcon
+  },
   props: {
     company: {
       type: Object,
