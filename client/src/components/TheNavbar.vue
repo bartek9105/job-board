@@ -93,6 +93,7 @@ export default {
     }
     &__list {
       @include flex(null, center);
+      z-index: 1;
       a,
       li {
         color: $white;
