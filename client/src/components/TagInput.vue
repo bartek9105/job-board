@@ -69,6 +69,10 @@ export default {
     listItems: {
       type: Array,
       default: () => []
+    },
+    isSingle: {
+      type: Boolean,
+      default: () => false
     }
   },
   data() {
@@ -100,10 +104,15 @@ export default {
   },
   methods: {
     createTag(item) {
-      const isItemAdded = this.itemsLocal.find(itemEl => itemEl === item)
-      if (!isItemAdded) {
+      if (!this.isSingle) {
+        const isItemAdded = this.itemsLocal.find(itemEl => itemEl === item)
+        if (!isItemAdded) {
+          this.itemsLocal.push(item)
+          this.item = ''
+        }
+      }
+      if (this.itemsLocal.length === 0) {
         this.itemsLocal.push(item)
-        this.item = ''
       }
       this.item = ''
     },

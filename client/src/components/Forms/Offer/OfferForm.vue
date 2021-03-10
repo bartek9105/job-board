@@ -167,6 +167,7 @@
               v-model="offer.mainTechnology.name"
               :tag-items="offer.technologies"
               :list-items="technologies"
+              :is-single="true"
               @items="tagMainTechnology"
             />
             <span class="job-form-unit__error">{{ errors[0] }}</span>
