@@ -40,7 +40,7 @@
             :key="technology"
             class="map-offer__technology"
           >
-            {{ technology }}
+            {{ technology.name }}
           </div>
         </section>
         <section>
@@ -50,7 +50,7 @@
           <ul>
             <li v-for="benefit in getOffer.benefits" :key="benefit">
               <check-circle-icon size="1.5x" class="map-offer__check-icon" />
-              {{ benefit }}
+              {{ benefit.name }}
             </li>
           </ul>
         </section>

@@ -1,6 +1,12 @@
 <template>
-  <div v-if="Object.entries(getOffer).length > 0" class="offer">
-    <BaseOfferSummary v-if="displayOfferSummary" :offer="getOffer" />
+  <div
+    v-if="Object.entries(getOffer).length > 0"
+    class="offer"
+  >
+    <BaseOfferSummary
+      v-if="displayOfferSummary"
+      :offer="getOffer"
+    />
     <BaseHero hero-height="300">
       <TheNavbar />
       <HeroContentContainer>
@@ -12,7 +18,10 @@
             :img-height="100"
           />
         </template>
-        <template v-if="!getIsLoading" v-slot:details>
+        <template
+          v-if="!getIsLoading"
+          v-slot:details
+        >
           <h1>{{ getOffer.title }}</h1>
           <div>
             <span>
@@ -38,7 +47,10 @@
             <span class="offer__category">{{ getOffer.category }}</span>
           </div>
         </template>
-        <template v-else v-slot:details>
+        <template
+          v-else
+          v-slot:details
+        >
           <BaseSpinner />
         </template>
       </HeroContentContainer>
@@ -46,7 +58,10 @@
     <main>
       <ContentContainer class="wrapper">
         <div class="offer-details-container">
-          <div v-if="!getIsLoading" class="offer-details-offer-info">
+          <div
+            v-if="!getIsLoading"
+            class="offer-details-offer-info"
+          >
             <section class="offer-details-section">
               <div class="offer__go-back-btn">
                 <router-link to="/">
@@ -68,7 +83,7 @@
                   :key="index"
                   class="offer__tag"
                 >
-                  {{ technology }}
+                  {{ technology.name }}
                 </div>
               </div>
             </section>
@@ -77,12 +92,15 @@
                 Benefits
               </h2>
               <ul ckass="offer__benefits__list">
-                <li v-for="(benefit, index) in getOffer.benefits" :key="index">
+                <li
+                  v-for="(benefit, index) in getOffer.benefits"
+                  :key="index"
+                >
                   <check-circle-icon
                     size="1.5x"
                     class="offer__icon offer__icon--green"
                   />
-                  {{ benefit }}
+                  {{ benefit.name }}
                 </li>
               </ul>
             </section>
@@ -95,7 +113,7 @@
               <Map
                 v-if="Object.entries(getOffer).length > 0"
                 class="offer__map"
-                :location="getOffer.location"
+                :location="getOffer"
                 :title="getOffer.title"
                 :company="getOffer.creator.name"
                 :map-height="300"
@@ -119,7 +137,10 @@
       v-if="getOffer.isPreview"
       title="This is how your offer is gonna look like"
     >
-      <BaseButton class="add-btn" @click.native="addPreviewOffer">
+      <BaseButton
+        class="add-btn"
+        @click.native="addPreviewOffer"
+      >
         Add offer
       </BaseButton>
       <BaseClearButton @click.native="goBackToForm">

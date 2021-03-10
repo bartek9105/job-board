@@ -82,6 +82,10 @@ export default {
       activeIndex: 1,
       location: '',
       offer: {
+        mainTechnology: {
+          name: '',
+          icon: ''
+        },
         technologies: [],
         location: {
           address: '',

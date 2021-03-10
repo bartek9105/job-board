@@ -156,6 +156,23 @@
           </div>
         </div>
         <div class="job-form-unit">
+          <span class="job-form-unit__name">Main technology</span>
+          <ValidationProvider
+            v-slot="{ errors }"
+            ref="technologyProvider"
+            rules="arrayEmpty"
+            class="job-form-unit-validator"
+          >
+            <TagInput
+              v-model="offer.mainTechnology.name"
+              :tag-items="offer.technologies"
+              :list-items="technologies"
+              @items="tagMainTechnology"
+            />
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="job-form-unit">
           <span class="job-form-unit__name">Technologies</span>
           <ValidationProvider
             v-slot="{ errors }"
@@ -318,6 +335,10 @@ export default {
     },
     tagsTechnologies(technologies) {
       this.offer.technologies = technologies
+      this.$refs.technologyProvider.reset()
+    },
+    tagMainTechnology(technology) {
+      this.offer.mainTechnology = technology[0]
       this.$refs.technologyProvider.reset()
     },
     tagsBenefits(benefits) {

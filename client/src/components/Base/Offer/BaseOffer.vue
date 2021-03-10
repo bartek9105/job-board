@@ -47,7 +47,7 @@
           :key="technology.id"
           class="offer__technology"
         >
-          {{ technology }}
+          {{ technology.name }}
         </div>
         <div
           v-if="offer.technologies.length > 3"
