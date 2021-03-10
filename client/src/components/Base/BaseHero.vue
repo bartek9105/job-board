@@ -1,9 +1,9 @@
 <template>
   <header class="hero" :style="{ height: heroHeight + 'px' }">
+    <div class="shape-1" />
+    <div class="shape-2" />
+    <div class="shape-3" />
     <slot />
-    <div class="hero__animatedCircle hero__circle-1" />
-    <div class="hero__animatedCircle hero__circle-2" />
-    <div class="hero__animatedCircle hero__circle-3" />
   </header>
 </template>
 
@@ -16,84 +16,78 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .hero {
   width: 100%;
-  background: linear-gradient(164deg, #161b4b, #3440a8);
-  background-size: 400% 400%;
-  animation: GradientBackground 12s ease infinite;
   position: relative;
-  @keyframes GradientBackground {
-    0% {
-      background-position: 0% 50%;
-    }
-
-    50% {
-      background-position: 100% 50%;
-    }
-
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-  &__animatedCircle {
-    background: $white;
-    opacity: 0.1;
+  background: rgb(24, 41, 82);
+  background: linear-gradient(
+    297deg,
+    rgba(24, 41, 82, 1) 0%,
+    rgba(24, 41, 82, 1) 40%,
+    rgba(30, 62, 127, 1) 100%
+  );
+  .shape-1,
+  .shape-2,
+  .shape-3 {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    background-color: $light-blue;
+    transition: all 1s ease-in-out;
+    border-radius: 10% 40% 10% 70% / 10% 30% 70% 70%;
   }
-  &__circle-1 {
-    animation: circle1 12s infinite linear;
+  .shape-1 {
+    top: -40px;
+    right: 0px;
+    opacity: 0.05;
+    animation: morph-3 2s ease-in-out 1;
+    height: 140px;
+    width: 800px;
   }
-  &__circle-2 {
-    animation: circle2 14s infinite linear;
+  .shape-2 {
+    bottom: -50px;
+    left: -50px;
+    opacity: 0.06;
+    animation: morph-2 2s ease-in-out 1;
+    height: 110px;
+    width: 500px;
+    transform: rotate(5deg);
   }
-  &__circle-3 {
-    animation: circle3 20s infinite linear;
+  .shape-3 {
+    bottom: -80px;
+    left: -120px;
+    opacity: 0.04;
+    animation: morph-2 2s ease-in-out 1;
+    height: 110px;
+    width: 500px;
+    transform: rotate(30deg);
   }
-  @keyframes circle1 {
-    0% {
-      top: 30rem;
-      left: 4rem;
-    }
-    50% {
-      top: -1rem;
-      left: 10rem;
-    }
-    100% {
-      top: 30rem;
-      left: 4rem;
-    }
+}
+@keyframes morph-1 {
+  0% {
+    border-radius: 20% 40% 30% 50% / 10% 30% 70% 40%;
   }
-  @keyframes circle2 {
-    0% {
-      top: 30rem;
-      right: 20rem;
-    }
-    50% {
-      top: -1rem;
-      right: 30rem;
-    }
-    100% {
-      top: 30rem;
-      right: 20rem;
-    }
+
+  100% {
+    border-radius: 20% 40% 10% 70% / 10% 30% 70% 70%;
   }
-  @keyframes circle3 {
-    0% {
-      top: 30rem;
-      right: 10rem;
-    }
-    50% {
-      top: -5rem;
-      right: 60rem;
-    }
-    100% {
-      top: 30rem;
-      right: 10rem;
-    }
+}
+
+@keyframes morph-2 {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  100% {
+    border-radius: 10% 40% 10% 70% / 10% 30% 70% 70%;
+  }
+}
+
+@keyframes morph-3 {
+  0% {
+    border-radius: 20% 60% 50% 40% / 10% 30% 70% 70%;
+  }
+
+  100% {
+    border-radius: 10% 40% 10% 70% / 10% 30% 70% 70%;
   }
 }
 </style>
