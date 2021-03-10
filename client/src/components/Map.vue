@@ -63,7 +63,10 @@ export default {
   },
   mounted() {
     this.location
-      ? this.mapSetup([this.location.latitude, this.location.longitude])
+      ? this.mapSetup([
+          this.location.location.latitude,
+          this.location.location.longitude
+        ])
       : this.mapSetup(this.locations)
   },
   methods: {
@@ -83,18 +86,20 @@ export default {
       if (this.location) {
         const marker = L.marker(coordinates, {
           icon: L.divIcon({
-            html: `<i class="fas fa-map-marker-alt marker-icon"></i>`,
+            html: `<i class="${this.location.mainTechnology.icon} marker-icon"></i>`,
             iconSize: [30, 40]
           })
         }).addTo(this.map)
-        marker.bindPopup(`${this.title}<br>${this.company}`).openPopup()
+        marker
+          .bindPopup(`${this.location.title}<br>${this.location.creator.name}`)
+          .openPopup()
       } else {
         coordinates.map(location => {
           this.markers[location._id] = L.marker(
             [location.location.latitude, location.location.longitude],
             {
               icon: L.divIcon({
-                html: `<i class="fas fa-map-marker-alt marker-icon" style="color: ${location.category.color};"></i>`,
+                html: `<i class="${location.mainTechnology.icon} marker-icon"></i>`,
                 iconSize: [30, 40]
               })
             }
@@ -114,8 +119,11 @@ export default {
     border: none;
     background: transparent;
     .marker-icon {
-      font-size: $font-icon-lg;
-      color: $dark-blue;
+      @include shadow-hover;
+      font-size: $font-icon-md;
+      background-color: $white;
+      border-radius: 50%;
+      padding: 0.25rem;
     }
   }
 }

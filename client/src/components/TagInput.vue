@@ -4,7 +4,7 @@
       <BaseTag
         v-for="(tag, index) in itemsLocal"
         :key="index"
-        :tag-name="tag"
+        :tag-name="tag.name"
         :tag-index="index"
         @deletedItem="deleteTag"
       />
@@ -38,7 +38,7 @@
           :key="filteredTechnology._id"
           :class="{ 'active-item': currentListItem === index }"
           class="tags__input__suggestion-list__list-element"
-          @click="createTag(filteredTechnology.name)"
+          @click="createTag(filteredTechnology)"
         >
           <i
             :class="filteredTechnology.icon"
@@ -69,6 +69,10 @@ export default {
     listItems: {
       type: Array,
       default: () => []
+    },
+    isSingle: {
+      type: Boolean,
+      default: () => false
     }
   },
   data() {
@@ -100,10 +104,15 @@ export default {
   },
   methods: {
     createTag(item) {
-      const isItemAdded = this.itemsLocal.find(itemEl => itemEl === item)
-      if (!isItemAdded) {
+      if (!this.isSingle) {
+        const isItemAdded = this.itemsLocal.find(itemEl => itemEl === item)
+        if (!isItemAdded) {
+          this.itemsLocal.push(item)
+          this.item = ''
+        }
+      }
+      if (this.itemsLocal.length === 0) {
         this.itemsLocal.push(item)
-        this.item = ''
       }
       this.item = ''
     },

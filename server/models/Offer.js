@@ -69,14 +69,26 @@ const offerSchema = new mongoose.Schema(
       type: String,
       enum: ['Employment contract', 'B2B', 'Mandatory contract'],
     },
+    mainTechnology: {
+      name: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      icon: {
+        type: String,
+        trim: true,
+      },
+    },
     technologies: [
       {
-        type: String,
+        name: String,
+        icon: String,
       },
     ],
     benefits: [
       {
-        type: String,
+        name: String,
       },
     ],
     status: {
