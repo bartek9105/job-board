@@ -2,12 +2,13 @@
   <div class="nav-container">
     <nav class="main-nav">
       <BaseLogo :job-text-color="jobTextColor" />
-      <font-awesome-icon
+      <menu-icon
         v-if="isMedium"
-        icon="bars"
+        size="1.5x"
         class="menu-icon"
         @click="navMenuState"
       />
+
       <ul v-else class="main-nav__list">
         <router-link to="/">
           <li>Offers</li>
@@ -46,13 +47,15 @@ import StorageService from '@/services/storage.service'
 import BaseLogo from '@/components/Base/BaseLogo'
 import NavbarDropdown from '@/components/NavbarDropdown'
 import BaseLoggedUserBadge from '@/components/Base/BaseLoggedUserBadge'
+import { MenuIcon } from 'vue-feather-icons'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
     BaseLogo,
     NavbarDropdown,
-    BaseLoggedUserBadge
+    BaseLoggedUserBadge,
+    MenuIcon
   },
   data() {
     return {

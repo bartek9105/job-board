@@ -1,8 +1,8 @@
 <template>
   <div class="tag">
     {{ tagName }}
-    <font-awesome-icon
-      icon="times-circle"
+    <x-icon
+      size="1.25x"
       class="tag__delete-icon"
       @click="deleteTag(tagIndex)"
     />
@@ -10,8 +10,13 @@
 </template>
 
 <script>
+import { XIcon } from 'vue-feather-icons'
+
 export default {
   name: 'BaseTag',
+  components: {
+    XIcon
+  },
   props: {
     tagName: String,
     tagIndex: Number

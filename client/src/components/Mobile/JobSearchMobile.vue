@@ -6,8 +6,8 @@
         class="job-search-form-mobile__input"
         placeholder="Title or keyword"
       />
-      <font-awesome-icon
-        icon="filter"
+      <filter-icon
+        size="1.5x"
         class="filter-icon"
         @click="isMediumFiltersOpen = !isMediumFiltersOpen"
       />
@@ -16,8 +16,13 @@
 </template>
 
 <script>
+import { FilterIcon } from 'vue-feather-icons'
+
 export default {
   name: 'JobSearchMobile',
+  components: {
+    FilterIcon
+  },
   data() {
     return {
       isMediumFiltersOpen: false

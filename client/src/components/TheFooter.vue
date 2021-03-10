@@ -32,15 +32,19 @@
             </a>
             <a href="#">
               <font-awesome-icon
-                :icon="['fab', 'linkedin']"
+                :icon="['fab', 'instagram']"
                 class="social-icon"
               />
             </a>
-            <a href="#" />
-            <font-awesome-icon :icon="['fab', 'google']" class="social-icon" />
             <a href="#">
               <font-awesome-icon
-                :icon="['fab', 'instagram']"
+                :icon="['fab', 'twitter']"
+                class="social-icon"
+              />
+            </a>
+            <a href="#">
+              <font-awesome-icon
+                :icon="['fab', 'linkedin']"
                 class="social-icon"
               />
             </a>

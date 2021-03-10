@@ -10,11 +10,11 @@
         {{ company.name }}
       </h3>
       <span>
-        <font-awesome-icon icon="user" class="company__icon" />
+        <user-icon size="1.25x" class="company__icon" />
         {{ company.size }} people
       </span>
       <span>
-        <font-awesome-icon icon="industry" class="company__icon" />
+        <home-icon size="1.25x" class="company__icon" />
         {{ company.industry }}
       </span>
     </div>
@@ -23,8 +23,14 @@
 </template>
 
 <script>
+import { UserIcon, HomeIcon } from 'vue-feather-icons'
+
 export default {
   name: 'BaseCompanyInfo',
+  components: {
+    UserIcon,
+    HomeIcon
+  },
   props: {
     company: Object
   }

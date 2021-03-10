@@ -49,10 +49,7 @@
           </h2>
           <ul>
             <li v-for="benefit in getOffer.benefits" :key="benefit">
-              <font-awesome-icon
-                icon="check-circle"
-                class="map-offer__check-icon"
-              />
+              <check-circle-icon size="1.5x" class="map-offer__check-icon" />
               {{ benefit }}
             </li>
           </ul>
@@ -69,12 +66,14 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton.vue'
 import BaseCompanyLogo from '@/components/Base/Company/BaseCompanyLogo.vue'
+import { CheckCircleIcon } from 'vue-feather-icons'
 
 export default {
   name: 'BaseMapOffer',
   components: {
     BaseGoBackButton,
-    BaseCompanyLogo
+    BaseCompanyLogo,
+    CheckCircleIcon
   },
   props: {
     offerId: {
@@ -139,7 +138,7 @@ export default {
   }
   &__check-icon {
     color: $success;
-    margin-right: 0.5rem;
+    margin-right: 1rem;
   }
 }
 </style>

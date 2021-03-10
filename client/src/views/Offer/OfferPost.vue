@@ -38,14 +38,17 @@
             <template v-slot:content>
               <ul class="post-offer-form__price-card__list">
                 <li>
-                  <i
-                    class="fas fa-check post-offer-form__price-card__list__icon"
+                  <check-circle-icon
+                    size="1.5x"
+                    class="post-offer-form__price-card__list__icon"
                   />
+
                   Your offer will last for {{ product.duration }}
                 </li>
                 <li v-if="product.promotion">
-                  <i
-                    class="fas fa-check post-offer-form__price-card__list__icon"
+                  <check-circle-icon
+                    size="1.5x"
+                    class="post-offer-form__price-card__list__icon"
                   />
                   Your offer will be promoted for {{ product.promotion }}
                 </li>
@@ -63,6 +66,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { CheckCircleIcon } from 'vue-feather-icons'
 import OfferForm from '@/components/Forms/Offer/OfferForm'
 import PriceCard from '@/components/Base/BasePriceCard'
 
@@ -70,7 +74,8 @@ export default {
   name: 'OfferPost',
   components: {
     OfferForm,
-    PriceCard
+    PriceCard,
+    CheckCircleIcon
   },
   data() {
     return {

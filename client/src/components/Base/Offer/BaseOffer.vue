@@ -17,17 +17,10 @@
             {{ offer.title }}
           </div>
           <div v-if="!isSmall" class="offer__salary">
-            <font-awesome-icon
-              icon="money-bill-wave"
-              class="offer__pay__icon"
-            />
             {{ salaryRange }}
           </div>
           <div class="offer__city">
-            <font-awesome-icon
-              icon="map-marker-alt"
-              class="offer__city__marker-icon"
-            />
+            <map-pin-icon size="1.25x" class="offer__city__marker-icon" />
             {{ offer.location.city }}
           </div>
           <div v-if="offer.isRemote && !isMedium" class="offer__remote">
@@ -82,10 +75,14 @@
 
 <script>
 import { daysDifference } from '@/utils/date/daysDifference'
+import { MapPinIcon } from 'vue-feather-icons'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'BaseOffer',
+  components: {
+    MapPinIcon
+  },
   props: {
     offer: Object
   },

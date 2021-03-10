@@ -5,7 +5,7 @@
       :disabled="pageNumber === 1"
       @click="emitPreviousPage"
     >
-      <font-awesome-icon icon="long-arrow-alt-left" />
+      <arrow-left-icon size="1.25x" />
     </button>
     <div class="page-container">
       <button
@@ -23,14 +23,19 @@
       :disabled="pageNumber === pages"
       @click="emitNextPage"
     >
-      <font-awesome-icon icon="long-arrow-alt-right" />
+      <arrow-right-icon size="1.25x" />
     </button>
   </div>
 </template>
 
 <script>
+import { ArrowLeftIcon, ArrowRightIcon } from 'vue-feather-icons'
 export default {
   name: 'Pagination',
+  components: {
+    ArrowLeftIcon,
+    ArrowRightIcon
+  },
   props: {
     pages: Number
   },
