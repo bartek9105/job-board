@@ -82,12 +82,14 @@ const offerSchema = new mongoose.Schema(
     },
     technologies: [
       {
+        _id: false,
         name: String,
         icon: String,
       },
     ],
     benefits: [
       {
+        _id: false,
         name: String,
       },
     ],
