@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click.self="showMoreFilters = false">
     <div class="job-search">
       <form class="job-search__job-form" @submit.prevent>
         <input
@@ -22,7 +22,7 @@
           size="1.25x"
           class="job-search__job-form__icon job-search__job-form__icon--location"
         />
-        <button @click="showMoreFilters = !showMoreFilters">
+        <button type="button" @click="showMoreFilters = !showMoreFilters">
           <filter-icon size="1.25x" />
         </button>
         <button class="job-search__btn" @click="emitQuery">
@@ -58,9 +58,17 @@ export default {
       }
     }
   },
+  mounted() {
+    document.addEventListener('click', this.clickOutsideFilterHandler)
+  },
   methods: {
     emitQuery() {
       this.$emit('searchQuery', this.query)
+    },
+    clickOutsideFilterHandler(evt) {
+      if (!this.$el.contains(evt.target)) {
+        this.showMoreFilters = false
+      }
     }
   }
 }
@@ -78,6 +86,7 @@ export default {
   }
   &__job-form {
     @include shadow;
+    border-radius: 0.5rem 0 0 0.5rem;
     margin-top: 65px;
     width: 100%;
     display: grid;
@@ -88,6 +97,10 @@ export default {
       border: 0 !important;
       height: 65px;
       padding-left: 3rem;
+      &--title {
+        border-right: 1px solid $dark-blue-lighter !important;
+        border-radius: 0.5rem 0 0 0.5rem;
+      }
     }
     &__icon {
       position: absolute;

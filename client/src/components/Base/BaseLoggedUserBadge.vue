@@ -36,7 +36,7 @@ export default {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    margin-right: 0.5rem;
+    margin-right: 1rem !important;
   }
   &__icon {
     margin-top: -5px;
