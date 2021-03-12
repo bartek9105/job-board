@@ -22,8 +22,8 @@ export default {
   },
   props: {
     category: {
-      type: String,
-      default: () => ''
+      type: Object,
+      default: () => {}
     },
     excludedOfferId: String
   },
@@ -35,20 +35,23 @@ export default {
   methods: {
     ...mapActions(['fetchOffers']),
     pageNumber(page) {
-      this.fetchOffers({ category: this.category, page })
+      this.fetchOffers({ category: this.category.name, page })
     }
   },
   computed: {
     ...mapGetters(['getOffers']),
     compundProperty() {
-      return [this.category, this.excludedOfferId].join()
+      return [this.category.name, this.excludedOfferId].join()
     }
   },
   watch: {
     compundProperty: {
       immediate: true,
       handler: function() {
-        this.fetchOffers({ category: this.category, _id: this.excludedOfferId })
+        this.fetchOffers({
+          category: this.category.name,
+          _id: this.excludedOfferId
+        })
       }
     }
   }

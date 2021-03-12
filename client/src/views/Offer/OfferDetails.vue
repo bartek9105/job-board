@@ -35,7 +35,7 @@
               <clock-icon size="1.25x" />
               {{ getOffer.type }}
             </span>
-            <span class="offer__category">{{ getOffer.category }}</span>
+            <span class="offer__category">{{ getOffer.category.name }}</span>
           </div>
         </template>
         <template v-else v-slot:details>

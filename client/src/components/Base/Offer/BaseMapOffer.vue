@@ -1,5 +1,9 @@
 <template>
-  <div class="map-offer">
+  <div
+    v-if="Object.entries(getOffer).length > 0"
+    class="map-offer"
+    :style="{ borderTop }"
+  >
     <BaseGoBackButton @click.native="closeOffer" />
     <div v-if="getIsLoading">
       <BaseSpinner />
@@ -16,7 +20,9 @@
             {{ getOffer.title }}
           </h1>
           <div>
-            <span class="map-offer__detail-tag">{{ getOffer.category }}</span>
+            <span class="map-offer__detail-tag">{{
+              getOffer.category.name
+            }}</span>
             <span class="map-offer__detail-tag">{{ getOffer.seniority }}</span>
             <span class="map-offer__detail-tag">{{ getOffer.contract }}</span>
             <span class="map-offer__detail-tag">{{ getOffer.type }}</span>
@@ -84,6 +90,9 @@ export default {
     ...mapGetters(['getOffer', 'getIsLoading']),
     salaryRange() {
       return `${this.getOffer.salary.salaryMin} - ${this.getOffer.salary.salaryMax} ${this.getOffer.salary.currency}`
+    },
+    borderTop() {
+      return `4px solid ${this.getOffer.category.color}`
     }
   },
   created() {
@@ -101,7 +110,6 @@ export default {
 <style lang="scss" scoped>
 .map-offer {
   background-color: $white;
-  border-radius: 0.5rem;
   height: 650px;
   overflow-y: scroll;
   color: $dark-blue;

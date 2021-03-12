@@ -98,7 +98,7 @@
                 class="job-form-unit-validator"
               >
                 <BaseSelect
-                  v-model="offer.category.name"
+                  v-model="offer.category"
                   :option-values="offerDetails.CATEGORIES"
                   name="category"
                   @value-change="getValue"
