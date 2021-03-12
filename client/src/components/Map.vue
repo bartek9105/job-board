@@ -43,7 +43,10 @@ export default {
   watch: {
     location: function(newLocation, oldLocation) {
       this.map.remove()
-      this.mapSetup([newLocation.latitude, newLocation.longitude])
+      this.mapSetup([
+        newLocation.location.latitude,
+        newLocation.location.longitude
+      ])
     },
     locations: function(newLocations, oldLocations) {
       this.map.remove()

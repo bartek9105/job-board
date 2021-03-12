@@ -36,8 +36,8 @@
             Technologies
           </h2>
           <div
-            v-for="technology in getOffer.technologies"
-            :key="technology"
+            v-for="(technology, index) in getOffer.technologies"
+            :key="index"
             class="map-offer__technology"
           >
             {{ technology.name }}
@@ -48,7 +48,7 @@
             Benefits
           </h2>
           <ul>
-            <li v-for="benefit in getOffer.benefits" :key="benefit">
+            <li v-for="(benefit, index) in getOffer.benefits" :key="index">
               <check-circle-icon size="1.5x" class="map-offer__check-icon" />
               {{ benefit.name }}
             </li>
