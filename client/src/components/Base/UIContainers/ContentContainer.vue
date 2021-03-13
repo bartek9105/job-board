@@ -21,6 +21,7 @@ export default {
   top: -30px;
   font-size: $font-content-md;
   line-height: $line-height-regular;
+  border-radius: $border-radius-sm;
   h3 {
     margin-bottom: $margin-sm;
   }

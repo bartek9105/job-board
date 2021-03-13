@@ -1,7 +1,7 @@
 <template>
   <div v-if="Object.entries(getOffer).length > 0" class="offer">
     <BaseOfferSummary v-if="displayOfferSummary" :offer="getOffer" />
-    <BaseHero hero-height="300">
+    <BaseHero hero-height="250">
       <TheNavbar />
       <HeroContentContainer>
         <template v-slot:logo>

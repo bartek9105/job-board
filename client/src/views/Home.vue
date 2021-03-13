@@ -4,7 +4,7 @@
       v-if="mobileFiltersOpen && isMedium"
       @openMobileFilters="mobileFilters"
     />
-    <BaseHero hero-height="170">
+    <BaseHero hero-height="150">
       <TheNavbar />
       <JobSearch @searchQuery="query" />
     </BaseHero>

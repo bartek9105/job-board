@@ -116,6 +116,7 @@ export default {
   font-size: $font-content-lg;
   line-height: $line-height-regular;
   padding: $padding-md;
+  border-radius: $border-radius-sm;
   section {
     border-bottom: 1px solid $light-blue;
     padding: $padding-md 0;

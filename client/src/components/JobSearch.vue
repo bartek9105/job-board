@@ -87,7 +87,7 @@ export default {
   &__job-form {
     @include shadow;
     border-radius: 0.5rem 0 0 0.5rem;
-    margin-top: 65px;
+    margin-top: 45px;
     width: 100%;
     display: grid;
     grid-template-columns: (65% 20% auto auto);

@@ -27,6 +27,7 @@ export default {
   height: calc(100% - #{$nav-height});
   &__content {
     @include flex(space-between, null);
+    margin-top: -30px;
     &__logo {
       margin-right: 2rem;
       width: 100px;

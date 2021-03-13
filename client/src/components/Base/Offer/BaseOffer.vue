@@ -147,8 +147,9 @@ export default {
   @include shadow;
   background: $white;
   color: $dark-blue;
-  padding: $padding-sm 35px;
+  padding: 0.75rem 2.25rem;
   margin-bottom: $margin-sm;
+  border-radius: $border-radius-sm;
   &:hover {
     @include shadow-hover;
     @include transition;
