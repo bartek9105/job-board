@@ -2,59 +2,59 @@ export default {
   CATEGORIES: [
     {
       name: 'Frontend',
-      color: '#2BB8F0'
+      color: '#00FF8C'
     },
     {
       name: 'Backend',
-      color: '#CC29E6'
+      color: '#B0228C'
     },
     {
       name: 'Fullstack',
-      color: '#122B8C'
+      color: '#26FFE6'
     },
     {
       name: 'UI/UX',
-      color: '#D96948'
+      color: '#FFEB72'
     },
     {
       name: 'DevOps',
-      color: '#3253D9'
+      color: '#1EA896'
     },
     {
       name: 'Data Science',
-      color: '#7AD91C'
+      color: '#C68866'
     },
     {
       name: 'Testing',
-      color: '#528C19'
+      color: '#3E92CC'
     },
     {
       name: 'PM',
-      color: '#078C31'
+      color: '#8BD9FF'
     },
     {
       name: 'Support',
-      color: '#8536D9'
+      color: '#CDFF72'
     },
     {
       name: 'Big Data',
-      color: '#21D95B'
+      color: '#FFAA00'
     },
     {
       name: 'Mobile',
-      color: '#8C590E'
+      color: '#2708A0'
     },
     {
       name: 'Embedded',
-      color: '#991456'
+      color: '#5465FF'
     },
     {
       name: 'Gaming',
-      color: '#E64C99'
+      color: '#FF312E'
     },
     {
       name: 'AI',
-      color: '#6391E6'
+      color: '#F46197'
     }
   ],
   SENIORITIES: ['Intern', 'Junior', 'Regular', 'Senior'],
