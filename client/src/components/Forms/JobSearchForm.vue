@@ -62,13 +62,13 @@
           <TagInput
             class="tags"
             :list-items="technologies"
-            @technologies="tagsTechnologies"
+            @items="tagsTechnologies"
           />
         </div>
       </div>
       <div class="btn-container">
         <div>
-          <BaseButton class="add-btn" @click.native="emitFormData">
+          <BaseButton class="add-btn" @click.native="searchOffers">
             {{ buttonText }}
           </BaseButton>
           <BaseClearButton @click="clearFilters">
@@ -86,7 +86,7 @@ import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
 import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'JobSearchForm',
@@ -118,17 +118,20 @@ export default {
     this.technologies = technologies
   },
   methods: {
-    emitFormData() {
-      this.$emit('clicked', this.queries)
+    ...mapActions(['fetchOffers']),
+    searchOffers() {
+      this.fetchOffers(this.queries)
     },
     clearFilters() {
       this.queries = { technologies: [] }
     },
-    tagsTechnologies(techs) {
-      this.queries.technologies = techs
+    tagsTechnologies(technologies) {
+      this.queries.technologies = technologies.map(
+        technology => technology.name
+      )
     },
-    getValue(value, name) {
-      this.queries[name] = value
+    getValue(value, valueName) {
+      this.queries[valueName] = value
     },
     salary(salary) {
       const [salaryMin, salaryMax] = salary
