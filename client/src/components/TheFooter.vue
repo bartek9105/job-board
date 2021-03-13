@@ -2,7 +2,7 @@
   <footer class="footer">
     <Container>
       <div class="footer-container">
-        <BaseLogo :job-text-color="jobTextColor" />
+        <BaseLogo :is-dark-blue="true" />
         <div class="footer__navs-container">
           <nav class="footer-nav">
             <ul>
