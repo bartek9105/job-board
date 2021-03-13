@@ -21,7 +21,7 @@ export default {
   @include flex(null, center);
   background-color: $white-blue;
   color: $dark-blue;
-  padding: $padding-xsm $padding-sm;
+  padding: 0.4rem $padding-sm;
   border-radius: $border-radius-btn;
   font-weight: $font-regular-bold;
   &__icon {

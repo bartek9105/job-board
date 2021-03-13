@@ -53,15 +53,15 @@
                   <BaseGoBackButton />
                 </router-link>
               </div>
-              <h2 class="offer__header">
+              <h3 class="offer__header">
                 Job Description
-              </h2>
+              </h3>
               <p v-html="getOffer.description" />
             </section>
             <section class="offer-details-section">
-              <h2 class="offer__header">
+              <h3 class="offer__header">
                 Technologies
-              </h2>
+              </h3>
               <div class="offer-tag-container">
                 <div
                   v-for="(technology, index) in getOffer.technologies"
@@ -73,9 +73,9 @@
               </div>
             </section>
             <section class="offer-details-section">
-              <h2 class="offer__header">
+              <h3 class="offer__header">
                 Benefits
-              </h2>
+              </h3>
               <ul ckass="offer__benefits__list">
                 <li v-for="(benefit, index) in getOffer.benefits" :key="index">
                   <check-circle-icon
@@ -226,11 +226,11 @@ export default {
     margin-right: 15px;
   }
   &__header {
-    margin-bottom: $margin-md;
+    margin-bottom: $margin-sm;
   }
   &__tag {
     @include tag;
-    @include tag-dark;
+    @include tag-light;
     margin-bottom: 0.5rem;
     margin-right: 10px;
   }
@@ -245,7 +245,7 @@ export default {
     @include tag-light;
   }
   &__go-back-btn {
-    margin-bottom: $margin-lg;
+    margin-bottom: $margin-md;
   }
   &__map {
     margin-top: $margin-md;

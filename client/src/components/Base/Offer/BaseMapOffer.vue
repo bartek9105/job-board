@@ -14,9 +14,10 @@
           :avatar-url="getOffer.creator.avatarUrl"
           :img-width="100"
           :img-height="100"
+          class="map-offer__logo"
         />
         <div class="map-offer__details">
-          <h1>
+          <h1 class="map-offer__title">
             {{ getOffer.title }}
           </h1>
           <div>
@@ -32,15 +33,15 @@
       </section>
       <main>
         <section>
-          <h2 class="map-offer__heading">
+          <h3 class="map-offer__heading">
             Job description
-          </h2>
+          </h3>
           <p class="map-offer__description" v-html="getOffer.description" />
         </section>
         <section>
-          <h2 class="map-offer__heading">
+          <h3 class="map-offer__heading">
             Technologies
-          </h2>
+          </h3>
           <div
             v-for="(technology, index) in getOffer.technologies"
             :key="index"
@@ -50,9 +51,9 @@
           </div>
         </section>
         <section>
-          <h2 class="map-offer__heading">
+          <h3 class="map-offer__heading">
             Benefits
-          </h2>
+          </h3>
           <ul>
             <li v-for="(benefit, index) in getOffer.benefits" :key="index">
               <check-circle-icon size="1.5x" class="map-offer__check-icon" />
@@ -118,14 +119,22 @@ export default {
   padding: $padding-md;
   border-radius: $border-radius-sm;
   section {
-    border-bottom: 1px solid $light-blue;
-    padding: $padding-md 0;
+    padding: $padding-sm 0;
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $light-blue;
+    }
   }
   &__heading {
-    margin-bottom: $margin-md;
+    margin-bottom: $margin-sm;
   }
   &__main {
     @include flex();
+  }
+  &__logo {
+    margin-right: 1rem;
+  }
+  &__title {
+    margin-bottom: 1rem;
   }
   &__details {
     @include flex(space-between, null, column);
