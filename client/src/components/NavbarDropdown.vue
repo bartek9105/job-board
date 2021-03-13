@@ -47,18 +47,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .nav-dropdown {
   position: relative;
-  z-index: 1;
-  &__icon {
-    color: $white;
-    position: absolute;
-    top: -10px;
-    right: 0px;
-    font-size: $font-icon-lg;
-    z-index: -1;
-  }
   &__list {
     @include flex(center, center, column);
     @include shadow;
@@ -69,7 +60,6 @@ export default {
     }
     a {
       width: 100%;
-      color: $dark-blue !important;
     }
     &__item {
       @include flex(null, center);

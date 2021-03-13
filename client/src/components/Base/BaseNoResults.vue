@@ -18,7 +18,7 @@ export default {}
 <style lang="scss" scoped>
 .no-results {
   @include flex(center, center, column);
-  margin: 8rem 0;
+  margin: 3rem 0;
   &__img {
     max-width: 400px;
   }

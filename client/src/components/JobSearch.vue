@@ -92,7 +92,6 @@ export default {
     display: grid;
     grid-template-columns: (65% 20% auto auto);
     position: relative;
-    z-index: 3;
     &__input {
       border: 0 !important;
       height: 65px;
