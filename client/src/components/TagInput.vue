@@ -18,7 +18,7 @@
         @focus="displaySuggestionList = true"
         @keydown.down="onArrowDown"
         @keydown.up="onArrowUp"
-        @keydown.enter.prevent="onEnter"
+        @keydown.enter="onEnter"
       />
       <x-icon
         v-if="itemsLocal.length > 0"
@@ -33,18 +33,18 @@
         @blur="displaySuggestionList = false"
       >
         <li
-          v-for="(filteredTechnology, index) in listItems"
+          v-for="(filteredItem, index) in filteredItems"
           ref="listElement"
-          :key="filteredTechnology._id"
+          :key="filteredItem._id"
           :class="{ 'active-item': currentListItem === index }"
           class="tags__input__suggestion-list__list-element"
-          @click="createTag(filteredTechnology)"
+          @click="createTag(filteredItem)"
         >
           <i
-            :class="filteredTechnology.icon"
+            :class="filteredItem.icon"
             class="tags__input__suggestion-list__list-element__icon"
           />
-          {{ filteredTechnology.name }}
+          {{ filteredItem.name }}
         </li>
       </ul>
     </div>
@@ -80,23 +80,25 @@ export default {
       itemsLocal: [...this.tagItems],
       item: '',
       displaySuggestionList: false,
-      currentListItem: -1
+      currentListItem: 0
     }
   },
-  /*
   computed: {
-    getFilteredTechnologies() {
-      if (this.technology !== null) {
-        return this.getTechnologies.filter(technology =>
-          technology.match(new RegExp(`^${this.technology}`, 'gi'))
+    filteredItems() {
+      if (this.item !== '') {
+        return this.listItems.filter(item =>
+          item.name.match(new RegExp(`^${this.item}`, 'gi'))
         )
       }
-      return this.getTechnologies
+      return this.listItems
     }
-  }, */
+  },
   watch: {
     itemsLocal: function(newVal, oldVal) {
       this.$emit('items', newVal)
+    },
+    item: function(newVal, oldVal) {
+      this.currentListItem = 0
     }
   },
   mounted() {
@@ -108,13 +110,11 @@ export default {
         const isItemAdded = this.itemsLocal.find(itemEl => itemEl === item)
         if (!isItemAdded) {
           this.itemsLocal.push(item)
-          this.item = ''
         }
       }
       if (this.itemsLocal.length === 0) {
         this.itemsLocal.push(item)
       }
-      this.item = ''
     },
     deleteTag(index) {
       this.itemsLocal.splice(index, 1)
@@ -123,7 +123,7 @@ export default {
       this.itemsLocal = []
     },
     onArrowDown() {
-      if (this.currentListItem < this.itemsLocal.length) {
+      if (this.currentListItem < this.filteredItems.length - 1) {
         this.currentListItem++
         this.fixScrolling()
       }
@@ -135,8 +135,8 @@ export default {
       }
     },
     onEnter() {
-      this.item = this.listItems[this.currentListItem]
-      this.createTag(this.item.name)
+      const item = this.filteredItems[this.currentListItem]
+      this.createTag(item)
     },
     clickOutsideListHandler(evt) {
       if (!this.$el.contains(evt.target)) {
@@ -192,6 +192,7 @@ export default {
         @include flex(null, center);
         padding: 10px;
         &:hover {
+          color: $dark-blue;
           background: $bg-grey;
           cursor: pointer;
         }
