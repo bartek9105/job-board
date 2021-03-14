@@ -7,64 +7,34 @@
       <h1 class="auth__header">
         <slot name="header" />
       </h1>
-      <form
-        class="auth__form"
-        @submit.prevent
-      >
+      <form class="auth__form" @submit.prevent>
         <div class="form-unit">
-          <label
-            for="email"
-            class="auth__form__label"
-          >E-mail</label>
+          <label for="email" class="auth__form__label">E-mail</label>
           <input
             v-model="credentials.email"
             type="email"
             name="email"
             placeholder="Type in your e-mail address"
             @change="emitEmail"
-          >
+          />
         </div>
         <div class="form-unit">
-          <label
-            for="password"
-            class="auth__form__label"
-          >Password</label>
+          <label for="password" class="auth__form__label">Password</label>
           <input
             v-model="credentials.password"
             type="password"
             name="password"
             placeholder="Type in your password"
             @change="emitPassword"
-          >
+          />
         </div>
         <span class="auth__form__info">
           <slot name="info" />
-          <router-link
-            :to="routerLink"
-            class="auth__form__info__action"
-          >
+          <router-link :to="routerLink" class="auth__form__info__action">
             <slot name="info-action" />
           </router-link>
         </span>
         <slot name="btn" />
-        <div class="auth__form__alt">
-          <hr>
-          <span>Or</span>
-          <button class="auth__form__alt__btn auth__form__alt__btn--facebook">
-            <font-awesome-icon
-              :icon="['fab', 'facebook']"
-              class="auth__form__alt__btn__icon"
-            />
-            Sign in with Facebook
-          </button>
-          <button class="auth__form__alt__btn auth__form__alt__btn--google">
-            <font-awesome-icon
-              :icon="['fab', 'google']"
-              class="auth__form__alt__btn__icon"
-            />
-            Sign in with Google
-          </button>
-        </div>
       </form>
     </div>
   </div>
@@ -145,6 +115,9 @@ export default {
       margin-bottom: $margin-md;
       &__action {
         color: $pink;
+        &:hover {
+          color: $pink-hover;
+        }
       }
     }
     &__alt {
@@ -178,7 +151,6 @@ export default {
         }
         &:hover {
           @include shadow-hover;
-          @include transition;
         }
       }
     }

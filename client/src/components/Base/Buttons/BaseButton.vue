@@ -20,6 +20,7 @@ export default {
   width: fit-content;
   &:hover {
     @include shadow-hover;
+    background-color: $pink-hover;
   }
 }
 </style>

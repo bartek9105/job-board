@@ -63,6 +63,7 @@ export default {
     }
     &__item {
       @include flex(null, center);
+      @include transition;
       text-align: center;
       padding: $padding-sm $padding-md;
       border-radius: $border-radius-sm;

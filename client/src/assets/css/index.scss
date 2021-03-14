@@ -22,6 +22,7 @@ body {
 }
 
 a {
+    @include transition;
     color: $dark-blue;
     text-decoration: none;
     font-size: $font-content-lg;
@@ -56,6 +57,7 @@ ul {
 }
 
 button {
+    @include transition;
     cursor: pointer;
     border: none;
     font-size: $font-content-lg;

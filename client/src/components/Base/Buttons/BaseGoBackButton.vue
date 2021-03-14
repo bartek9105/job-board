@@ -27,5 +27,9 @@ export default {
   &__icon {
     margin-right: 1rem;
   }
+  &:hover {
+    color: $white;
+    background-color: $dark-blue;
+  }
 }
 </style>

@@ -85,6 +85,13 @@ export default {
         li:not(:last-of-type) {
           margin-bottom: $margin-sm;
         }
+        li {
+          @include transition;
+          cursor: pointer;
+          &:hover {
+            color: $pink;
+          }
+        }
       }
     }
   }
@@ -93,8 +100,12 @@ export default {
     &-container {
       margin-top: $margin-sm;
       .social-icon {
+        @include transition;
         font-size: $font-icon-md;
         margin-right: 20px;
+        &:hover {
+          color: $pink;
+        }
       }
     }
   }

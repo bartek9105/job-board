@@ -96,6 +96,7 @@ export default {
       z-index: 1;
       a,
       li {
+        @include transition;
         color: $white;
         cursor: pointer;
         &:hover {

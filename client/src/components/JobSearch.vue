@@ -22,8 +22,12 @@
           size="1.25x"
           class="job-search__job-form__icon job-search__job-form__icon--location"
         />
-        <button type="button" @click="showMoreFilters = !showMoreFilters">
-          <filter-icon size="1.25x" />
+        <button
+          type="button"
+          class="job-search__job-form__filter-btn"
+          @click="showMoreFilters = !showMoreFilters"
+        >
+          <filter-icon size="1.25x" class="job-search__job-form__filter-icon" />
         </button>
         <button class="job-search__btn" @click="emitQuery">
           <search-icon size="1.5x" class="job-search__job-form__icon--btn" />
@@ -83,6 +87,9 @@ export default {
   &__btn {
     background-color: $pink;
     border-radius: 0 8px 8px 0;
+    &:hover {
+      background-color: $pink-hover;
+    }
   }
   &__job-form {
     @include shadow;
@@ -92,6 +99,15 @@ export default {
     display: grid;
     grid-template-columns: (65% 20% auto auto);
     position: relative;
+    &__filter-btn {
+      background-color: $dark-blue;
+      &:hover {
+        background-color: $dark-blue-hover;
+      }
+    }
+    &__filter-icon {
+      color: $white;
+    }
     &__input {
       border: 0 !important;
       height: 65px;

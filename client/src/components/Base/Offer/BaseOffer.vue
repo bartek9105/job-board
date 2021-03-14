@@ -145,6 +145,7 @@ export default {
 .offer {
   @include flex(space-between);
   @include shadow;
+  @include transition;
   background: $white;
   color: $dark-blue;
   padding: 0.75rem 2.25rem;
@@ -152,7 +153,6 @@ export default {
   border-radius: $border-radius-sm;
   &:hover {
     @include shadow-hover;
-    @include transition;
     cursor: pointer;
   }
   &__promoted {

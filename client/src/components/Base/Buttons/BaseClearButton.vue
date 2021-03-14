@@ -15,5 +15,8 @@ export default {
   background: transparent;
   color: $dark-blue;
   font-weight: $font-bold;
+  &:hover {
+    color: $dark-blue-hover;
+  }
 }
 </style>
