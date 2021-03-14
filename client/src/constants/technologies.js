@@ -20,10 +20,15 @@ export default [
     "icon": "devicon-premierepro-plain colored"
   },
   {
-    "name": "AdobeXd"
+    "name": "AdobeXd",
+    "icon": "devicon-xd-plain"
   },
   {
     "name": "Agile"
+  },
+  {
+    "name": "Android",
+    "icon": "devicon-android-plain colored"
   },
   {
     "name": "Angular",
@@ -88,11 +93,16 @@ export default [
     "icon": "devicon-electron-original colored"
   },
   {
-    "name": "Elixir"
+    "name": "Elixir",
+    "icon": "devicon-elixir-plain colored"
   },
   {
     "name": "Ember",
     "icon": "devicon-ember-original-wordmark colored"
+  },
+  {
+    "name": "Erlang",
+    "icon": "devicon-erlang-plain colored"
   },
   {
     "name": "Express.js",
@@ -105,7 +115,9 @@ export default [
     "name": "Figma"
   },
   {
-    "name": "Flask"
+    "name": "Flask",
+    "icon": "devicon-flask-original colored"
+
   },
   {
     "name": "Flutter",
@@ -123,8 +135,16 @@ export default [
     "icon": "devicon-git-plain colored"
   },
   {
+    "name": "Gitlab",
+    "icon": "devicon-gitlab-plain colored"
+  },
+  {
     "name": "Golang",
     "icon": "devicon-go-plain colored"
+  },
+  {
+    "name": "Google Cloud",
+    "icon": "devicon-googlecloud-plain colored"
   },
   {
     "name": "Gulp",
@@ -163,7 +183,8 @@ export default [
   },
   {
     "name": "Kubernetes",
-    "icon": ""
+    "icon": "devicon-kubernetes-plain colored"
+
   },
   {
     "name": "Laravel",
@@ -205,7 +226,8 @@ export default [
     "name": "OOP"
   },
   {
-    "name": "Objective-C"
+    "name": "Objective-C",
+    "icon": "devicon-objectivec-plain colored"
   },
   {
     "name": "PHP",
@@ -221,7 +243,7 @@ export default [
   },
   {
     "name": "R",
-    "icon": ""
+    "icon": "devicon-r-original colored"
   },
   {
     "name": "REST API"

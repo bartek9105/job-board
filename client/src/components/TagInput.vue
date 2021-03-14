@@ -178,6 +178,7 @@ export default {
     }
     &__suggestion-list {
       @include shadow;
+      color: $dark-blue;
       position: absolute;
       top: 50px;
       left: 0;
@@ -197,7 +198,7 @@ export default {
           cursor: pointer;
         }
         &__icon {
-          margin-right: 0.5rem;
+          margin-right: 1rem;
           font-size: $font-icon-md;
         }
       }
