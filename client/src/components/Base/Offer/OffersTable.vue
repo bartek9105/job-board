@@ -24,7 +24,7 @@
           {{ offer.title }}
         </td>
         <td class="offers-table__body__row__cell">
-          {{ offer.category }}
+          {{ offer.category.name }}
         </td>
         <td class="offers-table__body__row__cell">
           {{ offer.status }}

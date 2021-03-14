@@ -61,7 +61,7 @@
               v-for="technology in offer.technologies.slice(3)"
               :key="technology.id"
             >
-              {{ technology }}
+              {{ technology.name }}
             </li>
           </ul>
         </div>
