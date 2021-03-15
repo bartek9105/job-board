@@ -11,6 +11,12 @@ import UserSettings from '@/views/User/UserSettings'
 import CompaniesList from '@/views/Company/CompaniesList'
 import CompanyDetails from '@/views/Company/CompanyDetails'
 import NotFound from '@/views/NotFound'
+import Profile from '@/views/Profile/Profile'
+import ProfileDashboard from '@/views/Profile/ProfileDashboard'
+import ProfileAccount from '@/views/Profile/ProfileAccount'
+import ProfilePassword from '@/views/Profile/ProfilePassword'
+import ProfileSavedOffers from '@/views/Profile/ProfileSavedOffers'
+import ProfileInvoices from '@/views/Profile/ProfileInvoices'
 
 Vue.use(VueRouter)
 
@@ -45,6 +51,39 @@ const routes = [
     path: '/offer/:id/edit',
     name: 'OfferEdit',
     component: OfferEdit
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Profile',
+        component: ProfileDashboard,
+      },
+      {
+        path: 'account',
+        name: 'Profile',
+        component: ProfileAccount,
+      },
+      {
+        path: 'password',
+        name: 'Profile',
+        component: ProfilePassword,
+      },
+      {
+        path: 'saved',
+        name: 'Profile',
+        component: ProfileSavedOffers,
+      },
+      {
+        path: 'invoices',
+        name: 'Profile',
+        component: ProfileInvoices,
+      }
+
+    ]
   },
   {
     path: '/dashboard',
