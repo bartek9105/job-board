@@ -38,6 +38,7 @@
       v-if="showMoreFilters"
       button-text="Search"
       button-text-clear="Clear filters"
+      @closeFilters="showMoreFilters = false"
     />
   </div>
 </template>

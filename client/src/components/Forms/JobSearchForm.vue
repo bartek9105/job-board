@@ -1,70 +1,71 @@
 <template>
-  <div class="job-search">
+  <div class="job-search-filters">
+    <x-icon
+      size="1.25x"
+      class="job-search-filters__close-icon"
+      @click="emitCloseFilters"
+    />
     <form @submit.prevent>
-      <div class="row" :class="{ displayAsColumn: isMedium }">
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Category</span>
-          <BaseSelect
-            :option-values="offerDetails.CATEGORIES"
-            name="category"
-            class="job-search__search-input"
-            @value-change="getValue"
+      <div class="job-search-filters__single-input-container">
+        <span class="job-search-filters__input-name">Category</span>
+        <BaseSelect
+          :option-values="offerDetails.CATEGORIES"
+          name="category"
+          class="job-search-filters__search-input"
+          @value-change="getValue"
+        />
+      </div>
+      <div class="job-search-filters__single-input-container">
+        <span class="job-search-filters__input-name">Seniority</span>
+        <BaseSelect
+          :option-values="offerDetails.SENIORITIES"
+          name="seniority"
+          class="job-search-filters__search-input"
+          @value-change="getValue"
+        />
+      </div>
+      <div class="job-search-filters__single-input-container">
+        <span class="job-search-filters__input-name">Salary</span>
+        <div
+          class="job-search-filters__salary-inputs"
+          :class="{ salaryUnit: isMedium }"
+        >
+          <span class="salary"
+            >{{ queries.salaryMin }} - {{ queries.salaryMax }} PLN
+          </span>
+          <BaseSalaryRangeSlider
+            class="salary-range-slider"
+            :salary-min="queries.salaryMin"
+            :salary-max="queries.salaryMax"
+            @salaryRange="salary"
           />
-        </div>
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Seniority</span>
-          <BaseSelect
-            :option-values="offerDetails.SENIORITIES"
-            name="seniority"
-            class="job-search__search-input"
-            @value-change="getValue"
-          />
-        </div>
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Salary</span>
-          <div
-            class="job-search__salary-inputs"
-            :class="{ salaryUnit: isMedium }"
-          >
-            <span class="salary"
-              >{{ queries.salaryMin }} - {{ queries.salaryMax }} PLN
-            </span>
-            <BaseSalaryRangeSlider
-              class="salary-range-slider"
-              :salary-min="queries.salaryMin"
-              :salary-max="queries.salaryMax"
-              @salaryRange="salary"
-            />
-          </div>
         </div>
       </div>
-      <div class="row" :class="{ displayAsColumn: isMedium }">
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Type</span>
-          <BaseSelect
-            :option-values="offerDetails.TYPES"
-            name="type"
-            class="job-search__search-input"
-            @value-change="getValue"
-          />
-        </div>
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Contract</span>
-          <BaseSelect
-            :option-values="offerDetails.CONTRACTS"
-            name="contract"
-            class="job-search__search-input"
-            @value-change="getValue"
-          />
-        </div>
-        <div class="job-search__single-input-container">
-          <span class="job-search__input-name">Technologies</span>
-          <TagInput
-            class="tags"
-            :list-items="technologies"
-            @items="tagsTechnologies"
-          />
-        </div>
+      <div class="job-search-filters__single-input-container">
+        <span class="job-search-filters__input-name">Type</span>
+        <BaseSelect
+          :option-values="offerDetails.TYPES"
+          name="type"
+          class="job-search-filters__search-input"
+          @value-change="getValue"
+        />
+      </div>
+      <div class="job-search-filters__single-input-container">
+        <span class="job-search-filters__input-name">Contract</span>
+        <BaseSelect
+          :option-values="offerDetails.CONTRACTS"
+          name="contract"
+          class="job-search-filters__search-input"
+          @value-change="getValue"
+        />
+      </div>
+      <div class="job-search-filters__single-input-container">
+        <span class="job-search-filters__input-name">Technologies</span>
+        <TagInput
+          class="tags"
+          :list-items="technologies"
+          @items="tagsTechnologies"
+        />
       </div>
       <div class="btn-container">
         <div>
@@ -86,6 +87,7 @@ import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
 import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
+import { XIcon } from 'vue-feather-icons'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -93,7 +95,8 @@ export default {
   components: {
     TagInput,
     BaseSelect,
-    BaseSalaryRangeSlider
+    BaseSalaryRangeSlider,
+    XIcon
   },
   props: {
     buttonText: String,
@@ -119,6 +122,9 @@ export default {
   },
   methods: {
     ...mapActions(['fetchOffers']),
+    emitCloseFilters() {
+      this.$emit('closeFilters')
+    },
     searchOffers() {
       this.fetchOffers(this.queries)
     },
@@ -146,24 +152,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.job-search {
+.job-search-filters {
   @include shadow-hover;
+  width: 500px;
   background-color: $white;
-  max-width: $container-width;
-  margin: 0 auto;
   color: $dark-blue;
   padding: $padding-md $padding-lg;
-  border-radius: 0 0 5px 5px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
   z-index: 2;
-  .row {
-    display: grid;
-    grid-template-columns: (20% 20% auto);
-    column-gap: 3rem;
-    margin-bottom: $margin-lg;
+  &__close-icon {
+    @include transition;
+    cursor: pointer;
+    &:hover {
+      color: $dark-blue-hover;
+    }
   }
   &__salary-inputs {
-    @include flex(null, center);
+    @include flex(null, null, column);
     height: 100%;
   }
   .salary {
@@ -181,6 +189,7 @@ export default {
   &__single-input-container {
     @include flex(null, null, column);
     text-align: left;
+    margin-bottom: $margin-sm;
   }
   &__input-name {
     @include input-name;
@@ -199,6 +208,7 @@ export default {
   }
   .btn-container {
     @include flex(space-between, center);
+    margin-top: $margin-md;
   }
   .add-btn {
     margin-right: 1rem;
@@ -207,18 +217,12 @@ export default {
 .showFiltersClass {
   display: none !important;
 }
-.displayAsColumn {
-  display: flex !important;
-  flex-direction: column;
-  margin-bottom: $margin-sm !important;
-}
 .salaryUnit {
   flex-direction: column;
   align-items: start !important;
 }
 .salary-range-slider {
-  width: 90% !important;
-  margin-top: 0.5rem;
-  margin-left: 2rem;
+  width: 100% !important;
+  margin-top: 1rem;
 }
 </style>
