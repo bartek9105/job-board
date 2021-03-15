@@ -384,12 +384,13 @@ export default {
 
 <style lang="scss">
 .job-form-container {
+  @include shadow;
+  border-radius: $border-radius-sm;
   width: 100%;
   margin: $margin-center;
   background: $white;
   padding: $padding-md 0;
   .offer-add {
-    @include shadow;
     position: fixed;
     left: 0;
     bottom: 0;

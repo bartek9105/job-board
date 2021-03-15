@@ -2,6 +2,9 @@
   <div>
     <div class="post-offer-form-container">
       <div class="post-offer-form">
+        <router-link to="/">
+          <BaseGoBackButton class="go-back-btn" />
+        </router-link>
         <header class="post-offer-form__header">
           <h1 class="post-offer-form__header__heading">
             Post your job offer
@@ -69,13 +72,15 @@ import { mapActions, mapGetters } from 'vuex'
 import { CheckCircleIcon } from 'vue-feather-icons'
 import OfferForm from '@/components/Forms/Offer/OfferForm'
 import PriceCard from '@/components/Base/BasePriceCard'
+import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
 
 export default {
   name: 'OfferPost',
   components: {
     OfferForm,
     PriceCard,
-    CheckCircleIcon
+    CheckCircleIcon,
+    BaseGoBackButton
   },
   data() {
     return {
@@ -177,5 +182,8 @@ export default {
 .cardActive {
   background: $dark-blue;
   color: $white;
+}
+.go-back-btn {
+  margin-bottom: $margin-md;
 }
 </style>

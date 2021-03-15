@@ -75,4 +75,5 @@ input, select {
     @include input-select-border;
     height: $input-select-height;
     padding: 0 .8rem;
+    border-radius: .2rem;
 }

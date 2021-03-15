@@ -28,7 +28,8 @@ export default {
       return (
         this.$route.name === 'Login' ||
         this.$route.name === 'Register' ||
-        this.$route.name === 'NotFound'
+        this.$route.name === 'NotFound' ||
+        this.$route.name === 'OfferPost'
       )
     }
   },
