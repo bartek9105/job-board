@@ -187,6 +187,8 @@ export default {
     padding-top: $padding-lg;
     margin-bottom: $margin-lg;
     &__list {
+      height: 650px;
+      overflow-y: scroll;
       padding: 0 $padding-sm;
     }
   }
