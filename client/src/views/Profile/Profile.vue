@@ -45,7 +45,9 @@
         </ul>
       </nav>
     </div>
-    <router-view />
+    <Container>
+      <router-view />
+    </Container>
   </div>
 </template>
 
