@@ -2,26 +2,24 @@
   <div @click.self="showMoreFilters = false">
     <div class="job-search">
       <form class="job-search__job-form" @submit.prevent>
-        <input
-          v-model="query.title"
-          type="text"
-          class="job-search__job-form__input job-search__job-form__input--title"
-          placeholder="Title or keyword"
-        />
-        <search-icon
-          size="1.25x"
-          class="job-search__job-form__icon job-search__job-form__icon--title"
-        />
-        <input
-          v-model="query.location"
-          type="text"
-          class="job-search__job-form__input job-search__job-form__input--location"
-          placeholder="Location"
-        />
-        <map-pin-icon
-          size="1.25x"
-          class="job-search__job-form__icon job-search__job-form__icon--location"
-        />
+        <div class="job-search__input-unit">
+          <input
+            v-model="query.title"
+            type="text"
+            class="job-search__job-form__input job-search__job-form__input--title"
+            placeholder="Title or keyword"
+          />
+          <search-icon size="1.25x" class="job-search__job-form__icon" />
+        </div>
+        <div class="job-search__input-unit">
+          <input
+            v-model="query.location"
+            type="text"
+            class="job-search__job-form__input"
+            placeholder="Location"
+          />
+          <map-pin-icon size="1.25x" class="job-search__job-form__icon" />
+        </div>
         <button
           type="button"
           class="job-search__job-form__filter-btn"
@@ -92,14 +90,14 @@ export default {
       background-color: $pink-hover;
     }
   }
+  &__input-unit {
+    position: relative;
+  }
   &__job-form {
-    @include shadow;
-    border-radius: 0.5rem 0 0 0.5rem;
     margin-top: 45px;
     width: 100%;
     display: grid;
     grid-template-columns: (65% 20% auto auto);
-    position: relative;
     &__filter-btn {
       background-color: $dark-blue;
       &:hover {
@@ -110,7 +108,9 @@ export default {
       color: $white;
     }
     &__input {
+      @include shadow;
       border: 0 !important;
+      width: 100%;
       height: 65px;
       padding-left: 3rem;
       &--title {
@@ -119,19 +119,16 @@ export default {
       }
     }
     &__icon {
-      position: absolute;
       color: $dark-blue;
-      &--title {
-        top: 22px;
-        left: 15px;
-      }
-      &--location {
-        top: 22px;
-        left: 720px;
-      }
+      position: absolute;
+      top: 22px;
+      left: 15px;
       &--btn {
         color: $white;
       }
+    }
+    button {
+      @include shadow;
     }
   }
 }
