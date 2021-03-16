@@ -78,10 +78,8 @@ export default {
   max-width: $container-width;
   margin: 0 auto;
   background-color: $white;
-  padding: $padding-md 0;
   &__form-unit {
     @include flex(null, null, column);
-    padding: 0 $padding-md;
     margin-bottom: $margin-md;
     &__name {
       @include input-name;
@@ -90,7 +88,6 @@ export default {
   }
 }
 .btn-container {
-  padding: $padding-md 0 0 2rem;
   .add-btn {
     margin-right: 1rem;
   }

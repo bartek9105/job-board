@@ -1,7 +1,7 @@
 <template>
-  <div class="nav-container">
+  <div class="nav-container" :class="{ bgWhite: navWhite }">
     <nav class="main-nav">
-      <BaseLogo :job-text-color="jobTextColor" />
+      <BaseLogo :is-dark-blue="isDarkBlue" />
       <menu-icon
         v-if="isMedium"
         size="1.5x"
@@ -11,13 +11,24 @@
 
       <ul v-else class="main-nav__list">
         <router-link to="/">
-          <li>Offers</li>
+          <li :class="{ darkBlue: navWhite }">
+            Offers
+          </li>
         </router-link>
         <router-link to="/companies">
-          <li>Companies</li>
+          <li :class="{ darkBlue: navWhite }">
+            Companies
+          </li>
+        </router-link>
+        <router-link to="/profile/dashboard">
+          <li :class="{ darkBlue: navWhite }">
+            Profile
+          </li>
         </router-link>
         <router-link v-if="!loggedInUser" to="/login">
-          <li>Login</li>
+          <li :class="{ darkBlue: navWhite }">
+            Login
+          </li>
         </router-link>
         <router-link to="/offer/post">
           <BaseButton>Post a job</BaseButton>
@@ -25,7 +36,7 @@
         <li
           v-if="loggedInUser"
           class="main-nav__list__user"
-          :class="{ linkActive: showDropdown }"
+          :class="{ linkActive: showDropdown, darkBlue: navWhite }"
           @click="showDropdown = !showDropdown"
         >
           <BaseLoggedUserBadge
@@ -57,18 +68,26 @@ export default {
     BaseLoggedUserBadge,
     MenuIcon
   },
+  props: {
+    navWhite: {
+      type: Boolean,
+      deafult: false
+    }
+  },
   data() {
     return {
       showDropdown: false,
-      jobTextColor: '#fff',
       isNavMenuOpened: false
     }
   },
   computed: {
+    ...mapGetters(['isMedium']),
     loggedInUser() {
       return StorageService.getUserData()
     },
-    ...mapGetters(['isMedium'])
+    isDarkBlue() {
+      return this.navWhite
+    }
   },
   methods: {
     navMenuState() {
@@ -82,7 +101,6 @@ export default {
 <style lang="scss" scoped>
 .nav-container {
   width: 100%;
-  color: $white;
   .main-nav {
     @include flex(space-between, center);
     max-width: $nav-width;
@@ -124,5 +142,11 @@ export default {
 }
 .linkActive {
   color: $pink !important;
+}
+.bgWhite {
+  background-color: $white;
+}
+.darkBlue {
+  color: $dark-blue !important;
 }
 </style>

@@ -29,7 +29,8 @@ export default {
         this.$route.name === 'Login' ||
         this.$route.name === 'Register' ||
         this.$route.name === 'NotFound' ||
-        this.$route.name === 'OfferPost'
+        this.$route.name === 'OfferPost' ||
+        this.$route.name === 'Profile'
       )
     }
   },

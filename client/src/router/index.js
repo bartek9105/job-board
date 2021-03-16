@@ -6,11 +6,15 @@ import Home from '@/views/Home'
 import OfferDetails from '@/views/Offer/OfferDetails'
 import OfferPost from '@/views/Offer/OfferPost'
 import OfferEdit from '@/views/Offer/OfferEdit'
-import UserDashboard from '@/views/User/UserDashboard'
-import UserSettings from '@/views/User/UserSettings'
 import CompaniesList from '@/views/Company/CompaniesList'
 import CompanyDetails from '@/views/Company/CompanyDetails'
 import NotFound from '@/views/NotFound'
+import Profile from '@/views/Profile/Profile'
+import ProfileDashboard from '@/views/Profile/ProfileDashboard'
+import ProfileAccount from '@/views/Profile/ProfileAccount'
+import ProfilePassword from '@/views/Profile/ProfilePassword'
+import ProfileSavedOffers from '@/views/Profile/ProfileSavedOffers'
+import ProfileInvoices from '@/views/Profile/ProfileInvoices'
 
 Vue.use(VueRouter)
 
@@ -47,14 +51,37 @@ const routes = [
     component: OfferEdit
   },
   {
-    path: '/dashboard',
-    name: 'UserDashboard',
-    component: UserDashboard
-  },
-  {
-    path: '/settings',
-    name: 'UserSettings',
-    component: UserSettings
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Profile',
+        component: ProfileDashboard,
+      },
+      {
+        path: 'account',
+        name: 'Profile',
+        component: ProfileAccount,
+      },
+      {
+        path: 'password',
+        name: 'Profile',
+        component: ProfilePassword,
+      },
+      {
+        path: 'saved',
+        name: 'Profile',
+        component: ProfileSavedOffers,
+      },
+      {
+        path: 'invoices',
+        name: 'Profile',
+        component: ProfileInvoices,
+      }
+
+    ]
   },
   {
     path: '/companies',

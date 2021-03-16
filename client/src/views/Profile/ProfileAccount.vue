@@ -1,11 +1,7 @@
 <template>
-  <div>
-    <BaseHero />
-    <Container>
-      <h1>Add info about your company</h1>
-      <UserInfoForm :user-info="getUserInfo" :save-offer="updateUser" />
-      <Container />
-    </Container>
+  <div class="dashboard-container">
+    <h1>Account</h1>
+    <UserInfoForm :user-info="getUserInfo" :save-offer="updateUser" />
   </div>
 </template>
 
@@ -14,7 +10,7 @@ import { mapGetters, mapActions } from 'vuex'
 import UserInfoForm from '@/components/Forms/UserInfoForm'
 
 export default {
-  name: 'UserSettings',
+  name: 'ProfileAccount',
   components: {
     UserInfoForm
   },
@@ -31,7 +27,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  margin-bottom: $margin-md;
+.dashboard-container {
+  @include shadow;
+  background-color: $white;
+  border-radius: $border-radius-sm;
+  padding: $padding-lg;
+  h1 {
+    font-weight: $font-semi-bold;
+    margin-bottom: $margin-lg;
+  }
 }
 </style>
