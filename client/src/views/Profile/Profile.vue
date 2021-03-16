@@ -94,9 +94,16 @@ export default {
   background-color: $white;
   padding: $padding-lg;
   &__company-info {
+    width: 100%;
+    border-bottom: 1px solid $white-blue;
     text-align: center;
+    padding-bottom: $padding-lg;
     h1 {
       margin-bottom: $margin-sm;
+    }
+    span {
+      color: $dark-blue-light;
+      font-size: $font-content-lg;
     }
   }
   &__nav {

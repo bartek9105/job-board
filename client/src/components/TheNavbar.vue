@@ -16,6 +16,9 @@
         <router-link to="/companies">
           <li>Companies</li>
         </router-link>
+        <router-link to="/profile/dashboard">
+          <li>Profile</li>
+        </router-link>
         <router-link v-if="!loggedInUser" to="/login">
           <li>Login</li>
         </router-link>
