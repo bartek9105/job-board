@@ -3,102 +3,74 @@
     class="offer"
     :style="{ borderLeft: '5px solid' + offer.category.color }"
   >
-    <div class="offer__logo">
-      <BaseCompanyLogo
-        :avatar-url="offer.creator.avatarUrl"
-        :img-width="75"
-        :img-height="75"
-      />
-    </div>
+    <BaseCompanyLogo
+      class="offer__logo"
+      :avatar-url="offer.creator.avatarUrl"
+      :img-width="75"
+      :img-height="75"
+    />
     <div class="offer-main">
       <div class="offer-top">
         <div class="offer-top-center">
-          <div class="offer__title">
-            {{ offer.title }}
-          </div>
-          <div v-if="!isSmall" class="offer__salary">
-            {{ salaryRange }}
-          </div>
+          <span class="offer__title">{{ offer.title }}</span>
+          <span v-if="!isSmall" class="offer__salary">
+            {{ salaryRange(offer.salary) }}
+          </span>
           <div class="offer__city">
-            <map-pin-icon size="1.25x" class="offer__city__marker-icon" />
-            {{ offer.location.city }}
+            <map-pin-icon size="1.25x" class="offer__marker-icon" />
+            <span>{{ offer.location.city }}</span>
           </div>
-          <div v-if="offer.isRemote && !isMedium" class="offer__remote">
+          <span v-if="offer.isRemote && !isMedium" class="offer__remote">
             Remote
-          </div>
-          <div v-if="offer.isPromoted" class="offer__promoted">
-            Featured
-          </div>
+          </span>
+          <span v-if="offer.isPromoted" class="offer__promoted">Featured</span>
         </div>
-        <div>
-          <div v-if="!isSmall" class="offer-top-right">
-            <div class="offer__category">
-              {{ offer.category.name }}
-            </div>
-            <div class="offer__created">
-              {{ daysDifference(new Date(), offer.createdAt) }}d ago
-            </div>
-          </div>
+        <div v-if="!isSmall" class="offer-top-right">
+          <span class="offer__category">{{ offer.category.name }}</span>
+          <span class="offer__created">
+            {{ daysDifference(new Date(), offer.createdAt) }}
+          </span>
         </div>
       </div>
       <div v-if="!isMedium" class="offer-bottom">
-        <div
-          v-for="technology in offer.technologies.slice(0, 3)"
-          :key="technology.id"
-          class="offer__technology"
-        >
-          {{ technology.name }}
-        </div>
-        <div
+        <BaseTagsList :tags="offer.technologies" :limit="3" />
+        <BaseMoreTechnologiesList
           v-if="offer.technologies.length > 3"
-          class="offer__tag offer__tag--sm offer__additional-techs"
-          @mouseover="showTechnologies = true"
-          @mouseleave="showTechnologies = false"
-        >
-          + {{ offer.technologies.length - 3 }}
-          <ul v-if="showTechnologies" class="offer__tag__list">
-            <li
-              v-for="technology in offer.technologies.slice(3)"
-              :key="technology.id"
-            >
-              {{ technology.name }}
-            </li>
-          </ul>
-        </div>
-        <div class="offer__contract">
-          {{ offer.contract }}
-        </div>
+          :technologies="offer.technologies"
+        />
+        <span class="offer__contract">{{ offer.contract }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { daysDifference } from '@/utils/date/daysDifference'
-import { MapPinIcon } from 'vue-feather-icons'
 import { mapGetters } from 'vuex'
+import { MapPinIcon } from 'vue-feather-icons'
+import daysDifference from '@/utils/date/daysDifference'
+import salaryRange from '@/utils/salaryRange'
+import BaseTagsList from '@/components/Base/BaseTagsList'
+import BaseMoreTechnologiesList from '@/components/Base/BaseMoreTechnologiesList'
 
 export default {
   name: 'BaseOffer',
   components: {
-    MapPinIcon
+    MapPinIcon,
+    BaseTagsList,
+    BaseMoreTechnologiesList
   },
   props: {
-    offer: Object
-  },
-  data() {
-    return {
-      showTechnologies: false
+    offer: {
+      type: Object,
+      default: () => {}
     }
   },
   computed: {
-    ...mapGetters(['isSmall', 'isMedium']),
-    salaryRange() {
-      return `${this.offer.salary.salaryMin} - ${this.offer.salary.salaryMax} ${this.offer.salary.currency}`
-    }
+    ...mapGetters(['isSmall', 'isMedium'])
   },
   methods: {
-    daysDifference
+    daysDifference,
+    salaryRange
   }
 }
 </script>
@@ -161,7 +133,7 @@ export default {
   }
   &__logo {
     @include flex(center, center);
-    margin-right: 35px;
+    margin-right: 2rem;
     &__img {
       border-radius: 100%;
     }
@@ -185,17 +157,14 @@ export default {
     font-size: $font-content-md;
     opacity: $opacity-high;
     margin-right: 40px;
-    &__icon {
-      margin-right: 0.5rem;
-    }
   }
   &__city {
+    @include flex(null, center);
     font-size: $font-content-md;
     opacity: $opacity-high;
-    margin-right: 40px;
-    &__marker-icon {
-      margin-right: 0.5rem;
-    }
+  }
+  &__marker-icon {
+    margin-right: 0.5rem;
   }
   &-top-right {
     @include flex();
@@ -210,53 +179,9 @@ export default {
   &-bottom {
     @include flex(null, center);
   }
-  &__technology {
-    @include tag-dark;
-    margin-right: 1rem;
-    &__list {
-      @include shadow;
-      position: absolute;
-      top: 30px;
-      left: 0;
-      font-size: $font-content-sm;
-      color: $dark-blue;
-      background: $white;
-      padding: 10px;
-      border-radius: 2px;
-      z-index: 1;
-      li {
-        margin-bottom: 3px;
-      }
-    }
-  }
   &__contract {
     @include tag-light;
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-  &__additional-techs {
-    @include tag-dark;
-    margin-right: 1rem;
-  }
-  &__tag {
-    position: relative;
-    &__list {
-      @include shadow;
-      position: absolute;
-      top: 2.5rem;
-      left: 0;
-      background-color: $dark-blue;
-      color: $white;
-      z-index: 1;
-      padding: $padding-sm $padding-md;
-      border-radius: $border-radius-sm;
-      li {
-        &:not(:last-of-type) {
-          margin-bottom: 0.5rem;
-        }
-      }
-    }
+    margin-left: 0.5rem;
   }
 }
 </style>

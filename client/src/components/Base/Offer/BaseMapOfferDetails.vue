@@ -25,7 +25,9 @@
             <span class="map-offer__detail-tag">{{ getOffer.seniority }}</span>
             <span class="map-offer__detail-tag">{{ getOffer.contract }}</span>
             <span class="map-offer__detail-tag">{{ getOffer.type }}</span>
-            <span class="map-offer__detail-tag">{{ salaryRange }}</span>
+            <span class="map-offer__detail-tag">{{
+              salaryRange(getOffer.salary)
+            }}</span>
           </div>
         </div>
       </header>
@@ -58,6 +60,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import salaryRange from '@/utils/salaryRange'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton.vue'
 import BaseCompanyLogo from '@/components/Base/Company/BaseCompanyLogo.vue'
 import BaseTagsList from '@/components/Base/BaseTagsList.vue'
@@ -79,10 +82,6 @@ export default {
   },
   computed: {
     ...mapGetters(['getOffer', 'getIsLoading']),
-    salaryRange() {
-      const { salaryMin, salaryMax, currency } = this.getOffer.salary
-      return `${salaryMin} - ${salaryMax} ${currency}`
-    },
     borderTop() {
       return `4px solid ${this.getOffer.category.color}`
     }
@@ -94,7 +93,8 @@ export default {
     ...mapActions(['fetchOffer']),
     closeOffer() {
       this.$emit('close', false)
-    }
+    },
+    salaryRange
   }
 }
 </script>
