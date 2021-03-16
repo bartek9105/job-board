@@ -6,8 +6,6 @@ import Home from '@/views/Home'
 import OfferDetails from '@/views/Offer/OfferDetails'
 import OfferPost from '@/views/Offer/OfferPost'
 import OfferEdit from '@/views/Offer/OfferEdit'
-import UserDashboard from '@/views/User/UserDashboard'
-import UserSettings from '@/views/User/UserSettings'
 import CompaniesList from '@/views/Company/CompaniesList'
 import CompanyDetails from '@/views/Company/CompanyDetails'
 import NotFound from '@/views/NotFound'
@@ -84,16 +82,6 @@ const routes = [
       }
 
     ]
-  },
-  {
-    path: '/dashboard',
-    name: 'UserDashboard',
-    component: UserDashboard
-  },
-  {
-    path: '/settings',
-    name: 'UserSettings',
-    component: UserSettings
   },
   {
     path: '/companies',
