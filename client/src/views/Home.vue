@@ -35,11 +35,7 @@
         <!-- If map is hidden, display offers list in the center -->
         <div v-if="isOffers">
           <Container v-if="!showMap">
-            <BaseOffersList
-              :offers="getOffers"
-              @pageChange="pageNumber"
-              @offerId="hoveredOfferId"
-            />
+            <BaseOffersList :offers="getOffers" @offerId="hoveredOfferId" />
           </Container>
           <!-- If map is shown, display offers list on the left side and map on the right side -->
           <div v-else class="offers__map">
@@ -48,7 +44,6 @@
                 v-if="!showOfferDetails"
                 :is-clickable="!showMap"
                 :offers="getOffers"
-                @pageChange="pageNumber"
                 @offerId="hoveredOfferId"
                 @click.native="showOfferDetails = true"
               />
