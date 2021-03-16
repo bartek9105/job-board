@@ -88,7 +88,7 @@
             </section>
             <div class="btn-container">
               <BaseButton class="btn">
-                Apply
+                <a :href="getOffer.applyURL" target="_blank">Apply</a>
               </BaseButton>
             </div>
             <section>
@@ -259,6 +259,9 @@ export default {
 .btn-container {
   .btn {
     margin-right: 20px;
+    a {
+      color: $white;
+    }
   }
 }
 .similar-offers-text {

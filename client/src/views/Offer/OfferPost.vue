@@ -111,6 +111,7 @@ export default {
         seniority: '',
         title: '',
         type: '',
+        applyURL: '',
         isPreview: false
       }
     }

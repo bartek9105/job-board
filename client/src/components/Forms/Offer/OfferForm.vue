@@ -14,7 +14,7 @@
               type="text"
               class="job-form-unit__input"
               placeholder="Title"
-            />
+            >
             <span class="job-form-unit__error">{{ errors[0] }}</span>
           </ValidationProvider>
         </div>
@@ -32,7 +32,7 @@
                 class="job-form-unit__input job-form-unit__row__input"
                 placeholder="Address"
                 :disabled="locationCheck"
-              />
+              >
               <span class="job-form-unit__error">{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider
@@ -46,7 +46,7 @@
                 class="job-form-unit__input job-form-unit__row__input"
                 placeholder="City"
                 :disabled="locationCheck"
-              />
+              >
               <span class="job-form-unit__error">{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider
@@ -60,7 +60,7 @@
                 class="job-form-unit__input job-form-unit__row__input"
                 placeholder="Country"
                 :disabled="locationCheck"
-              />
+              >
               <span class="job-form-unit__error">{{ errors[0] }}</span>
             </ValidationProvider>
           </div>
@@ -69,23 +69,23 @@
               v-model="offer.isRemote"
               type="checkbox"
               class="job-form-unit__checkbox"
-            />
+            >
             <span class="job-form-unit__checkbox__text">Remote</span>
             <input
               v-model="offer.isPartlyRemote"
               type="checkbox"
               class="job-form-unit__checkbox"
-            />
+            >
             <span class="job-form-unit__checkbox__text">Partly remote</span>
 
             <input
               v-model="locationCheck"
               type="checkbox"
               class="job-form-unit__checkbox"
-            />
-            <span class="job-form-unit__checkbox__text"
-              >Same as company headquarters address</span
             >
+            <span
+              class="job-form-unit__checkbox__text"
+            >Same as company headquarters address</span>
           </div>
         </div>
         <div class="job-form-unit">
@@ -231,6 +231,22 @@
           </div>
         </div>
         <div class="job-form-unit">
+          <span class="job-form-unit__name">Apply URL</span>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required|maxTitle"
+            class="job-form-unit-validator"
+          >
+            <input
+              v-model="offer.applyURL"
+              type="text"
+              class="job-form-unit__input"
+              placeholder="Apply URL"
+            >
+            <span class="job-form-unit__error">{{ errors[0] }}</span>
+          </ValidationProvider>
+        </div>
+        <div class="job-form-unit">
           <span class="job-form-unit__name">Benefits</span>
           <ValidationProvider
             v-slot="{ errors }"
@@ -257,8 +273,7 @@
             <TextEditor v-model="offer.description" />
             <span
               class="job-form-unit__error job-form-unit__error--description"
-              >{{ errors[0] }}</span
-            >
+            >{{ errors[0] }}</span>
           </ValidationProvider>
         </div>
         <BaseOfferPreviewPanel
@@ -266,7 +281,10 @@
           :title="offer.title"
           subtitle="Offer Preview"
         >
-          <BaseButton class="add-btn" @click.native="onSubmit">
+          <BaseButton
+            class="add-btn"
+            @click.native="onSubmit"
+          >
             {{ btnText }}
           </BaseButton>
           <BaseClearButton @click.native="offerPreview">

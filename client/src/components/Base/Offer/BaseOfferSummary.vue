@@ -12,7 +12,9 @@
         </span>
       </div>
     </div>
-    <BaseButton>Apply</BaseButton>
+    <BaseButton class="summary__btn">
+      <a :href="offer.applyURL" target="_blank">Apply</a>
+    </BaseButton>
   </div>
 </template>
 
@@ -50,6 +52,11 @@ export default {
     margin-left: 1.5rem;
     &__icon {
       margin: 0 0.5rem;
+    }
+  }
+  &__btn {
+    a {
+      color: $white;
     }
   }
 }
