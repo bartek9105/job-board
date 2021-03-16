@@ -5,65 +5,52 @@
     :style="{ borderTop }"
   >
     <BaseGoBackButton @click.native="closeOffer" />
-    <div v-if="getIsLoading">
-      <BaseSpinner />
-    </div>
+    <BaseSpinner v-if="getIsLoading" />
     <div v-else>
-      <section class="map-offer__main">
+      <header class="map-offer__header">
         <BaseCompanyLogo
           :avatar-url="getOffer.creator.avatarUrl"
           :img-width="100"
           :img-height="100"
           class="map-offer__logo"
         />
-        <div class="map-offer__details">
+        <div class="map-offer__summary">
           <h1 class="map-offer__title">
             {{ getOffer.title }}
           </h1>
           <div>
-            <span class="map-offer__detail-tag">{{
-              getOffer.category.name
-            }}</span>
+            <span class="map-offer__detail-tag">
+              {{ getOffer.category.name }}
+            </span>
             <span class="map-offer__detail-tag">{{ getOffer.seniority }}</span>
             <span class="map-offer__detail-tag">{{ getOffer.contract }}</span>
             <span class="map-offer__detail-tag">{{ getOffer.type }}</span>
-            <span>{{ salaryRange }}</span>
+            <span class="map-offer__detail-tag">{{ salaryRange }}</span>
           </div>
         </div>
-      </section>
+      </header>
       <main>
         <section>
-          <h3 class="map-offer__heading">
-            Job description
-          </h3>
-          <p class="map-offer__description" v-html="getOffer.description" />
+          <article>
+            <h3 class="map-offer__section-header">
+              Job description
+            </h3>
+            <p class="map-offer__description" v-html="getOffer.description" />
+          </article>
         </section>
         <section>
-          <h3 class="map-offer__heading">
+          <h3 class="map-offer__section-header">
             Technologies
           </h3>
-          <div
-            v-for="(technology, index) in getOffer.technologies"
-            :key="index"
-            class="map-offer__technology"
-          >
-            {{ technology.name }}
-          </div>
+          <BaseTagsList :tags="getOffer.technologies" />
         </section>
         <section>
-          <h3 class="map-offer__heading">
+          <h3 class="map-offer__section-header">
             Benefits
           </h3>
-          <ul>
-            <li v-for="(benefit, index) in getOffer.benefits" :key="index">
-              <check-circle-icon size="1.5x" class="map-offer__check-icon" />
-              {{ benefit.name }}
-            </li>
-          </ul>
+          <BaseBenefitsList :benefits="getOffer.benefits" />
         </section>
-        <section>
-          <BaseButton>Apply</BaseButton>
-        </section>
+        <BaseButton>Apply</BaseButton>
       </main>
     </div>
   </div>
@@ -73,24 +60,28 @@
 import { mapActions, mapGetters } from 'vuex'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton.vue'
 import BaseCompanyLogo from '@/components/Base/Company/BaseCompanyLogo.vue'
-import { CheckCircleIcon } from 'vue-feather-icons'
+import BaseTagsList from '@/components/Base/BaseTagsList.vue'
+import BaseBenefitsList from '@/components/Base/BaseBenefitsList.vue'
 
 export default {
   name: 'BaseMapOffer',
   components: {
     BaseGoBackButton,
     BaseCompanyLogo,
-    CheckCircleIcon
+    BaseTagsList,
+    BaseBenefitsList
   },
   props: {
     offerId: {
-      type: String
+      type: String,
+      default: () => ''
     }
   },
   computed: {
     ...mapGetters(['getOffer', 'getIsLoading']),
     salaryRange() {
-      return `${this.getOffer.salary.salaryMin} - ${this.getOffer.salary.salaryMax} ${this.getOffer.salary.currency}`
+      const { salaryMin, salaryMax, currency } = this.getOffer.salary
+      return `${salaryMin} - ${salaryMax} ${currency}`
     },
     borderTop() {
       return `4px solid ${this.getOffer.category.color}`
@@ -119,16 +110,18 @@ export default {
   padding: $padding-md;
   border-radius: $border-radius-sm;
   section {
-    padding: $padding-sm 0;
+    padding: $padding-md 0;
     &:not(:last-of-type) {
       border-bottom: 1px solid $light-blue;
     }
   }
-  &__heading {
+  &__section-header {
     margin-bottom: $margin-sm;
   }
-  &__main {
+  &__header {
     @include flex();
+    border-bottom: 1px solid $light-blue;
+    padding-bottom: $padding-sm;
   }
   &__logo {
     margin-right: 1rem;
@@ -136,7 +129,7 @@ export default {
   &__title {
     margin-bottom: 1rem;
   }
-  &__details {
+  &__summary {
     @include flex(space-between, null, column);
     padding: $padding-sm 0;
   }
@@ -144,19 +137,6 @@ export default {
     @include tag-light;
     font-weight: $font-bold;
     margin-right: 0.5rem;
-  }
-  &__description {
-    margin-bottom: $margin-md;
-  }
-  &__technology {
-    @include tag-light;
-    display: inline-block;
-    margin: 0 0.5rem 0.5rem 0;
-    font-weight: $font-bold;
-  }
-  &__check-icon {
-    color: $success;
-    margin-right: 1rem;
   }
 }
 </style>

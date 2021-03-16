@@ -47,7 +47,7 @@
                 @offerId="hoveredOfferId"
                 @click.native="showOfferDetails = true"
               />
-              <BaseMapOffer
+              <BaseMapOfferDetails
                 v-if="showOfferDetails"
                 :offer-id="offerId"
                 @close="closeOfferDetails"
@@ -76,7 +76,7 @@ import BaseNoResults from '@/components/Base/BaseNoResults'
 // import JobSearchMobile from '@/components/Mobile/JobSearchMobile'
 import JobSearchFiltersMobile from '@/components/Mobile/JobSearchFiltersMobile'
 import TheNavbar from '@/components/TheNavbar'
-import BaseMapOffer from '@/components/Base/Offer/BaseMapOffer'
+import BaseMapOfferDetails from '@/components/Base/Offer/BaseMapOfferDetails'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -89,7 +89,7 @@ export default {
     ToggleSwitch,
     BaseNoResults,
     TheNavbar,
-    BaseMapOffer
+    BaseMapOfferDetails
   },
   data() {
     return {
