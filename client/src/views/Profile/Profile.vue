@@ -1,53 +1,56 @@
 <template>
-  <div class="profile">
-    <div class="sidebar">
-      <BaseCompanyLogo
-        :avatar-url="getUserInfo.avatarUrl"
-        :img-width="120"
-        :img-height="120"
-      />
-      <div class="sidebar__company-info">
-        <h1>{{ getUserInfo.name }}</h1>
-        <span>{{ getUserInfo.email }}</span>
+  <div>
+    <TheNavbar :nav-white="true" />
+    <div class="profile">
+      <div class="sidebar">
+        <BaseCompanyLogo
+          :avatar-url="getUserInfo.avatarUrl"
+          :img-width="120"
+          :img-height="120"
+        />
+        <div class="sidebar__company-info">
+          <h1>{{ getUserInfo.name }}</h1>
+          <span>{{ getUserInfo.email }}</span>
+        </div>
+        <nav class="sidebar__nav">
+          <ul>
+            <li class="list-item-active">
+              <router-link to="/profile/dashboard">
+                <columns-icon size="1.5x" class="sidebar__nav-icon icon" />
+                Dashboard
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/profile/account">
+                <user-icon size="1.5x" class="sidebar__nav-icon icon" />
+                Account
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/profile/password">
+                <shield-icon size="1.5x" class="sidebar__nav-icon icon" />
+                Password
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/profile/saved">
+                <bookmark-icon size="1.5x" class="sidebar__nav-icon icon" />
+                Saved offers
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/profile/invoices">
+                <book-icon size="1.5x" class="sidebar__nav-icon icon" />
+                Invoices
+              </router-link>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <nav class="sidebar__nav">
-        <ul>
-          <li class="list-item-active">
-            <router-link to="/profile/dashboard">
-              <columns-icon size="1.5x" class="sidebar__nav-icon icon" />
-              Dashboard
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/profile/account">
-              <user-icon size="1.5x" class="sidebar__nav-icon icon" />
-              Account
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/profile/password">
-              <shield-icon size="1.5x" class="sidebar__nav-icon icon" />
-              Password
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/profile/saved">
-              <bookmark-icon size="1.5x" class="sidebar__nav-icon icon" />
-              Saved offers
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/profile/invoices">
-              <book-icon size="1.5x" class="sidebar__nav-icon icon" />
-              Invoices
-            </router-link>
-          </li>
-        </ul>
-      </nav>
+      <Container>
+        <router-view />
+      </Container>
     </div>
-    <Container>
-      <router-view />
-    </Container>
   </div>
 </template>
 
@@ -60,6 +63,7 @@ import {
   BookmarkIcon,
   BookIcon
 } from 'vue-feather-icons'
+import TheNavbar from '@/components/TheNavbar'
 
 export default {
   name: 'Profile',
@@ -68,7 +72,8 @@ export default {
     UserIcon,
     ShieldIcon,
     BookmarkIcon,
-    BookIcon
+    BookIcon,
+    TheNavbar
   },
   computed: {
     ...mapGetters(['getUserInfo'])
