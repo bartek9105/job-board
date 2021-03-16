@@ -9,8 +9,7 @@
             params: { offerId: offer._id, slug: offer.slug }
           }"
         >
-          <JobOffer
-            v-if="offer"
+          <BaseOffer
             :offer="offer"
             @mouseover.native="emitOfferId(offer._id)"
           />
@@ -27,13 +26,13 @@
 </template>
 
 <script>
-import JobOffer from '@/components/Base/Offer/BaseOffer'
 import { mapGetters } from 'vuex'
+import BaseOffer from '@/components/Base/Offer/BaseOffer'
 
 export default {
   name: 'BaseOffersList',
   components: {
-    JobOffer
+    BaseOffer
   },
   props: {
     offers: {

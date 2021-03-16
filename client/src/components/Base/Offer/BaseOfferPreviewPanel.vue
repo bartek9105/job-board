@@ -1,7 +1,7 @@
 <template>
   <div class="offer-preview-panel">
     <div class="offer-preview-panel__details">
-      <h3 class="offer-preview-panel__details__header">
+      <h3 class="offer-preview-panel__header">
         {{ title }}
       </h3>
       <div class="buttons">
@@ -27,7 +27,7 @@ export default {
   position: fixed;
   left: 0;
   bottom: 0;
-  background-color: white;
+  background-color: $white;
   padding: $padding-md 0;
   width: 100%;
   z-index: 1;
