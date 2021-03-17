@@ -8,41 +8,45 @@
           rules="required"
           class="form-unit"
         />
-        <FormInputValidator
-          v-model="offer.location.address"
-          placeholder="Address"
-          rules="required"
-          class="form-unit"
-        />
-        <FormInputValidator
-          v-model="offer.location.city"
-          placeholder="City"
-          rules="required"
-          class="form-unit"
-        />
-        <FormInputValidator
-          v-model="offer.location.country"
-          placeholder="Country"
-          rules="required"
-          class="form-unit"
-        />
-        <FormSelectValidator
-          :option-values="offerDetails.CATEGORIES"
-          name="category"
-          label="Category"
-          rules="required"
-          class="form-unit"
-          @selectedValue="getSelectedValue"
-        />
-        <FormSelectValidator
-          :option-values="offerDetails.SENIORITIES"
-          name="seniority"
-          label="Seniority"
-          rules="required"
-          class="form-unit"
-          @selectedValue="getSelectedValue"
-        />
-        <div class="form-unit">
+        <div class="location-unit">
+          <FormInputValidator
+            v-model="offer.location.address"
+            placeholder="Address"
+            rules="required"
+            class="form-unit"
+          />
+          <FormInputValidator
+            v-model="offer.location.city"
+            placeholder="City"
+            rules="required"
+            class="form-unit"
+          />
+          <FormInputValidator
+            v-model="offer.location.country"
+            placeholder="Country"
+            rules="required"
+            class="form-unit"
+          />
+        </div>
+        <div class="grid-unit">
+          <FormSelectValidator
+            :option-values="offerDetails.CATEGORIES"
+            name="category"
+            label="Category"
+            rules="required"
+            class="form-unit"
+            @selectedValue="getSelectedValue"
+          />
+          <FormSelectValidator
+            :option-values="offerDetails.SENIORITIES"
+            name="seniority"
+            label="Seniority"
+            rules="required"
+            class="form-unit"
+            @selectedValue="getSelectedValue"
+          />
+        </div>
+        <div class="form-unit salary-unit">
           <BaseSalaryRangeSlider
             :salary-min="offer.salary.salaryMin"
             :salary-max="offer.salary.salaryMax"
@@ -53,7 +57,6 @@
             name="currency"
             label="Currency"
             rules="required"
-            class="form-unit"
             @selectedValue="getSelectedValue"
           />
         </div>
@@ -70,22 +73,24 @@
           label="Technologies"
           @items="tagsTechnologies"
         />
-        <FormSelectValidator
-          :option-values="offerDetails.TYPES"
-          name="type"
-          label="Type"
-          rules="required"
-          class="form-unit"
-          @selectedValue="getSelectedValue"
-        />
-        <FormSelectValidator
-          :option-values="offerDetails.CONTRACTS"
-          name="contract"
-          label="Contract"
-          rules="required"
-          class="form-unit"
-          @selectedValue="getSelectedValue"
-        />
+        <div class="grid-unit">
+          <FormSelectValidator
+            :option-values="offerDetails.TYPES"
+            name="type"
+            label="Type"
+            rules="required"
+            class="form-unit"
+            @selectedValue="getSelectedValue"
+          />
+          <FormSelectValidator
+            :option-values="offerDetails.CONTRACTS"
+            name="contract"
+            label="Contract"
+            rules="required"
+            class="form-unit"
+            @selectedValue="getSelectedValue"
+          />
+        </div>
         <FormInputValidator
           v-model="offer.applyURL"
           placeholder="Apply URL"
@@ -102,14 +107,10 @@
           <ValidationProvider
             v-slot="{ errors }"
             rules="required|maxDescription"
-            class="job-form-unit-validator"
           >
             <label>Description</label>
             <TextEditor v-model="offer.description" />
-            <span
-              class="job-form-unit__error job-form-unit__error--description"
-              >{{ errors[0] }}</span
-            >
+            <span class="error">{{ errors[0] }}</span>
           </ValidationProvider>
         </div>
         <BaseOfferPreviewPanel
@@ -234,8 +235,28 @@ export default {
   padding: $padding-md;
 }
 .form-unit {
-  margin-bottom: 1rem;
+  margin-bottom: $margin-sm;
 }
+.salary-unit {
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  align-items: center;
+  column-gap: 2rem;
+}
+
+.location-unit {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1rem;
+}
+
+.grid-unit {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1rem;
+}
+
 .add-btn {
   margin-right: 1rem;
 }

@@ -177,7 +177,6 @@ export default {
 .tags {
   &__input {
     width: 100%;
-    margin-right: 1rem;
     &__delete-all-icon {
       cursor: pointer;
     }

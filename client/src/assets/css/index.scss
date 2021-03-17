@@ -83,6 +83,8 @@ label {
 }
 
 .error {
+    display: block;
     font-size: $font-content-md;
     color: $error;
+    margin-top: .5rem;
 }
