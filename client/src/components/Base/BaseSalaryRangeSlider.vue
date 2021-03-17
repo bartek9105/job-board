@@ -1,13 +1,16 @@
 <template>
-  <vue-slider
-    v-model="value"
-    :enable-cross="false"
-    :min="0"
-    :max="50000"
-    :step="1000"
-    :interval="1000"
-    @change="emitValue"
-  />
+  <div class="salary-slider">
+    <span class="salary-slider__salary">{{ salaryMin }} - {{ salaryMax }}</span>
+    <vue-slider
+      v-model="value"
+      :enable-cross="false"
+      :min="0"
+      :max="50000"
+      :step="1000"
+      :interval="1000"
+      @change="emitValue"
+    />
+  </div>
 </template>
 
 <script>
@@ -42,6 +45,12 @@ export default {
 </script>
 
 <style lang="scss">
+.salary-slider {
+  &__salary {
+    display: block;
+    margin-bottom: $margin-sm;
+  }
+}
 .vue-slider-rail {
   background-color: $light-blue;
 }

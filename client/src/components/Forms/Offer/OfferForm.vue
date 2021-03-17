@@ -43,17 +43,11 @@
           @selectedValue="getSelectedValue"
         />
         <div class="form-unit">
-          <div class="job-form-unit__row__col">
-            <span class="job-form-unit__name">Salary (monthly)</span>
-            {{ offer.salary.salaryMin }} -
-            {{ offer.salary.salaryMax }}
-            <BaseSalaryRangeSlider
-              class="salary-range-slider"
-              :salary-min="offer.salary.salaryMin"
-              :salary-max="offer.salary.salaryMax"
-              @salaryRange="salary"
-            />
-          </div>
+          <BaseSalaryRangeSlider
+            :salary-min="offer.salary.salaryMin"
+            :salary-max="offer.salary.salaryMax"
+            @salaryRange="salary"
+          />
           <FormSelectValidator
             :option-values="offerDetails.CURRENCIES"
             name="currency"
