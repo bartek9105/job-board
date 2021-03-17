@@ -1,5 +1,6 @@
 <template>
   <div class="tags">
+    <label for="">{{ label }}</label>
     <div class="tags-container">
       <BaseTag
         v-for="(tag, index) in itemsLocal"
@@ -73,6 +74,10 @@ export default {
     isSingle: {
       type: Boolean,
       default: () => false
+    },
+    label: {
+      type: String,
+      default: () => ''
     }
   },
   data() {

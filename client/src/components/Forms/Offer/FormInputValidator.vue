@@ -1,5 +1,10 @@
 <template>
-  <ValidationProvider v-slot="{ errors }" :rules="rules">
+  <ValidationProvider
+    v-slot="{ errors }"
+    :rules="rules"
+    class="input"
+    tag="div"
+  >
     <label for="">{{ placeholder }}</label>
     <input
       :value="value"
@@ -7,7 +12,7 @@
       :placeholder="placeholder"
       @input="$emit('input', $event.target.value)"
     />
-    <span>{{ errors[0] }}</span>
+    <span class="error">{{ errors[0] }}</span>
   </ValidationProvider>
 </template>
 
@@ -37,3 +42,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.input {
+  @include flex(null, null, column);
+}
+</style>

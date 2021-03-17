@@ -1,19 +1,24 @@
 <template>
-  <BaseSelect
-    :option-values="optionValues"
-    :name="name"
-    :label="label"
-    @value-change="emitSelectedValue"
-  />
+  <ValidationProvider v-slot="{ errors }" :rules="rules" tag="div">
+    <BaseSelect
+      :option-values="optionValues"
+      :name="name"
+      :label="label"
+      @value-change="emitSelectedValue"
+    />
+    <span class="error">{{ errors[0] }}</span>
+  </ValidationProvider>
 </template>
 
 <script>
+import { ValidationProvider } from 'vee-validate'
 import BaseSelect from '@/components/Base/BaseSelect'
 
 export default {
   name: 'FormSelectValidator',
   components: {
-    BaseSelect
+    BaseSelect,
+    ValidationProvider
   },
   props: {
     optionValues: {
@@ -21,15 +26,18 @@ export default {
       default: () => []
     },
     name: String,
-    label: String
+    label: String,
+    rules: String
+  },
+  data() {
+    return {
+      value: ''
+    }
   },
   methods: {
     emitSelectedValue(value, name) {
-      console.log(value, name)
       this.$emit('selectedValue', value, name)
     }
   }
 }
 </script>
-
-<style></style>

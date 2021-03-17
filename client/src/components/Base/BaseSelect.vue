@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="select">
     <label for="">{{ label }}</label>
     <select v-model="value" :name="name" @change="valueChange">
       <option
@@ -13,7 +13,6 @@
     </select>
   </div>
 </template>
-
 <script>
 export default {
   name: 'BaseSelect',
@@ -35,4 +34,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.select {
+  @include flex(null, null, column);
+}
+</style>
