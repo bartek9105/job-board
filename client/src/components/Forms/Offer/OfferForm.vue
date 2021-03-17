@@ -2,128 +2,38 @@
   <div class="job-form-container">
     <ValidationObserver v-slot="{ handleSubmit }">
       <form @submit.prevent="handleSubmit(onSubmit)">
-        <div class="job-form-unit">
-          <span class="job-form-unit__name">Title</span>
-          <ValidationProvider
-            v-slot="{ errors }"
-            rules="required|maxTitle"
-            class="job-form-unit-validator"
-          >
-            <input
-              v-model="offer.title"
-              type="text"
-              class="job-form-unit__input"
-              placeholder="Title"
-            >
-            <span class="job-form-unit__error">{{ errors[0] }}</span>
-          </ValidationProvider>
-        </div>
-        <div class="job-form-unit">
-          <span class="job-form-unit__name">Location</span>
-          <div class="job-form-unit__row">
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="required"
-              class="job-form-unit-validator"
-            >
-              <input
-                v-model="offer.location.address"
-                type="text"
-                class="job-form-unit__input job-form-unit__row__input"
-                placeholder="Address"
-                :disabled="locationCheck"
-              >
-              <span class="job-form-unit__error">{{ errors[0] }}</span>
-            </ValidationProvider>
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="required"
-              class="job-form-unit-validator"
-            >
-              <input
-                v-model="offer.location.city"
-                type="text"
-                class="job-form-unit__input job-form-unit__row__input"
-                placeholder="City"
-                :disabled="locationCheck"
-              >
-              <span class="job-form-unit__error">{{ errors[0] }}</span>
-            </ValidationProvider>
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="required"
-              class="job-form-unit-validator"
-            >
-              <input
-                v-model="offer.location.country"
-                type="text"
-                class="job-form-unit__input job-form-unit__row__input"
-                placeholder="Country"
-                :disabled="locationCheck"
-              >
-              <span class="job-form-unit__error">{{ errors[0] }}</span>
-            </ValidationProvider>
-          </div>
-          <div class="checkbox-container">
-            <input
-              v-model="offer.isRemote"
-              type="checkbox"
-              class="job-form-unit__checkbox"
-            >
-            <span class="job-form-unit__checkbox__text">Remote</span>
-            <input
-              v-model="offer.isPartlyRemote"
-              type="checkbox"
-              class="job-form-unit__checkbox"
-            >
-            <span class="job-form-unit__checkbox__text">Partly remote</span>
-
-            <input
-              v-model="locationCheck"
-              type="checkbox"
-              class="job-form-unit__checkbox"
-            >
-            <span
-              class="job-form-unit__checkbox__text"
-            >Same as company headquarters address</span>
-          </div>
-        </div>
-        <div class="job-form-unit">
-          <div class="job-form-unit__row">
-            <div class="job-form-unit__row__col">
-              <span class="job-form-unit__name">Category</span>
-              <ValidationProvider
-                v-slot="{ errors }"
-                rules="required"
-                class="job-form-unit-validator"
-              >
-                <BaseSelect
-                  v-model="offer.category"
-                  :option-values="offerDetails.CATEGORIES"
-                  name="category"
-                  @value-change="getValue"
-                />
-                <span class="job-form-unit__error">{{ errors[0] }}</span>
-              </ValidationProvider>
-            </div>
-            <div class="job-form-unit__row__col">
-              <span class="job-form-unit__name">Seniority</span>
-              <ValidationProvider
-                v-slot="{ errors }"
-                rules="required"
-                class="job-form-unit-validator"
-              >
-                <BaseSelect
-                  v-model="offer.seniority"
-                  :option-values="offerDetails.SENIORITIES"
-                  name="seniority"
-                  @value-change="getValue"
-                />
-                <span class="job-form-unit__error">{{ errors[0] }}</span>
-              </ValidationProvider>
-            </div>
-          </div>
-        </div>
+        <FormInputValidator
+          v-model="offer.title"
+          placeholder="Title"
+          rules="required"
+        />
+        <FormInputValidator
+          v-model="offer.location.address"
+          placeholder="Address"
+          rules="required"
+        />
+        <FormInputValidator
+          v-model="offer.location.city"
+          placeholder="City"
+          rules="required"
+        />
+        <FormInputValidator
+          v-model="offer.location.country"
+          placeholder="Country"
+          rules="required"
+        />
+        <FormSelectValidator
+          :option-values="offerDetails.CATEGORIES"
+          name="category"
+          label="Category"
+          @selectedValue="getSelectedValue"
+        />
+        <FormSelectValidator
+          :option-values="offerDetails.SENIORITIES"
+          name="seniority"
+          label="Seniority"
+          @selectedValue="getSelectedValue"
+        />
         <div class="job-form-unit">
           <div class="job-form-unit__row-salary">
             <div class="job-form-unit__row__col">
@@ -137,22 +47,12 @@
                 @salaryRange="salary"
               />
             </div>
-            <div class="job-form-unit__row__col">
-              <span class="job-form-unit__name">Currency</span>
-              <ValidationProvider
-                v-slot="{ errors }"
-                rules="required"
-                class="job-form-unit-validator"
-              >
-                <BaseSelect
-                  v-model="offer.salary.currency"
-                  name="salary"
-                  :option-values="offerDetails.CURRENCIES"
-                  @value-change="getSalaryCurrency"
-                />
-                <span class="job-form-unit__error">{{ errors[0] }}</span>
-              </ValidationProvider>
-            </div>
+            <FormSelectValidator
+              :option-values="offerDetails.CURRENCIES"
+              name="currency"
+              label="Currency"
+              @selectedValue="getSelectedValue"
+            />
           </div>
         </div>
         <div class="job-form-unit">
@@ -190,62 +90,23 @@
             <span class="job-form-unit__error">{{ errors[0] }}</span>
           </ValidationProvider>
         </div>
-        <div class="job-form-unit">
-          <div class="job-form-unit__row">
-            <div class="job-form-unit__row__col">
-              <span class="job-form-unit__name">Type</span>
-              <ValidationProvider
-                v-slot="{ errors }"
-                rules="required"
-                class="job-form-unit-validator"
-              >
-                <BaseSelect
-                  v-model="offer.type"
-                  :option-values="offerDetails.TYPES"
-                  name="type"
-                  @value-change="getValue"
-                />
-
-                <span class="job-form-unit__error">{{ errors[0] }}</span>
-              </ValidationProvider>
-            </div>
-            <div class="job-form-unit__row__col">
-              <span class="job-form-unit__name">Contract</span>
-              <div class="job-form-unit__row__col">
-                <ValidationProvider
-                  v-slot="{ errors }"
-                  rules="required"
-                  class="job-form-unit-validator"
-                >
-                  <BaseSelect
-                    v-model="offer.contract"
-                    :option-values="offerDetails.CONTRACTS"
-                    name="contract"
-                    @value-change="getValue"
-                  />
-
-                  <span class="job-form-unit__error">{{ errors[0] }}</span>
-                </ValidationProvider>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="job-form-unit">
-          <span class="job-form-unit__name">Apply URL</span>
-          <ValidationProvider
-            v-slot="{ errors }"
-            rules="required|maxTitle"
-            class="job-form-unit-validator"
-          >
-            <input
-              v-model="offer.applyURL"
-              type="text"
-              class="job-form-unit__input"
-              placeholder="Apply URL"
-            >
-            <span class="job-form-unit__error">{{ errors[0] }}</span>
-          </ValidationProvider>
-        </div>
+        <FormSelectValidator
+          :option-values="offerDetails.TYPES"
+          name="type"
+          label="Type"
+          @selectedValue="getSelectedValue"
+        />
+        <FormSelectValidator
+          :option-values="offerDetails.CONTRACTS"
+          name="contract"
+          label="Contract"
+          @selectedValue="getSelectedValue"
+        />
+        <FormInputValidator
+          v-model="offer.applyURL"
+          placeholder="Apply URL"
+          rules="required"
+        />
         <div class="job-form-unit">
           <span class="job-form-unit__name">Benefits</span>
           <ValidationProvider
@@ -301,12 +162,13 @@ import TagInput from '@/components/TagInput'
 import TextEditor from '@/components/TextEditor'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
-import BaseSelect from '@/components/Base/BaseSelect'
 import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
 import benefits from '@/constants/benefits'
 import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
 import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel'
+import FormInputValidator from '@/components/Forms/Offer/FormInputValidator'
+import FormSelectValidator from '@/components/Forms/Offer/FormSelectValidator'
 
 export default {
   name: 'OfferForm',
@@ -315,9 +177,10 @@ export default {
     TextEditor,
     ValidationObserver,
     ValidationProvider,
-    BaseSelect,
     BaseSalaryRangeSlider,
-    BaseOfferPreviewPanel
+    BaseOfferPreviewPanel,
+    FormInputValidator,
+    FormSelectValidator
   },
   props: {
     offer: Object,
@@ -364,7 +227,7 @@ export default {
       this.offer.benefits = benefits
       this.$refs.benefitProvider.reset()
     },
-    getValue(value, name) {
+    getSelectedValue(value, name) {
       this.offer[name] = value
     },
     getSalaryCurrency(value, name) {
