@@ -67,8 +67,8 @@
 </template>
 
 <script>
-import { dateISOToString } from '@/utils/date/dateISOToString'
 import { mapActions } from 'vuex'
+import { dateISOToString } from '@/utils/date/dateISOToString'
 import { CheckCircleIcon, XIcon, EditIcon } from 'vue-feather-icons'
 
 export default {
@@ -79,7 +79,10 @@ export default {
     EditIcon
   },
   props: {
-    offers: Array
+    offers: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
@@ -95,7 +98,6 @@ export default {
     }
   },
   methods: {
-    dateISOToString,
     ...mapActions(['removeOffer']),
     goToOffer(offerId, slug) {
       this.$router.push({ name: 'OfferDetails', params: { offerId, slug } })
@@ -105,7 +107,8 @@ export default {
     },
     deleteOffer(offerId) {
       this.removeOffer(offerId)
-    }
+    },
+    dateISOToString
   }
 }
 </script>

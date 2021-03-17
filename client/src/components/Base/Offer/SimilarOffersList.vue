@@ -32,12 +32,6 @@ export default {
       isLoading: true
     }
   },
-  methods: {
-    ...mapActions(['fetchOffers']),
-    pageNumber(page) {
-      this.fetchOffers({ category: this.category.name, page })
-    }
-  },
   computed: {
     ...mapGetters(['getOffers']),
     compundProperty() {
@@ -53,6 +47,12 @@ export default {
           _id: this.excludedOfferId
         })
       }
+    }
+  },
+  methods: {
+    ...mapActions(['fetchOffers']),
+    pageNumber(page) {
+      this.fetchOffers({ category: this.category.name, page })
     }
   }
 }

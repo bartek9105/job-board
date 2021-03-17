@@ -1,16 +1,14 @@
 <template>
-  <div class="benefits-list">
-    <ul>
-      <li
-        v-for="(benefit, index) in benefits"
-        :key="index"
-        class="benefits-list__item"
-      >
-        <check-circle-icon size="1.5x" class="benefits-list__check-icon" />
-        {{ benefit.name }}
-      </li>
-    </ul>
-  </div>
+  <ul class="benefits-list">
+    <li
+      v-for="(benefit, index) in benefits"
+      :key="index"
+      class="benefits-list__item"
+    >
+      <check-circle-icon size="1.5x" class="benefits-list__check-icon" />
+      {{ benefit.name }}
+    </li>
+  </ul>
 </template>
 
 <script>
