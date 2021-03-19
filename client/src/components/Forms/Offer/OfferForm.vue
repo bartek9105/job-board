@@ -103,16 +103,13 @@
           label="Benefits"
           @items="tagsBenefits"
         />
-        <div class="form-unit">
-          <ValidationProvider
-            v-slot="{ errors }"
-            rules="required|maxDescription"
-          >
-            <label>Description</label>
-            <TextEditor v-model="offer.description" />
-            <span class="error">{{ errors[0] }}</span>
-          </ValidationProvider>
-        </div>
+        <FormEditorValidator
+          class="form-unit"
+          placeholder="Description"
+          rules="required|maxDescription"
+          :description="offer.description"
+          @descriptionValue="descriptionValue"
+        />
         <BaseOfferPreviewPanel
           v-if="displayOfferPreview"
           :title="offer.title"
@@ -131,8 +128,7 @@
 </template>
 
 <script>
-import TextEditor from '@/components/TextEditor'
-import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { ValidationObserver } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
 import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
@@ -142,18 +138,18 @@ import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel
 import FormInputValidator from '@/components/Forms/Offer/FormInputValidator'
 import FormSelectValidator from '@/components/Forms/Offer/FormSelectValidator'
 import FormTagsInputValidator from '@/components/Forms/Offer/FormTagsInputValidator'
+import FormEditorValidator from '@/components/Forms/Offer/FormEditorValidator'
 
 export default {
   name: 'OfferForm',
   components: {
-    TextEditor,
     ValidationObserver,
-    ValidationProvider,
     BaseSalaryRangeSlider,
     BaseOfferPreviewPanel,
     FormInputValidator,
     FormSelectValidator,
-    FormTagsInputValidator
+    FormTagsInputValidator,
+    FormEditorValidator
   },
   props: {
     offer: Object,
@@ -162,10 +158,7 @@ export default {
   },
   data() {
     return {
-      locationCheck: false,
       key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
-      activeIndex: 1,
-      isValid: null,
       scroll: 0
     }
   },
@@ -195,6 +188,9 @@ export default {
     getSalaryCurrency(value, name) {
       this.offer.salary.currency = value
     },
+    descriptionValue(value) {
+      this.offer.description = value
+    },
     salary(salary) {
       const [salaryMin, salaryMax] = salary
       this.offer.salary.salaryMin = salaryMin
@@ -206,9 +202,6 @@ export default {
   },
   computed: {
     ...mapGetters(['getProducts', 'getSessionId']),
-    isArrayNotEmpty() {
-      return this.offer.technologies.length > 0
-    },
     displayOfferPreview() {
       return this.scroll >= 300
     }
@@ -221,6 +214,9 @@ export default {
     this.technologies = technologies
     this.benefits = benefits
     window.addEventListener('scroll', this.handleScroll)
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll')
   }
 }
 </script>
