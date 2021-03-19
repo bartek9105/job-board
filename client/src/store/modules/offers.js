@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import OfferService from '../../services/offer.service'
+import UserService from '../../services/user.service'
+import { v4 as uuidv4 } from 'uuid';
 import router from '../../router/index'
 
 export default {
@@ -10,8 +12,8 @@ export default {
     sessionId: ''
   },
   getters: {
-    getOffer(state) {
-      return state.offer
+    getOffer: (state) => (id) => {
+      return id ? state.offers.data.filter(offer => offer._id === id) : state.offer
     },
     getOffers(state) {
       return state.offers
@@ -41,6 +43,9 @@ export default {
     },
     SET_SESSION_ID(state, sessionId) {
       state.sessionId = sessionId
+    },
+    SET_PREVIEW_OFFER(state, offer) {
+      state.offer = offer
     }
   },
   actions: {
@@ -93,6 +98,15 @@ export default {
         await OfferService.deleteOffer(offerId)
         commit('DELETE_OFFER', offerId)
         Vue.toasted.success('Offer deleted', { icon: 'check-circle' })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async addPreviewOffer({ commit }, offerData) {
+      try {
+        const userData = await UserService.fetchUserInfo()
+        const previewOffer = { _id: uuidv4(), creator: userData, ...offerData }
+        commit('SET_PREVIEW_OFFER', previewOffer)
       } catch (error) {
         console.log(error)
       }

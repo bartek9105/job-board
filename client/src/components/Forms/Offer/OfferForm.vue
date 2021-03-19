@@ -118,7 +118,7 @@
           <BaseButton class="add-btn" @click.native="handleSubmit(onSubmit)">
             {{ btnText }}
           </BaseButton>
-          <BaseClearButton @click.native="offerPreview">
+          <BaseClearButton @click.native="previewMode = true">
             Offer preview
           </BaseClearButton>
         </BaseOfferPreviewPanel>
@@ -159,18 +159,22 @@ export default {
   data() {
     return {
       key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
-      scroll: 0
+      scroll: 0,
+      previewMode: false
     }
   },
   methods: {
-    ...mapActions(['fetchProducts']),
+    ...mapActions(['fetchProducts', 'addPreviewOffer']),
     onSubmit() {
-      this.saveOffer()
+      this.previewMode ? this.offerPreview() : this.saveOffer()
     },
     offerPreview() {
-      this.offer.isPreview = true
       localStorage.setItem('offer', JSON.stringify(this.offer))
-      this.onSubmit()
+      this.addPreviewOffer(this.offer)
+      this.$router.push({
+        name: 'OfferDetails',
+        params: { offerId: this.offer._id, isPreviewMode: true }
+      })
     },
     tagsTechnologies(technologies) {
       this.offer.technologies = technologies
