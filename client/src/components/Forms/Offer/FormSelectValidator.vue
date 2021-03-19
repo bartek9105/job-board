@@ -1,6 +1,7 @@
 <template>
   <ValidationProvider v-slot="{ errors }" :rules="rules" tag="div">
     <BaseSelect
+      v-model="value"
       :option-values="optionValues"
       :name="name"
       :label="label"
@@ -36,6 +37,7 @@ export default {
   },
   methods: {
     emitSelectedValue(value, name) {
+      this.value = value
       this.$emit('selectedValue', value, name)
     }
   }

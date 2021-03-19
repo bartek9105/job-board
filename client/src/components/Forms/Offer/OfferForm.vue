@@ -1,11 +1,11 @@
 <template>
   <div class="form-container">
     <ValidationObserver v-slot="{ handleSubmit }">
-      <form @submit.prevent="handleSubmit(onSubmit)">
+      <form @submit.prevent="handleSubmit(onSubmit)" @keydown.enter.prevent>
         <FormInputValidator
           v-model="offer.title"
           placeholder="Title"
-          rules="required"
+          rules="required|maxTitle"
           class="form-unit"
         />
         <div class="location-unit">
@@ -57,7 +57,7 @@
             name="currency"
             label="Currency"
             rules="required"
-            @selectedValue="getSelectedValue"
+            @selectedValue="getSalaryCurrency"
           />
         </div>
         <FormTagsInputValidator
@@ -65,7 +65,7 @@
           class="form-unit"
           label="Main technology"
           :is-single="true"
-          @items="tagsTechnologies"
+          @items="tagMainTechnology"
         />
         <FormTagsInputValidator
           :list-items="technologies"
@@ -115,7 +115,7 @@
           :title="offer.title"
           subtitle="Offer Preview"
         >
-          <BaseButton class="add-btn" @click.native="onSubmit">
+          <BaseButton class="add-btn" @click.native="handleSubmit(onSubmit)">
             {{ btnText }}
           </BaseButton>
           <BaseClearButton @click.native="offerPreview">
@@ -128,8 +128,8 @@
 </template>
 
 <script>
-import { ValidationObserver } from 'vee-validate'
 import { mapActions, mapGetters } from 'vuex'
+import { ValidationObserver } from 'vee-validate'
 import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
 import benefits from '@/constants/benefits'
@@ -164,14 +164,13 @@ export default {
   },
   methods: {
     ...mapActions(['fetchProducts']),
-    onSubmit() {},
+    onSubmit() {
+      this.saveOffer()
+    },
     offerPreview() {
       this.offer.isPreview = true
       localStorage.setItem('offer', JSON.stringify(this.offer))
       this.onSubmit()
-    },
-    description(content) {
-      this.offer.description = content
     },
     tagsTechnologies(technologies) {
       this.offer.technologies = technologies
