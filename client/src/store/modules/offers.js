@@ -88,7 +88,7 @@ export default {
       try {
         await OfferService.editOffer(offerData)
         Vue.toasted.success('Offer edited', { icon: 'check-circle' })
-        router.replace('/dashboard')
+        router.replace('/profile/dashboard')
       } catch (error) {
         console.log(error)
       }

@@ -57,27 +57,27 @@ const routes = [
     children: [
       {
         path: 'dashboard',
-        name: 'Profile',
+        name: 'Dashboard',
         component: ProfileDashboard,
       },
       {
         path: 'account',
-        name: 'Profile',
+        name: 'Account',
         component: ProfileAccount,
       },
       {
         path: 'password',
-        name: 'Profile',
+        name: 'Password',
         component: ProfilePassword,
       },
       {
         path: 'saved',
-        name: 'Profile',
+        name: 'Saved',
         component: ProfileSavedOffers,
       },
       {
         path: 'invoices',
-        name: 'Profile',
+        name: 'Invoices',
         component: ProfileInvoices,
       }
 
