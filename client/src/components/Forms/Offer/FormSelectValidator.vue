@@ -5,7 +5,7 @@
       :option-values="optionValues"
       :name="name"
       :label="label"
-      @value-change="emitSelectedValue"
+      :selected="selected"
     />
     <span class="error">{{ errors[0] }}</span>
   </ValidationProvider>
@@ -28,17 +28,17 @@ export default {
     },
     name: String,
     label: String,
-    rules: String
+    rules: String,
+    selected: String
   },
   data() {
     return {
       value: ''
     }
   },
-  methods: {
-    emitSelectedValue(value, name) {
-      this.value = value
-      this.$emit('selectedValue', value, name)
+  watch: {
+    value: function() {
+      this.$emit('valueChange', this.value, this.name)
     }
   }
 }

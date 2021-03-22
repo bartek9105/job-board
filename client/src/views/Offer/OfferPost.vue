@@ -10,7 +10,7 @@
             Post your job offer
           </h1>
           <span>or</span>
-          <router-link to="/settings">
+          <router-link to="/profile/account">
             <span class="post-offer-form__header__additional">
               Edit company info first</span
             >
@@ -102,17 +102,13 @@ export default {
           salaryMax: 50000,
           currency: ''
         },
-        category: {
-          color: '',
-          name: ''
-        },
+        category: '',
         contract: '',
         description: '',
         seniority: '',
         title: '',
         type: '',
-        applyURL: '',
-        isPreview: false
+        applyURL: ''
       }
     }
   },
@@ -126,6 +122,7 @@ export default {
     },
     async saveOffer() {
       const offerId = await this.addOffer(this.offer)
+      localStorage.removeItem('offer')
       this.$router.push({ name: 'OfferDetails', params: { offerId } })
     }
   },

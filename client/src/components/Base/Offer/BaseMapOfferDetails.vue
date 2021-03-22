@@ -20,7 +20,7 @@
           </h1>
           <div>
             <span class="map-offer__detail-tag">
-              {{ getOffer.category.name }}
+              {{ getOffer.category }}
             </span>
             <span class="map-offer__detail-tag">{{ getOffer.seniority }}</span>
             <span class="map-offer__detail-tag">{{ getOffer.contract }}</span>
@@ -83,7 +83,7 @@ export default {
   computed: {
     ...mapGetters(['getOffer', 'getIsLoading']),
     borderTop() {
-      return `4px solid ${this.getOffer.category.color}`
+      return `4px solid #456`
     }
   },
   created() {

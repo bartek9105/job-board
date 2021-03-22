@@ -32,7 +32,6 @@ exports.getOffers = async (req, res, next) => {
 
     let offers = await Offer.find({
       ...parsedQuery,
-      isPreview: false,
       $or: [{ status: 'free' }, { status: 'paid' }],
     })
       .skip(startIndex)
@@ -42,7 +41,6 @@ exports.getOffers = async (req, res, next) => {
 
     const total = await Offer.find({
       ...parsedQuery,
-      isPreview: false,
       $or: [{ status: 'free' }, { status: 'paid' }],
     }).countDocuments()
 

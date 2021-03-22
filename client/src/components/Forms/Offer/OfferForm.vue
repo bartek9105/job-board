@@ -35,15 +35,18 @@
             label="Category"
             rules="required"
             class="form-unit"
-            @selectedValue="getSelectedValue"
+            :selected="offer.category"
+            @valueChange="getSelectedValue"
           />
           <FormSelectValidator
+            v-model="offer.seniority"
             :option-values="offerDetails.SENIORITIES"
             name="seniority"
             label="Seniority"
             rules="required"
             class="form-unit"
-            @selectedValue="getSelectedValue"
+            :selected="offer.seniority"
+            @valueChange="getSelectedValue"
           />
         </div>
         <div class="form-unit salary-unit">
@@ -57,7 +60,8 @@
             name="currency"
             label="Currency"
             rules="required"
-            @selectedValue="getSalaryCurrency"
+            :selected="offer.salary.currency"
+            @valueChange="getSalaryCurrency"
           />
         </div>
         <FormTagsInputValidator
@@ -80,7 +84,8 @@
             label="Type"
             rules="required"
             class="form-unit"
-            @selectedValue="getSelectedValue"
+            :selected="offer.type"
+            @valueChange="getSelectedValue"
           />
           <FormSelectValidator
             :option-values="offerDetails.CONTRACTS"
@@ -88,7 +93,8 @@
             label="Contract"
             rules="required"
             class="form-unit"
-            @selectedValue="getSelectedValue"
+            :selected="offer.contract"
+            @valueChange="getSelectedValue"
           />
         </div>
         <FormInputValidator

@@ -1,7 +1,11 @@
 <template>
   <div class="select">
     <label for="">{{ label }}</label>
-    <select v-model="value" :name="name" @change="valueChange">
+    <select
+      :value="selected"
+      :name="name"
+      @change="$emit('input', $event.target.value)"
+    >
       <option
         v-for="(value, index) in optionValues"
         :key="index"
@@ -19,17 +23,8 @@ export default {
   props: {
     optionValues: Array,
     name: String,
-    label: String
-  },
-  data() {
-    return {
-      value: ''
-    }
-  },
-  methods: {
-    valueChange() {
-      this.$emit('value-change', this.value, this.name)
-    }
+    label: String,
+    selected: String
   }
 }
 </script>

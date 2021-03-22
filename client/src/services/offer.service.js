@@ -43,9 +43,7 @@ const OfferService = {
             name: technologies
           },
           seniority,
-          category: {
-            name: category?.name
-          },
+          category,
           location: {
             city: location
           },

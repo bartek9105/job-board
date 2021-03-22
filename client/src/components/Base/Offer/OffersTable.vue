@@ -24,7 +24,7 @@
           {{ offer.title }}
         </td>
         <td class="offers-table__body__row__cell">
-          {{ offer.category.name }}
+          {{ offer.category }}
         </td>
         <td class="offers-table__body__row__cell">
           {{ offer.status }}
@@ -103,7 +103,7 @@ export default {
       this.$router.push({ name: 'OfferDetails', params: { offerId, slug } })
     },
     editOffer(offerId) {
-      this.$router.push({ path: `offer/${offerId}/edit` })
+      this.$router.push({ path: `/offer/${offerId}/edit` })
     },
     deleteOffer(offerId) {
       this.removeOffer(offerId)
