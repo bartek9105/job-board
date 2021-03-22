@@ -33,11 +33,9 @@ export default {
       type: String,
       default: () => ''
     },
-    value: String
-  },
-  data() {
-    return {
-      input: ''
+    value: {
+      type: String,
+      default: () => ''
     }
   }
 }

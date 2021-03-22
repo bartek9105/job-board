@@ -63,10 +63,6 @@ export default {
     XIcon
   },
   props: {
-    tagItems: {
-      type: Array,
-      default: () => []
-    },
     listItems: {
       type: Array,
       default: () => []
@@ -78,11 +74,15 @@ export default {
     label: {
       type: String,
       default: () => ''
+    },
+    selected: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      itemsLocal: [...this.tagItems],
+      itemsLocal: [...this.selected],
       item: '',
       displaySuggestionList: false,
       currentListItem: 0

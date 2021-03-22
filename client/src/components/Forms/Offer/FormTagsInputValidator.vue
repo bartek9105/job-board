@@ -5,6 +5,7 @@
       :list-items="listItems"
       :label="label"
       :is-single="isSingle"
+      :selected="selected"
       @items="tags"
     />
     <span class="error">{{ errors[0] }}</span>
@@ -33,11 +34,15 @@ export default {
     isSingle: {
       type: Boolean,
       default: () => false
+    },
+    selected: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      inputTags: []
+      inputTags: this.selected
     }
   },
   methods: {

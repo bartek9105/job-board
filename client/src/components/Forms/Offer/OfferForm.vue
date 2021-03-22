@@ -73,6 +73,7 @@
         />
         <FormTagsInputValidator
           :list-items="technologies"
+          :selected="offer.technologies"
           class="form-unit"
           label="Technologies"
           @items="tagsTechnologies"
@@ -107,6 +108,7 @@
           :list-items="benefits"
           class="form-unit"
           label="Benefits"
+          :selected="offer.benefits"
           @items="tagsBenefits"
         />
         <FormEditorValidator
@@ -169,6 +171,24 @@ export default {
       previewMode: false
     }
   },
+  computed: {
+    ...mapGetters(['getProducts', 'getSessionId']),
+    displayOfferPreview() {
+      return this.scroll >= 300
+    }
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll')
+  },
+  mounted() {
+    this.fetchProducts()
+  },
+  created() {
+    this.offerDetails = offerDetails
+    this.technologies = technologies
+    this.benefits = benefits
+    window.addEventListener('scroll', this.handleScroll)
+  },
   methods: {
     ...mapActions(['fetchProducts', 'addPreviewOffer']),
     onSubmit() {
@@ -208,24 +228,6 @@ export default {
     handleScroll() {
       this.scroll = window.scrollY
     }
-  },
-  computed: {
-    ...mapGetters(['getProducts', 'getSessionId']),
-    displayOfferPreview() {
-      return this.scroll >= 300
-    }
-  },
-  mounted() {
-    this.fetchProducts()
-  },
-  created() {
-    this.offerDetails = offerDetails
-    this.technologies = technologies
-    this.benefits = benefits
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll')
   }
 }
 </script>

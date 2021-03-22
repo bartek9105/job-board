@@ -11,8 +11,7 @@
         :key="index"
         :value="value"
       >
-        <span v-if="value.name">{{ value.name }}</span>
-        <span v-else>{{ value }}</span>
+        <span>{{ value }}</span>
       </option>
     </select>
   </div>
