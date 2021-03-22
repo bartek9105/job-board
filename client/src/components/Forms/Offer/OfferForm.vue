@@ -53,6 +53,7 @@
           <BaseSalaryRangeSlider
             :salary-min="offer.salary.salaryMin"
             :salary-max="offer.salary.salaryMax"
+            title="Salary"
             @salaryRange="salary"
           />
           <FormSelectValidator

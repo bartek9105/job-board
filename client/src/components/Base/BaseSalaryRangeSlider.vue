@@ -1,5 +1,6 @@
 <template>
   <div class="salary-slider">
+    <span class="salary-slider__title">{{ title }}</span>
     <span class="salary-slider__salary">{{ salaryMin }} - {{ salaryMax }}</span>
     <vue-slider
       v-model="value"
@@ -29,6 +30,10 @@ export default {
     salaryMax: {
       type: Number,
       default: () => 50000
+    },
+    title: {
+      type: String,
+      default: () => ''
     }
   },
   data() {
@@ -46,6 +51,9 @@ export default {
 
 <style lang="scss">
 .salary-slider {
+  &__title {
+    @include input-name;
+  }
   &__salary {
     display: block;
     margin-bottom: $margin-sm;

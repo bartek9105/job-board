@@ -7,63 +7,60 @@
     />
     <form @submit.prevent>
       <div class="job-search-filters__single-input-container">
-        <span class="job-search-filters__input-name">Category</span>
         <BaseSelect
+          v-model="queries.category"
           :option-values="offerDetails.CATEGORIES"
           name="category"
           class="job-search-filters__search-input"
-          @value-change="getValue"
+          label="Categories"
         />
       </div>
       <div class="job-search-filters__single-input-container">
-        <span class="job-search-filters__input-name">Seniority</span>
         <BaseSelect
+          v-model="queries.seniority"
           :option-values="offerDetails.SENIORITIES"
           name="seniority"
           class="job-search-filters__search-input"
-          @value-change="getValue"
+          label="Seniority"
         />
       </div>
       <div class="job-search-filters__single-input-container">
-        <span class="job-search-filters__input-name">Salary</span>
         <div
           class="job-search-filters__salary-inputs"
           :class="{ salaryUnit: isMedium }"
         >
-          <span class="salary"
-            >{{ queries.salaryMin }} - {{ queries.salaryMax }} PLN
-          </span>
           <BaseSalaryRangeSlider
             class="salary-range-slider"
             :salary-min="queries.salaryMin"
             :salary-max="queries.salaryMax"
+            title="Salary"
             @salaryRange="salary"
           />
         </div>
       </div>
       <div class="job-search-filters__single-input-container">
-        <span class="job-search-filters__input-name">Type</span>
         <BaseSelect
+          v-model="queries.type"
           :option-values="offerDetails.TYPES"
           name="type"
           class="job-search-filters__search-input"
-          @value-change="getValue"
+          label="Type"
         />
       </div>
       <div class="job-search-filters__single-input-container">
-        <span class="job-search-filters__input-name">Contract</span>
         <BaseSelect
+          v-model="queries.contract"
           :option-values="offerDetails.CONTRACTS"
           name="contract"
           class="job-search-filters__search-input"
-          @value-change="getValue"
+          label="Contract"
         />
       </div>
       <div class="job-search-filters__single-input-container">
-        <span class="job-search-filters__input-name">Technologies</span>
         <TagInput
           class="tags"
           :list-items="technologies"
+          label="Technologies"
           @items="tagsTechnologies"
         />
       </div>
@@ -72,7 +69,7 @@
           <BaseButton class="add-btn" @click.native="searchOffers">
             {{ buttonText }}
           </BaseButton>
-          <BaseClearButton @click="clearFilters">
+          <BaseClearButton @click.native="clearFilters">
             Clear filters
           </BaseClearButton>
         </div>
@@ -136,9 +133,6 @@ export default {
         technology => technology.name
       )
     },
-    getValue(value, valueName) {
-      this.queries[valueName] = value
-    },
     salary(salary) {
       const [salaryMin, salaryMax] = salary
       this.queries.salaryMin = salaryMin
@@ -163,11 +157,17 @@ export default {
   right: 0;
   height: 100vh;
   z-index: 2;
+  form {
+    margin-top: $margin-sm;
+  }
   &__close-icon {
     @include transition;
     cursor: pointer;
+    border-radius: 50%;
     &:hover {
-      color: $dark-blue-hover;
+      color: $white;
+      background-color: $light-blue;
+      border-radius: 50%;
     }
   }
   &__salary-inputs {
@@ -189,12 +189,7 @@ export default {
   &__single-input-container {
     @include flex(null, null, column);
     text-align: left;
-    margin-bottom: $margin-sm;
-  }
-  &__input-name {
-    @include input-name;
-    //margin-bottom: $margin-md;
-    margin: $margin-sm 0;
+    margin-bottom: $margin-md;
   }
   &__search-input {
     width: 100%;
