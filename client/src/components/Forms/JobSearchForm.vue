@@ -66,7 +66,7 @@
       </div>
       <div class="btn-container">
         <div>
-          <BaseButton class="add-btn" @click.native="searchOffers">
+          <BaseButton class="add-btn" @click.native="emitSearchQueries">
             {{ buttonText }}
           </BaseButton>
           <BaseClearButton @click.native="clearFilters">
@@ -85,7 +85,7 @@ import offerDetails from '@/constants/offerDetails'
 import technologies from '@/constants/technologies'
 import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
 import { XIcon } from 'vue-feather-icons'
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'JobSearchForm',
@@ -118,12 +118,11 @@ export default {
     this.technologies = technologies
   },
   methods: {
-    ...mapActions(['fetchOffers']),
     emitCloseFilters() {
       this.$emit('closeFilters')
     },
-    searchOffers() {
-      this.fetchOffers(this.queries)
+    emitSearchQueries() {
+      this.$emit('searchQueries', this.queries)
     },
     clearFilters() {
       this.queries = { technologies: [] }

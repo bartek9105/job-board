@@ -23,7 +23,7 @@
         <button
           type="button"
           class="job-search__job-form__filter-btn"
-          @click="showMoreFilters = !showMoreFilters"
+          @click="$emit('showMoreFilters')"
         >
           <filter-icon size="1.25x" class="job-search__job-form__filter-icon" />
         </button>
@@ -32,29 +32,20 @@
         </button>
       </form>
     </div>
-    <JobSearchForm
-      v-if="showMoreFilters"
-      button-text="Search"
-      button-text-clear="Clear filters"
-      @closeFilters="showMoreFilters = false"
-    />
   </div>
 </template>
 
 <script>
-import JobSearchForm from '@/components/Forms/JobSearchForm.vue'
 import { SearchIcon, MapPinIcon, FilterIcon } from 'vue-feather-icons'
 
 export default {
   components: {
-    JobSearchForm,
     SearchIcon,
     MapPinIcon,
     FilterIcon
   },
   data() {
     return {
-      showMoreFilters: false,
       query: {
         title: '',
         location: ''

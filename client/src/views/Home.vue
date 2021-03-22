@@ -4,9 +4,19 @@
       v-if="mobileFiltersOpen && isMedium"
       @openMobileFilters="mobileFilters"
     />
+    <JobSearchForm
+      v-if="showMoreFilters"
+      button-text="Search"
+      button-text-clear="Clear filters"
+      @searchQueries="searchQueries"
+      @closeFilters="showMoreFilters = false"
+    />
     <BaseHero hero-height="150">
       <TheNavbar />
-      <JobSearch @searchQuery="query" />
+      <JobSearch
+        @searchQuery="query"
+        @showMoreFilters="showMoreFilters = true"
+      />
     </BaseHero>
     <!--
     <JobSearchMobile
@@ -69,6 +79,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import JobSearch from '@/components/JobSearch'
 import Map from '@/components/Map'
 import ToggleSwitch from '@/components/Base/ToggleSwitch'
@@ -77,7 +88,7 @@ import BaseNoResults from '@/components/Base/BaseNoResults'
 import JobSearchFiltersMobile from '@/components/Mobile/JobSearchFiltersMobile'
 import TheNavbar from '@/components/TheNavbar'
 import BaseMapOfferDetails from '@/components/Base/Offer/BaseMapOfferDetails'
-import { mapGetters, mapActions } from 'vuex'
+import JobSearchForm from '@/components/Forms/JobSearchForm.vue'
 
 export default {
   name: 'Home',
@@ -89,7 +100,8 @@ export default {
     ToggleSwitch,
     BaseNoResults,
     TheNavbar,
-    BaseMapOfferDetails
+    BaseMapOfferDetails,
+    JobSearchForm
   },
   data() {
     return {
@@ -97,7 +109,9 @@ export default {
       offerId: '',
       showMap: false,
       mobileFiltersOpen: false,
-      showOfferDetails: false
+      showOfferDetails: false,
+      showMoreFilters: false,
+      filterQueries: []
     }
   },
   methods: {
@@ -116,6 +130,9 @@ export default {
     query({ title, location }) {
       this.queries = { ...this.queries, title, location }
       this.fetchOffers(this.queries)
+    },
+    searchQueries(queries) {
+      this.fetchOffers(queries)
     },
     mobileFilters(isOpened) {
       this.mobileFiltersOpen = isOpened
@@ -161,8 +178,8 @@ export default {
 
 .offers {
   &__filters {
-    width: 100%;
-    background-color: $white;
+    max-width: $container-width;
+    margin: $margin-center;
   }
   &__list {
     padding: 0 $padding-sm;
