@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="Object.entries(getOffer).length > 0"
+    v-if="Object.entries(offer).length > 0"
     class="map-offer"
     :style="{ borderTop }"
   >
@@ -9,24 +9,24 @@
     <div v-else>
       <header class="map-offer__header">
         <BaseCompanyLogo
-          :avatar-url="getOffer.creator.avatarUrl"
+          :avatar-url="offer.creator.avatarUrl"
           :img-width="100"
           :img-height="100"
           class="map-offer__logo"
         />
         <div class="map-offer__summary">
           <h1 class="map-offer__title">
-            {{ getOffer.title }}
+            {{ offer.title }}
           </h1>
           <div>
             <span class="map-offer__detail-tag">
-              {{ getOffer.category }}
+              {{ offer.category }}
             </span>
-            <span class="map-offer__detail-tag">{{ getOffer.seniority }}</span>
-            <span class="map-offer__detail-tag">{{ getOffer.contract }}</span>
-            <span class="map-offer__detail-tag">{{ getOffer.type }}</span>
+            <span class="map-offer__detail-tag">{{ offer.seniority }}</span>
+            <span class="map-offer__detail-tag">{{ offer.contract }}</span>
+            <span class="map-offer__detail-tag">{{ offer.type }}</span>
             <span class="map-offer__detail-tag">{{
-              salaryRange(getOffer.salary)
+              salaryRange(offer.salary)
             }}</span>
           </div>
         </div>
@@ -37,20 +37,20 @@
             <h3 class="map-offer__section-header">
               Job description
             </h3>
-            <p class="map-offer__description" v-html="getOffer.description" />
+            <p class="map-offer__description" v-html="offer.description" />
           </article>
         </section>
         <section>
           <h3 class="map-offer__section-header">
             Technologies
           </h3>
-          <BaseTagsList :tags="getOffer.technologies" />
+          <BaseTagsList :tags="offer.technologies" />
         </section>
         <section>
           <h3 class="map-offer__section-header">
             Benefits
           </h3>
-          <BaseBenefitsList :benefits="getOffer.benefits" />
+          <BaseBenefitsList :benefits="offer.benefits" />
         </section>
         <BaseButton>Apply</BaseButton>
       </main>
@@ -84,6 +84,9 @@ export default {
     ...mapGetters(['getOffer', 'getIsLoading']),
     borderTop() {
       return `4px solid #456`
+    },
+    offer() {
+      return this.getOffer()
     }
   },
   created() {
@@ -102,7 +105,7 @@ export default {
 <style lang="scss" scoped>
 .map-offer {
   background-color: $white;
-  height: 650px;
+  height: 700px;
   overflow-y: scroll;
   color: $dark-blue;
   font-size: $font-content-lg;
@@ -117,6 +120,9 @@ export default {
   }
   &__section-header {
     margin-bottom: $margin-sm;
+  }
+  &__tag {
+    margin-bottom: 0.5rem;
   }
   &__header {
     @include flex();

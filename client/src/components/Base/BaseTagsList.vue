@@ -28,6 +28,7 @@ export default {
 <style lang="scss" scoped>
 .tags-list {
   @include flex(null, center);
+  flex-wrap: wrap;
   &__tag {
     @include tag-light;
     display: inline-block;

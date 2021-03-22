@@ -34,10 +34,10 @@
           <div v-if="!isMedium">
             <ToggleSwitch @change.native="showMap = !showMap">
               <template v-slot:toggleOn>
-                <span>Hide Map </span>
+                <span>Show Map </span>
               </template>
               <template v-slot:toggleOff>
-                <span>Show Map </span>
+                <span>Hide Map </span>
               </template>
             </ToggleSwitch>
           </div>
@@ -66,7 +66,7 @@
             <Map
               :locations="getOffers.data"
               :offer-id="offerId"
-              :map-height="650"
+              :map-height="700"
             />
           </div>
         </div>
@@ -107,7 +107,7 @@ export default {
     return {
       queries: {},
       offerId: '',
-      showMap: false,
+      showMap: true,
       mobileFiltersOpen: false,
       showOfferDetails: false,
       showMoreFilters: false,
@@ -199,7 +199,7 @@ export default {
     padding-top: $padding-lg;
     margin-bottom: $margin-lg;
     &__list {
-      height: 650px;
+      height: 700px;
       overflow-y: scroll;
       padding: 0 $padding-sm;
     }
