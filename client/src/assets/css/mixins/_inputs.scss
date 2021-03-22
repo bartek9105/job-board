@@ -3,10 +3,12 @@
 }
 
 @mixin input-name {
+    display: block;
     text-transform: uppercase;
     font-size: $font-content-lg;
     font-weight: $font-bold;
     color: $dark-blue;
+    margin-bottom: $margin-sm;
 }
 
 @mixin input-text-overflow {

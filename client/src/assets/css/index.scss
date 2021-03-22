@@ -77,3 +77,14 @@ input, select {
     padding: 0 .8rem;
     border-radius: .2rem;
 }
+
+label {
+    @include input-name;
+}
+
+.error {
+    display: block;
+    font-size: $font-content-md;
+    color: $error;
+    margin-top: .5rem;
+}

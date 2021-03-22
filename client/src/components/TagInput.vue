@@ -1,5 +1,6 @@
 <template>
   <div class="tags">
+    <label for="">{{ label }}</label>
     <div class="tags-container">
       <BaseTag
         v-for="(tag, index) in itemsLocal"
@@ -62,10 +63,6 @@ export default {
     XIcon
   },
   props: {
-    tagItems: {
-      type: Array,
-      default: () => []
-    },
     listItems: {
       type: Array,
       default: () => []
@@ -73,11 +70,19 @@ export default {
     isSingle: {
       type: Boolean,
       default: () => false
+    },
+    label: {
+      type: String,
+      default: () => ''
+    },
+    selected: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      itemsLocal: [...this.tagItems],
+      itemsLocal: [...this.selected],
       item: '',
       displaySuggestionList: false,
       currentListItem: 0
@@ -172,7 +177,6 @@ export default {
 .tags {
   &__input {
     width: 100%;
-    margin-right: 1rem;
     &__delete-all-icon {
       cursor: pointer;
     }

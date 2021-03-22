@@ -1,41 +1,39 @@
 <template>
-  <div v-if="Object.entries(getOffer).length > 0" class="offer">
-    <BaseOfferSummary v-if="displayOfferSummary" :offer="getOffer" />
+  <div v-if="Object.entries(offer).length > 0" class="offer">
+    <BaseOfferSummary v-if="displayOfferSummary" :offer="offer" />
     <BaseHero hero-height="250">
       <TheNavbar />
       <HeroContentContainer>
         <template v-slot:logo>
           <BaseCompanyLogo
-            v-if="Object.entries(getOffer).length > 0"
-            :avatar-url="getOffer.creator.avatarUrl"
+            v-if="Object.entries(offer).length > 0"
+            :avatar-url="offer.creator.avatarUrl"
             :img-width="100"
             :img-height="100"
           />
         </template>
         <template v-if="!getIsLoading" v-slot:details>
-          <h1>{{ getOffer.title }}</h1>
+          <h1>{{ offer.title }}</h1>
           <div>
             <span>
               <map-pin-icon size="1.25x" />
-              {{ getOffer.location.city }}
+              {{ offer.location.city }}
             </span>
-            <span v-if="getOffer.isRemote">
+            <span v-if="offer.isRemote">
               Remote
             </span>
           </div>
           <div>
-            <span>
-              {{ salaryRange }}
-            </span>
+            <span />
             <span>
               <briefcase-icon size="1.25x" />
-              {{ getOffer.contract }}
+              {{ offer.contract }}
             </span>
             <span>
               <clock-icon size="1.25x" />
-              {{ getOffer.type }}
+              {{ offer.type }}
             </span>
-            <span class="offer__category">{{ getOffer.category.name }}</span>
+            <span class="offer__category">{{ offer.category }}</span>
           </div>
         </template>
         <template v-else v-slot:details>
@@ -56,7 +54,7 @@
               <h3 class="offer__header">
                 Job Description
               </h3>
-              <p v-html="getOffer.description" />
+              <p v-html="offer.description" />
             </section>
             <section class="offer-details-section">
               <h3 class="offer__header">
@@ -64,7 +62,7 @@
               </h3>
               <div class="offer-tag-container">
                 <div
-                  v-for="(technology, index) in getOffer.technologies"
+                  v-for="(technology, index) in offer.technologies"
                   :key="index"
                   class="offer__tag"
                 >
@@ -77,7 +75,7 @@
                 Benefits
               </h3>
               <ul ckass="offer__benefits__list">
-                <li v-for="(benefit, index) in getOffer.benefits" :key="index">
+                <li v-for="(benefit, index) in offer.benefits" :key="index">
                   <check-circle-icon
                     size="1.5x"
                     class="offer__icon offer__icon--green"
@@ -88,16 +86,16 @@
             </section>
             <div class="btn-container">
               <BaseButton class="btn">
-                <a :href="getOffer.applyURL" target="_blank">Apply</a>
+                <a :href="offer.applyURL" target="_blank">Apply</a>
               </BaseButton>
             </div>
             <section>
               <Map
-                v-if="Object.entries(getOffer).length > 0"
+                v-if="Object.entries(offer).length > 0"
                 class="offer__map"
-                :location="getOffer"
-                :title="getOffer.title"
-                :company="getOffer.creator.name"
+                :location="offer"
+                :title="offer.title"
+                :company="offer.creator.name"
                 :map-height="300"
               />
             </section>
@@ -110,16 +108,16 @@
       <Container>
         <span class="similar-offers-text">Similar offers</span>
         <SimilarOffersList
-          :excluded-offer-id="getOffer._id"
-          :category="getOffer.category"
+          :excluded-offer-id="offer._id"
+          :category="offer.category"
         />
       </Container>
     </section>
     <BaseOfferPreviewPanel
-      v-if="getOffer.isPreview"
+      v-if="isPreviewMode"
       title="This is how your offer is gonna look like"
     >
-      <BaseButton class="add-btn" @click.native="addPreviewOffer">
+      <BaseButton class="add-btn" @click.native="acceptOffer">
         Add offer
       </BaseButton>
       <BaseClearButton @click.native="goBackToForm">
@@ -134,8 +132,8 @@ import { mapGetters, mapActions } from 'vuex'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
 import SimilarOffersList from '@/components/Base/Offer/SimilarOffersList'
 import HeroContentContainer from '@/components/Base/UIContainers/HeroContentContainer'
-import Map from '@/components/Map'
 import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel'
+import Map from '@/components/Map'
 import BaseOfferSummary from '@/components/Base/Offer/BaseOfferSummary'
 import TheNavbar from '@/components/TheNavbar'
 import {
@@ -164,6 +162,10 @@ export default {
     offerId: {
       type: String,
       default: () => ''
+    },
+    isPreviewMode: {
+      type: Boolean,
+      default: () => false
     }
   },
   data() {
@@ -172,17 +174,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchOffer', 'editOffer', 'removeOffer']),
-    addPreviewOffer() {
-      this.getOffer.isPreview = false
+    ...mapActions(['fetchOffer', 'addOffer']),
+    acceptOffer() {
       localStorage.removeItem('offer')
-      this.editOffer(this.getOffer)
+      this.addOffer(this.offer)
+      this.$router.push('/')
     },
     goBackToForm() {
-      this.removeOffer(this.getOffer._id)
-      const offer = JSON.parse(localStorage.getItem('offer'))
-      offer.isPreview = false
-      localStorage.setItem('offer', JSON.stringify(offer))
       this.$router.push('offer/post')
     },
     handleScroll() {
@@ -192,10 +190,13 @@ export default {
   computed: {
     ...mapGetters(['getOffer', 'getIsLoading']),
     salaryRange() {
-      return `${this.getOffer.salary.salaryMin} - ${this.getOffer.salary.salaryMax} ${this.getOffer.salary.currency}`
+      return `${this.offer.salary.salaryMin} - ${this.offer.salary.salaryMax} ${this.offer.salary.currency}`
     },
     displayOfferSummary() {
       return this.scroll >= 300
+    },
+    offer() {
+      return this.isPreviewMode ? this.getOffer(this.offerId) : this.getOffer()
     }
   },
   watch: {
@@ -204,7 +205,9 @@ export default {
     }
   },
   created() {
-    this.fetchOffer(this.offerId)
+    if (!this.isPreviewMode) {
+      this.fetchOffer(this.offerId)
+    }
     window.addEventListener('scroll', this.handleScroll)
   }
 }

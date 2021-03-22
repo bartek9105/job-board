@@ -1,30 +1,35 @@
 <template>
-  <select v-model="value" :name="name" @change="valueChange">
-    <option v-for="(value, index) in optionValues" :key="index" :value="value">
-      <span v-if="value.name">{{ value.name }}</span>
-      <span v-else>{{ value }}</span>
-    </option>
-  </select>
+  <div class="select">
+    <label for="">{{ label }}</label>
+    <select
+      :value="selected"
+      :name="name"
+      @change="$emit('input', $event.target.value)"
+    >
+      <option
+        v-for="(value, index) in optionValues"
+        :key="index"
+        :value="value"
+      >
+        <span>{{ value }}</span>
+      </option>
+    </select>
+  </div>
 </template>
-
 <script>
 export default {
   name: 'BaseSelect',
   props: {
     optionValues: Array,
-    name: String
-  },
-  data() {
-    return {
-      value: ''
-    }
-  },
-  methods: {
-    valueChange() {
-      this.$emit('value-change', this.value, this.name)
-    }
+    name: String,
+    label: String,
+    selected: String
   }
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.select {
+  @include flex(null, null, column);
+}
+</style>

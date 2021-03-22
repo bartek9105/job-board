@@ -43,9 +43,7 @@ const OfferService = {
             name: technologies
           },
           seniority,
-          category: {
-            name: category?.name
-          },
+          category,
           location: {
             city: location
           },
@@ -65,7 +63,8 @@ const OfferService = {
   },
   addOffer: async function (offerData) {
     try {
-      const addedOffer = await api.post('offers', offerData)
+      const { _id, creator, ...offer } = offerData
+      const addedOffer = await api.post('offers', offer)
       return addedOffer.data.offerId
     } catch (error) {
       console.log(error)

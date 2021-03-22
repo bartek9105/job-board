@@ -17,6 +17,7 @@
     "core-js": "^3.6.4",
     "leaflet": "^1.7.1",
     "postcss-cli": "^7.1.0",
+    "uuid": "^8.3.2",
     "vee-validate": "^3.4.5",
     "vue": "^2.6.11",
     "vue-feather-icons": "^5.1.0",

@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="offer"
-    :style="{ borderLeft: '5px solid' + offer.category.color }"
-  >
+  <div class="offer" :style="{ borderLeft: '5px solid' + '#345' }">
     <BaseCompanyLogo
       class="offer__logo"
       :avatar-url="offer.creator.avatarUrl"
@@ -26,7 +23,7 @@
           <span v-if="offer.isPromoted" class="offer__promoted">Featured</span>
         </div>
         <div v-if="!isSmall" class="offer-top-right">
-          <span class="offer__category">{{ offer.category.name }}</span>
+          <span class="offer__category">{{ offer.category }}</span>
           <span class="offer__created">
             {{ daysDifference(new Date(), offer.createdAt) }}
           </span>
