@@ -24,7 +24,6 @@
             </span>
           </div>
           <div>
-            <span />
             <span>
               <briefcase-icon size="1.25x" />
               {{ offer.contract }}
@@ -60,29 +59,13 @@
               <h3 class="offer__header">
                 Technologies
               </h3>
-              <div class="offer-tag-container">
-                <div
-                  v-for="(technology, index) in offer.technologies"
-                  :key="index"
-                  class="offer__tag"
-                >
-                  {{ technology.name }}
-                </div>
-              </div>
+              <BaseTagsList :tags="offer.technologies" />
             </section>
             <section class="offer-details-section">
               <h3 class="offer__header">
                 Benefits
               </h3>
-              <ul ckass="offer__benefits__list">
-                <li v-for="(benefit, index) in offer.benefits" :key="index">
-                  <check-circle-icon
-                    size="1.5x"
-                    class="offer__icon offer__icon--green"
-                  />
-                  {{ benefit.name }}
-                </li>
-              </ul>
+              <BaseBenefitsList :benefits="offer.benefits" />
             </section>
             <div class="btn-container">
               <BaseButton class="btn">
@@ -136,12 +119,9 @@ import BaseOfferPreviewPanel from '@/components/Base/Offer/BaseOfferPreviewPanel
 import Map from '@/components/Map'
 import BaseOfferSummary from '@/components/Base/Offer/BaseOfferSummary'
 import TheNavbar from '@/components/TheNavbar'
-import {
-  CheckCircleIcon,
-  MapPinIcon,
-  BriefcaseIcon,
-  ClockIcon
-} from 'vue-feather-icons'
+import BaseTagsList from '@/components/Base/BaseTagsList'
+import BaseBenefitsList from '@/components/Base/BaseBenefitsList'
+import { MapPinIcon, BriefcaseIcon, ClockIcon } from 'vue-feather-icons'
 
 export default {
   name: 'OfferDetails',
@@ -153,7 +133,8 @@ export default {
     BaseOfferPreviewPanel,
     TheNavbar,
     BaseOfferSummary,
-    CheckCircleIcon,
+    BaseTagsList,
+    BaseBenefitsList,
     MapPinIcon,
     BriefcaseIcon,
     ClockIcon
