@@ -124,12 +124,14 @@
           :title="offer.title"
           subtitle="Offer Preview"
         >
-          <BaseButton class="add-btn" @click.native="handleSubmit(onSubmit)">
-            {{ btnText }}
-          </BaseButton>
-          <BaseClearButton @click.native="previewMode = true">
-            Offer preview
-          </BaseClearButton>
+          <template #buttons>
+            <BaseButton class="add-btn" @click.native="handleSubmit(onSubmit)">
+              {{ btnText }}
+            </BaseButton>
+            <BaseClearButton @click.native="previewMode = true">
+              Offer preview
+            </BaseClearButton>
+          </template>
         </BaseOfferPreviewPanel>
       </form>
     </ValidationObserver>

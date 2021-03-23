@@ -98,14 +98,19 @@
     </section>
     <BaseOfferPreviewPanel
       v-if="isPreviewMode"
-      title="This is how your offer is gonna look like"
+      title="You see this offer in preview mode"
     >
-      <BaseButton class="add-btn" @click.native="acceptOffer">
-        Add offer
-      </BaseButton>
-      <BaseClearButton @click.native="goBackToForm">
-        Back to form
-      </BaseClearButton>
+      <template #icon>
+        <eye-icon size="1.5x" class="custom-class" />
+      </template>
+      <template #buttons>
+        <BaseButton class="add-btn" @click.native="acceptOffer">
+          Add offer
+        </BaseButton>
+        <BaseClearButton @click.native="goBackToForm">
+          Back to form
+        </BaseClearButton>
+      </template>
     </BaseOfferPreviewPanel>
   </div>
 </template>
@@ -121,7 +126,12 @@ import BaseOfferSummary from '@/components/Base/Offer/BaseOfferSummary'
 import TheNavbar from '@/components/TheNavbar'
 import BaseTagsList from '@/components/Base/BaseTagsList'
 import BaseBenefitsList from '@/components/Base/BaseBenefitsList'
-import { MapPinIcon, BriefcaseIcon, ClockIcon } from 'vue-feather-icons'
+import {
+  MapPinIcon,
+  BriefcaseIcon,
+  ClockIcon,
+  EyeIcon
+} from 'vue-feather-icons'
 
 export default {
   name: 'OfferDetails',
@@ -137,7 +147,8 @@ export default {
     BaseBenefitsList,
     MapPinIcon,
     BriefcaseIcon,
-    ClockIcon
+    ClockIcon,
+    EyeIcon
   },
   props: {
     offerId: {

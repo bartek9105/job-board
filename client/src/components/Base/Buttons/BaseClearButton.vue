@@ -12,9 +12,11 @@ export default {
 
 <style lang="scss">
 .clear-btn {
-  background: transparent;
+  background: $light-blue;
   color: $dark-blue;
   font-weight: $font-bold;
+  border-radius: $border-radius-btn;
+  padding: 10px 20px;
   &:hover {
     color: $dark-blue-hover;
   }
