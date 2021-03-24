@@ -15,7 +15,22 @@
           :icon="getIcon(marker.icon)"
           @click="$emit('offerId', marker.id)"
         >
-          <l-tooltip>{{ marker.title }}</l-tooltip>
+          <l-tooltip>
+            <div class="tooltip">
+              <BaseCompanyLogo
+                :avatar-url="marker.avatar"
+                :img-width="70"
+                :img-height="70"
+              />
+              <div>
+                <span class="tooltip__title">{{ marker.title }}</span>
+                <span class="tooltip__creator">{{ marker.creator }} </span>
+                <span class="tooltip__salary">
+                  {{ salaryRange(marker.salary) }}
+                </span>
+              </div>
+            </div>
+          </l-tooltip>
         </l-marker>
       </div>
     </l-map>
@@ -26,6 +41,7 @@
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { LMap, LTileLayer, LMarker, LTooltip } from 'vue2-leaflet'
+import salaryRange from '@/utils/salaryRange'
 
 export default {
   name: 'Map',
@@ -99,19 +115,39 @@ export default {
         id: offer._id,
         icon: offer.mainTechnology.icon,
         title: offer.title,
-        coordinates: [offer.location.latitude, offer.location.longitude]
+        coordinates: [offer.location.latitude, offer.location.longitude],
+        creator: offer.creator.name,
+        avatar: offer.creator.avatarUrl,
+        salary: offer.salary
       })
     },
     getIcon(technology) {
       return L.divIcon({
         html: `<i class="${technology} marker-icon"></i>`
       })
-    }
+    },
+    salaryRange
   }
 }
 </script>
 
 <style lang="scss">
+.tooltip {
+  @include flex(space-between, center);
+  &__title {
+    display: block;
+    color: $dark-blue;
+    font-weight: $font-bold;
+  }
+  &__creator {
+    display: block;
+    color: $dark-blue;
+  }
+  &__salary {
+    color: $success;
+    font-weight: $font-bold;
+  }
+}
 .map {
   z-index: 0;
 }
@@ -125,17 +161,5 @@ export default {
 .leaflet-div-icon {
   border: none;
   background: transparent;
-}
-.offer-title {
-  display: block;
-  margin-bottom: -5px;
-  color: $dark-blue;
-  font-size: $font-content-lg;
-  font-weight: $font-bold;
-}
-.company-name,
-.offer-salary {
-  color: $dark-blue;
-  font-size: $font-content-md;
 }
 </style>
