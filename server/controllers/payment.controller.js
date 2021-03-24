@@ -5,10 +5,10 @@ const {
 
 exports.createPaymentSession = async (req, res) => {
   const { email, product } = req.body
-  const { offerId } = res.locals.offerId
+  const { offerId } = res.locals
   try {
     const session = await createPaymentSession(email, product, offerId)
-    return session
+    res.send(session)
   } catch (error) {
     console.log(error)
   }

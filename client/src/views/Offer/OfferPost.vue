@@ -62,6 +62,11 @@
             </template>
           </PriceCard>
         </div>
+        <stripe-checkout
+          ref="checkoutRef"
+          :pk="key"
+          :session-id="getSessionId"
+        />
       </div>
     </div>
   </div>
@@ -70,6 +75,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { CheckCircleIcon } from 'vue-feather-icons'
+import { StripeCheckout } from '@vue-stripe/vue-stripe'
 import OfferForm from '@/components/Forms/Offer/OfferForm'
 import PriceCard from '@/components/Base/BasePriceCard'
 import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton'
@@ -80,7 +86,8 @@ export default {
     OfferForm,
     PriceCard,
     CheckCircleIcon,
-    BaseGoBackButton
+    BaseGoBackButton,
+    StripeCheckout
   },
   data() {
     return {
@@ -109,11 +116,12 @@ export default {
         title: '',
         type: '',
         applyURL: ''
-      }
+      },
+      key: process.env.VUE_APP_STRIPE_PUBLISHABLE
     }
   },
   computed: {
-    ...mapGetters(['getProducts'])
+    ...mapGetters(['getProducts', 'getSessionId'])
   },
   methods: {
     ...mapActions(['addOffer']),
@@ -122,6 +130,7 @@ export default {
     },
     async saveOffer() {
       const offerId = await this.addOffer(this.offer)
+      this.$refs.checkoutRef.redirectToCheckout()
       localStorage.removeItem('offer')
       this.$router.push({ name: 'OfferDetails', params: { offerId } })
     }

@@ -105,10 +105,6 @@ exports.addOffer = async (req, res, next) => {
     const offer = await addOffer(offerDTO)
     const offerId = offer._id.toString()
     res.locals.offerId = offerId
-    res.status(200).send({
-      status: 'success',
-      offerId: offer._id,
-    })
     next()
   } catch (error) {
     next(error)
