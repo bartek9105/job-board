@@ -169,7 +169,6 @@ export default {
   },
   data() {
     return {
-      key: process.env.VUE_APP_STRIPE_PUBLISHABLE,
       scroll: 0,
       previewMode: false
     }

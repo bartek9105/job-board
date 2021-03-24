@@ -65,7 +65,7 @@ const OfferService = {
     try {
       const { _id, creator, ...offer } = offerData
       const addedOffer = await api.post('offers', offer)
-      return addedOffer.data.offerId
+      return addedOffer
     } catch (error) {
       console.log(error)
     }
