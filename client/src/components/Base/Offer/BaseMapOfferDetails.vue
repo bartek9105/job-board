@@ -89,6 +89,11 @@ export default {
       return this.getOffer()
     }
   },
+  watch: {
+    offerId: function(newId, oldId) {
+      this.fetchOffer(newId)
+    }
+  },
   created() {
     this.fetchOffer(this.offerId)
   },

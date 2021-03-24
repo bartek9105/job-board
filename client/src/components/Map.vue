@@ -1,135 +1,130 @@
 <template>
-  <div class="map-container">
-    <div id="map" :style="{ height: mapHeight + 'px' }" />
+  <div>
+    <l-map
+      :style="{ height: mapHeight + 'px' }"
+      :zoom="zoom"
+      :center="center"
+      class="map"
+    >
+      <l-tile-layer :url="url" :options="options" />
+      <div v-for="(marker, index) in markers" :key="index">
+        <l-marker
+          ref="marker"
+          :options="{ id: marker.id }"
+          :lat-lng="marker.coordinates"
+          :icon="getIcon(marker.icon)"
+          @click="$emit('offerId', marker.id)"
+        >
+          <l-tooltip>{{ marker.title }}</l-tooltip>
+        </l-marker>
+      </div>
+    </l-map>
   </div>
 </template>
 
 <script>
-import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
+import { LMap, LTileLayer, LMarker, LTooltip } from 'vue2-leaflet'
 
 export default {
   name: 'Map',
+  components: {
+    LMap,
+    LTileLayer,
+    LMarker,
+    LTooltip
+  },
   props: {
     mapHeight: {
-      type: Number
+      type: Number,
+      default: 300
     },
-    location: {
-      type: Object
-    },
-    title: {
-      type: String,
-      default: () => 'Offer title'
-    },
-    company: {
-      type: String,
-      default: () => 'Company name'
-    },
-    locations: {
+    offers: {
       type: Array,
       default: () => []
     },
     offerId: {
       type: String,
-      default: () => '602a3a569d6c640df857743d'
+      default: () => ''
+    },
+    offer: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
     return {
-      map: {},
-      markers: {}
+      markers: [],
+      markersObj: [],
+      url: `https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}?access_token=${process.env.VUE_APP_MAPBOX_ACCESS_TOKEN}`,
+      zoom: 5,
+      center: [50, 20],
+      options: {
+        attribution:
+          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        minZoom: 2,
+        maxZoom: 14,
+        id: 'mapbox/light-v10',
+        tileSize: 512,
+        zoomOffset: -1
+      }
     }
   },
   watch: {
-    location: function(newLocation, oldLocation) {
-      this.map.remove()
-      this.mapSetup([
-        newLocation.location.latitude,
-        newLocation.location.longitude
-      ])
-    },
-    locations: function(newLocations, oldLocations) {
-      this.map.remove()
-      this.mapSetup(newLocations, this.offerId)
-    },
-    offerId: function(newId, oldId) {
-      const offer = this.locations.find(location => {
-        return location._id === newId
-      })
-      this.markers[newId]
-        .bindPopup(
-          `<span class="offer-title">${offer.title}</span><br><span class="offer-salary">${offer.salary.salaryMin} - ${offer.salary.salaryMax} ${offer.salary.currency}</span><br><span class="company-name">${offer.creator.name}</span>`
-        )
-        .openPopup()
-    },
-    deep: true
+    offerId: function() {
+      const index = this.markersObj.findIndex(
+        obj => obj.options.id === this.offerId
+      )
+      this.markersObj.map(marker => marker.closeTooltip())
+      this.markersObj[index].toggleTooltip()
+    }
   },
   mounted() {
-    this.location
-      ? this.mapSetup([
-          this.location.location.latitude,
-          this.location.location.longitude
-        ])
-      : this.mapSetup(this.locations)
+    this.checkMapType()
+    this.$nextTick(
+      () => (this.markersObj = this.$refs.marker.map(ref => ref.mapObject))
+    )
   },
   methods: {
-    async mapSetup(coordinates, offerId) {
-      this.map = L.map('map').setView([50, 20], 4)
-      await L.tileLayer(
-        `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.VUE_APP_MAPBOX_ACCESS_TOKEN}`,
-        {
-          attribution:
-            'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-          minZoom: 2,
-          maxZoom: 14,
-          id: 'mapbox/light-v10',
-          tileSize: 512,
-          zoomOffset: -1
-        }
-      ).addTo(this.map)
-      if (this.location) {
-        const marker = L.marker(coordinates, {
-          icon: L.divIcon({
-            html: `<i class="${this.location.mainTechnology.icon} marker-icon"></i>`,
-            iconSize: [30, 40]
-          })
-        }).addTo(this.map)
-        marker
-          .bindPopup(`${this.location.title}<br>${this.location.creator.name}`)
-          .openPopup()
+    checkMapType() {
+      if (!this.offer) {
+        this.offers.map(offer => this.markersSetup(offer))
       } else {
-        coordinates.map(location => {
-          this.markers[location._id] = L.marker(
-            [location.location.latitude, location.location.longitude],
-            {
-              icon: L.divIcon({
-                html: `<i class="${location.mainTechnology.icon} marker-icon"></i>`,
-                iconSize: [30, 40]
-              })
-            }
-          ).addTo(this.map)
-        })
+        this.markersSetup(this.offer)
       }
+    },
+    markersSetup(offer) {
+      this.markers.push({
+        id: offer._id,
+        icon: offer.mainTechnology.icon,
+        title: offer.title,
+        coordinates: [offer.location.latitude, offer.location.longitude]
+      })
+    },
+    getIcon(technology) {
+      return L.divIcon({
+        html: `<i class="${technology} marker-icon"></i>`
+      })
     }
   }
 }
 </script>
 
 <style lang="scss">
-#map {
-  width: 100%;
-  z-index: 1;
-  .leaflet-div-icon {
-    border: none;
-    background: transparent;
-    .marker-icon {
-      @include shadow-hover;
-      font-size: $font-icon-md;
-      background-color: $white;
-      border-radius: 50%;
-      padding: 0.25rem;
-    }
-  }
+.map {
+  z-index: 0;
+}
+.marker-icon {
+  @include shadow-hover;
+  font-size: $font-icon-md;
+  background-color: $white;
+  border-radius: 50%;
+  padding: 0.25rem;
+}
+.leaflet-div-icon {
+  border: none;
+  background: transparent;
 }
 .offer-title {
   display: block;

@@ -76,9 +76,7 @@
               <Map
                 v-if="Object.entries(offer).length > 0"
                 class="offer__map"
-                :location="offer"
-                :title="offer.title"
-                :company="offer.creator.name"
+                :offer="offer"
                 :map-height="300"
               />
             </section>

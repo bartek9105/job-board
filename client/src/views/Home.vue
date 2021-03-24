@@ -64,9 +64,10 @@
               />
             </div>
             <Map
-              :locations="getOffers.data"
+              :offers="getOffers.data"
               :offer-id="offerId"
               :map-height="700"
+              @offerId="clickedMarkerId"
             />
           </div>
         </div>
@@ -118,6 +119,10 @@ export default {
     ...mapActions(['fetchOffers']),
     hoveredOfferId(offerId) {
       this.offerId = offerId
+    },
+    clickedMarkerId(offerId) {
+      this.offerId = offerId
+      this.showOfferDetails = true
     },
     formData(queries) {
       this.queries = { ...this.queries, ...queries }
