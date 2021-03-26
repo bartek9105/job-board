@@ -39,6 +39,14 @@ const employerSchema = new mongoose.Schema({
   slug: {
     type: String,
   },
+  invoices: [
+    {
+      _id: false,
+      receiptUrl: String,
+      created: Date,
+      amount: Number,
+    },
+  ],
   refreshToken: String,
   resetPasswordToken: String,
   resetPasswordExpire: Date,

@@ -10,6 +10,7 @@ const {
   getOfferById,
   updateOfferPaymentStatus,
 } = require('../services/offer.service')
+const { addInvoice } = require('../services/user.service')
 const isResourceCreator = require('../utils/isResourceCreator')
 
 exports.getOffers = async (req, res, next) => {
@@ -134,7 +135,7 @@ exports.editOffer = async (req, res, next) => {
 }
 
 exports.updateOfferStatus = async (req, res, next) => {
-  const { offerId } = req.body
+  const { offerId, receiptUrl, creatorId, amount, created } = req.body
   try {
     const offer = await updateOfferPaymentStatus(offerId)
     if (!offer) {
@@ -142,6 +143,7 @@ exports.updateOfferStatus = async (req, res, next) => {
         error: 'Offer not found',
       })
     }
+    await addInvoice(creatorId, receiptUrl, amount, created)
     res.status(200).send({
       data: offer,
     })
