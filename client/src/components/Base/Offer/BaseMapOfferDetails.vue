@@ -15,9 +15,12 @@
           class="map-offer__logo"
         />
         <div class="map-offer__summary">
-          <h1 class="map-offer__title">
-            {{ offer.title }}
-          </h1>
+          <div class="map-offer__title">
+            <h1>
+              {{ offer.title }}
+            </h1>
+            <SocialShare url="vuejs.org" :title="offer.title" />
+          </div>
           <div>
             <span class="map-offer__detail-tag">
               {{ offer.category }}
@@ -65,6 +68,7 @@ import BaseGoBackButton from '@/components/Base/Buttons/BaseGoBackButton.vue'
 import BaseCompanyLogo from '@/components/Base/Company/BaseCompanyLogo.vue'
 import BaseTagsList from '@/components/Base/BaseTagsList.vue'
 import BaseBenefitsList from '@/components/Base/BaseBenefitsList.vue'
+import SocialShare from '@/components/SocialShare'
 
 export default {
   name: 'BaseMapOffer',
@@ -72,7 +76,8 @@ export default {
     BaseGoBackButton,
     BaseCompanyLogo,
     BaseTagsList,
-    BaseBenefitsList
+    BaseBenefitsList,
+    SocialShare
   },
   props: {
     offerId: {
@@ -138,7 +143,11 @@ export default {
     margin-right: 1rem;
   }
   &__title {
+    @include flex(null, center);
     margin-bottom: 1rem;
+    h1 {
+      margin-right: 1rem;
+    }
   }
   &__summary {
     @include flex(space-between, null, column);
