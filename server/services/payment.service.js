@@ -1,7 +1,7 @@
 const stripe = require('../config/stripe')
 
 const PaymentService = {
-  createPaymentSession: async function (email, product, offerId) {
+  createPaymentSession: async function (email, product, offerId, creatorId) {
     try {
       const customer = await stripe.customers.create({
         email,
@@ -27,6 +27,7 @@ const PaymentService = {
         payment_intent_data: {
           metadata: {
             offerId,
+            creatorId,
           },
         },
       })
@@ -48,8 +49,15 @@ const PaymentService = {
           const paymentIntent = await stripe.paymentIntents.retrieve(
             event.data.object.payment_intent
           )
-          const { offerId } = paymentIntent.metadata
-          return offerId
+          const { receipt_url, created, amount } = paymentIntent.charges.data[0]
+          const { offerId, creatorId } = paymentIntent.metadata
+          return {
+            offerId,
+            creatorId,
+            receiptUrl: receipt_url,
+            created,
+            amount,
+          }
         }
         default:
           console.log(`Unhandled event type ${event.type}`)

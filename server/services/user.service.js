@@ -59,6 +59,15 @@ const UserService = {
       console.log(error)
     }
   },
+  addInvoice: async function (userId, receiptUrl, amount, created) {
+    try {
+      await User.findByIdAndUpdate(userId, {
+        $push: { invoices: { receiptUrl, amount, created: created * 1000 } },
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  },
 }
 
 module.exports = UserService
