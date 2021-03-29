@@ -17,6 +17,7 @@ import BaseOffersList from '@/components/Base/Offer/BaseOffersList'
 import Pagination from '@/components/Pagination'
 import BaseHero from '@/components/Base/BaseHero'
 import BaseSpinner from '@/components/Base/BaseSpinner'
+import VueSocialSharing from 'vue-social-sharing'
 
 Vue.component('Container', Container)
 Vue.component('ContentContainer', ContentContainer)
@@ -36,6 +37,8 @@ Vue.use(Toasted, {
   position: 'bottom-center',
   duration: 2000
 })
+
+Vue.use(VueSocialSharing)
 
 Vue.config.productionTip = false
 

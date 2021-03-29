@@ -13,7 +13,11 @@
           />
         </template>
         <template v-if="!getIsLoading" v-slot:details>
-          <h1>{{ offer.title }}</h1>
+          <div>
+            <h1>
+              {{ offer.title }}
+            </h1>
+          </div>
           <div>
             <span>
               <map-pin-icon size="1.25x" />
@@ -45,10 +49,11 @@
         <div class="offer-details-container">
           <div v-if="!getIsLoading" class="offer-details-offer-info">
             <section class="offer-details-section">
-              <div class="offer__go-back-btn">
+              <div class="offer__top">
                 <router-link to="/">
                   <BaseGoBackButton />
                 </router-link>
+                <SocialShare url="vuejs.org" :title="offer.title" />
               </div>
               <h3 class="offer__header">
                 Job Description
@@ -124,6 +129,7 @@ import BaseOfferSummary from '@/components/Base/Offer/BaseOfferSummary'
 import TheNavbar from '@/components/TheNavbar'
 import BaseTagsList from '@/components/Base/BaseTagsList'
 import BaseBenefitsList from '@/components/Base/BaseBenefitsList'
+import SocialShare from '@/components/SocialShare'
 import {
   MapPinIcon,
   BriefcaseIcon,
@@ -134,6 +140,7 @@ import {
 export default {
   name: 'OfferDetails',
   components: {
+    SocialShare,
     Map,
     BaseGoBackButton,
     SimilarOffersList,
@@ -237,12 +244,13 @@ export default {
   &__category {
     @include tag-light;
   }
-  &__go-back-btn {
-    margin-bottom: $margin-md;
-  }
   &__map {
     margin-top: $margin-md;
     width: 100%;
+  }
+  &__top {
+    @include flex(space-between, center);
+    margin-bottom: $margin-md;
   }
 }
 .offer-tag-container {

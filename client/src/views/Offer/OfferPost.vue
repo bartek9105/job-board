@@ -143,7 +143,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .post-offer-form-container {
   padding: $padding-lg 40px;
   .post-offer-form {
