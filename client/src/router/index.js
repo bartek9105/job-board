@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/Auth/Login'
 import Register from '@/views/Auth/Register'
+import ResetPassword from '@/views/Auth/ResetPassword'
 import Home from '@/views/Home'
 import OfferDetails from '@/views/Offer/OfferDetails'
 import OfferPost from '@/views/Offer/OfferPost'
@@ -33,6 +34,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/resetpassword',
+    name: 'ResetPassword',
+    component: ResetPassword
   },
   {
     path: '/offer/post',

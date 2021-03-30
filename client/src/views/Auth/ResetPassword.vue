@@ -1,10 +1,10 @@
 <template>
   <Auth>
     <template #header>
-      <h1>Register</h1>
+      <h1>Reset Password</h1>
     </template>
     <template #form>
-      <form @submit.prevent="signUp">
+      <form @submit.prevent="resetPassword">
         <div>
           <div>
             <label for="email">E-mail</label>
@@ -16,29 +16,17 @@
               placeholder="E-mail"
             />
           </div>
-          <div>
-            <label for="password">Password</label>
-            <input
-              id="password"
-              v-model="credentials.password"
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
-          </div>
           <div class="info">
-            <span>Already registered?</span>
             <router-link to="/login">
               Login
             </router-link>
-            <span>Forgot your password?</span>
-            <router-link to="/resetpassword">
-              Reset password
+            <router-link to="/register">
+              Register
             </router-link>
           </div>
         </div>
         <BaseButton type="submit">
-          Register
+          Reset password
         </BaseButton>
       </form>
     </template>
@@ -46,8 +34,8 @@
 </template>
 
 <script>
-import Auth from '@/components/Forms/AuthForm'
 import { mapActions } from 'vuex'
+import Auth from '@/components/Forms/AuthForm'
 
 export default {
   name: 'Register',
@@ -57,16 +45,23 @@ export default {
   data() {
     return {
       credentials: {
-        email: '',
-        password: ''
+        email: ''
       }
     }
   },
   methods: {
     ...mapActions(['register']),
-    signUp() {
+    resetPassword() {
       this.register(this.credentials)
+    },
+    email(emailData) {
+      this.credentials.email = emailData
+    },
+    password(passwordData) {
+      this.credentials.password = passwordData
     }
   }
 }
 </script>
+
+<style></style>
