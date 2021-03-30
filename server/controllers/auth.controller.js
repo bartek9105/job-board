@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs')
 const Employer = require('../models/Employer')
 const crypto = require('crypto')
 const emailSender = require('../utils/emailSender')
+const hash = require('../utils/hash')
 
 exports.register = async (req, res, next) => {
   try {
@@ -115,10 +116,19 @@ exports.resetPassword = async (req, res, next) => {
 
     const resetPasswordToken = crypto.randomBytes(20).toString('hex')
 
+    const hashedResetPasswordToken = await hash(resetPasswordToken)
+
+    await Employer.findByIdAndUpdate(
+      { _id: user._id },
+      {
+        resetPasswordToken: hashedResetPasswordToken,
+      }
+    )
+
     await emailSender({
       sendTo: email,
       subject: 'Password reset',
-      text: 'You requested password reset',
+      text: 'You requested password reset.',
     })
 
     res.status(200).send({ token: resetPasswordToken })

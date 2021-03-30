@@ -48,7 +48,10 @@ const employerSchema = new mongoose.Schema({
     },
   ],
   refreshToken: String,
-  resetPasswordToken: String,
+  resetPasswordToken: {
+    type: String,
+    default: '',
+  },
   resetPasswordExpire: Date,
   createdAt: {
     type: Date,

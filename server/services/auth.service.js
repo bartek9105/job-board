@@ -1,11 +1,11 @@
 const Employer = require('../models/Employer')
-const hashPassword = require('../utils/hashPassword')
+const hash = require('../utils/hash')
 const slugify = require('slugify')
 
 const AuthService = {
   register: async function (userCredentials) {
     const { name, email, password } = userCredentials
-    const hashedPassword = await hashPassword(password)
+    const hashedPassword = await hash(password)
     const slug = slugify(name, {
       lower: true,
     })
