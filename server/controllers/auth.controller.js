@@ -3,6 +3,8 @@ const { signJwtToken } = require('../utils/tokenSign')
 const jwt = require('jsonwebtoken')
 const { register, userExists, getMe } = require('../services/auth.service')
 const bcrypt = require('bcryptjs')
+const Employer = require('../models/Employer')
+const crypto = require('crypto')
 
 exports.register = async (req, res, next) => {
   try {
@@ -96,6 +98,23 @@ exports.me = async (req, res, next) => {
   try {
     const me = await getMe(userId)
     res.status(200).send(me)
+  } catch (error) {
+    next(error)
+  }
+}
+
+exports.resetPassword = async (req, res, next) => {
+  const { email } = req.body
+  try {
+    const user = await Employer.findOne({ email })
+
+    if (!user) {
+      return next(new ErrorResponse("User with this e-mail doesn't exist", 404))
+    }
+
+    const resetPasswordToken = crypto.randomBytes(20).toString('hex')
+
+    res.status(200).send(user)
   } catch (error) {
     next(error)
   }

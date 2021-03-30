@@ -7,6 +7,7 @@ const {
   me,
   refreshToken,
   logout,
+  resetPassword,
 } = require('../controllers/auth.controller')
 
 const { isAuth } = require('../middleware/isAuth')
@@ -16,5 +17,6 @@ router.post('/login', login)
 router.get('/me', isAuth, me)
 router.post('/refresh_token', refreshToken)
 router.post('/logout', logout)
+router.post('/resetpassword', resetPassword)
 
 module.exports = router
