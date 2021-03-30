@@ -5,6 +5,7 @@ const { register, userExists, getMe } = require('../services/auth.service')
 const bcrypt = require('bcryptjs')
 const Employer = require('../models/Employer')
 const crypto = require('crypto')
+const emailSender = require('../utils/emailSender')
 
 exports.register = async (req, res, next) => {
   try {
@@ -114,7 +115,13 @@ exports.resetPassword = async (req, res, next) => {
 
     const resetPasswordToken = crypto.randomBytes(20).toString('hex')
 
-    res.status(200).send(user)
+    await emailSender({
+      sendTo: email,
+      subject: 'Password reset',
+      text: 'You requested password reset',
+    })
+
+    res.status(200).send({ token: resetPasswordToken })
   } catch (error) {
     next(error)
   }
