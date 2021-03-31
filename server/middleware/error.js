@@ -17,6 +17,10 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse('Token expired', 401)
   }
 
+  if (err.name === 'JsonWebTokenError') {
+    error = new ErrorResponse('Not authorized', 401)
+  }
+
   res.status(error.statusCode || 500).send({
     error: error.message || 'Server Error',
   })

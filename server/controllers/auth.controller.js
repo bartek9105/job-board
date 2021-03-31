@@ -9,7 +9,6 @@ const {
   updatePassword,
 } = require('../services/auth.service')
 const bcrypt = require('bcryptjs')
-const Employer = require('../models/Employer')
 const {
   passwordResetEmail,
   resetPasswordClientUrl,
@@ -19,9 +18,16 @@ const tokenGenerator = require('../utils/tokenGenerator')
 const { getUser } = require('../services/user.service')
 
 exports.register = async (req, res, next) => {
+  const { name, email, password } = req.body
   try {
-    await register(req.body)
-    res.status(200).send('User registered')
+    const user = await userExists(email)
+    if (user) {
+      return next(
+        new ErrorResponse('User with this e-mail already exists', 409)
+      )
+    }
+    await register({ name, email, password })
+    res.status(201).send({ message: 'User registered' })
   } catch (error) {
     next(error)
   }
@@ -69,7 +75,6 @@ exports.login = async (req, res, next) => {
       })
       .send({
         status: 'success',
-        data: { id: user._id, name: user.name },
       })
   } catch (error) {
     next(error)
@@ -77,12 +82,15 @@ exports.login = async (req, res, next) => {
 }
 
 exports.logout = (req, res) => {
-  res.status(200).cookie('token', '').cookie('refreshToken', '').send('Success')
+  res
+    .status(200)
+    .cookie('token', '')
+    .cookie('refreshToken', '')
+    .send({ status: 'success' })
 }
 
 exports.refreshToken = async (req, res, next) => {
-  const token = req.cookies.token
-  const refreshToken = req.cookies.refreshToken
+  const { token, refreshToken } = req.cookies
   if (!token && !refreshToken) {
     next(new ErrorResponse('Not authorized', 401))
   }
@@ -109,7 +117,7 @@ exports.me = async (req, res, next) => {
   const userId = req.creatorId
   try {
     const me = await getMe(userId)
-    res.status(200).send(me)
+    res.status(200).send({ data: me })
   } catch (error) {
     next(error)
   }
@@ -163,6 +171,6 @@ exports.setNewPassword = async (req, res, next) => {
 
     res.status(200).send({ status: 'success' })
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }

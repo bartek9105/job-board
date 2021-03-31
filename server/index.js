@@ -14,7 +14,7 @@ dbConnection()
 const app = express()
 
 app.use(morgan('tiny'))
-app.use(cors({ origin: 'http://localhost:8080', credentials: true }))
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }))
 app.use(
   express.json({
     verify: (req, res, buf) => {
@@ -45,3 +45,8 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () =>
   console.log(`Server started on ${PORT} in ${process.env.NODE_ENV} mode`)
 )
+
+process.on('unhandledRejection', (err) => {
+  console.log(err.message)
+  process.exit(1)
+})

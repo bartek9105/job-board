@@ -32,7 +32,10 @@ const AuthService = {
   },
   getMe: async function (userId) {
     try {
-      const me = await Employer.findById(userId, '-password -_id')
+      const me = await Employer.findById(
+        userId,
+        '-password -_id -resetPasswordToken'
+      )
       return me
     } catch (error) {
       console.log(error)

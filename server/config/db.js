@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const ErrorResponse = require('../utils/errorResponse')
 
 const dbConnection = async () => {
   try {
@@ -7,10 +8,11 @@ const dbConnection = async () => {
       useCreateIndex: true,
       useFindAndModify: false,
       useUnifiedTopology: true,
+      bufferCommands: false,
+      bufferMaxEntries: 0,
     })
-    console.log('Connected to database')
   } catch (error) {
-    console.log('Cannot connect to database')
+    throw new ErrorResponse('Internal Server Error', 500)
   }
 }
 
