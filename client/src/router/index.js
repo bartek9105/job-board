@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/Auth/Login'
 import Register from '@/views/Auth/Register'
+import PasswordForgot from '@/views/Auth/PasswordForgot'
+import PasswordReset from '@/views/Auth/PasswordReset'
 import Home from '@/views/Home'
 import OfferDetails from '@/views/Offer/OfferDetails'
 import OfferPost from '@/views/Offer/OfferPost'
@@ -33,6 +35,16 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/passwordforgot',
+    name: 'PasswordForgot',
+    component: PasswordForgot
+  },
+  {
+    path: '/passwordreset',
+    name: 'PasswordReset',
+    component: PasswordReset
   },
   {
     path: '/offer/post',

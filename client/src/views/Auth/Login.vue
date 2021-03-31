@@ -1,18 +1,44 @@
 <template>
-  <Auth info-route="/register" @email="email" @password="password">
-    <template v-slot:header>
+  <Auth>
+    <template #header>
       <h1>Login</h1>
     </template>
-    <template v-slot:info>
-      Don't have an account?
-    </template>
-    <template v-slot:info-action>
-      Register
-    </template>
-    <template v-slot:btn>
-      <BaseButton @click.native="login">
-        Login
-      </BaseButton>
+    <template #form>
+      <form @submit.prevent="login">
+        <div>
+          <div>
+            <label for="email">E-mail</label>
+            <input
+              id="email"
+              v-model="credentials.email"
+              type="text"
+              name="email"
+              placeholder="E-mail"
+            />
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input
+              id="password"
+              v-model="credentials.password"
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
+          </div>
+          <div class="info">
+            <span>Don't have an account?</span>
+            <router-link to="/register">
+              Register
+            </router-link>
+            <span>Forgot your password?</span>
+            <router-link to="/passwordforgot">
+              Reset password
+            </router-link>
+          </div>
+        </div>
+        <BaseButton>Login</BaseButton>
+      </form>
     </template>
   </Auth>
 </template>
@@ -38,15 +64,7 @@ export default {
     ...mapActions(['signIn']),
     login() {
       this.signIn(this.credentials)
-    },
-    email(emailData) {
-      this.credentials.email = emailData
-    },
-    password(passwordData) {
-      this.credentials.password = passwordData
     }
   }
 }
 </script>
-
-<style></style>

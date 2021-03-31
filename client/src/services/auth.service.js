@@ -27,6 +27,20 @@ const AuthService = {
     } catch (error) {
       console.log(error)
     }
+  },
+  reset: async function (email) {
+    try {
+      await api.post('auth/resetpassword', { email })
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  setNewPassword: async function (userCredentials) {
+    try {
+      await api.post('auth/setnewpassword', { ...userCredentials })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

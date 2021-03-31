@@ -1,27 +1,53 @@
 <template>
-  <div>
-    <Auth info-route="/login" @email="email" @password="password">
-      <template v-slot:header>
-        <h1>Register</h1>
-      </template>
-      <template v-slot:info>
-        Already have an account?
-      </template>
-      <template v-slot:info-action>
-        Login
-      </template>
-      <template v-slot:btn>
-        <BaseButton @click.native="signUp">
+  <Auth>
+    <template #header>
+      <h1>Register</h1>
+    </template>
+    <template #form>
+      <form @submit.prevent="signUp">
+        <div>
+          <div>
+            <label for="email">E-mail</label>
+            <input
+              id="email"
+              v-model="credentials.email"
+              type="text"
+              name="email"
+              placeholder="E-mail"
+            />
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input
+              id="password"
+              v-model="credentials.password"
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
+          </div>
+          <div class="info">
+            <span>Already registered?</span>
+            <router-link to="/login">
+              Login
+            </router-link>
+            <span>Forgot your password?</span>
+            <router-link to="/passwordforgot">
+              Reset password
+            </router-link>
+          </div>
+        </div>
+        <BaseButton type="submit">
           Register
         </BaseButton>
-      </template>
-    </Auth>
-  </div>
+      </form>
+    </template>
+  </Auth>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import Auth from '@/components/Forms/AuthForm'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Register',
@@ -40,15 +66,7 @@ export default {
     ...mapActions(['register']),
     signUp() {
       this.register(this.credentials)
-    },
-    email(emailData) {
-      this.credentials.email = emailData
-    },
-    password(passwordData) {
-      this.credentials.password = passwordData
     }
   }
 }
 </script>
-
-<style></style>

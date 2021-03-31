@@ -1,8 +1,22 @@
 const ErrorResponse = require('../utils/errorResponse')
 const { signJwtToken } = require('../utils/tokenSign')
 const jwt = require('jsonwebtoken')
-const { register, userExists, getMe } = require('../services/auth.service')
+const {
+  register,
+  userExists,
+  getMe,
+  updatePasswordToken,
+  updatePassword,
+} = require('../services/auth.service')
 const bcrypt = require('bcryptjs')
+const Employer = require('../models/Employer')
+const {
+  passwordResetEmail,
+  resetPasswordClientUrl,
+} = require('../utils/emailSender')
+const hash = require('../utils/hash')
+const tokenGenerator = require('../utils/tokenGenerator')
+const { getUser } = require('../services/user.service')
 
 exports.register = async (req, res, next) => {
   try {
@@ -98,5 +112,57 @@ exports.me = async (req, res, next) => {
     res.status(200).send(me)
   } catch (error) {
     next(error)
+  }
+}
+
+exports.resetPassword = async (req, res, next) => {
+  const { email } = req.body
+  try {
+    const user = await userExists(email)
+    const userId = user._id
+
+    if (!user) {
+      return next(new ErrorResponse("User with this e-mail doesn't exist", 404))
+    }
+
+    const resetPasswordToken = tokenGenerator()
+    const hashedResetPasswordToken = await hash(resetPasswordToken)
+
+    await updatePasswordToken(userId, hashedResetPasswordToken)
+
+    const resetUrl = resetPasswordClientUrl(resetPasswordToken, userId)
+    await passwordResetEmail(email, resetUrl)
+
+    res.status(200).send({ status: 'success' })
+  } catch (error) {
+    next(error)
+  }
+}
+
+exports.setNewPassword = async (req, res, next) => {
+  const { token, id, newPassword, confirmPassword } = req.body
+  try {
+    const user = await getUser(id)
+    const userId = user._id
+    if (!user) {
+      return next(new ErrorResponse('User not found', 404))
+    }
+
+    const isTokenValid = await bcrypt.compare(token, user.resetPasswordToken)
+    if (!isTokenValid) {
+      return next(new ErrorResponse('Invalid token'), 400)
+    }
+
+    if (newPassword !== confirmPassword) {
+      return next(new ErrorResponse('Passwords must match'), 401)
+    }
+
+    const hashedPassword = await hash(newPassword)
+
+    await updatePassword(userId, hashedPassword)
+
+    res.status(200).send({ status: 'success' })
+  } catch (error) {
+    console.log(error)
   }
 }

@@ -28,6 +28,8 @@ export default {
       return (
         this.$route.name === 'Login' ||
         this.$route.name === 'Register' ||
+        this.$route.name === 'PasswordReset' ||
+        this.$route.name === 'PasswordForgot' ||
         this.$route.name === 'NotFound' ||
         this.$route.name === 'OfferPost' ||
         this.$route.name === 'Profile'
