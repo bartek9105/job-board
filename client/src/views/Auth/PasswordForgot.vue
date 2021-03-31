@@ -10,7 +10,7 @@
             <label for="email">E-mail</label>
             <input
               id="email"
-              v-model="credentials.email"
+              v-model="email"
               type="text"
               name="email"
               placeholder="E-mail"
@@ -38,27 +38,19 @@ import { mapActions } from 'vuex'
 import Auth from '@/components/Forms/AuthForm'
 
 export default {
-  name: 'Register',
+  name: 'PasswordForgot',
   components: {
     Auth
   },
   data() {
     return {
-      credentials: {
-        email: ''
-      }
+      email: ''
     }
   },
   methods: {
-    ...mapActions(['register']),
+    ...mapActions(['reset']),
     resetPassword() {
-      this.register(this.credentials)
-    },
-    email(emailData) {
-      this.credentials.email = emailData
-    },
-    password(passwordData) {
-      this.credentials.password = passwordData
+      this.reset(this.email)
     }
   }
 }

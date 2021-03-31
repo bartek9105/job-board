@@ -32,7 +32,7 @@
               Login
             </router-link>
             <span>Forgot your password?</span>
-            <router-link to="/resetpassword">
+            <router-link to="/passwordforgot">
               Reset password
             </router-link>
           </div>

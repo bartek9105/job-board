@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-const emailSender = async ({ sendTo, subject, text }) => {
+const emailSender = async ({ sendTo, subject, html }) => {
   const transporter = nodemailer.createTransport({
     host: process.env.MAILTRAP_HOST,
     port: process.env.MAILTRAP_PORT,
@@ -14,7 +14,7 @@ const emailSender = async ({ sendTo, subject, text }) => {
       from: process.env.MAILTRAP_SENDER,
       to: sendTo,
       subject,
-      text,
+      html,
     })
   } catch (error) {
     console.log(error)

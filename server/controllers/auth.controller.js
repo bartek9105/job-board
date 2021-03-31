@@ -125,14 +125,38 @@ exports.resetPassword = async (req, res, next) => {
       }
     )
 
+    const resetUrl = `http://localhost:8080/passwordreset?token=${resetPasswordToken}&id=${user._id}`
+
     await emailSender({
       sendTo: email,
       subject: 'Password reset',
-      text: 'You requested password reset.',
+      html: `<a href="${resetUrl}">Click here to reset your password</a>`,
     })
 
     res.status(200).send({ token: resetPasswordToken })
   } catch (error) {
     next(error)
+  }
+}
+
+exports.setNewPassword = async (req, res, next) => {
+  const { token, id, newPassword, confirmPassword } = req.body
+  try {
+    const user = await Employer.findById(id)
+    if (!user) {
+      return next(new ErrorResponse('User not found', 404))
+    }
+    const isTokenValid = await bcrypt.compare(token, user.resetPasswordToken)
+    if (!isTokenValid) {
+      return next(new ErrorResponse('Invalid token'), 400)
+    }
+    if (newPassword !== confirmPassword) {
+      return next(new ErrorResponse('Passwords must match'), 401)
+    }
+    const hashedPassword = await hash(newPassword)
+    await Employer.updateOne({ _id: user._id, password: hashedPassword })
+    res.send('success')
+  } catch (error) {
+    console.log(error)
   }
 }

@@ -37,6 +37,20 @@ export default ({
       } catch (error) {
         console.log(error)
       }
+    },
+    async reset(_, email) {
+      try {
+        await AuthService.reset(email)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async newPassword(_, credentials) {
+      try {
+        await AuthService.setNewPassword(credentials)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 })
