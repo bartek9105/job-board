@@ -21,4 +21,15 @@ const emailSender = async ({ sendTo, subject, html }) => {
   }
 }
 
-module.exports = emailSender
+const passwordResetEmail = async (email, resetUrl) => {
+  await emailSender({
+    sendTo: email,
+    subject: 'Password reset',
+    html: `<p>You (or someone else) requested a password reset for your CodeJob account. <br> <a href="${resetUrl}">Click here to reset your password</a>`,
+  })
+}
+
+const resetPasswordClientUrl = (resetPasswordToken, userId) =>
+  `${process.env.CLIENT_URL}/passwordreset?token=${resetPasswordToken}&id=${userId}`
+
+module.exports = { emailSender, passwordResetEmail, resetPasswordClientUrl }

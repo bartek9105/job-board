@@ -2,7 +2,7 @@ const NodeGeocoder = require('node-geocoder')
 
 const options = {
   provider: 'mapquest',
-  apiKey: 'i3Dusa6p7SuAq7T7zpQmkvfRHGCp9FpH',
+  apiKey: process.env.MAPQUEST_KEY,
 }
 
 const geocodedData = async ({ address, country, city }) => {

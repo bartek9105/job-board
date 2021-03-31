@@ -38,6 +38,23 @@ const AuthService = {
       console.log(error)
     }
   },
+  updatePasswordToken: async function (userId, hashedPasswordToken) {
+    try {
+      await Employer.findByIdAndUpdate(
+        { _id: userId },
+        { resetPasswordToken: hashedPasswordToken }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  updatePassword: async function (userId, password) {
+    try {
+      await Employer.updateOne({ _id: userId, password })
+    } catch (error) {
+      console.log(error)
+    }
+  },
 }
 
 module.exports = AuthService

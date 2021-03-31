@@ -1,12 +1,22 @@
 const ErrorResponse = require('../utils/errorResponse')
 const { signJwtToken } = require('../utils/tokenSign')
 const jwt = require('jsonwebtoken')
-const { register, userExists, getMe } = require('../services/auth.service')
+const {
+  register,
+  userExists,
+  getMe,
+  updatePasswordToken,
+  updatePassword,
+} = require('../services/auth.service')
 const bcrypt = require('bcryptjs')
 const Employer = require('../models/Employer')
-const crypto = require('crypto')
-const emailSender = require('../utils/emailSender')
+const {
+  passwordResetEmail,
+  resetPasswordClientUrl,
+} = require('../utils/emailSender')
 const hash = require('../utils/hash')
+const tokenGenerator = require('../utils/tokenGenerator')
+const { getUser } = require('../services/user.service')
 
 exports.register = async (req, res, next) => {
   try {
@@ -108,32 +118,22 @@ exports.me = async (req, res, next) => {
 exports.resetPassword = async (req, res, next) => {
   const { email } = req.body
   try {
-    const user = await Employer.findOne({ email })
+    const user = await userExists(email)
+    const userId = user._id
 
     if (!user) {
       return next(new ErrorResponse("User with this e-mail doesn't exist", 404))
     }
 
-    const resetPasswordToken = crypto.randomBytes(20).toString('hex')
-
+    const resetPasswordToken = tokenGenerator()
     const hashedResetPasswordToken = await hash(resetPasswordToken)
 
-    await Employer.findByIdAndUpdate(
-      { _id: user._id },
-      {
-        resetPasswordToken: hashedResetPasswordToken,
-      }
-    )
+    await updatePasswordToken(userId, hashedResetPasswordToken)
 
-    const resetUrl = `http://localhost:8080/passwordreset?token=${resetPasswordToken}&id=${user._id}`
+    const resetUrl = resetPasswordClientUrl(resetPasswordToken, userId)
+    await passwordResetEmail(email, resetUrl)
 
-    await emailSender({
-      sendTo: email,
-      subject: 'Password reset',
-      html: `<a href="${resetUrl}">Click here to reset your password</a>`,
-    })
-
-    res.status(200).send({ token: resetPasswordToken })
+    res.status(200).send({ status: 'success' })
   } catch (error) {
     next(error)
   }
@@ -142,20 +142,26 @@ exports.resetPassword = async (req, res, next) => {
 exports.setNewPassword = async (req, res, next) => {
   const { token, id, newPassword, confirmPassword } = req.body
   try {
-    const user = await Employer.findById(id)
+    const user = await getUser(id)
+    const userId = user._id
     if (!user) {
       return next(new ErrorResponse('User not found', 404))
     }
+
     const isTokenValid = await bcrypt.compare(token, user.resetPasswordToken)
     if (!isTokenValid) {
       return next(new ErrorResponse('Invalid token'), 400)
     }
+
     if (newPassword !== confirmPassword) {
       return next(new ErrorResponse('Passwords must match'), 401)
     }
+
     const hashedPassword = await hash(newPassword)
-    await Employer.updateOne({ _id: user._id, password: hashedPassword })
-    res.send('success')
+
+    await updatePassword(userId, hashedPassword)
+
+    res.status(200).send({ status: 'success' })
   } catch (error) {
     console.log(error)
   }
