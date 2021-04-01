@@ -21,9 +21,10 @@ const { isAuth } = require('../middleware/isAuth')
 
 router.get('/', getOffers)
 router.get('/:id', getOffer)
-router.post('/', isAuth, getProduct, addOffer, createPaymentSession)
-router.post('/webhook', listenForPaymentSuccess, updateOfferStatus)
 router.put('/:id', isAuth, editOffer)
 router.delete('/:id', isAuth, deleteOffer)
+
+router.post('/', isAuth, getProduct, addOffer, createPaymentSession)
+router.post('/webhook', listenForPaymentSuccess, updateOfferStatus)
 
 module.exports = router

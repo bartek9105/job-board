@@ -3,10 +3,10 @@ const {
   listenForPaymentSuccess,
 } = require('../services/payment.service')
 
-exports.createPaymentSession = async (req, res) => {
+exports.createPaymentSession = async (req, res, next) => {
   const { email, product } = req.body
   const { offerId } = res.locals
-  const creatorId = req.creatorId
+  const { creatorId } = req
   try {
     const session = await createPaymentSession(
       email,
@@ -14,9 +14,9 @@ exports.createPaymentSession = async (req, res) => {
       offerId,
       creatorId
     )
-    res.send(session)
+    res.send({ data: { sessionId: session } })
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }
 

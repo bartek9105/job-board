@@ -6,6 +6,7 @@ const offerSchema = new mongoose.Schema(
       type: String,
       trim: true,
       maxlength: [50, 'Title cannot be longer than 50 characters'],
+      required: true,
     },
     category: {
       type: String,
@@ -26,14 +27,17 @@ const offerSchema = new mongoose.Schema(
         'Gaming',
         'AI',
       ],
+      required: true,
     },
     type: {
       type: String,
       enum: ['Full Time', 'Part Time'],
+      required: true,
     },
     seniority: {
       type: String,
       enum: ['Intern', 'Junior', 'Regular', 'Senior'],
+      required: true,
     },
     salary: {
       salaryMin: {
@@ -57,9 +61,21 @@ const offerSchema = new mongoose.Schema(
       type: String,
       maxlength: [10000, 'Description cannot be longer than 10000 characters'],
       trim: true,
+      required: true,
     },
     location: {
-      type: Object,
+      address: {
+        type: String,
+        trim: true,
+      },
+      country: {
+        type: String,
+        trim: true,
+      },
+      city: {
+        type: String,
+        trim: true,
+      },
     },
     isRemote: {
       type: Boolean,
@@ -68,6 +84,7 @@ const offerSchema = new mongoose.Schema(
     contract: {
       type: String,
       enum: ['Employment contract', 'B2B', 'Mandatory contract'],
+      required: true,
     },
     mainTechnology: {
       name: {
@@ -83,14 +100,25 @@ const offerSchema = new mongoose.Schema(
     technologies: [
       {
         _id: false,
-        name: String,
-        icon: String,
+        name: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        icon: {
+          type: String,
+          trim: true,
+          default: '',
+        },
       },
     ],
     benefits: [
       {
         _id: false,
-        name: String,
+        name: {
+          type: String,
+          trim: true,
+        },
       },
     ],
     applyURL: {
@@ -100,11 +128,9 @@ const offerSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      required: true,
     },
     isPromoted: {
       type: Boolean,
-      required: true,
       default: false,
     },
     slug: String,

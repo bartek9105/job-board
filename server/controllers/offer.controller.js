@@ -87,12 +87,12 @@ exports.getOffer = async (req, res, next) => {
   const offerId = req.params.id
   try {
     const offer = await getOfferById(offerId)
+    if (!offer) {
+      return next(new ErrorResponse('Offer not found', 404))
+    }
     res.status(200).send({
       data: offer,
     })
-    if (!offer) {
-      next(new ErrorResponse('Offer not found', 404))
-    }
   } catch (error) {
     next(error)
   }
@@ -106,7 +106,9 @@ exports.addOffer = async (req, res, next) => {
     const offer = await addOffer(offerDTO)
     const offerId = offer._id.toString()
     res.locals.offerId = offerId
-    next()
+    if (!offer.status === 'free') {
+      next()
+    }
   } catch (error) {
     next(error)
   }
@@ -157,9 +159,7 @@ exports.deleteOffer = async (req, res, next) => {
   try {
     const offer = await deleteOffer(offerId)
     if (!offer) {
-      return res.status(400).send({
-        error: 'Offer not found',
-      })
+      return next(new ErrorResponse('Offer not found', 404))
     }
     if (!isResourceCreator(req.creatorId, offer.creator)) {
       res.status(403).send('Not authorized')

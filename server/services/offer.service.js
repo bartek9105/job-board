@@ -5,50 +5,45 @@ const slugify = require('slugify')
 const OfferService = {
   getOfferById: async function (offerId) {
     try {
-      const offer = await Offer.findById(offerId).populate('creator')
+      const offer = await Offer.find({ _id: offerId }).populate('creator')
       return offer
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) { }
   },
   addOffer: async function (offer) {
-    const price = offer.product[0].price
-    const duration = offer.product[0].duration
+    const [price, duration] = offer.product[0]
+
     offer.slug = slugify(offer.title, {
       lower: true,
     })
+
     try {
+      let newOffer = { creator: offer.creatorId, ...offer }
+
       if (price === 0) {
-        const newOffer = new Offer({
+        newOffer = new Offer({
           status: 'free',
           expireAt: setOfferExpiryDate(7),
-          ...offer,
+          ...newOffer,
         })
-        await newOffer.save()
-        return newOffer
       } else if (duration === '15d') {
-        const newOffer = new Offer({
-          creator: offer.creatorId,
+        newOffer = new Offer({
           status: 'unpaid',
           expireAt: setOfferExpiryDate(15),
           isPromoted: true,
           promotionExpireAt: setOfferExpiryDate(7),
-          ...offer,
+          ...newOffer,
         })
-        await newOffer.save()
-        return newOffer
       } else if (duration === '30d') {
-        const newOffer = new Offer({
-          creator: offer.creatorId,
+        newOffer = new Offer({
           status: 'unpaid',
           expireAt: setOfferExpiryDate(30),
           isPromoted: true,
           promotionExpireAt: setOfferExpiryDate(15),
-          ...offer,
+          ...newOffer,
         })
-        await newOffer.save()
-        return newOffer
       }
+      newOffer.save()
+      return newOffer
     } catch (error) {
       console.log(error)
     }
