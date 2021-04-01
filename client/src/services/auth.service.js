@@ -4,9 +4,9 @@ import StorageService from './storage.service'
 const AuthService = {
   login: async function (userCredentials) {
     try {
-      const user = await api.post('auth/login', { ...userCredentials })
-      const { id, name } = user.data.data
-      StorageService.saveUser({ id, name })
+      await api.post('auth/login', { ...userCredentials })
+      // const { id, name } = user.data.data
+      // StorageService.saveUser({ id, name })
     } catch (error) {
       console.log(error)
     }

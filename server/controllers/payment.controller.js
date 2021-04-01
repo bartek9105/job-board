@@ -14,7 +14,7 @@ exports.createPaymentSession = async (req, res, next) => {
       offerId,
       creatorId
     )
-    res.send({ data: { sessionId: session } })
+    res.status(200).send({ data: { sessionId: session } })
   } catch (error) {
     next(error)
   }
@@ -37,6 +37,6 @@ exports.listenForPaymentSuccess = async (req, res, next) => {
     req.body.amount = amount
     next()
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 }

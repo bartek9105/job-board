@@ -2,7 +2,6 @@ const Offer = require('../models/Offer')
 const ErrorResponse = require('../utils/errorResponse')
 const geocodedData = require('../utils/geocoder')
 const Fuse = require('fuse.js')
-
 const {
   addOffer,
   editOffer,
@@ -99,15 +98,18 @@ exports.getOffer = async (req, res, next) => {
 }
 
 exports.addOffer = async (req, res, next) => {
-  const geoLocation = await geocodedData(req.body.location)
+  const { location } = req.body
+  const geoLocation = await geocodedData(location)
   req.body.location = geoLocation
   const offerDTO = { creator: req.creatorId, ...req.body }
   try {
     const offer = await addOffer(offerDTO)
     const offerId = offer._id.toString()
     res.locals.offerId = offerId
-    if (!offer.status === 'free') {
+    if (offer.status !== 'free') {
       next()
+    } else {
+      res.status(201).send({ status: 'Offer created' })
     }
   } catch (error) {
     next(error)
@@ -117,19 +119,18 @@ exports.addOffer = async (req, res, next) => {
 exports.editOffer = async (req, res, next) => {
   const offerId = req.params.id
   const offerDTO = req.body
+  const { creatorId } = req
   try {
     const offer = await getOfferById(offerId)
     if (!offer) {
-      return res.status(400).send({
-        error: 'Offer not found',
-      })
+      return next(new ErrorResponse('Offer not found', 404))
     }
-    if (!isResourceCreator(req.creatorId, offer.creator)) {
-      res.status(403).send('Not authorized')
+    if (!isResourceCreator(creatorId, offer.creator._id)) {
+      return next(new ErrorResponse('Not authorized', 403))
     }
-    const updatedOffer = await editOffer(offerId, offerDTO)
+    await editOffer(offerId, offerDTO)
     res.status(200).send({
-      data: updatedOffer,
+      status: 'Offer edited',
     })
   } catch (error) {
     next(error)
@@ -141,9 +142,7 @@ exports.updateOfferStatus = async (req, res, next) => {
   try {
     const offer = await updateOfferPaymentStatus(offerId)
     if (!offer) {
-      return res.status(400).send({
-        error: 'Offer not found',
-      })
+      return next(new ErrorResponse('Offer not found', 404))
     }
     await addInvoice(creatorId, receiptUrl, amount, created)
     res.status(200).send({
@@ -162,9 +161,9 @@ exports.deleteOffer = async (req, res, next) => {
       return next(new ErrorResponse('Offer not found', 404))
     }
     if (!isResourceCreator(req.creatorId, offer.creator)) {
-      res.status(403).send('Not authorized')
+      next(new ErrorResponse('Not authorized'), 403)
     }
-    res.status(200).send({
+    res.status(201).send({
       data: {
         status: 'Offer deleted',
       },

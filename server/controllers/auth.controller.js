@@ -27,7 +27,7 @@ exports.register = async (req, res, next) => {
       )
     }
     await register({ name, email, password })
-    res.status(201).send({ message: 'User registered' })
+    res.status(201).send({ status: 'User registered' })
   } catch (error) {
     next(error)
   }
@@ -36,7 +36,6 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body
-
     if (!email || !password) {
       return next(
         new ErrorResponse('Please provide an email and password', 401)
@@ -141,7 +140,7 @@ exports.resetPassword = async (req, res, next) => {
     const resetUrl = resetPasswordClientUrl(resetPasswordToken, userId)
     await passwordResetEmail(email, resetUrl)
 
-    res.status(200).send({ status: 'success' })
+    res.status(200).send({ status: 'Password reset link sent' })
   } catch (error) {
     next(error)
   }
@@ -169,7 +168,7 @@ exports.setNewPassword = async (req, res, next) => {
 
     await updatePassword(userId, hashedPassword)
 
-    res.status(200).send({ status: 'success' })
+    res.status(200).send({ status: 'New password set' })
   } catch (error) {
     next(error)
   }
