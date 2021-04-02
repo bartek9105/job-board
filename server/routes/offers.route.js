@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { offerValidator } = require('../middleware/validators/offerValidator')
 
 const {
   getOffer,
@@ -21,10 +22,17 @@ const { isAuth } = require('../middleware/isAuth')
 
 router.get('/', getOffers)
 router.get('/:id', getOffer)
-router.put('/:id', isAuth, editOffer)
+router.put('/:id', offerValidator, isAuth, editOffer)
 router.delete('/:id', isAuth, deleteOffer)
 
-router.post('/', isAuth, getProduct, addOffer, createPaymentSession)
+router.post(
+  '/',
+  isAuth,
+  offerValidator,
+  getProduct,
+  addOffer,
+  createPaymentSession
+)
 router.post('/webhook', listenForPaymentSuccess, updateOfferStatus)
 
 module.exports = router

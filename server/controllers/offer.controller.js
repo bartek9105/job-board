@@ -126,7 +126,7 @@ exports.editOffer = async (req, res, next) => {
       return next(new ErrorResponse('Offer not found', 404))
     }
     if (!isResourceCreator(creatorId, offer.creator._id)) {
-      return next(new ErrorResponse('Not authorized', 403))
+      return next(new ErrorResponse('Forbidden', 403))
     }
     await editOffer(offerId, offerDTO)
     res.status(200).send({
@@ -156,14 +156,15 @@ exports.updateOfferStatus = async (req, res, next) => {
 exports.deleteOffer = async (req, res, next) => {
   const offerId = req.params.id
   try {
-    const offer = await deleteOffer(offerId)
+    const offer = await getOfferById(offerId)
     if (!offer) {
       return next(new ErrorResponse('Offer not found', 404))
     }
-    if (!isResourceCreator(req.creatorId, offer.creator)) {
-      next(new ErrorResponse('Not authorized'), 403)
+    if (!isResourceCreator(req.creatorId, offer.creator._id)) {
+      return next(new ErrorResponse('Forbidden', 403))
     }
-    res.status(201).send({
+    await deleteOffer(offerId)
+    res.status(200).send({
       data: {
         status: 'Offer deleted',
       },

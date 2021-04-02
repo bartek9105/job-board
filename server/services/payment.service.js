@@ -31,7 +31,6 @@ const PaymentService = {
           },
         },
       })
-      console.log(session)
       return session.id
     } catch (error) {
       console.log(error)

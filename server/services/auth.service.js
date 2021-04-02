@@ -6,9 +6,11 @@ const AuthService = {
   register: async function (userCredentials) {
     const { name, email, password } = userCredentials
     const hashedPassword = await hash(password)
+
     const slug = slugify(name, {
       lower: true,
     })
+
     try {
       const user = await new Employer({
         name,

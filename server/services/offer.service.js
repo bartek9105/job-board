@@ -7,7 +7,9 @@ const OfferService = {
     try {
       const offer = await Offer.findById(offerId).populate('creator')
       return offer
-    } catch (error) { }
+    } catch (error) {
+      console.log(error)
+    }
   },
   addOffer: async function (offer) {
     const { price, duration } = offer.product[0]
@@ -47,9 +49,7 @@ const OfferService = {
         await newOffer.save()
         return newOffer
       }
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) { }
   },
   editOffer: async function (offerId, offer) {
     try {
