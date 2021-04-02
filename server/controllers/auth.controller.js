@@ -38,7 +38,7 @@ exports.login = async (req, res, next) => {
     const { email, password } = req.body
     if (!email || !password) {
       return next(
-        new ErrorResponse('Please provide an email and password', 401)
+        new ErrorResponse('Please provide an email and password', 400)
       )
     }
 
@@ -126,11 +126,11 @@ exports.resetPassword = async (req, res, next) => {
   const { email } = req.body
   try {
     const user = await userExists(email)
-    const userId = user._id
 
     if (!user) {
       return next(new ErrorResponse("User with this e-mail doesn't exist", 404))
     }
+    const userId = user._id
 
     const resetPasswordToken = tokenGenerator()
     const hashedResetPasswordToken = await hash(resetPasswordToken)
@@ -150,18 +150,17 @@ exports.setNewPassword = async (req, res, next) => {
   const { token, id, newPassword, confirmPassword } = req.body
   try {
     const user = await getUser(id)
-    const userId = user._id
     if (!user) {
       return next(new ErrorResponse('User not found', 404))
+    }
+    const userId = user._id
+    if (newPassword !== confirmPassword) {
+      return next(new ErrorResponse('Passwords must match', 400))
     }
 
     const isTokenValid = await bcrypt.compare(token, user.resetPasswordToken)
     if (!isTokenValid) {
-      return next(new ErrorResponse('Invalid token'), 400)
-    }
-
-    if (newPassword !== confirmPassword) {
-      return next(new ErrorResponse('Passwords must match'), 401)
+      return next(new ErrorResponse('Invalid token', 400))
     }
 
     const hashedPassword = await hash(newPassword)
