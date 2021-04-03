@@ -5,14 +5,14 @@ const ProductService = {
     try {
       return await Product.find()
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   getProduct: async function (productId) {
     try {
       return Product.find({ _id: productId })
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
 }

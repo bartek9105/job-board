@@ -3,30 +3,30 @@
     "_id": "5fb24f65bae6a10f615efcad",
     "name": "Microsoft",
     "email": "microsoft@gmail.com",
-    "password": "microsoftpassword@gmail.com"
+    "password": "microsoftpassword"
   },
   {
     "_id": "5fb24f65bae6a11f615efcad",
     "name": "Airbnb",
     "email": "airbnb@gmail.com",
-    "password": "airbnbpasswort@gmail.com"
+    "password": "airbnbpassword"
   },
   {
     "_id": "5fb24f65bae6a12f615efcad",
     "name": "Apple",
     "email": "apple@gmail.com",
-    "password": "applepassword@gmail.com"
+    "password": "applepassword"
   },
   {
     "_id": "5fb24f65bae6a13f615efcad",
     "name": "Uber",
     "email": "uber@gmail.com",
-    "password": "uberpassword@gmail.com"
+    "password": "uberpassword"
   },
   {
     "_id": "5fb24f65bae6a14f615efcad",
     "name": "Youtube",
     "email": "youtube@gmail.com",
-    "password": "youtubepassword@gmail.com"
+    "password": "youtubepassword"
   }
 ]

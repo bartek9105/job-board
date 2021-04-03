@@ -82,7 +82,7 @@ exports.getOffers = async (req, res, next) => {
 }
 
 exports.getOffer = async (req, res, next) => {
-  const offerId = req.params.id
+  const { id: offerId } = req.params
   try {
     const offer = await getOfferById(offerId)
     if (!offer) {
@@ -113,7 +113,7 @@ exports.addOffer = async (req, res, next) => {
 }
 
 exports.editOffer = async (req, res, next) => {
-  const offerId = req.params.id
+  const { id: offerId } = req.params
   const offerDTO = req.body
   const { creatorId } = req
   try {
@@ -150,7 +150,7 @@ exports.updateOfferStatus = async (req, res, next) => {
 }
 
 exports.deleteOffer = async (req, res, next) => {
-  const offerId = req.params.id
+  const { id: offerId } = req.params
   try {
     const offer = await getOfferById(offerId)
     if (!offer) {

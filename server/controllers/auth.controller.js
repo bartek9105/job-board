@@ -43,7 +43,6 @@ exports.login = async (req, res, next) => {
     }
 
     const user = await userExists(email)
-
     if (!user) {
       return next(new ErrorResponse('Invalid credentials'), 401)
     }

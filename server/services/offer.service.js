@@ -7,7 +7,7 @@ const OfferService = {
       const offer = await Offer.findById(offerId).populate('creator')
       return offer
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   addOffer: async function (offer) {
@@ -31,7 +31,6 @@ const OfferService = {
           ...offer,
         })
         await newOffer.save()
-        console.log(newOffer)
         return newOffer
       } else if (duration === '30d') {
         newOffer = new Offer({
@@ -44,7 +43,9 @@ const OfferService = {
         await newOffer.save()
         return newOffer
       }
-    } catch (error) { }
+    } catch (error) {
+      throw new Error(error)
+    }
   },
   editOffer: async function (offerId, offer) {
     try {
@@ -53,7 +54,7 @@ const OfferService = {
       })
       return editedOffer
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   deleteOffer: async function (offerId) {
@@ -61,13 +62,17 @@ const OfferService = {
       const offer = await Offer.findByIdAndRemove(offerId)
       return offer
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   validateOfferPromotionStatus: async function () {
-    await Offer.find({
-      promotionExpireAt: { $lt: new Date().toISOString() },
-    }).updateMany({ isPromoted: false })
+    try {
+      await Offer.find({
+        promotionExpireAt: { $lt: new Date().toISOString() },
+      }).updateMany({ isPromoted: false })
+    } catch (error) {
+      throw new Error(error)
+    }
   },
   updateOfferPaymentStatus: async function (offerId) {
     try {
@@ -77,7 +82,7 @@ const OfferService = {
       )
       return offer
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
 }

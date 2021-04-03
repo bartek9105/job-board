@@ -7,7 +7,7 @@ const UserService = {
     try {
       return await Offer.find({ creator: userId })
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   updateUser: async function (userId, userInfo) {
@@ -21,7 +21,7 @@ const UserService = {
         runValidators: true,
       })
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   uploadUserAvatar: async function (avatar) {
@@ -40,7 +40,7 @@ const UserService = {
       stream.end(imgBuffer)
       return `https://storage.cloud.google.com/${process.env.GCS_BUCKET}/${fileName}`
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   getUsers: async function (queries) {
@@ -48,7 +48,7 @@ const UserService = {
       const users = await User.find(queries, '-password')
       return users
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   getUser: async function (userId) {
@@ -56,7 +56,7 @@ const UserService = {
       const user = await User.findById(userId)
       return user
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   addInvoice: async function (userId, receiptUrl, amount, created) {
@@ -65,7 +65,7 @@ const UserService = {
         $push: { invoices: { receiptUrl, amount, created: created * 1000 } },
       })
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
 }

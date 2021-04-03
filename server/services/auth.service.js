@@ -21,7 +21,7 @@ const AuthService = {
       await user.save()
       return user
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   userExists: async function (email) {
@@ -29,7 +29,7 @@ const AuthService = {
       const user = await Employer.findOne({ email })
       return user
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   getMe: async function (userId) {
@@ -40,7 +40,7 @@ const AuthService = {
       )
       return me
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   updatePasswordToken: async function (userId, hashedPasswordToken) {
@@ -50,14 +50,14 @@ const AuthService = {
         { resetPasswordToken: hashedPasswordToken }
       )
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   updatePassword: async function (userId, password) {
     try {
       await Employer.updateOne({ _id: userId, password })
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
 }

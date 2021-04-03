@@ -33,7 +33,7 @@ const PaymentService = {
       })
       return session.id
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
   listenForPaymentSuccess: async function (stripePayload, stripeSignature) {
@@ -63,7 +63,7 @@ const PaymentService = {
           console.log(`Unhandled event type ${event.type}`)
       }
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   },
 }
