@@ -1,6 +1,5 @@
 const Offer = require('../models/Offer')
 const setOfferExpiryDate = require('../utils/setOfferExpiryDate')
-const slugify = require('slugify')
 
 const OfferService = {
   getOfferById: async function (offerId) {
@@ -13,10 +12,6 @@ const OfferService = {
   },
   addOffer: async function (offer) {
     const { price, duration } = offer.product[0]
-
-    offer.slug = slugify(offer.title, {
-      lower: true,
-    })
     try {
       let newOffer
       if (price === 0) {
