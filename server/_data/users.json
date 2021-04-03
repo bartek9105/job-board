@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "5fb24f65bae6a10f615efcad",
+    "name": "Microsoft",
+    "email": "microsoft@gmail.com",
+    "password": "microsoftpassword@gmail.com"
+  },
+  {
+    "_id": "5fb24f65bae6a11f615efcad",
+    "name": "Airbnb",
+    "email": "airbnb@gmail.com",
+    "password": "airbnbpasswort@gmail.com"
+  },
+  {
+    "_id": "5fb24f65bae6a12f615efcad",
+    "name": "Apple",
+    "email": "apple@gmail.com",
+    "password": "applepassword@gmail.com"
+  },
+  {
+    "_id": "5fb24f65bae6a13f615efcad",
+    "name": "Uber",
+    "email": "uber@gmail.com",
+    "password": "uberpassword@gmail.com"
+  },
+  {
+    "_id": "5fb24f65bae6a14f615efcad",
+    "name": "Youtube",
+    "email": "youtube@gmail.com",
+    "password": "youtubepassword@gmail.com"
+  }
+]

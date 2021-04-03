@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify')
+const geocodedData = require('../utils/geocoder')
 
 const offerSchema = new mongoose.Schema(
   {
@@ -76,6 +78,8 @@ const offerSchema = new mongoose.Schema(
         type: String,
         trim: true,
       },
+      latitude: Number,
+      longitude: Number,
     },
     isRemote: {
       type: Boolean,
@@ -148,6 +152,24 @@ const offerSchema = new mongoose.Schema(
   },
   { timestamps: true }
 )
+
+offerSchema.pre('save', function (next) {
+  this.slug = slugify(this.title, {
+    lower: true,
+  })
+  next()
+})
+
+offerSchema.pre('save', async function (next) {
+  try {
+    const { latitude, longitude } = await geocodedData(this.location)
+    this.location.latitude = latitude
+    this.location.longitude = longitude
+    next()
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 offerSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 })
 

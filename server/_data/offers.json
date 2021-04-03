@@ -1,0 +1,185 @@
+[
+  {
+    "title": "Senior PHP Developer",
+    "category": "Backend",
+    "type": "Full Time",
+    "salary": {
+      "salaryMin": 12000,
+      "salaryMax": 14000,
+      "currency": "PLN"
+    },
+    "location": {
+      "address": "Inflancka 4",
+      "country": "Poland",
+      "city": "Warsaw"
+    },
+    "contract": "B2B",
+    "mainTechnology": {
+      "name": "PHP"
+    },
+    "technologies": [
+      {
+          "name": "PHP"
+      },
+      {
+          "name": "PostgreSQL"
+      },
+      {
+        "name": "GIT"
+      }
+    ],
+    "applyURL": "http://someurl",
+    "productId": "5fb24f65bae6a10f612efcad",
+    "seniority": "Senior",
+    "description": "xBerry - we are a R&D House with over 5 years of experience in delivering custom solutions for international clients. We provide extensive expertise in embedded systems, machine learning,  AR/VR technology and image processing. We are currently looking for Kernel (Embedded) Developer",
+    "creator": "5fb24f65bae6a10f615efcad",
+    "status": "free"
+  },
+  {
+    "title": "Junior Ruby Developer",
+    "category": "Backend",
+    "type": "Full Time",
+    "salary": {
+      "salaryMin": 6500,
+      "salaryMax": 8000,
+      "currency": "PLN"
+    },
+    "location": {
+      "address": "Robotnicza 72",
+      "country": "Poland",
+      "city": "Wrocław"
+    },
+    "contract": "B2B",
+    "mainTechnology": {
+      "name": "Ruby"
+    },
+    "technologies": [
+      {
+          "name": "Ruby"
+      },
+      {
+          "name": "Ruby on Rails"
+      },
+      {
+        "name": "GIT"
+      }
+    ],
+    "applyURL": "http://someurl",
+    "productId": "5fb24f65bae6a10f612efcad",
+    "seniority": "Junior",
+    "description": "xBerry - we are a R&D House with over 5 years of experience in delivering custom solutions for international clients. We provide extensive expertise in embedded systems, machine learning,  AR/VR technology and image processing. We are currently looking for Kernel (Embedded) Developer",
+    "creator": "5fb24f65bae6a11f615efcad",
+    "status": "free"
+  },
+  {
+    "title": "Mid JavaScript Developer",
+    "category": "Fullstack",
+    "type": "Full Time",
+    "salary": {
+      "salaryMin": 11500,
+      "salaryMax": 13500,
+      "currency": "PLN"
+    },
+    "location": {
+      "address": "Os. Bohaterów Września",
+      "country": "Poland",
+      "city": "Kraków"
+    },
+    "contract": "Employment contract",
+    "mainTechnology": {
+      "name": "JavaScript"
+    },
+    "technologies": [
+      {
+          "name": "JavaScript"
+      },
+      {
+          "name": "TypeScript"
+      },
+      {
+        "name": "GIT"
+      },
+      {
+        "name": "HTML"
+      },
+      {
+        "name": "CSS"
+      },
+      {
+        "name": "Angular"
+      }
+    ],
+    "applyURL": "http://someurl",
+    "productId": "5fb24f65bae6a10f612efcad",
+    "seniority": "Regular",
+    "description": "xBerry - we are a R&D House with over 5 years of experience in delivering custom solutions for international clients. We provide extensive expertise in embedded systems, machine learning,  AR/VR technology and image processing. We are currently looking for Kernel (Embedded) Developer",
+    "creator": "5fb24f65bae6a12f615efcad",
+    "status": "free"
+  },
+  {
+  "title": ".NET Developer",
+  "category": "Fullstack",
+  "type": "Full Time",
+  "salary": {
+    "salaryMin": 16500,
+    "salaryMax": 19500,
+    "currency": "PLN"
+  },
+  "location": {
+    "address": "911 Washington Ave",
+    "country": "United States",
+    "city": "St. Louis"
+  },
+  "contract": "Employment contract",
+  "mainTechnology": {
+    "name": ".NET"
+  },
+  "technologies": [
+    {
+        "name": ".NET"
+    },
+    {
+        "name": "TypeScript"
+    },
+    {
+      "name": "GIT"
+    }
+  ],
+  "applyURL": "http://someurl",
+  "productId": "5fb24f65bae6a10f612efcad",
+  "seniority": "Regular",
+  "description": "xBerry - we are a R&D House with over 5 years of experience in delivering custom solutions for international clients. We provide extensive expertise in embedded systems, machine learning,  AR/VR technology and image processing. We are currently looking for Kernel (Embedded) Developer",
+  "creator": "5fb24f65bae6a13f615efcad",
+  "status": "free"
+  },
+  {
+  "title": "Python Developer",
+  "category": "Fullstack",
+  "type": "Full Time",
+  "salary": {
+    "salaryMin": 6000,
+    "salaryMax": 7000,
+    "currency": "PLN"
+  },
+  "location": {
+    "address": "Manulife Tower 8",
+    "country": "Singapore",
+    "city": "Singapore"
+  },
+  "contract": "Employment contract",
+  "mainTechnology": {
+    "name": "Python"
+  },
+  "technologies": [
+    {
+        "name": "Python"
+    }
+  ],
+  "applyURL": "http://someurl",
+  "productId": "5fb24f65bae6a10f612efcad",
+  "seniority": "Regular",
+  "description": "xBerry - we are a R&D House with over 5 years of experience in delivering custom solutions for international clients. We provide extensive expertise in embedded systems, machine learning,  AR/VR technology and image processing. We are currently looking for Kernel (Embedded) Developer",
+  "creator": "5fb24f65bae6a14f615efcad",
+  "status": "free"
+  }
+]
