@@ -1,6 +1,6 @@
 const Offer = require('../models/Offer')
 const User = require('../models/Employer')
-const { Storage } = require('@google-cloud/storage')
+const googleFileUpload = require('../utils/googleFileUpload')
 
 const UserService = {
   getUserOffers: async function (userId) {
@@ -25,27 +25,19 @@ const UserService = {
     }
   },
   uploadUserAvatar: async function (avatar) {
-    const storage = new Storage({
-      keyFilename: './config/google-credentials.json',
-    })
     try {
-      const bucket = await storage.bucket(process.env.GCS_BUCKET)
-      const fileName = `${avatar.upload.uuid}-${avatar.upload.filename}`
-      const blob = bucket.file(fileName)
-      const stream = blob.createWriteStream()
-
-      stream.on('error', (err) => console.log(err))
-      const imgUrl = avatar.dataURL.split(',')[1]
-      const imgBuffer = Buffer.from(imgUrl, 'base64')
-      stream.end(imgBuffer)
-      return `https://storage.cloud.google.com/${process.env.GCS_BUCKET}/${fileName}`
+      const fileUrl = await googleFileUpload(avatar)
+      return fileUrl
     } catch (error) {
       throw new Error(error)
     }
   },
   getUsers: async function (queries) {
     try {
-      const users = await User.find(queries, '-password')
+      const users = await User.find(
+        queries,
+        '-password -invoices -resetPasswordToken'
+      )
       return users
     } catch (error) {
       throw new Error(error)
@@ -53,7 +45,10 @@ const UserService = {
   },
   getUser: async function (userId) {
     try {
-      const user = await User.findById(userId)
+      const user = await User.findById(
+        userId,
+        '-password -invoices -resetPasswordToken'
+      )
       return user
     } catch (error) {
       throw new Error(error)
