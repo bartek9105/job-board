@@ -24,7 +24,6 @@ exports.getUserOffers = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
   const requesterId = req.creatorId
   const userInfo = req.body
-  console.log(userInfo)
   const { id: userId } = req.params
   try {
     const user = await getUser(userId)

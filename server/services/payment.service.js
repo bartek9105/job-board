@@ -11,13 +11,7 @@ const PaymentService = {
         customer: customer.id,
         line_items: [
           {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: product[0].name,
-              },
-              unit_amount: product[0].price,
-            },
+            price: product,
             quantity: 1,
           },
         ],

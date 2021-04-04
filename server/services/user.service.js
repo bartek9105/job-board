@@ -14,20 +14,12 @@ const UserService = {
     try {
       let avatarUrl
       if (userInfo.avatar) {
-        avatarUrl = await UserService.uploadUserAvatar(userInfo.avatar)
+        avatarUrl = await googleFileUpload(userInfo.avatar)
         userInfo = { ...userInfo, avatarUrl }
       }
       await User.findByIdAndUpdate(userId, userInfo, {
         runValidators: true,
       })
-    } catch (error) {
-      throw new Error(error)
-    }
-  },
-  uploadUserAvatar: async function (avatar) {
-    try {
-      const fileUrl = await googleFileUpload(avatar)
-      return fileUrl
     } catch (error) {
       throw new Error(error)
     }

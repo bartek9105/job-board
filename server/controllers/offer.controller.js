@@ -36,7 +36,7 @@ exports.getOffers = async (req, res, next) => {
       .skip(startIndex)
       .limit(limit)
       .sort({ isPromoted: -1, createdAt: 'desc' })
-      .populate('creator')
+      .populate('creator', '-resetPasswordToken -password -invoices')
 
     const total = await Offer.find({
       ...parsedQuery,
