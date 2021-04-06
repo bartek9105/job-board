@@ -20,7 +20,7 @@ export default {
     ChevronDownIcon
   },
   props: {
-    userInfo: String
+    userInfo: Object
   }
 }
 </script>

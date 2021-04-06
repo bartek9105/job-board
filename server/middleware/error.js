@@ -19,7 +19,7 @@ const errorHandler = (err, req, res, next) => {
   }
 
   res.status(error.statusCode || 500).send({
-    error: 'Server error, please try again later',
+    error: error.message || 'Server error, please try again later',
   })
 }
 
