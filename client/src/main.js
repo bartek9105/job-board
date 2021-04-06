@@ -35,7 +35,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(Toasted, {
   iconPack: 'fontawesome',
   position: 'bottom-center',
-  duration: 2000
+  duration: 4500
 })
 
 Vue.use(VueSocialSharing)

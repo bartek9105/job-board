@@ -5,10 +5,8 @@ const AuthService = {
   login: async function (userCredentials) {
     try {
       await api.post('auth/login', { ...userCredentials })
-      // const { id, name } = user.data.data
-      // StorageService.saveUser({ id, name })
     } catch (error) {
-      console.log(error)
+      throw new Error(error.response.data.error)
     }
   },
   register: async function (userCredentials) {
@@ -17,7 +15,7 @@ const AuthService = {
         ...userCredentials
       })
     } catch (error) {
-      console.log(error)
+      throw new Error(error.response.data.error)
     }
   },
   logout: async function () {
@@ -32,14 +30,14 @@ const AuthService = {
     try {
       await api.post('auth/resetpassword', { email })
     } catch (error) {
-      console.log(error)
+      throw new Error(error.response.data.error)
     }
   },
   setNewPassword: async function (userCredentials) {
     try {
       await api.post('auth/setnewpassword', { ...userCredentials })
     } catch (error) {
-      console.log(error)
+      throw new Error(error.response.data.error)
     }
   }
 }

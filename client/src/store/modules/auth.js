@@ -4,20 +4,24 @@ import AuthService from '../../services/auth.service'
 
 export default ({
   state: {
+    error: ''
   },
   getters: {
   },
   mutations: {
+    SET_ERROR(state, error) {
+      state.error = error
+    }
   },
   actions: {
     async signIn({ dispatch }, credentials) {
       try {
         await AuthService.login(credentials)
-        dispatch('fetchUserInfo')
+        await dispatch('fetchUserInfo')
         router.push('/')
         Vue.toasted.success('Successfuly logged in', { icon: 'check-circle' })
       } catch (error) {
-        console.log(error)
+        Vue.toasted.error(error)
       }
     },
     async register(_, credentials) {
@@ -26,7 +30,7 @@ export default ({
         Vue.toasted.success('Successfuly registered', { icon: 'check-circle' })
         router.push('/login')
       } catch (error) {
-        console.log(error)
+        Vue.toasted.error(error)
       }
     },
     async logout() {
@@ -41,15 +45,16 @@ export default ({
     async reset(_, email) {
       try {
         await AuthService.reset(email)
+        Vue.toasted.success(`Password reset link sent to ${email} `, { icon: 'check-circle' })
       } catch (error) {
-        console.log(error)
+        Vue.toasted.error(error)
       }
     },
     async newPassword(_, credentials) {
       try {
         await AuthService.setNewPassword(credentials)
       } catch (error) {
-        console.log(error)
+        Vue.toasted.error(error)
       }
     }
   }

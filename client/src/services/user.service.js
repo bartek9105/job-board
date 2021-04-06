@@ -1,10 +1,12 @@
 import api from './api.service'
+import StorageService from './storage.service'
 
 const UserService = {
   fetchUserInfo: async function () {
     try {
       const userInfo = await api.get('auth/me')
-      return userInfo.data
+      StorageService.saveUser(userInfo.data.data)
+      return userInfo.data.data
     } catch (error) {
       console.log(error)
     }

@@ -7,6 +7,16 @@
       <form @submit.prevent="signUp">
         <div>
           <div>
+            <label for="company">Company name</label>
+            <input
+              id="company"
+              v-model="credentials.name"
+              type="text"
+              name="company"
+              placeholder="Company name"
+            />
+          </div>
+          <div>
             <label for="email">E-mail</label>
             <input
               id="email"

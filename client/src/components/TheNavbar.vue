@@ -20,12 +20,12 @@
             Companies
           </li>
         </router-link>
-        <router-link to="/profile/dashboard">
+        <router-link v-if="userInfo" to="/profile/dashboard">
           <li :class="{ darkBlue: navWhite }">
             Profile
           </li>
         </router-link>
-        <router-link v-if="!loggedInUser" to="/login">
+        <router-link v-if="!userInfo" to="/login">
           <li :class="{ darkBlue: navWhite }">
             Login
           </li>
@@ -34,13 +34,13 @@
           <BaseButton>Post a job</BaseButton>
         </router-link>
         <li
-          v-if="loggedInUser"
+          v-if="userInfo"
           class="main-nav__list__user"
           :class="{ linkActive: showDropdown, darkBlue: navWhite }"
           @click="showDropdown = !showDropdown"
         >
           <BaseLoggedUserBadge
-            :logged-in-user-name="loggedInUser.name"
+            :user-info="userInfo"
             class="main-nav__list__user"
           />
           <NavbarDropdown
@@ -54,12 +54,12 @@
 </template>
 
 <script>
-import StorageService from '@/services/storage.service'
+import { mapGetters } from 'vuex'
+import { MenuIcon } from 'vue-feather-icons'
 import BaseLogo from '@/components/Base/BaseLogo'
 import NavbarDropdown from '@/components/NavbarDropdown'
 import BaseLoggedUserBadge from '@/components/Base/BaseLoggedUserBadge'
-import { MenuIcon } from 'vue-feather-icons'
-import { mapGetters } from 'vuex'
+import StorageService from '@/services/storage.service'
 
 export default {
   components: {
@@ -82,11 +82,11 @@ export default {
   },
   computed: {
     ...mapGetters(['isMedium']),
-    loggedInUser() {
-      return StorageService.getUserData()
-    },
     isDarkBlue() {
       return this.navWhite
+    },
+    userInfo() {
+      return StorageService.getUserData()
     }
   },
   methods: {
