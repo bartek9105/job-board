@@ -2,9 +2,6 @@ const stripe = require('../config/stripe')
 
 const PaymentService = {
   createPaymentSession: async function (email, product, offerId, creatorId) {
-    console.log('in create payment session')
-    console.log(product)
-    console.log(product.priceId)
     try {
       const customer = await stripe.customers.create({
         email,

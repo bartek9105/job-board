@@ -171,6 +171,6 @@ offerSchema.pre('save', async function (next) {
   }
 })
 
-offerSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 })
+offerSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 })
 
 module.exports = mongoose.model('Offer', offerSchema)

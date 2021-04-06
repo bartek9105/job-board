@@ -18,6 +18,7 @@ const OfferService = {
     try {
       const freeOffer = new Offer({
         isPromoted: false,
+        status: 'free',
         expiresAt: setOfferExpiryDate(product.durationDays),
         ...offer,
       })
@@ -31,7 +32,8 @@ const OfferService = {
     try {
       const paidOffer = new Offer({
         isPromoted: true,
-        expiresAt: setOfferExpiryDate(product.durationDays),
+        status: 'unpaid',
+        expiresAt: setOfferExpiryDate(1), // If cancels checkout session offer will be deleted after 1 day
         promotionExpiresAt: setOfferExpiryDate(product.promotionDays),
         ...offer,
       })
