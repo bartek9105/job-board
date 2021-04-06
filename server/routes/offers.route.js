@@ -5,10 +5,11 @@ const { offerValidator } = require('../middleware/validators/offerValidator')
 const {
   getOffer,
   getOffers,
-  addOffer,
   editOffer,
   deleteOffer,
   updateOfferStatus,
+  addFreeOffer,
+  addPaidOffer,
 } = require('../controllers/offer.controller.js')
 
 const {
@@ -25,7 +26,8 @@ router.get('/:id', getOffer)
 router.put('/:id', offerValidator, isAuth, editOffer)
 router.delete('/:id', isAuth, deleteOffer)
 
-router.post('/', isAuth, getProduct, addOffer, createPaymentSession)
+router.post('/free', isAuth, getProduct, addFreeOffer)
+router.post('/paid', isAuth, getProduct, addPaidOffer, createPaymentSession)
 router.post('/webhook', listenForPaymentSuccess, updateOfferStatus)
 
 module.exports = router

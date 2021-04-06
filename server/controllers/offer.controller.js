@@ -3,6 +3,8 @@ const ErrorResponse = require('../utils/errorResponse')
 const Fuse = require('fuse.js')
 const {
   addOffer,
+  addFreeOffer,
+  addPaidOffer,
   editOffer,
   deleteOffer,
   getOfferById,
@@ -31,7 +33,6 @@ exports.getOffers = async (req, res, next) => {
 
     let offers = await Offer.find({
       ...parsedQuery,
-      $or: [{ status: 'free' }, { status: 'paid' }],
     })
       .skip(startIndex)
       .limit(limit)
@@ -96,19 +97,24 @@ exports.getOffer = async (req, res, next) => {
   }
 }
 
-exports.addOffer = async (req, res, next) => {
+exports.addFreeOffer = async (req, res, next) => {
   const offerDTO = { creator: req.creatorId, ...req.body }
   try {
-    const offer = await addOffer(offerDTO)
+    await addFreeOffer(offerDTO)
+    res.status(201).send({ status: 'Offer created' })
+  } catch (error) {
+    next(error)
+  }
+}
+
+exports.addPaidOffer = async (req, res, next) => {
+  const offerDTO = { creator: req.creatorId, ...req.body }
+  try {
+    const offer = await addPaidOffer(offerDTO)
     const offerId = offer._id.toString()
     res.locals.offerId = offerId
-    if (offer.status !== 'free') {
-      next()
-    } else {
-      res.status(201).send({ status: 'Offer created' })
-    }
+    next()
   } catch (error) {
-    console.log(error)
     next(error)
   }
 }

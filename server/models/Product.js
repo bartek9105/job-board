@@ -9,8 +9,12 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  duration: {
-    type: String,
+  durationDays: {
+    type: Number,
+    required: true,
+  },
+  promotionDays: {
+    type: Number,
     required: true,
   },
   priceId: {

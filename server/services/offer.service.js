@@ -13,39 +13,30 @@ const OfferService = {
       throw new Error(error)
     }
   },
-  addOffer: async function (offer) {
-    const { price, duration } = offer.product
+  addFreeOffer: async function (offer) {
+    const { product } = offer
     try {
-      let newOffer
-      if (price === 0) {
-        newOffer = new Offer({
-          status: 'free',
-          expireAt: setOfferExpiryDate(7),
-          ...offer,
-        })
-        await newOffer.save()
-        return newOffer
-      } else if (duration === '15d') {
-        newOffer = new Offer({
-          status: 'unpaid',
-          expireAt: setOfferExpiryDate(15),
-          isPromoted: true,
-          promotionExpireAt: setOfferExpiryDate(7),
-          ...offer,
-        })
-        await newOffer.save()
-        return newOffer
-      } else if (duration === '30d') {
-        newOffer = new Offer({
-          status: 'unpaid',
-          expireAt: setOfferExpiryDate(30),
-          isPromoted: true,
-          promotionExpireAt: setOfferExpiryDate(15),
-          ...offer,
-        })
-        await newOffer.save()
-        return newOffer
-      }
+      const freeOffer = new Offer({
+        isPromoted: false,
+        expiresAt: setOfferExpiryDate(product.durationDays),
+        ...offer,
+      })
+      await freeOffer.save()
+    } catch (error) {
+      throw new Error(error)
+    }
+  },
+  addPaidOffer: async function (offer) {
+    const { product } = offer
+    try {
+      const paidOffer = new Offer({
+        isPromoted: true,
+        expiresAt: setOfferExpiryDate(product.durationDays),
+        promotionExpiresAt: setOfferExpiryDate(product.promotionDays),
+        ...offer,
+      })
+      await paidOffer.save()
+      return paidOffer._id
     } catch (error) {
       throw new Error(error)
     }
@@ -71,7 +62,7 @@ const OfferService = {
   validateOfferPromotionStatus: async function () {
     try {
       await Offer.find({
-        promotionExpireAt: { $lt: new Date().toISOString() },
+        promotionExpiresAt: { $lt: new Date().toISOString() },
       }).updateMany({ isPromoted: false })
     } catch (error) {
       throw new Error(error)

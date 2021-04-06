@@ -73,11 +73,19 @@ export default {
         console.log(error)
       }
     },
-    async addOffer({ commit }, payload) {
+    async addPaidOffer({ commit }, payload) {
       try {
-        const addedOffer = await OfferService.addOffer(payload)
+        const addedOffer = await OfferService.addPaidOffer(payload)
         Vue.toasted.success('Offer added', { icon: 'check-circle' })
         commit('SET_SESSION_ID', addedOffer.data.data.sessionId)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async addFreeOffer(_, payload) {
+      try {
+        await OfferService.addFreeOffer(payload)
+        Vue.toasted.success('Offer added', { icon: 'check-circle' })
       } catch (error) {
         console.log(error)
       }

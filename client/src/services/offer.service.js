@@ -61,10 +61,17 @@ const OfferService = {
       console.log(error)
     }
   },
-  addOffer: async function (offerData) {
+  addPaidOffer: async function (offerData) {
     try {
-      const { _id, creator, ...offer } = offerData
-      const addedOffer = await api.post('offers', offer)
+      const addedOffer = await api.post('offers/paid', offerData)
+      return addedOffer
+    } catch (error) {
+      throw new Error(error.response.data.error)
+    }
+  },
+  addFreeOffer: async function (offerData) {
+    try {
+      const addedOffer = await api.post('offers/free', offerData)
       return addedOffer
     } catch (error) {
       throw new Error(error.response.data.error)

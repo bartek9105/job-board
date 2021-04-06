@@ -124,15 +124,21 @@ export default {
     ...mapGetters(['getProducts', 'getSessionId'])
   },
   methods: {
-    ...mapActions(['addOffer']),
+    ...mapActions(['addPaidOffer', 'addFreeOffer']),
     locationData(location) {
       this.location = location
     },
     async saveOffer() {
-      const offerId = await this.addOffer(this.offer)
-      this.$refs.checkoutRef.redirectToCheckout()
+      const chosenProduct = this.getProducts.filter(
+        product => product._id === this.offer.productId
+      )
+      if (chosenProduct[0].price !== 0) {
+        await this.addPaidOffer(this.offer)
+        this.$refs.checkoutRef.redirectToCheckout()
+      }
+      await this.addFreeOffer(this.offer)
       localStorage.removeItem('offer')
-      this.$router.push({ name: 'OfferDetails', params: { offerId } })
+      this.$router.push({ name: 'OfferDetails' })
     }
   },
   created() {

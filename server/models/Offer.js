@@ -143,10 +143,10 @@ const offerSchema = new mongoose.Schema(
       ref: 'Employer',
       required: true,
     },
-    promotionExpireAt: {
+    promotionExpiresAt: {
       type: Date,
     },
-    expireAt: {
+    expiresAt: {
       type: Date,
     },
   },
