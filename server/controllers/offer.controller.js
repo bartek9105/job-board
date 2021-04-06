@@ -108,6 +108,7 @@ exports.addOffer = async (req, res, next) => {
       res.status(201).send({ status: 'Offer created' })
     }
   } catch (error) {
+    console.log(error)
     next(error)
   }
 }

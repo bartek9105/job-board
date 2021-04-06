@@ -6,7 +6,7 @@ export default ({
   },
   getters: {
     getProducts(state) {
-      return state.products
+      return state.products.data
     }
   },
   mutations: {

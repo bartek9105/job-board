@@ -25,14 +25,7 @@ router.get('/:id', getOffer)
 router.put('/:id', offerValidator, isAuth, editOffer)
 router.delete('/:id', isAuth, deleteOffer)
 
-router.post(
-  '/',
-  isAuth,
-  offerValidator,
-  getProduct,
-  addOffer,
-  createPaymentSession
-)
+router.post('/', isAuth, getProduct, addOffer, createPaymentSession)
 router.post('/webhook', listenForPaymentSuccess, updateOfferStatus)
 
 module.exports = router

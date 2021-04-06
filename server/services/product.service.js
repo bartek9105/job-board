@@ -10,8 +10,8 @@ const ProductService = {
   },
   getProduct: async function (productId) {
     try {
-      const product = Product.find({ _id: productId })
-      return product.priceId
+      const product = await Product.findById(productId)
+      return product
     } catch (error) {
       throw new Error(error)
     }

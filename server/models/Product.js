@@ -13,6 +13,9 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  priceId: {
+    type: String,
+  },
 })
 
 module.exports = mongoose.model('Product', productSchema)

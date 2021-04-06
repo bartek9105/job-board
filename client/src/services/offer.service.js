@@ -67,7 +67,7 @@ const OfferService = {
       const addedOffer = await api.post('offers', offer)
       return addedOffer
     } catch (error) {
-      console.log(error)
+      throw new Error(error.response.data.error)
     }
   },
   editOffer: async function (offerData) {

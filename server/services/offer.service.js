@@ -14,7 +14,7 @@ const OfferService = {
     }
   },
   addOffer: async function (offer) {
-    const { price, duration } = offer.product[0]
+    const { price, duration } = offer.product
     try {
       let newOffer
       if (price === 0) {
