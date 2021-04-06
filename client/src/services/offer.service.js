@@ -72,7 +72,7 @@ const OfferService = {
   addFreeOffer: async function (offerData) {
     try {
       const addedOffer = await api.post('offers/free', offerData)
-      return addedOffer
+      return addedOffer.data.data
     } catch (error) {
       throw new Error(error.response.data.error)
     }

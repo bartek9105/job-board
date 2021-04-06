@@ -136,9 +136,12 @@ export default {
         await this.addPaidOffer(this.offer)
         this.$refs.checkoutRef.redirectToCheckout()
       }
-      await this.addFreeOffer(this.offer)
+      const offer = await this.addFreeOffer(this.offer)
       localStorage.removeItem('offer')
-      this.$router.push({ name: 'OfferDetails' })
+      this.$router.replace({
+        name: 'OfferDetails',
+        params: { offerId: offer._id, slug: offer.slug }
+      })
     }
   },
   created() {

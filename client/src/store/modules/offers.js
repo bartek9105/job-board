@@ -84,8 +84,9 @@ export default {
     },
     async addFreeOffer(_, payload) {
       try {
-        await OfferService.addFreeOffer(payload)
+        const offer = await OfferService.addFreeOffer(payload)
         Vue.toasted.success('Offer added', { icon: 'check-circle' })
+        return offer
       } catch (error) {
         console.log(error)
       }

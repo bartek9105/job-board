@@ -2,7 +2,6 @@ const Offer = require('../models/Offer')
 const ErrorResponse = require('../utils/errorResponse')
 const Fuse = require('fuse.js')
 const {
-  addOffer,
   addFreeOffer,
   addPaidOffer,
   editOffer,
@@ -100,8 +99,8 @@ exports.getOffer = async (req, res, next) => {
 exports.addFreeOffer = async (req, res, next) => {
   const offerDTO = { creator: req.creatorId, ...req.body }
   try {
-    await addFreeOffer(offerDTO)
-    res.status(201).send({ status: 'Offer created' })
+    const offer = await addFreeOffer(offerDTO)
+    res.status(201).send({ data: offer })
   } catch (error) {
     next(error)
   }

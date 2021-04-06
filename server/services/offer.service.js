@@ -23,6 +23,7 @@ const OfferService = {
         ...offer,
       })
       await freeOffer.save()
+      return freeOffer
     } catch (error) {
       throw new Error(error)
     }

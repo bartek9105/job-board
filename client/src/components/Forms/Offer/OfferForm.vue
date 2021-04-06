@@ -180,7 +180,7 @@ export default {
     }
   },
   beforeDestroy() {
-    window.removeEventListener('scroll')
+    window.removeEventListener('scroll', () => console.log('removed'))
   },
   mounted() {
     this.fetchProducts()
