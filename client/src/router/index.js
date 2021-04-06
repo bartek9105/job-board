@@ -15,7 +15,6 @@ import Profile from '@/views/Profile/Profile'
 import ProfileDashboard from '@/views/Profile/ProfileDashboard'
 import ProfileAccount from '@/views/Profile/ProfileAccount'
 import ProfilePassword from '@/views/Profile/ProfilePassword'
-import ProfileSavedOffers from '@/views/Profile/ProfileSavedOffers'
 import ProfileInvoices from '@/views/Profile/ProfileInvoices'
 
 Vue.use(VueRouter)
@@ -81,11 +80,6 @@ const routes = [
         path: 'password',
         name: 'Password',
         component: ProfilePassword,
-      },
-      {
-        path: 'saved',
-        name: 'Saved',
-        component: ProfileSavedOffers,
       },
       {
         path: 'invoices',

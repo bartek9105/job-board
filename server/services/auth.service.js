@@ -36,7 +36,7 @@ const AuthService = {
     try {
       const me = await Employer.findById(
         userId,
-        '-password -_id -resetPasswordToken'
+        '-password -resetPasswordToken'
       )
       return me
     } catch (error) {

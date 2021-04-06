@@ -92,10 +92,10 @@ const OfferService = {
     }
   },
   fetchOffersByUser: async function () {
-    const userId = StorageService.getUserData().id
+    const userId = StorageService.getUserData()._id
     try {
       const offers = await api.get(`users/${userId}/offers`)
-      return offers.data
+      return offers.data.data
     } catch (error) {
       console.log(error)
     }

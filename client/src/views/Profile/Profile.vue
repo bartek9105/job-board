@@ -33,12 +33,6 @@
               </router-link>
             </li>
             <li>
-              <router-link to="/profile/saved">
-                <bookmark-icon size="1.5x" class="sidebar__nav-icon icon" />
-                Saved offers
-              </router-link>
-            </li>
-            <li>
               <router-link to="/profile/invoices">
                 <book-icon size="1.5x" class="sidebar__nav-icon icon" />
                 Invoices
@@ -56,13 +50,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import {
-  ColumnsIcon,
-  UserIcon,
-  ShieldIcon,
-  BookmarkIcon,
-  BookIcon
-} from 'vue-feather-icons'
+import { ColumnsIcon, UserIcon, ShieldIcon, BookIcon } from 'vue-feather-icons'
 import TheNavbar from '@/components/TheNavbar'
 
 export default {
@@ -71,7 +59,6 @@ export default {
     ColumnsIcon,
     UserIcon,
     ShieldIcon,
-    BookmarkIcon,
     BookIcon,
     TheNavbar
   },
