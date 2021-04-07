@@ -132,11 +132,13 @@ export default {
       const chosenProduct = this.getProducts.filter(
         product => product._id === this.offer.productId
       )
+      let offer
       if (chosenProduct[0].price !== 0) {
         await this.addPaidOffer(this.offer)
         this.$refs.checkoutRef.redirectToCheckout()
+      } else {
+        offer = await this.addFreeOffer(this.offer)
       }
-      const offer = await this.addFreeOffer(this.offer)
       localStorage.removeItem('offer')
       this.$router.replace({
         name: 'OfferDetails',

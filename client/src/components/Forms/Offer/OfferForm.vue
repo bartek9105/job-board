@@ -125,7 +125,7 @@
           subtitle="Offer Preview"
         >
           <template #buttons>
-            <BaseButton class="add-btn" @click.native="handleSubmit(onSubmit)">
+            <BaseButton class="add-btn">
               {{ btnText }}
             </BaseButton>
             <BaseClearButton @click.native="previewMode = true">
