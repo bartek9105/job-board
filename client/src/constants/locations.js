@@ -1,0 +1,1 @@
+export default ['Kraków', 'Wrocław', 'Poznań', 'Gdańsk', 'Warszawa', 'Łódź', 'Katowice']

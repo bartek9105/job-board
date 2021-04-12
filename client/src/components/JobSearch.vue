@@ -17,8 +17,18 @@
             type="text"
             class="job-search__job-form__input"
             placeholder="Location"
+            @click="showPropositionsList = true"
           />
           <map-pin-icon size="1.25x" class="job-search__job-form__icon" />
+          <SearchPropositionsList
+            v-if="showPropositionsList"
+            v-on-clickaway="hidePropositionsList"
+            class="job-search__propositions-list"
+            :list-items="locations"
+            @item="emitedLocation"
+          >
+            <map-pin-icon size="1x" />
+          </SearchPropositionsList>
         </div>
         <button
           type="button"
@@ -37,23 +47,32 @@
 
 <script>
 import { SearchIcon, MapPinIcon, FilterIcon } from 'vue-feather-icons'
+import SearchPropositionsList from '@/components/SearchPropositionsList'
+import { mixin as clickaway } from 'vue-clickaway'
+import locations from '@/constants/locations'
 
 export default {
   components: {
     SearchIcon,
     MapPinIcon,
-    FilterIcon
+    FilterIcon,
+    SearchPropositionsList
   },
+  mixins: [clickaway],
   data() {
     return {
       query: {
         title: '',
         location: ''
-      }
+      },
+      showPropositionsList: false
     }
   },
   mounted() {
     document.addEventListener('click', this.clickOutsideFilterHandler)
+  },
+  created() {
+    this.locations = locations
   },
   methods: {
     emitQuery() {
@@ -63,6 +82,13 @@ export default {
       if (!this.$el.contains(evt.target)) {
         this.showMoreFilters = false
       }
+    },
+    hidePropositionsList() {
+      this.showPropositionsList = false
+    },
+    emitedLocation(location) {
+      this.query.location = location
+      this.hidePropositionsList()
     }
   }
 }
@@ -74,6 +100,13 @@ export default {
   margin: $margin-center;
   color: $white-blue;
   text-align: center;
+  &__propositions-list {
+    z-index: 1;
+    width: 100%;
+    position: absolute;
+    top: 65px;
+    left: 0;
+  }
   &__btn {
     background-color: $pink;
     border-radius: 0 8px 8px 0;
