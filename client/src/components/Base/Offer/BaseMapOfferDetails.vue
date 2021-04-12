@@ -138,9 +138,10 @@ export default {
     @include flex();
     border-bottom: 1px solid $light-blue;
     padding-bottom: $padding-sm;
+    margin-top: $margin-md;
   }
   &__logo {
-    margin-right: 1rem;
+    margin-right: 2rem;
   }
   &__title {
     @include flex(null, center);

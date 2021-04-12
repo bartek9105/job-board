@@ -14,7 +14,11 @@
       />
       <div v-show="!isImageLoaded" class="skeleton" />
     </div>
-    <div v-else class="company-logo-container">
+    <div
+      v-else
+      class="company-logo-container"
+      :style="{ width: imgWidth + 'px', height: imgHeight + 'px' }"
+    >
       <home-icon size="1.5x" class="company-building-logo" />
     </div>
   </div>

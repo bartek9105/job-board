@@ -1,7 +1,7 @@
 <template>
   <div class="social-share">
     <share-2-icon
-      size="1.5x"
+      size="1.25x"
       class="share-icon"
       @click="showList = !showList"
     />
