@@ -13,7 +13,7 @@ export default {
   },
   getters: {
     getOffer: (state) => (id) => {
-      return id ? state.offers.data.filter(offer => offer._id === id) : state.offer
+      return id ? state.offers.data.filter(offer => offer._id === id) : state.offer[0]
     },
     getOffers(state) {
       return state.offers

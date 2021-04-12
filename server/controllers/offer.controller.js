@@ -8,6 +8,7 @@ const {
   deleteOffer,
   getOfferById,
   updateOfferPaymentStatus,
+  getOfferBySlug,
 } = require('../services/offer.service')
 const { addInvoice } = require('../services/user.service')
 const isResourceCreator = require('../utils/isResourceCreator')
@@ -82,9 +83,9 @@ exports.getOffers = async (req, res, next) => {
 }
 
 exports.getOffer = async (req, res, next) => {
-  const { id: offerId } = req.params
+  const { id: slug } = req.params
   try {
-    const offer = await getOfferById(offerId)
+    const offer = await getOfferBySlug(slug)
     if (!offer) {
       return next(new ErrorResponse('Offer not found', 404))
     }

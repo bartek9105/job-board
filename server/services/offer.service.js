@@ -13,6 +13,17 @@ const OfferService = {
       throw new Error(error)
     }
   },
+  getOfferBySlug: async function (slug) {
+    try {
+      const offer = await Offer.find({ slug }).populate(
+        'creator',
+        '-resetPasswordToken -password -invoices'
+      )
+      return offer
+    } catch (error) {
+      throw new Error(error)
+    }
+  },
   addFreeOffer: async function (offer) {
     const { product } = offer
     try {

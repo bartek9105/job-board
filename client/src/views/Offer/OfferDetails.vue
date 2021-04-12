@@ -156,10 +156,6 @@ export default {
     EyeIcon
   },
   props: {
-    offerId: {
-      type: String,
-      default: () => ''
-    },
     isPreviewMode: {
       type: Boolean,
       default: () => false
@@ -193,17 +189,19 @@ export default {
       return this.scroll >= 300
     },
     offer() {
-      return this.isPreviewMode ? this.getOffer(this.offerId) : this.getOffer()
+      return this.isPreviewMode
+        ? this.getOffer(this.$route.params.offerId)
+        : this.getOffer()
     }
   },
   watch: {
     offerId: function() {
-      this.fetchOffer(this.offerId)
+      this.fetchOffer(this.$route.params.slug)
     }
   },
   created() {
     if (!this.isPreviewMode) {
-      this.fetchOffer(this.offerId)
+      this.fetchOffer(this.$route.params.slug)
     }
     window.addEventListener('scroll', this.handleScroll)
   }

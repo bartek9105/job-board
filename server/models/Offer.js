@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const slugify = require('slugify')
 const geocodedData = require('../utils/geocoder')
+const uniqueSlug = require('unique-slug')
 
 const offerSchema = new mongoose.Schema(
   {
@@ -154,9 +155,11 @@ const offerSchema = new mongoose.Schema(
 )
 
 offerSchema.pre('save', function (next) {
-  this.slug = slugify(this.title, {
+  const titleSlug = slugify(this.title, {
     lower: true,
   })
+  const titleUniqueSlug = uniqueSlug()
+  this.slug = `${titleSlug}-${titleUniqueSlug}`
   next()
 })
 

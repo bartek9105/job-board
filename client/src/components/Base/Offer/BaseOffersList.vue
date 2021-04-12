@@ -6,7 +6,7 @@
           :event="isClickable ? 'click' : ''"
           :to="{
             name: 'OfferDetails',
-            params: { offerId: offer._id, slug: offer.slug }
+            params: { slug: offer.slug }
           }"
         >
           <BaseOffer
