@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="Object.entries(offer).length > 0"
-    class="map-offer"
-    :style="{ borderTop }"
-  >
+  <div class="map-offer" :style="{ borderTop }">
     <BaseGoBackButton @click.native="closeOffer" />
     <BaseSpinner v-if="getIsLoading" />
     <div v-else>
@@ -80,7 +76,7 @@ export default {
     SocialShare
   },
   props: {
-    offerId: {
+    slug: {
       type: String,
       default: () => ''
     }
@@ -95,12 +91,12 @@ export default {
     }
   },
   watch: {
-    offerId: function(newId, oldId) {
+    slug: function(newId, oldId) {
       this.fetchOffer(newId)
     }
   },
   created() {
-    this.fetchOffer(this.offerId)
+    this.fetchOffer(this.slug)
   },
   methods: {
     ...mapActions(['fetchOffer']),
