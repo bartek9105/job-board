@@ -1,7 +1,6 @@
 <template>
   <div class="toggle">
-    <slot v-if="toggleSwitch" name="toggleOn" />
-    <slot v-else name="toggleOff" />
+    <slot />
     <input id="switch" v-model="toggleSwitch" type="checkbox" /><label
       for="switch"
       >Toggle</label

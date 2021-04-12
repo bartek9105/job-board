@@ -33,12 +33,7 @@
           </span>
           <div v-if="!isMedium">
             <ToggleSwitch @change.native="showMap = !showMap">
-              <template v-slot:toggleOn>
-                <span>Show Map </span>
-              </template>
-              <template v-slot:toggleOff>
-                <span>Hide Map </span>
-              </template>
+              <span>Hide map</span>
             </ToggleSwitch>
           </div>
         </div>
