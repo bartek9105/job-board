@@ -139,7 +139,7 @@ export default {
     @include flex(space-between, center);
     margin-bottom: $margin-sm;
     &-center {
-      @include flex();
+      @include flex(null, center);
     }
   }
   &-main {
@@ -159,6 +159,7 @@ export default {
     @include flex(null, center);
     font-size: $font-content-md;
     opacity: $opacity-high;
+    margin-right: 40px;
   }
   &__marker-icon {
     margin-right: 0.5rem;
