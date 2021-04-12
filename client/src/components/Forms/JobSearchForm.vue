@@ -1,80 +1,80 @@
 <template>
-  <div class="job-search-filters">
-    <x-icon
-      size="1.25x"
-      class="job-search-filters__close-icon"
-      @click="emitCloseFilters"
-    />
-    <form @submit.prevent>
-      <div class="job-search-filters__single-input-container">
-        <BaseSelect
-          v-model="queries.category"
-          :option-values="offerDetails.CATEGORIES"
-          name="category"
-          class="job-search-filters__search-input"
-          label="Categories"
-        />
-      </div>
-      <div class="job-search-filters__single-input-container">
-        <BaseSelect
-          v-model="queries.seniority"
-          :option-values="offerDetails.SENIORITIES"
-          name="seniority"
-          class="job-search-filters__search-input"
-          label="Seniority"
-        />
-      </div>
-      <div class="job-search-filters__single-input-container">
-        <div
-          class="job-search-filters__salary-inputs"
-          :class="{ salaryUnit: isMedium }"
-        >
-          <BaseSalaryRangeSlider
-            class="salary-range-slider"
-            :salary-min="queries.salaryMin"
-            :salary-max="queries.salaryMax"
-            title="Salary"
-            @salaryRange="salary"
+  <div>
+    <div v-on-clickaway="emitCloseFilters" class="job-search-filters">
+      <x-icon
+        size="1.25x"
+        class="job-search-filters__close-icon"
+        @click="emitCloseFilters"
+      />
+      <form @submit.prevent>
+        <div class="job-search-filters__single-input-container">
+          <BaseSelect
+            v-model="queries.category"
+            :option-values="offerDetails.CATEGORIES"
+            name="category"
+            class="job-search-filters__search-input"
+            label="Categories"
           />
         </div>
-      </div>
-      <div class="job-search-filters__single-input-container">
-        <BaseSelect
-          v-model="queries.type"
-          :option-values="offerDetails.TYPES"
-          name="type"
-          class="job-search-filters__search-input"
-          label="Type"
-        />
-      </div>
-      <div class="job-search-filters__single-input-container">
-        <BaseSelect
-          v-model="queries.contract"
-          :option-values="offerDetails.CONTRACTS"
-          name="contract"
-          class="job-search-filters__search-input"
-          label="Contract"
-        />
-      </div>
-      <div class="job-search-filters__single-input-container">
-        <TagInput
-          class="tags"
-          :list-items="technologies"
-          label="Technologies"
-          @items="tagsTechnologies"
-        />
-      </div>
-      <div class="btn-container">
-        <div>
-          <BaseButton class="add-btn" @click.native="emitSearchQueries">
-            {{ buttonText }}
-          </BaseButton>
-          <BaseClearButton @click.native="clearFilters">
-            Clear filters
-          </BaseClearButton>
+        <div class="job-search-filters__single-input-container">
+          <BaseSelect
+            v-model="queries.seniority"
+            :option-values="offerDetails.SENIORITIES"
+            name="seniority"
+            class="job-search-filters__search-input"
+            label="Seniority"
+          />
         </div>
-      </div>
-    </form>
+        <div class="job-search-filters__single-input-container">
+          <div
+            class="job-search-filters__salary-inputs"
+            :class="{ salaryUnit: isMedium }"
+          >
+            <BaseSalaryRangeSlider
+              class="salary-range-slider"
+              :salary-min="queries.salaryMin"
+              :salary-max="queries.salaryMax"
+              title="Salary"
+              @salaryRange="salary"
+            />
+          </div>
+        </div>
+        <div class="job-search-filters__single-input-container">
+          <BaseSelect
+            v-model="queries.type"
+            :option-values="offerDetails.TYPES"
+            name="type"
+            class="job-search-filters__search-input"
+            label="Type"
+          />
+        </div>
+        <div class="job-search-filters__single-input-container">
+          <BaseSelect
+            v-model="queries.contract"
+            :option-values="offerDetails.CONTRACTS"
+            name="contract"
+            class="job-search-filters__search-input"
+            label="Contract"
+          />
+        </div>
+        <div class="job-search-filters__single-input-container">
+          <TagInput
+            class="tags"
+            :list-items="technologies"
+            label="Technologies"
+            @items="tagsTechnologies"
+          />
+        </div>
+        <div class="btn-container">
+          <div>
+            <BaseButton class="add-btn" @click.native="emitSearchQueries">
+              {{ buttonText }}
+            </BaseButton>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="overlay" />
   </div>
 </template>
 
@@ -86,6 +86,7 @@ import technologies from '@/constants/technologies'
 import BaseSalaryRangeSlider from '@/components/Base/BaseSalaryRangeSlider'
 import { XIcon } from 'vue-feather-icons'
 import { mapGetters } from 'vuex'
+import { mixin as clickaway } from 'vue-clickaway'
 
 export default {
   name: 'JobSearchForm',
@@ -95,6 +96,7 @@ export default {
     BaseSalaryRangeSlider,
     XIcon
   },
+  mixins: [clickaway],
   props: {
     buttonText: String,
     buttonTextClear: String
@@ -122,10 +124,11 @@ export default {
       this.$emit('closeFilters')
     },
     emitSearchQueries() {
+      this.emitCloseFilters()
       this.$emit('searchQueries', this.queries)
     },
     clearFilters() {
-      this.queries = { technologies: [] }
+      this.queries = { category: null }
     },
     tagsTechnologies(technologies) {
       this.queries.technologies = technologies.map(
@@ -155,7 +158,8 @@ export default {
   top: 0;
   right: 0;
   height: 100vh;
-  z-index: 2;
+  z-index: 3;
+  overflow-y: scroll;
   form {
     margin-top: $margin-sm;
   }
@@ -218,5 +222,17 @@ export default {
 .salary-range-slider {
   width: 100% !important;
   margin-top: 1rem;
+}
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  cursor: pointer;
 }
 </style>
