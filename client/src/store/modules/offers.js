@@ -12,8 +12,8 @@ export default {
     sessionId: ''
   },
   getters: {
-    getOffer: (state) => (id) => {
-      return id ? state.offers.data.filter(offer => offer._id === id) : state.offer[0]
+    offer(state) {
+      return state.offer
     },
     getOffers(state) {
       return state.offers
@@ -52,7 +52,7 @@ export default {
     async fetchOffer({ commit }, offerId) {
       try {
         const offer = await OfferService.fetchOffer(offerId)
-        commit('SET_OFFER', offer)
+        commit('SET_OFFER', offer[0])
       } catch (error) {
         console.log(error)
       }
@@ -114,6 +114,7 @@ export default {
         const userData = await UserService.fetchUserInfo()
         const previewOffer = { _id: uuidv4(), creator: userData, ...offerData }
         commit('SET_PREVIEW_OFFER', previewOffer)
+        return previewOffer
       } catch (error) {
         console.log(error)
       }

@@ -142,7 +142,7 @@ export default {
       localStorage.removeItem('offer')
       this.$router.replace({
         name: 'OfferDetails',
-        params: { offerId: offer._id, slug: offer.slug }
+        params: { slug: offer.slug }
       })
     }
   },

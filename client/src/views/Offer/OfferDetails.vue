@@ -181,17 +181,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getOffer', 'getIsLoading']),
+    ...mapGetters(['offer', 'getIsLoading']),
     salaryRange() {
       return `${this.offer.salary.salaryMin} - ${this.offer.salary.salaryMax} ${this.offer.salary.currency}`
     },
     displayOfferSummary() {
       return this.scroll >= 300
-    },
-    offer() {
-      return this.isPreviewMode
-        ? this.getOffer(this.$route.params.offerId)
-        : this.getOffer()
     }
   },
   watch: {

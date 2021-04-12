@@ -196,12 +196,15 @@ export default {
     onSubmit() {
       this.previewMode ? this.offerPreview() : this.saveOffer()
     },
-    offerPreview() {
+    async offerPreview() {
       localStorage.setItem('offer', JSON.stringify(this.offer))
-      this.addPreviewOffer(this.offer)
+      const previewOffer = await this.addPreviewOffer(this.offer)
       this.$router.push({
         name: 'OfferDetails',
-        params: { offerId: this.offer._id, isPreviewMode: true }
+        params: {
+          isPreviewMode: true,
+          slug: previewOffer._id
+        }
       })
     },
     tagsTechnologies(technologies) {
