@@ -30,7 +30,6 @@ export default {
 <style lang="scss" scoped>
 .dashboard-container {
   @include shadow;
-  width: 700px;
   background-color: $white;
   border-radius: $border-radius-sm;
   padding: $padding-lg;

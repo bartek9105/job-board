@@ -1,9 +1,10 @@
 <template>
-  <div>
-    <div class="dashboard-container">
-      <h1>Dashboard</h1>
-      <OffersTable :offers="getOffersByUser" />
-    </div>
+  <div class="dashboard-container">
+    <h1>Dashboard</h1>
+    <OffersTable v-if="getOffersByUser.length > 0" :offers="getOffersByUser" />
+    <p v-else>
+      No offers added
+    </p>
   </div>
 </template>
 

@@ -57,7 +57,7 @@
           </ul>
         </nav>
       </div>
-      <Container>
+      <Container class="container">
         <router-view />
       </Container>
     </div>
@@ -91,6 +91,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  min-width: 50%;
+  padding: 0 2rem;
+}
 .profile {
   @include flex();
 }

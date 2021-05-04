@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <h1>Invoices</h1>
-    <ul class="invoices-list">
+    <ul v-if="getUserInfo.invoices.length > 0" class="invoices-list">
       <li
         v-for="(invoice, index) in getUserInfo.invoices"
         :key="index"
@@ -31,6 +31,9 @@
         </a>
       </li>
     </ul>
+    <p v-else>
+      No invoices
+    </p>
   </div>
 </template>
 
@@ -52,7 +55,6 @@ export default {
 <style lang="scss" scoped>
 .dashboard-container {
   @include shadow;
-  width: 700px;
   background-color: $white;
   border-radius: $border-radius-sm;
   padding: $padding-lg;
