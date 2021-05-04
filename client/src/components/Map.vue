@@ -10,10 +10,10 @@
       <div v-for="(marker, index) in markers" :key="index">
         <l-marker
           ref="marker"
-          :options="{ id: marker.id }"
+          :options="{ slug: marker.slug, id: marker.id }"
           :lat-lng="marker.coordinates"
           :icon="getIcon(marker.icon)"
-          @click="$emit('offerId', marker.id)"
+          @click="$emit('slug', marker.slug)"
         >
           <l-tooltip>
             <div class="tooltip">
@@ -118,7 +118,8 @@ export default {
         coordinates: [offer.location.latitude, offer.location.longitude],
         creator: offer.creator.name,
         avatar: offer.creator.avatarUrl,
-        salary: offer.salary
+        salary: offer.salary,
+        slug: offer.slug
       })
     },
     getIcon(technology) {

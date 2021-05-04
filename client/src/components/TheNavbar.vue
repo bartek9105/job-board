@@ -15,7 +15,7 @@
             Offers
           </li>
         </router-link>
-        <router-link to="/companies">
+        <router-link to="#">
           <li :class="{ darkBlue: navWhite }">
             Companies
           </li>

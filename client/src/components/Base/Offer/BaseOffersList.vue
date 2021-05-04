@@ -11,7 +11,9 @@
         >
           <BaseOffer
             :offer="offer"
-            @mouseover.native="emitOfferId(offer._id)"
+            @mouseover.native="
+              emitOfferId(offer._id), emitOfferSlug(offer.slug)
+            "
           />
         </router-link>
       </div>
@@ -63,6 +65,9 @@ export default {
     },
     emitOfferId(offerId) {
       this.$emit('offerId', offerId)
+    },
+    emitOfferSlug(slug) {
+      this.$emit('slug', slug)
     }
   }
 }

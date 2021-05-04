@@ -50,10 +50,12 @@
                 :is-clickable="!showMap"
                 :offers="getOffers"
                 @offerId="hoveredOfferId"
+                @slug="hoveredOfferSlug"
                 @click.native="showOfferDetails = true"
               />
               <BaseMapOfferDetails
                 v-if="showOfferDetails"
+                :slug="slug"
                 :offer-id="offerId"
                 @close="closeOfferDetails"
               />
@@ -62,7 +64,7 @@
               :offers="getOffers.data"
               :offer-id="offerId"
               :map-height="700"
-              @offerId="clickedMarkerId"
+              @slug="clickedMarkerSlug"
             />
           </div>
         </div>
@@ -103,6 +105,7 @@ export default {
     return {
       queries: {},
       offerId: '',
+      slug: '',
       showMap: true,
       mobileFiltersOpen: false,
       showOfferDetails: false,
@@ -115,8 +118,12 @@ export default {
     hoveredOfferId(offerId) {
       this.offerId = offerId
     },
-    clickedMarkerId(offerId) {
-      this.offerId = offerId
+    hoveredOfferSlug(slug) {
+      console.log(slug)
+      this.slug = slug
+    },
+    clickedMarkerSlug(slug) {
+      this.slug = slug
       this.showOfferDetails = true
     },
     formData(queries) {
