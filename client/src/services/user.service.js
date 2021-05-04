@@ -2,7 +2,7 @@ import api from './api.service'
 import StorageService from './storage.service'
 
 const UserService = {
-  fetchUserInfo: async function () {
+  fetchUserInfo: async function() {
     try {
       const userInfo = await api.get('auth/me')
       StorageService.saveUser(userInfo.data.data)
@@ -11,14 +11,14 @@ const UserService = {
       console.log(error)
     }
   },
-  updateUserInfo: async function (userInfo) {
+  updateUserInfo: async function(userInfo) {
     try {
-      await api.patch('users/about', userInfo)
+      await api.patch('users', userInfo)
     } catch (error) {
       console.log(error)
     }
   },
-  fetchUsers: async function (queries) {
+  fetchUsers: async function(queries) {
     try {
       const users = await api.get('users', {
         params: {
@@ -30,7 +30,7 @@ const UserService = {
       console.log(error)
     }
   },
-  fetchUser: async function (userId) {
+  fetchUser: async function(userId) {
     try {
       const user = await api.get(`users/${userId}`)
       return user.data

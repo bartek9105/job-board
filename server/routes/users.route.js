@@ -13,6 +13,6 @@ router.get('/', getUsers)
 router.get('/:id', getUser)
 router.get('/:id/offers', getUserOffers)
 
-router.patch('/:id', isAuth, updateUser)
+router.patch('/', isAuth, updateUser)
 
 module.exports = router

@@ -3,14 +3,14 @@ const User = require('../models/Employer')
 const googleFileUpload = require('../utils/googleFileUpload')
 
 const UserService = {
-  getUserOffers: async function (userId) {
+  getUserOffers: async function(userId) {
     try {
       return await Offer.find({ creator: userId })
     } catch (error) {
       throw new Error(error)
     }
   },
-  updateUser: async function (userId, userInfo) {
+  updateUser: async function(userId, userInfo) {
     try {
       let avatarUrl
       if (userInfo.avatar) {
@@ -24,7 +24,7 @@ const UserService = {
       throw new Error(error)
     }
   },
-  getUsers: async function (queries) {
+  getUsers: async function(queries) {
     try {
       const users = await User.find(
         queries,
@@ -35,7 +35,7 @@ const UserService = {
       throw new Error(error)
     }
   },
-  getUser: async function (userId) {
+  getUser: async function(userId) {
     try {
       const user = await User.findById(
         userId,
@@ -46,7 +46,7 @@ const UserService = {
       throw new Error(error)
     }
   },
-  addInvoice: async function (userId, receiptUrl, amount, created) {
+  addInvoice: async function(userId, receiptUrl, amount, created) {
     try {
       await User.findByIdAndUpdate(userId, {
         $push: { invoices: { receiptUrl, amount, created: created * 1000 } },

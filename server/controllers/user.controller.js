@@ -24,16 +24,15 @@ exports.getUserOffers = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
   const requesterId = req.creatorId
   const userInfo = req.body
-  const { id: userId } = req.params
   try {
-    const user = await getUser(userId)
+    const user = await getUser(requesterId)
     if (!user) {
       return next(new ErrorResponse('User not found', 404))
     }
     if (!isResourceCreator(requesterId, user._id)) {
       return next(new ErrorResponse('Forbidden', 403))
     }
-    await updateUser(userId, userInfo)
+    await updateUser(requesterId, userInfo)
     res.status(200).send({ status: 'User updated' })
   } catch (error) {
     next(error)

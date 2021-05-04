@@ -2,7 +2,7 @@ const Offer = require('../models/Offer')
 const setOfferExpiryDate = require('../utils/setOfferExpiryDate')
 
 const OfferService = {
-  getOfferById: async function (offerId) {
+  getOfferById: async function(offerId) {
     try {
       const offer = await Offer.findById(offerId).populate(
         'creator',
@@ -13,7 +13,7 @@ const OfferService = {
       throw new Error(error)
     }
   },
-  getOfferBySlug: async function (slug) {
+  getOfferBySlug: async function(slug) {
     try {
       const offer = await Offer.find({ slug }).populate(
         'creator',
@@ -24,7 +24,7 @@ const OfferService = {
       throw new Error(error)
     }
   },
-  addFreeOffer: async function (offer) {
+  addFreeOffer: async function(offer) {
     const { product } = offer
     try {
       const freeOffer = new Offer({
@@ -39,7 +39,7 @@ const OfferService = {
       throw new Error(error)
     }
   },
-  addPaidOffer: async function (offer) {
+  addPaidOffer: async function(offer) {
     const { product } = offer
     try {
       const paidOffer = new Offer({
@@ -55,7 +55,7 @@ const OfferService = {
       throw new Error(error)
     }
   },
-  editOffer: async function (offerId, offer) {
+  editOffer: async function(offerId, offer) {
     try {
       const editedOffer = await Offer.findByIdAndUpdate(offerId, offer, {
         runValidators: true,
@@ -65,7 +65,7 @@ const OfferService = {
       throw new Error(error)
     }
   },
-  deleteOffer: async function (offerId) {
+  deleteOffer: async function(offerId) {
     try {
       const offer = await Offer.findByIdAndRemove(offerId)
       return offer
@@ -73,7 +73,7 @@ const OfferService = {
       throw new Error(error)
     }
   },
-  validateOfferPromotionStatus: async function () {
+  validateOfferPromotionStatus: async function() {
     try {
       await Offer.find({
         promotionExpiresAt: { $lt: new Date().toISOString() },
@@ -82,7 +82,7 @@ const OfferService = {
       throw new Error(error)
     }
   },
-  updateOfferPaymentStatus: async function (offerId) {
+  updateOfferPaymentStatus: async function(offerId) {
     try {
       const offer = await Offer.findByIdAndUpdate(
         { _id: offerId },
