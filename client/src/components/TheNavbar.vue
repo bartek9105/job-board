@@ -125,7 +125,6 @@ export default {
         margin-right: 3rem;
       }
       &__user {
-        color: $white;
         position: relative;
         font-size: $font-content-lg;
         font-weight: $font-semi-bold;

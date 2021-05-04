@@ -6,7 +6,6 @@
       :img-height="40"
       class="logged-user__avatar"
     />
-    {{ userInfo.name }}
     <chevron-down-icon size="1.25x" class="logged-user__icon" />
   </div>
 </template>
@@ -27,6 +26,7 @@ export default {
 
 <style lang="scss">
 .logged-user {
+  color: $white;
   @include flex(null, center);
   &__avatar {
     width: 40px;
