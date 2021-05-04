@@ -23,7 +23,6 @@
           <span v-if="offer.isPromoted" class="offer__promoted">Featured</span>
         </div>
         <div v-if="!isSmall" class="offer-top-right">
-          <span class="offer__category">{{ offer.category }}</span>
           <span class="offer__created">
             {{ daysDifference(new Date(), offer.createdAt) }}
           </span>
@@ -35,7 +34,6 @@
           v-if="offer.technologies.length > 3"
           :technologies="offer.technologies"
         />
-        <span class="offer__contract">{{ offer.contract }}</span>
       </div>
     </div>
   </div>
@@ -112,7 +110,7 @@ export default {
   }
 }
 .offer {
-  @include flex(space-between);
+  @include flex(space-between, center);
   @include shadow;
   @include transition;
   background: $white;
@@ -148,18 +146,27 @@ export default {
   &__title {
     font-size: $font-content-lg;
     font-weight: $font-semi-bold;
-    margin-right: 40px;
+    margin-right: 2rem;
+    @media (max-width: 1450px) {
+      margin-right: 1rem;
+    }
   }
   &__salary {
     font-size: $font-content-md;
     opacity: $opacity-high;
-    margin-right: 40px;
+    margin-right: 2rem;
+    @media (max-width: 1450px) {
+      margin-right: 1rem;
+    }
   }
   &__city {
     @include flex(null, center);
     font-size: $font-content-md;
     opacity: $opacity-high;
-    margin-right: 40px;
+    margin-right: 2rem;
+    @media (max-width: 1450px) {
+      margin-right: 1rem;
+    }
   }
   &__marker-icon {
     margin-right: 0.5rem;
@@ -173,6 +180,9 @@ export default {
   }
   &__created {
     @include tag-light;
+    @media (max-width: 1450px) {
+      display: none;
+    }
   }
   &-bottom {
     @include flex(null, center);

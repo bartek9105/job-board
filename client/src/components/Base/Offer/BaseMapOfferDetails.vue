@@ -21,8 +21,14 @@
             <span class="map-offer__detail-tag">
               {{ offer.category }}
             </span>
-            <span class="map-offer__detail-tag">{{ offer.seniority }}</span>
-            <span class="map-offer__detail-tag">{{ offer.contract }}</span>
+            <span
+              class="map-offer__detail-tag map-offer__detail-tag--seniority"
+              >{{ offer.seniority }}</span
+            >
+            <span
+              class="map-offer__detail-tag map-offer__detail-tag--contract"
+              >{{ offer.contract }}</span
+            >
             <span class="map-offer__detail-tag">{{ offer.type }}</span>
             <span class="map-offer__detail-tag">{{
               salaryRange(offer.salary)
@@ -151,6 +157,12 @@ export default {
     @include tag-light;
     font-weight: $font-bold;
     margin-right: 0.5rem;
+    &--seniority,
+    &--contract {
+      @media (max-width: 1600px) {
+        display: none;
+      }
+    }
   }
 }
 </style>
