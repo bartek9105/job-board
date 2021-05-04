@@ -115,16 +115,17 @@ export default {
       a,
       li {
         @include transition;
-        color: $white;
         cursor: pointer;
         &:hover {
           color: $pink;
         }
       }
       a {
+        color: $white;
         margin-right: 3rem;
       }
       &__user {
+        color: $white;
         position: relative;
         font-size: $font-content-lg;
         font-weight: $font-semi-bold;
@@ -140,13 +141,10 @@ export default {
     }
   }
 }
-.linkActive {
-  color: $pink !important;
-}
 .bgWhite {
   background-color: $white;
 }
 .darkBlue {
-  color: $dark-blue !important;
+  color: $dark-blue;
 }
 </style>

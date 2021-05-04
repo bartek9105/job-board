@@ -14,26 +14,42 @@
         </div>
         <nav class="sidebar__nav">
           <ul>
-            <li class="list-item-active">
-              <router-link to="/profile/dashboard">
+            <li>
+              <router-link
+                to="/profile/dashboard"
+                active-class="active"
+                class="sidebar__nav-item"
+              >
                 <columns-icon size="1.5x" class="sidebar__nav-icon icon" />
                 Dashboard
               </router-link>
             </li>
             <li>
-              <router-link to="/profile/account">
+              <router-link
+                to="/profile/account"
+                active-class="active"
+                class="sidebar__nav-item"
+              >
                 <user-icon size="1.5x" class="sidebar__nav-icon icon" />
                 Account
               </router-link>
             </li>
             <li>
-              <router-link to="/profile/password">
+              <router-link
+                to="/profile/password"
+                active-class="active"
+                class="sidebar__nav-item"
+              >
                 <shield-icon size="1.5x" class="sidebar__nav-icon icon" />
                 Password
               </router-link>
             </li>
             <li>
-              <router-link to="/profile/invoices">
+              <router-link
+                to="/profile/invoices"
+                active-class="active"
+                class="sidebar__nav-item"
+              >
                 <book-icon size="1.5x" class="sidebar__nav-icon icon" />
                 Invoices
               </router-link>
@@ -90,6 +106,7 @@ export default {
     border-bottom: 1px solid $white-blue;
     text-align: center;
     padding-bottom: $padding-lg;
+    margin-top: $margin-md;
     h1 {
       margin-bottom: $margin-sm;
     }
@@ -101,20 +118,21 @@ export default {
   &__nav {
     width: 100%;
     margin-top: $margin-lg;
-    li {
-      @include transition;
-      font-size: $font-content-lg;
-      padding: 0.75rem $padding-md;
-      margin-bottom: $margin-sm;
-      border-radius: 30px;
-      cursor: pointer;
-      a {
-        @include flex(null, center);
-      }
-      &:hover {
-        color: $dark-blue;
-        background-color: $light-blue;
-      }
+  }
+  &__nav-item {
+    @include transition;
+    @include flex(null, center);
+    font-size: $font-content-lg;
+    padding: 0.75rem $padding-md;
+    margin-bottom: $margin-sm;
+    border-radius: 30px;
+    cursor: pointer;
+    a {
+      @include flex(null, center);
+    }
+    &:hover {
+      color: $dark-blue;
+      background-color: $light-blue;
     }
   }
   &__nav-icon {
@@ -122,12 +140,10 @@ export default {
     margin-right: 1.5rem;
   }
 }
-.list-item-active {
+.active {
   background-color: $dark-blue;
+  color: $white !important;
   .icon {
-    color: $white;
-  }
-  a {
     color: $white;
   }
 }

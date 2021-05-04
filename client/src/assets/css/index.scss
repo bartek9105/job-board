@@ -88,3 +88,7 @@ label {
     color: $error;
     margin-top: .5rem;
 }
+
+.router-link-exact-active {
+    color: $pink !important;
+}

@@ -82,12 +82,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getOffer', 'getIsLoading']),
+    ...mapGetters(['offer', 'getIsLoading']),
     borderTop() {
       return `4px solid #456`
-    },
-    offer() {
-      return this.getOffer()
     }
   },
   watch: {
