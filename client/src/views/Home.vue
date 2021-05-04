@@ -119,7 +119,6 @@ export default {
       this.offerId = offerId
     },
     hoveredOfferSlug(slug) {
-      console.log(slug)
       this.slug = slug
     },
     clickedMarkerSlug(slug) {

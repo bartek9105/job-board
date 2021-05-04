@@ -167,14 +167,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchOffer', 'addOffer']),
+    ...mapActions(['fetchOffer', 'addFreeOffer']),
     acceptOffer() {
       localStorage.removeItem('offer')
-      this.addOffer(this.offer)
+      const { _id, ...rest } = this.offer
+      this.addFreeOffer(rest)
       this.$router.push('/')
     },
     goBackToForm() {
-      this.$router.push('offer/post')
+      this.$router.replace({ name: 'OfferPost' })
     },
     handleScroll() {
       this.scroll = window.scrollY
